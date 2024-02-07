@@ -4,10 +4,12 @@ import ShowMessages from "./ShowMessages";
 const Chat = () => {
   
   return (
-    <div className="pb-20">
+    <>
+    <div className="">
       <ShowMessages/>
       <SendBox />
     </div>
+    </>
   );
 };
 

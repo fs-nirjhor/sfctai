@@ -19,7 +19,7 @@ const ShowMessages = () => {
   return (
     <div>
       <h1 className="text-lg font-semibold text-center mt-2 mb-5">Chat</h1>
-      <div className="w-full h-96 overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
+      <div className="w-full h-[63vh] overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
         {chats.map((chat) => {
           if (chat.client && chat.client?._id == clientId) {
             return chat.messages
