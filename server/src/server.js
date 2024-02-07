@@ -1,0 +1,18 @@
+// Server for SYAI Project
+
+const createHttpError = require("http-errors");
+const app = require("./app");
+const connectDB = require("./config/db");
+const logger = require("./helper/winstonLogger");
+const { serverPort, serverUrl } = require("./secret");
+const server = require("./socket");
+
+// listening server on port
+server.listen(serverPort, async () => {
+  try {
+    logger.info(`SYAI server listening on ${serverUrl}`);
+    await connectDB();
+  } catch (error) {
+    console.log(error.message);
+  }
+});
