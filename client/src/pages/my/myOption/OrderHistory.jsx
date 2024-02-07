@@ -47,15 +47,16 @@ const FundHistory = () => {
           const createdDate = moment(order.createdAt).format(
             "DD/MM/YYYY HH:mm:ss"
           );
+          const image = `https://assets.coincap.io/assets/icons/${order.coin?.toLowerCase()}@2x.png` ;
           return (
             <figure key={order._id} className="bg-mySecondary p-2 mb-2 rounded text-center">
               <article className="flex justify-between mb-3">
                 <img
-                  src="/images/wallet/huobi.png"
-                  alt="huobi"
+                  src={image}
+                  alt={order.coin}
                   className="h-10"
                 />
-                <p>HuoBi Currency Order</p>
+                <p>{order.coin} Currency Order</p>
                 <button
                   className={`btn bg-white hover:bg-mySecondary border-1 btn-xs ${
                     order.isApproved ? "text-success border-success" : "text-myPrimary border-myPrimary"

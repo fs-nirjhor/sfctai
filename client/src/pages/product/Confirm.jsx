@@ -69,7 +69,7 @@ const Confirm = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [user]);
+  }, [user.transaction.balance]);
 
   // order
   const currentBalance = Number(user.transaction.balance);
@@ -89,6 +89,7 @@ const Confirm = () => {
       category: "Order",
       amount: currentBalance,
       estimateRevenue: estimateRevenue,
+      coin: coin.symbol
     };
     try {
       const res = await transactionApi.post("order-request", { transaction });

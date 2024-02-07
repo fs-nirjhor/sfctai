@@ -96,11 +96,12 @@ const handleAddRecharge = async (req, res, next) => {
 const handleOrderRequest = async (req, res, next) => {
   try {
     const { transaction } = req.body;
-    const { client, userId, amount, estimateRevenue } = transaction;
+    const { client, userId, amount, estimateRevenue, coin } = transaction;
     const credential = createRandomString(7) + userId;
     const orderData = {
       client,
       credential,
+      coin,
       amount: Number(amount),
       estimateRevenue: Number(estimateRevenue),
       category: "Order",

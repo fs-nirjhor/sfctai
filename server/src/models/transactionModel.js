@@ -18,6 +18,9 @@ const transactionSchema = new Schema(
     estimateRevenue: {
       type: Number,
     },
+    coin: {
+      type: String,
+    },
     isApproved: {
       type: Boolean,
       default: false,
