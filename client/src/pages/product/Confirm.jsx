@@ -23,7 +23,8 @@ const Confirm = () => {
           );
           const data = await response.json();
           if (data.data) {
-          
+            const allCoins = data.data;
+          console.log(allCoins)
           
           setCoin(data.data);
           setLoading(false);
