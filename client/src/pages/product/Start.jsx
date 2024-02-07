@@ -35,57 +35,68 @@ const Start = () => {
       return document.getElementById("confirm_dialog").showModal();
     }
   };
-// bg-[url('/images/start_bg.png')] bg-no-repeat bg-center bg-origin-border
+  // bg-[url('/images/start_bg.png')] bg-no-repeat bg-center bg-origin-border
   return (
     <section>
       <figure className="p-5">
         <img src="/images/logo.png" alt="logo" className="mx-auto w-44" />
       </figure>
-      <article className="grid grid-cols-2 gap-4 my-5 text-center">
-        <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
-          <h5 className="text-sm">Balance</h5>
-          <p className="font-semibold">
-            {balance} <span className="text-myPrimary">USDT</span>
-          </p>
-        </div>
-        <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-          <h5 className="text-sm">Today&apos;s Income</h5>
-          <p className="font-semibold">
-            {todaysIndividualIncome}{" "}
-            <span className="text-myPrimary">USDT</span>
-          </p>
-        </div>
-        <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-          <h5 className="text-sm">Today&apos;s Team Income</h5>
-          <p className="font-semibold">
-            {todaysTeamIncome} <span className="text-myPrimary">USDT</span>
-          </p>
-        </div>
-        <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-          <h5 className="text-sm">Total Individual Income</h5>
-          <p className="font-semibold">
-            {totalIndividualIncome} <span className="text-myPrimary">USDT</span>
-          </p>
-        </div>
-        <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-          <h5 className="text-sm">Total Team Income</h5>
-          <p className="font-semibold">
-            {totalTeamIncome} <span className="text-myPrimary">USDT</span>
-          </p>
-        </div>
-        <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
-          <h5 className="text-sm">Today&apos;s Order Amount</h5>
-          <p className="font-semibold">
-            {todaysOrderAmount} <span className="text-myPrimary">USDT</span>
-          </p>
-        </div>
-        <button
-          className="col-span-2 btn btn-warning bg-myPrimary text-white font-semibold"
-          onClick={handleClick}
+      <div className="relative bg-cover bg-center my-5 h-[25rem]">
+        <video
+          className="w-full h-full rounded absolute inset-0 object-cover"
+          autoPlay
+          loop
+          muted
         >
-          Trade
-        </button>
-      </article>
+          <source src="/videos/tradeVideo.mp4" type="video/mp4" />
+        </video>
+        <article className="absolute w-full grid grid-cols-2 gap-4 text-center p-2">
+          <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
+            <h5 className="text-sm">Balance</h5>
+            <p className="font-semibold">
+              {balance} <span className="text-myPrimary">USDT</span>
+            </p>
+          </div>
+          <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
+            <h5 className="text-sm">Today&apos;s Income</h5>
+            <p className="font-semibold">
+              {todaysIndividualIncome}{" "}
+              <span className="text-myPrimary">USDT</span>
+            </p>
+          </div>
+          <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
+            <h5 className="text-sm">Today&apos;s Team Income</h5>
+            <p className="font-semibold">
+              {todaysTeamIncome} <span className="text-myPrimary">USDT</span>
+            </p>
+          </div>
+          <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
+            <h5 className="text-sm">Total Individual Income</h5>
+            <p className="font-semibold">
+              {totalIndividualIncome}{" "}
+              <span className="text-myPrimary">USDT</span>
+            </p>
+          </div>
+          <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
+            <h5 className="text-sm">Total Team Income</h5>
+            <p className="font-semibold">
+              {totalTeamIncome} <span className="text-myPrimary">USDT</span>
+            </p>
+          </div>
+          <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
+            <h5 className="text-sm">Today&apos;s Order Amount</h5>
+            <p className="font-semibold">
+              {todaysOrderAmount} <span className="text-myPrimary">USDT</span>
+            </p>
+          </div>
+          <button
+            className="col-span-2 btn btn-warning bg-myPrimary text-white font-semibold"
+            onClick={handleClick}
+          >
+            Trade
+          </button>
+        </article>
+      </div>
       <AlertBox id="start-error" text={error} alertType="alert-error" />
     </section>
   );
