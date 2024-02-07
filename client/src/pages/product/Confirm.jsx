@@ -25,10 +25,11 @@ const Confirm = () => {
           if (data.data) {
           const allCoins = data.data;
           const balance = user.balance;
-          //if (balance <= 10 && balance)
+          if (balance <= 10 && balance > 50) {
+            setCoin(allCoins[9]);
+          }
           console.log(allCoins)
-          
-          setCoin(data.data);
+          console.log(coin)
           setLoading(false);
           }
         } catch (err) {

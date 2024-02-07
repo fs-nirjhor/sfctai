@@ -1,23 +1,20 @@
 const information = [
-  { title: "Buisness License", link: "buisness-license" },
-  { title: "MSB License", link: "msb-license" },
   {
-    title: "About Platform",
+    title: "About platform",
     link: "about-platform",
   },
   {
-    title: "About Recharge",
+    title: "About recharge",
     link: "about-recharge",
   },
   {
-    title: "About Withdrawal",
+    title: "About withdrawal",
     link: "about-withdrawal",
   },
   {
-    title: "About Team",
+    title: "About team",
     link: "about-team",
-  },
-  { title: "User Terms And Privacy Policy", link: "terms-and-policy" },
+  }
 ];
 
 export default information;
