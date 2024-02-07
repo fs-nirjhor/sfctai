@@ -20,7 +20,6 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "syai": "file:..",
     "cloudinary": "^1.41.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -40,6 +39,7 @@
     "slugify": "^1.6.6",
     "socket.io": "^4.7.3",
     "stream": "^0.0.2",
+    "syai": "file:..",
     "winston": "^3.11.0"
   }
 }
