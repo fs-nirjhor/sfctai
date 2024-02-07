@@ -23,7 +23,9 @@ const Confirm = () => {
           );
           const data = await response.json();
           if (data.data) {
-            const allCoins = data.data;
+          const allCoins = data.data;
+          const balance = user.balance;
+          //if (balance <= 10 && balance)
           console.log(allCoins)
           
           setCoin(data.data);

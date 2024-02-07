@@ -56,10 +56,7 @@ const Footer = () => {
             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <p className="btm-nav-label text-myPrimary first-letter:text-lg whitespace-nowrap">
-        <span >ABOUT </span> 
-        <span className="text-xl">P</span>LATFORM
-        </p>
+        <span className="btm-nav-label text-myPrimary first-letter:text-lg whitespace-nowrap">ABOUT </span> 
       </NavLink>
       <NavLink to="my">
         <svg
