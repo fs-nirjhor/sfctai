@@ -173,7 +173,7 @@ const Registration = () => {
         </label>
         <label className="form-control w-full max-w-md mx-auto flex flex-row mt-10">
           <input type="checkbox" className="accent-myPrimary me-2" readOnly checked/>
-          <span className="text-sm">Agree with all terms and conditions. Please Allow third party cookie</span> 
+          <span className="text-sm">Agree with all terms and conditions.</span> 
         </label>
 
         <label className="form-control w-full max-w-md mx-auto">

@@ -26,7 +26,7 @@ const Wallets = () => {
     <section className="mt-10">
       <Slider {...settings}>
         {wallets.map((wallet, i) => (
-          <figure key={i}>
+          <figure key={i} >
             <img src={wallet} alt="wallet" className="w-12 h-12 mx-auto" />
           </figure>
         ))}

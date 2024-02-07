@@ -1,4 +1,5 @@
 import { useParams, useRouteLoaderData } from "react-router-dom";
+import InputEmoji from 'react-input-emoji'
 import {  MdSend } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import UseChat from "./UseChat";
@@ -37,7 +38,7 @@ const SendBox = () => {
       document.getElementById("send-message-error").showModal();
     }
   };
-
+  const emojiButton = <button>😀</button>
   return (
     <div className="pt-5">
       <form className="join w-full mx-auto" onSubmit={handleSubmit}>
@@ -50,12 +51,16 @@ const SendBox = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
-        <input
-          className="input input-bordered join-item w-8/12"
+        <p className="input input-bordered join-item w-8/12 bg-white">
+        <InputEmoji
           placeholder="Write your message"
           value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+          onChange={setText}
+          borderRadius={5}
+          borderColor="white"
+          buttonElement={emojiButton}
+          />
+          </p>
         <button className="btn btn-warning bg-myPrimary text-white join-item rounded-r-md text-lg w-2/12">
          <MdSend />
         </button>

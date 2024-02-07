@@ -86,7 +86,6 @@ const Login = () => {
           )}
         </label>
         <label className="form-control w-full max-w-md mx-auto mt-5">
-        <p className="text-xs text-center">Please allow third party cookies</p>
           <button
             type="submit"
             className="btn btn-warning bg-myPrimary text-white font-semibold w-full"
