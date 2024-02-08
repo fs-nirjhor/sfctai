@@ -40,8 +40,9 @@ const SendBox = () => {
   };
   return (
     <div className="pt-5">
-      <form className="join w-full mx-auto" onSubmit={handleSubmit}>
-      <label className={`btn text-lg text-myPrimary w-1/12 ${image && "bg-myPrimary text-white"} rounded-none join-item p-2`}>
+      <form className="  mx-auto" onSubmit={handleSubmit}>
+        <div className="join w-full">
+      <label className={`btn text-lg text-myPrimary w-2/12 ${image && "bg-myPrimary text-white"} rounded-none join-item p-2`}>
           <FaImage />
           <input
             className="hidden"
@@ -59,8 +60,9 @@ const SendBox = () => {
           borderColor="white"
         />
           </div>
-        <button className="btn btn-warning bg-myPrimary text-white join-item rounded-r-md text-lg w-1/12 p-2">
-         <MdSend />
+          </div>
+        <button className="btn btn-warning bg-myPrimary text-white mt-2 ms-auto block px-10">
+         SEND
         </button>
       </form>
       <AlertBox id="send-message-error" text={error} alertType="alert-error" />

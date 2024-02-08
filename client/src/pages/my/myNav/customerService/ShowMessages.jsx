@@ -10,7 +10,7 @@ const ShowMessages = () => {
 
   if (!chats) {
     return (
-      <div className="h-[64vh]">
+      <div className="h-[59vh]">
         <h1 className="text-lg font-semibold text-center pt-2 mb-5">Chat</h1>
         <p className="text-center my-40">Start conversation</p>
       </div>
@@ -19,7 +19,7 @@ const ShowMessages = () => {
   return (
     <div>
       <h1 className="text-lg font-semibold text-center pt-2 mb-5">Chat</h1>
-      <div className="w-full h-[64vh] overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
+      <div className="w-full h-[59vh] overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
         {chats.map((chat) => {
           if (chat.client && chat.client?._id == clientId) {
             return chat.messages
