@@ -38,7 +38,6 @@ const SendBox = () => {
       document.getElementById("send-message-error").showModal();
     }
   };
-  const emojiButton = <button>😀</button>
   return (
     <div className="pt-5">
       <form className="join w-full mx-auto" onSubmit={handleSubmit}>
@@ -58,7 +57,6 @@ const SendBox = () => {
           onChange={setText}
           borderRadius={5}
           borderColor="white"
-          buttonElement={emojiButton}
           />
           </p>
         <button className="btn btn-warning bg-myPrimary text-white join-item rounded-r-md text-lg w-2/12">
