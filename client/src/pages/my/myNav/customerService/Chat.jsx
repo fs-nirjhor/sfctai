@@ -5,7 +5,7 @@ const Chat = () => {
   
   return (
     <>
-    <div className="overflow-hidden">
+    <div className="">
       <ShowMessages/>
       <SendBox />
     </div>
