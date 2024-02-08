@@ -85,7 +85,7 @@ const Withdraw = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">Withdraw</h1>
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Withdraw</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-control w-full max-w-md mx-auto">
           <div className="label">

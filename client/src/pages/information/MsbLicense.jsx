@@ -1,7 +1,7 @@
 const MsbLicense = () => {
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         MSB License
       </h1>
       <figure className="p-5 max-w-md mx-auto">

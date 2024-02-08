@@ -7,12 +7,11 @@ const Invitation = () => {
   const { level1Commission, level2Commission, level3Commission } =
     useRouteLoaderData("configuration");
 
-
   const invitationLink = `${serverUrl}/registration?invitationCode=${user.invitationCode}`;
-  
+
   return (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">Invite</h1>
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Invite</h1>
       <article className="bg-mySecondary px-3 py-5 rounded-md mb-2">
         <h5>Invitation code</h5>
         <QRCode value={user.invitationCode} className="mx-auto my-10" />

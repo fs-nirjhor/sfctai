@@ -6,7 +6,7 @@ import { configurationApi } from "../../../../router/axiosApi";
 const SetConfiguration = () => {
   const configuration = useRouteLoaderData("configuration");
   const [error, setError] = useState("");
-  // updates 
+  // updates
   const [transferAddress, setTransferAddress] = useState("");
   const [minimumRecharge, setMinimumRecharge] = useState("");
   const [minimumWithdraw, setMinimumWithdraw] = useState("");
@@ -23,8 +23,9 @@ const SetConfiguration = () => {
     try {
       /* const seed = await axios.post('http://localhost:3001/api/seed/configuration')
       console.log(seed); */
-      const res = await configurationApi.put(configuration._id, {update});
-      res.data?.success && document.getElementById("update-success").showModal();
+      const res = await configurationApi.put(configuration._id, { update });
+      res.data?.success &&
+        document.getElementById("update-success").showModal();
       window.location.reload();
     } catch (err) {
       if (err.response.data.message) {
@@ -36,63 +37,70 @@ const SetConfiguration = () => {
     }
   };
 
-  const inputStyle = "input input-bordered input-sm border-myPrimary join-item w-4/6";
+  const inputStyle =
+    "input input-bordered input-sm border-myPrimary join-item w-4/6";
   const formStyle = "join shadow-md w-full mb-4";
-  const buttonStyle = "btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6";
+  const buttonStyle =
+    "btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6";
 
   return (
     <div>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         Configuration
       </h1>
       <div>
         <table className="table border-collapse table-auto bg-mySecondary w-full mb-5">
           <thead>
-            <th colSpan={2} className="text-center">Current Configuration</th>
+            <th colSpan={2} className="text-center">
+              Current Configuration
+            </th>
           </thead>
           <tbody>
             <tr>
-              <td >Transfer Address</td>
-              <td >{configuration.transferAddress}</td>
+              <td>Transfer Address</td>
+              <td>{configuration.transferAddress}</td>
             </tr>
             <tr>
-              <td >Minimum Recharge</td>
-              <td >${configuration.minimumRecharge}</td>
+              <td>Minimum Recharge</td>
+              <td>${configuration.minimumRecharge}</td>
             </tr>
             <tr>
-              <td >Minimum Withdraw</td>
-              <td >${configuration.minimumWithdraw}</td>
+              <td>Minimum Withdraw</td>
+              <td>${configuration.minimumWithdraw}</td>
             </tr>
             <tr>
-              <td >Withdraw Fee</td>
-              <td >${configuration.withdrawFee}</td>
+              <td>Withdraw Fee</td>
+              <td>${configuration.withdrawFee}</td>
             </tr>
             <tr>
-              <td >Order Per Day</td>
-              <td >{configuration.orderPerDay} times</td>
+              <td>Order Per Day</td>
+              <td>{configuration.orderPerDay} times</td>
             </tr>
             <tr>
-              <td >Monthly Profit</td>
-              <td >{configuration.monthlyProfit}%</td>
+              <td>Monthly Profit</td>
+              <td>{configuration.monthlyProfit}%</td>
             </tr>
             <tr>
-              <td >Level 1 Commission</td>
-              <td >{configuration.level1Commission}%</td>
+              <td>Level 1 Commission</td>
+              <td>{configuration.level1Commission}%</td>
             </tr>
             <tr>
-              <td >Level 2 Commission</td>
-              <td >{configuration.level2Commission}%</td>
+              <td>Level 2 Commission</td>
+              <td>{configuration.level2Commission}%</td>
             </tr>
             <tr>
-              <td >Level 3 Commission</td>
-              <td >{configuration.level3Commission}%</td>
+              <td>Level 3 Commission</td>
+              <td>{configuration.level3Commission}%</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div className="max-w-md mx-auto pb-20">
         <h3 className="text-center mb-3">Change Configuration</h3>
-        <form className={formStyle} onSubmit={() => handleClick({transferAddress})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ transferAddress })}
+        >
           <input
             type="text"
             placeholder="Transfer Address"
@@ -101,14 +109,14 @@ const SetConfiguration = () => {
             onChange={(e) => setTransferAddress(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({minimumRecharge})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ minimumRecharge })}
+        >
           <input
             type="number"
             placeholder="Minimum Recharge"
@@ -117,14 +125,14 @@ const SetConfiguration = () => {
             onChange={(e) => setMinimumRecharge(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({minimumWithdraw})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ minimumWithdraw })}
+        >
           <input
             type="number"
             placeholder="Minimum Withdraw"
@@ -133,14 +141,14 @@ const SetConfiguration = () => {
             onChange={(e) => setMinimumWithdraw(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({withdrawFee})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ withdrawFee })}
+        >
           <input
             type="number"
             placeholder="Withdraw Fee (%)"
@@ -149,14 +157,14 @@ const SetConfiguration = () => {
             onChange={(e) => setWithdrawFee(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({monthlyProfit})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ monthlyProfit })}
+        >
           <input
             type="number"
             placeholder="Monthly Profit (%)"
@@ -165,14 +173,14 @@ const SetConfiguration = () => {
             onChange={(e) => setMonthlyProfit(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({orderPerDay})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ orderPerDay })}
+        >
           <input
             type="number"
             placeholder="Order Per Day"
@@ -181,14 +189,14 @@ const SetConfiguration = () => {
             onChange={(e) => setOrderPerDay(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({level1Commission})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ level1Commission })}
+        >
           <input
             type="number"
             placeholder="Level 1 commission (%)"
@@ -197,14 +205,14 @@ const SetConfiguration = () => {
             onChange={(e) => setLevel1Commission(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({level2Commission})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ level2Commission })}
+        >
           <input
             type="number"
             placeholder="Level 2 commission (%)"
@@ -213,14 +221,14 @@ const SetConfiguration = () => {
             onChange={(e) => setLevel2Commission(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>
-        <form className={formStyle} onSubmit={() => handleClick({level3Commission})}>
+        <form
+          className={formStyle}
+          onSubmit={() => handleClick({ level3Commission })}
+        >
           <input
             type="number"
             placeholder="Level 3 commission (%)"
@@ -229,10 +237,7 @@ const SetConfiguration = () => {
             onChange={(e) => setLevel3Commission(e.target.value)}
             required
           />
-          <button
-            type="submit"
-            className={buttonStyle}
-          >
+          <button type="submit" className={buttonStyle}>
             Update
           </button>
         </form>

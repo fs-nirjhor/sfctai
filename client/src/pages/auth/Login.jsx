@@ -17,29 +17,29 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     event.preventDefault();
-      try {
-         await authApi.post("login", data);
-        document.getElementById("login-success").showModal();
-        navigate(location.state ? location.state.from : "/");
-      } catch (err) {
-        if (err.response?.data.message) {
-          setError(err.response.data.message); // error sent by server
-        } else {
-          setError(err.message); // other error
-        }
-        document.getElementById("login-error").showModal();
+    try {
+      await authApi.post("login", data);
+      document.getElementById("login-success").showModal();
+      navigate(location.state ? location.state.from : "/");
+    } catch (err) {
+      if (err.response?.data.message) {
+        setError(err.response.data.message); // error sent by server
+      } else {
+        setError(err.message); // other error
       }
+      document.getElementById("login-error").showModal();
+    }
   };
- 
+
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">Login</h1>
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="px-5">
         <label className="form-control w-full max-w-md mx-auto">
           <div className="label">
             <span className="label-text">Phone Number</span>
           </div>
-          <input 
+          <input
             type="tel"
             placeholder="Please enter your phone number"
             name="phone"
@@ -55,7 +55,7 @@ const Login = () => {
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-               Phone Number must have 8-18 charecters
+                Phone Number must have 8-18 charecters
               </span>
             </div>
           )}
@@ -94,7 +94,12 @@ const Login = () => {
           </button>
         </label>
       </form>
-      <Link to="/registration?invitationCode=SYAI000" className="text-center mt-5 block">Don&apos;t have an account?</Link>
+      <Link
+        to="/registration?invitationCode=SYAI000"
+        className="text-center mt-5 block"
+      >
+        Don&apos;t have an account?
+      </Link>
       <AlertBox id="login-error" text={error} alertType="alert-error" />
     </section>
   );

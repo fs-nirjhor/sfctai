@@ -34,7 +34,7 @@ const ClientList = () => {
     <Loading />
   ) : (
     <div className="pb-20">
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         Client List
       </h1>
       <p className="text-center font-medium mb-3">

@@ -5,7 +5,7 @@ const AboutRecharge = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         About Recharge
       </h1>
       <div className="bg-mySecondary p-3 rounded-md">

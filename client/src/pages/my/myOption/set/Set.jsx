@@ -5,7 +5,7 @@ const Set = () => {
   const user = useRouteLoaderData("user");
   return (
     <article>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">Set</h1>
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Set</h1>
       <Link
         to="information"
         className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"

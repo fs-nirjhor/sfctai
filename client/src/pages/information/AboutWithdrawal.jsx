@@ -6,7 +6,7 @@ const AboutWithdrawal = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         About Withdrawal
       </h1>
       <p className="bg-mySecondary p-3 rounded-md">

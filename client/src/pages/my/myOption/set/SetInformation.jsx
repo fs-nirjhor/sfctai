@@ -5,8 +5,8 @@ import { useRouteLoaderData } from "react-router-dom";
 import AlertBox from "../../../shared/AlertBox";
 
 const SetInformation = () => {
-  const user = useRouteLoaderData("user")
-  const [error, setError] = useState("")
+  const user = useRouteLoaderData("user");
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -32,20 +32,25 @@ const SetInformation = () => {
   const handleAvatarClick = (avatar) => {
     setSelectedAvatar(avatar);
   };
-  
+
   const onSubmit = async (data) => {
     event.preventDefault();
-    const updates= {}
-    if(data.name) {updates.name=data.name}
-    if(selectedAvatar) {updates.avatar=selectedAvatar}
+    const updates = {};
+    if (data.name) {
+      updates.name = data.name;
+    }
+    if (selectedAvatar) {
+      updates.avatar = selectedAvatar;
+    }
     try {
       const res = await userApi.put(user._id, updates);
-      res.data?.success && document.getElementById("update-success").showModal();
+      res.data?.success &&
+        document.getElementById("update-success").showModal();
     } catch (err) {
       if (err.response.data.message) {
-        setError(err.response.data.message); 
+        setError(err.response.data.message);
       } else {
-        setError(err.message); 
+        setError(err.message);
       }
       document.getElementById("update-error").showModal();
     }
@@ -53,7 +58,7 @@ const SetInformation = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         Modify Information
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -5,8 +5,8 @@ import { userApi } from "../../../../router/axiosApi";
 import AlertBox from "../../../shared/AlertBox";
 
 const SetWithdrawalPassword = () => {
-  const user = useRouteLoaderData("user")
-  const [error, setError] = useState("")
+  const user = useRouteLoaderData("user");
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -18,7 +18,8 @@ const SetWithdrawalPassword = () => {
     event.preventDefault();
     try {
       const res = await userApi.put(`update-password/${user._id}`, data);
-      res.data?.success && document.getElementById("update-success").showModal();
+      res.data?.success &&
+        document.getElementById("update-success").showModal();
     } catch (err) {
       if (err.response.data.message) {
         setError(err.response.data.message); // error sent by server
@@ -30,7 +31,7 @@ const SetWithdrawalPassword = () => {
   };
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         Modify Withdrawal Password
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -119,7 +120,11 @@ const SetWithdrawalPassword = () => {
           </button>
         </label>
       </form>
-      <AlertBox id="update-password-error" text={error} alertType="alert-error" />
+      <AlertBox
+        id="update-password-error"
+        text={error}
+        alertType="alert-error"
+      />
     </section>
   );
 };

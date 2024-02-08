@@ -2,10 +2,11 @@ import QRCode from "react-qr-code";
 import { Link, useRouteLoaderData } from "react-router-dom";
 
 const Recharge = () => {
-  const { minimumRecharge, transferAddress } = useRouteLoaderData("configuration");
+  const { minimumRecharge, transferAddress } =
+    useRouteLoaderData("configuration");
   return (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">Recharge</h1>
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Recharge</h1>
       <figure className="bg-mySecondary rounded-md px-3 py-5">
         <div className="grid grid-cols-7 gap-2">
           <p className="md:pt-2 font-semibold text-center text-sm col-span-2">

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import AlertBox from "../shared/AlertBox";
-import { Link,  useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { authApi, userApi } from "../../router/axiosApi";
 
 const Registration = () => {
@@ -21,8 +21,11 @@ const Registration = () => {
     try {
       await userApi.post("registration", data);
       document.getElementById("registration-success").showModal();
-      await authApi.post("login", {password: data.loginPassword, phone: data.phone});
-      navigate("/my")
+      await authApi.post("login", {
+        password: data.loginPassword,
+        phone: data.phone,
+      });
+      navigate("/my");
     } catch (err) {
       if (err.response.data.message) {
         setError(err.response.data.message); // error sent by server
@@ -33,10 +36,9 @@ const Registration = () => {
     }
   };
 
-
   return (
     <section className="bg-gradient-to-t from-myPrimary to-transparent min-h-full pb-40 px-5">
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         Registration
       </h1>
       <figure>
@@ -172,8 +174,13 @@ const Registration = () => {
           )}
         </label>
         <label className="form-control w-full max-w-md mx-auto flex flex-row mt-10">
-          <input type="checkbox" className="accent-myPrimary me-2" readOnly checked/>
-          <span className="text-sm">Agree with all terms and conditions.</span> 
+          <input
+            type="checkbox"
+            className="accent-myPrimary me-2"
+            readOnly
+            checked
+          />
+          <span className="text-sm">Agree with all terms and conditions.</span>
         </label>
 
         <label className="form-control w-full max-w-md mx-auto">

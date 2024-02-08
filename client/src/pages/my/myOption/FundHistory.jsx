@@ -21,7 +21,9 @@ const FundHistory = () => {
         if (response.data?.success) {
           const transactionWithOrder = response.data.payload.allTransaction;
           const transactionWithoutOrder = transactionWithOrder.filter(
-            (transaction) => transaction.category == "Recharge" || transaction.category == "Withdraw"
+            (transaction) =>
+              transaction.category == "Recharge" ||
+              transaction.category == "Withdraw"
           );
 
           setAllTransactions(transactionWithoutOrder);
@@ -81,7 +83,7 @@ const FundHistory = () => {
     <Loading />
   ) : (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         Fund History
       </h1>
       <div className="bg-mySecondary flex justify-between p-2 text-center mb-2">

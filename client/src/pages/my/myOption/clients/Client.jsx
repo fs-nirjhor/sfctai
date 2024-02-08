@@ -100,14 +100,14 @@ const Client = () => {
   const handleBonusAmount = async () => {
     event.preventDefault();
     try {
-    // bonus data
-    const transaction = {
-      client: client._id,
-      amount: bonusAmount,
-      credential: `bonus-${userId}`,
-      category: "Recharge",
-      isApproved: true,
-    };
+      // bonus data
+      const transaction = {
+        client: client._id,
+        amount: bonusAmount,
+        credential: `bonus-${userId}`,
+        category: "Recharge",
+        isApproved: true,
+      };
       const res = await transactionApi.post("recharge-request", {
         transaction,
       });
@@ -133,7 +133,7 @@ const Client = () => {
     <Loading />
   ) : (
     <div className="pb-20">
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         {client.name}
       </h1>
       <section>

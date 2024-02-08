@@ -8,18 +8,25 @@ const TxidAuthentication = () => {
   const [amount, setAmount] = useState("");
   const [txid, setTxid] = useState("");
   const [error, setError] = useState("An error occurred");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     event.preventDefault();
     // transaction data
-    const transaction = { client: user._id, amount: amount, credential: txid, category: "Recharge"};
+    const transaction = {
+      client: user._id,
+      amount: amount,
+      credential: txid,
+      category: "Recharge",
+    };
     try {
-      const res = await transactionApi.post("recharge-request",{transaction});
+      const res = await transactionApi.post("recharge-request", {
+        transaction,
+      });
       if (res.data?.success) {
-         document.getElementById("txid-success").showModal();
-         window.location.reload();
-         navigate(-1);
+        document.getElementById("txid-success").showModal();
+        window.location.reload();
+        navigate(-1);
       }
     } catch (err) {
       if (err.response?.data?.message) {
@@ -33,7 +40,7 @@ const TxidAuthentication = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center mt-2 mb-5">
+      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
         TXID Authentication
       </h1>
       <form onSubmit={handleSubmit}>
