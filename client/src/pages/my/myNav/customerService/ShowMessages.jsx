@@ -8,9 +8,9 @@ const ShowMessages = () => {
   const { client } = useParams();
   const clientId = client || user._id;
 
-  if (!chats.length) {
+  if (!chats) {
     return (
-      <div>
+      <div className="h-[64vh]">
         <h1 className="text-lg font-semibold text-center pt-2 mb-5">Chat</h1>
         <p className="text-center my-40">Start conversation</p>
       </div>

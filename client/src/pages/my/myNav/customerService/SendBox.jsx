@@ -50,7 +50,7 @@ const SendBox = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
-        <p className="input input-bordered join-item w-8/12 bg-white">
+        <div className="input input-bordered join-item w-8/12 bg-white">
         <InputEmoji
           placeholder="Write your message"
           value={text}
@@ -58,7 +58,7 @@ const SendBox = () => {
           borderRadius={5}
           borderColor="white"
           />
-          </p>
+          </div>
         <button className="btn btn-warning bg-myPrimary text-white join-item rounded-r-md text-lg w-2/12">
          <MdSend />
         </button>
