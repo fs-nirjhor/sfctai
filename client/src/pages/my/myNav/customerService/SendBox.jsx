@@ -52,7 +52,7 @@ const SendBox = () => {
         </label>
         <div className="input input-bordered join-item w-10/12 bg-white">
         <InputEmoji
-          placeholder="Type your message..."
+          placeholder="Type Here..."
           value={text}
           onChange={setText}
           borderRadius={5}
