@@ -40,8 +40,8 @@ const SendBox = () => {
   };
   return (
     <div className="pt-5">
-      <form className="  mx-auto" onSubmit={handleSubmit}>
-        <div className="join w-full">
+      <form className="mx-auto" onSubmit={handleSubmit}>
+        <div className="join p-0 m-0 w-full">
       <label className={`btn text-lg text-myPrimary w-2/12 ${image && "bg-myPrimary text-white"} rounded-none join-item p-2`}>
           <FaImage />
           <input
