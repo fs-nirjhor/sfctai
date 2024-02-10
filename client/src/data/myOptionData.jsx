@@ -33,13 +33,13 @@ const clientOptions = [
   { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
   { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
   {
-    name: "Download Link",
+    name: "Download App",
     to: "",
     icon: <BsDownload className={iconStyle} />,
   },
-  // admin option
 ];
 
+// admin option
 const adminIconStyle = "text-myPrimary inline-block me-3 text-2xl";
 const adminOptions = [
   {
@@ -59,6 +59,11 @@ const adminOptions = [
   },
   { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
   { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
+  {
+    name: "Download App",
+    to: "",
+    icon: <BsDownload className={iconStyle} />,
+  },
 ];
 
 export { clientOptions, adminOptions };
