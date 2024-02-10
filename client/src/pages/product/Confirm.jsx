@@ -31,23 +31,23 @@ const Confirm = () => {
             usersCoin.image = image;
             setCoin(usersCoin);
           };
-          if (balance >= 10 && balance < 50) {
+          if (balance >= 10 && balance <= 50) {
             manageCoin(9);
-          } else if (balance >= 50 && balance < 100) {
+          } else if (balance >= 51 && balance <= 100) {
             manageCoin(8);
-          } else if (balance >= 100 && balance < 150) {
+          } else if (balance >= 101 && balance <= 150) {
             manageCoin(7);
-          } else if (balance >= 150 && balance < 200) {
+          } else if (balance >= 151 && balance <= 200) {
             manageCoin(6);
-          } else if (balance >= 200 && balance < 250) {
+          } else if (balance >= 201 && balance <= 300) {
             manageCoin(5);
-          } else if (balance >= 250 && balance < 300) {
+          } else if (balance >= 301 && balance <= 350) {
             manageCoin(4);
-          } else if (balance >= 300 && balance < 350) {
+          } else if (balance >= 351 && balance <= 450) {
             manageCoin(3);
-          } else if (balance >= 350 && balance < 400) {
+          } else if (balance >= 451 && balance <= 550) {
             manageCoin(2);
-          } else if (balance >= 400 && balance < 450) {
+          } else if (balance >= 551 && balance <= 800) {
             manageCoin(1);
           } else {
             manageCoin(0);
