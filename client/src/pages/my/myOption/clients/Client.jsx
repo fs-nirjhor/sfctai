@@ -139,7 +139,7 @@ const Client = () => {
       <section>
         <figure className="avatar w-full">
           <div
-            className={`w-24 h-24 mx-auto mb-5 rounded-full ring ${
+            className={`w-24 h-24 mx-auto rounded-full ring ${
               client.transaction?.balance >= 10
                 ? "ring-myPrimary"
                 : "ring-mySecondary"
@@ -148,7 +148,22 @@ const Client = () => {
             <img src={client.avatar} alt="avatar" />
           </div>
         </figure>
-        <table className="table border-collapse table-fixed bg-mySecondary w-full">
+         {/* message and delete */}
+          <div className="flex justify-between -mt-10">
+                <button
+                  className="btn btn-error btn-sm text-white"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+                <Link
+                  to={`/my/chat/${client._id}`}
+                  className="btn btn-warning btn-sm text-white"
+                >
+                  Message
+                </Link>
+            </div>
+        <table className="table border-collapse table-fixed bg-mySecondary w-full mt-10">
           {/* head */}
           <thead>
             <tr>
@@ -159,7 +174,7 @@ const Client = () => {
           <tbody>
             {/* name - balance */}
             <tr>
-              <td>Name: {client.name}</td>
+              <td className="overflow-x-auto">Name: {client.name}</td>
               <td>Balance: {client.transaction.balance.toFixed(2)}</td>
             </tr>
             {/* phone - income */}
@@ -174,7 +189,7 @@ const Client = () => {
             </tr>
             {/* BINDING - WITHDRAW */}
             <tr>
-              <td>Binding Id: {client.trc20Address}</td>
+              <td className="overflow-x-auto">Binding Id: {client.trc20Address}</td>
               <td>Withdraw: {client.transaction.totalWithdraw.toFixed(2)}</td>
             </tr>
             {/* change phone */}
@@ -315,25 +330,7 @@ const Client = () => {
                 </form>
               </td>
             </tr>
-            {/* message and delete */}
-            <tr>
-              <td>
-                <Link
-                  to={`/my/chat/${client._id}`}
-                  className="btn btn-warning w-full btn-sm text-white"
-                >
-                  Message
-                </Link>
-              </td>
-              <td>
-                <button
-                  className="btn btn-error w-full btn-sm text-white"
-                  onClick={handleDelete}
-                >
-                  Delete User
-                </button>
-              </td>
-            </tr>
+           
           </tbody>
         </table>
       </section>
