@@ -132,7 +132,7 @@ const FundHistory = () => {
               }`}
             >
               {user.isAdmin && (
-                <div className="col-span-3 flex gap-2 overflow-scroll no-scrollbar text-start">
+                <div className="col-span-3 flex gap-2 overflow-x-scroll no-scrollbar text-start">
                   <input
                     type="checkbox"
                     className="checkbox checkbox-xs checkbox-success"
