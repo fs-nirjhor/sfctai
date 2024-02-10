@@ -53,39 +53,39 @@ const Start = () => {
         <article className="absolute w-full grid grid-cols-2 gap-4 text-center p-2 font-serif lining-nums">
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
             <h5 className="text-sm">Balance</h5>
-            <p className="font-semibold">
+            <p className="font-semibold text-white">
               {balance} <span className="text-myPrimary">USDT</span>
             </p>
           </div>
           <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Today&apos;s Income</h5>
-            <p className="font-semibold">
+            <h5 className="text-sm">Today&apos;s Earn</h5>
+            <p className="font-semibold text-white">
               {todaysIndividualIncome}{" "}
               <span className="text-myPrimary">USDT</span>
             </p>
           </div>
           <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Today&apos;s Team Income</h5>
-            <p className="font-semibold">
+            <h5 className="text-sm">Today&apos;s Team Earn</h5>
+            <p className="font-semibold text-white">
               {todaysTeamIncome} <span className="text-myPrimary">USDT</span>
             </p>
           </div>
           <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Total Individual Income</h5>
-            <p className="font-semibold">
+            <h5 className="text-sm">Total Individual Earn</h5>
+            <p className="font-semibold text-white">
               {totalIndividualIncome}{" "}
               <span className="text-myPrimary">USDT</span>
             </p>
           </div>
           <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Total Team Income</h5>
-            <p className="font-semibold">
+            <h5 className="text-sm">Total Team Earn</h5>
+            <p className="font-semibold text-white">
               {totalTeamIncome} <span className="text-myPrimary">USDT</span>
             </p>
           </div>
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Today&apos;s Order Amount</h5>
-            <p className="font-semibold">
+            <h5 className="text-sm">Today&apos;s Trade Amount</h5>
+            <p className="font-semibold text-white">
               {todaysOrderAmount} <span className="text-myPrimary">USDT</span>
             </p>
           </div>
