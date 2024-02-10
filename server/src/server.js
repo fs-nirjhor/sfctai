@@ -1,4 +1,4 @@
-// Server for SYAI Project
+// Server for STFAI Project
 
 const createHttpError = require("http-errors");
 const app = require("./app");
@@ -10,7 +10,7 @@ const server = require("./socket");
 // listening server on port
 server.listen(serverPort, async () => {
   try {
-    logger.info(`SYAI server listening on ${serverUrl}`);
+    logger.info(`STFAI server listening on ${serverUrl}`);
     await connectDB();
   } catch (error) {
     console.log(error.message);

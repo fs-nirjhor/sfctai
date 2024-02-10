@@ -5,9 +5,13 @@ require("dotenv").config();
 const serverPort = process.env.SERVER_PORT || 3001;
 const serverUrl = process.env.VITE_SERVER_URL;
 const clientUrl = process.env.VITE_CLIENT_URL;
-const databaseUrl =
-  process.env.MONGODB_URL;
-const corsUrl = ["http://localhost:5173", "http://localhost:3001", "https://syai.onrender.com", "http://syai.onrender.com" ]
+const databaseUrl = process.env.MONGODB_URL;
+const corsUrl = [
+  "http://localhost:5173",
+  "http://localhost:3001",
+  "https://stfai.onrender.com",
+  "http://stfai.onrender.com",
+];
 
 const jwtActivationKey = process.env.JWT_ACTIVATION_KEY || "jwtActivationKey";
 const jwtAccessKey = process.env.JWT_ACCESS_KEY || "jwtAccessKey";

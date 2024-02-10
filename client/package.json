@@ -1,5 +1,5 @@
 {
-  "name": "syai",
+  "name": "stfai",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -27,7 +27,7 @@
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.3",
     "sort-by": "^1.2.0",
-    "syai": "file:.."
+    "stfai": "file:.."
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

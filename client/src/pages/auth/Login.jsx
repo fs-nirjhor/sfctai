@@ -95,7 +95,7 @@ const Login = () => {
         </label>
       </form>
       <Link
-        to="/registration?invitationCode=SYAI000"
+        to="/registration?invitationCode=STFAI00"
         className="text-center mt-5 block"
       >
         Don&apos;t have an account?

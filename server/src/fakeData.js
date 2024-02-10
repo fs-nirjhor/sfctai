@@ -3,12 +3,14 @@
 const fakeData = {
   users: [
     {
-      name: "SYAI",
-      loginPassword: "$2a$10$73gynJYOiWWv9SLTwpFO5ehoLX05je.n6Wwf4pXBHJghGZ/RNRxh2",
-      withdrawalPassword: "$2a$10$SaCo7/./5SbHtNllP6RPau9wP87LFDKF5UmJccZeM9fz5r6x797gm",
+      name: "STFAI",
+      loginPassword:
+        "$2a$10$73gynJYOiWWv9SLTwpFO5ehoLX05je.n6Wwf4pXBHJghGZ/RNRxh2",
+      withdrawalPassword:
+        "$2a$10$SaCo7/./5SbHtNllP6RPau9wP87LFDKF5UmJccZeM9fz5r6x797gm",
       phone: "12345678",
       invitedBy: "659418a59265b59000175731",
-      invitationCode: "SYAI100",
+      invitationCode: "STFAI00",
       trc20Address: "",
       team: {
         level1: [],
@@ -19,7 +21,7 @@ const fakeData = {
         balance: 0,
         todaysIncome: 0,
         totalIncome: 0,
-        todaysTeamIncome:0,
+        todaysTeamIncome: 0,
         todaysRecharge: 0,
         totalRecharge: 0,
         todaysWithdraw: 0,

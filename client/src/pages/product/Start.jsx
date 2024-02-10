@@ -50,7 +50,7 @@ const Start = () => {
         >
           <source src="/videos/tradeVideo.mp4" type="video/mp4" />
         </video>
-        <article className="absolute w-full grid grid-cols-2 gap-4 text-center p-2">
+        <article className="absolute w-full grid grid-cols-2 gap-4 text-center p-2 font-serif lining-nums">
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
             <h5 className="text-sm">Balance</h5>
             <p className="font-semibold">

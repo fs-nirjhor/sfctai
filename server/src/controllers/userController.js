@@ -30,7 +30,7 @@ const handleRegistration = async (req, res, next) => {
     const { invitationCode, ...newUser } = req.body;
     const invitationData = invitationCode
       ? { invitationCode }
-      : { invitationCode: "SYAI000" };
+      : { invitationCode: "STFAI00" };
     const updateOptions = {
       new: true,
       runValidators: true,
