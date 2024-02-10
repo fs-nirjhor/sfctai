@@ -121,7 +121,7 @@ const Confirm = () => {
           <img src={coin.image} alt="huobi" />
         </div>
         <h2 className="mb-5 text-xl font-semibold text-center">
-          {coin.symbol} Currency Order
+          {coin.symbol} Currency Trade
         </h2>
         <figure className="font-semibold">
           <p className="flex justify-between bg-mySecondary p-3 mb-3 rounded-md">

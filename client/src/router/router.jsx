@@ -124,7 +124,7 @@ const router = createBrowserRouter([
             element: <Chat />,
           },
           {
-            path: "/my/order-history",
+            path: "/my/trade-history",
             element: <OrderHistory />,
           },
           {

@@ -115,7 +115,7 @@ const handleOrderRequest = async (req, res, next) => {
     const options = { timeZone: "Europe/London", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
     if (!(currentHour >= 9 && currentHour < 21)) {
-      throw createHttpError(403, "Allowed order time is 09:00 - 21:00 (UK)");
+      throw createHttpError(403, "Allowed trade time is 09:00 - 21:00 (UK)");
     }
 
     //? is balace sufficient 
@@ -131,7 +131,7 @@ const handleOrderRequest = async (req, res, next) => {
     // add new order
     const newOrder = await createItem(Transaction, orderData);
     if (!newOrder) {
-      throw new Error("Failed to Order");
+      throw new Error("Failed to Trade");
     }
 
     // user update
@@ -170,7 +170,7 @@ const handleOrderRequest = async (req, res, next) => {
 
     return successResponse(res, {
       statusCode: 200,
-      message: "Order Successfull",
+      message: "Trade Successfull",
       payload: { newOrder },
     });
   } catch (error) {

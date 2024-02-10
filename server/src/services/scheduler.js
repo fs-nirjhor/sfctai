@@ -48,7 +48,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
           // find client
           const client = await findItemById(User, order.client);
           if (!client) {
-            throw createHttpError(400, "Failed to find client on order");
+            throw createHttpError(400, "Failed to find client on trade");
           }
           // update clients transaction
           const clientUpdates = {
@@ -68,7 +68,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
           );
 
           if (!updatedClient) {
-            throw createHttpError(400, "Failed to update client on order");
+            throw createHttpError(400, "Failed to update client on trade");
           }
 
           // commissions
@@ -92,7 +92,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
             inviter1Updates
           );
           if (!updatedInviter1) {
-            throw createHttpError(400, "Failed to update inviter 1 on order");
+            throw createHttpError(400, "Failed to update inviter 1 on trade");
           }
 
           // Update inviter2 transaction
@@ -109,7 +109,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
             updateOptions
           );
           if (!updatedInviter2) {
-            throw createHttpError(400, "Failed to update inviter 2 on order");
+            throw createHttpError(400, "Failed to update inviter 2 on trade");
           }
 
           // Update inviter 3 transaction
@@ -126,7 +126,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
             updateOptions
           );
           if (!updatedInviter3) {
-            throw createHttpError(400, "Failed to update inviter 3 on order");
+            throw createHttpError(400, "Failed to update inviter 3 on trade");
           }
         } // for
       } // if modifiedCount
@@ -134,7 +134,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
     logger.info(`${approvedOrders.length} orders approved.`);
   } catch (error) {
     console.log(error);
-    throw createHttpError(400, `Approve order failed: ${error.message}`);
+    throw createHttpError(400, `Approve trade failed: ${error.message}`);
   }
 });
 

@@ -73,7 +73,7 @@ const SetConfiguration = () => {
               <td>${configuration.withdrawFee}</td>
             </tr>
             <tr>
-              <td>Order Per Day</td>
+              <td>Trade Per Day</td>
               <td>{configuration.orderPerDay} times</td>
             </tr>
             <tr>
@@ -183,7 +183,7 @@ const SetConfiguration = () => {
         >
           <input
             type="number"
-            placeholder="Order Per Day"
+            placeholder="Trade Per Day"
             className={inputStyle}
             value={orderPerDay}
             onChange={(e) => setOrderPerDay(e.target.value)}

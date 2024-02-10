@@ -16,8 +16,8 @@ const clientOptions = [
     icon: <MdOutlineVerifiedUser className={iconStyle} />,
   },
   {
-    name: "Order history",
-    to: "order-history",
+    name: "Trade history",
+    to: "trade-history",
     icon: <HiOutlineShoppingBag className={iconStyle} />,
   },
   {
@@ -48,8 +48,8 @@ const adminOptions = [
     icon: <FiUsers className={adminIconStyle} />,
   },
   {
-    name: "Order history",
-    to: "order-history",
+    name: "Trade history",
+    to: "trade-history",
     icon: <HiOutlineShoppingBag className={iconStyle} />,
   },
   {
@@ -59,6 +59,6 @@ const adminOptions = [
   },
   { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
   { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
-]
+];
 
-export {clientOptions, adminOptions};
+export { clientOptions, adminOptions };

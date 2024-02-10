@@ -56,7 +56,7 @@ const Withdraw = () => {
       const options = { timeZone: "Europe/London", hour: "numeric" };
       const currentHour = new Date().toLocaleTimeString("en-GB", options);
       if (!(currentHour >= 9 && currentHour < 21)) {
-        setError("Allowed order time is 09:00 - 21:00 (UK)");
+        setError("Allowed trade time is 09:00 - 21:00 (UK)");
         return document.getElementById("withdraw-error").showModal();
       }
       // is usdt bind
