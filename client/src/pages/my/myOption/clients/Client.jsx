@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../../../shared/Loading";
 import { useEffect, useState } from "react";
 import { transactionApi, userApi } from "../../../../router/axiosApi";
 import AlertBox from "../../../shared/AlertBox";
+import DeleteConfirm from './../set/DeleteConfirm';
 
 const Client = () => {
   const { userId } = useParams();
@@ -17,8 +18,6 @@ const Client = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getClient = async () => {
@@ -80,21 +79,7 @@ const Client = () => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    try {
-      const res = await userApi.delete(client._id);
-      if (res.data?.success) {
-        setSuccess("Successfully deleted");
-        document.getElementById("delete-success").showModal();
-        navigate(-1);
-      }
-    } catch (err) {
-      if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
-      } else {
-        setError(err.message); // other error
-      }
-      document.getElementById("client-error").showModal();
-    }
+    document.getElementById("delete_dialog").showModal();
   };
 
   const handleBonusAmount = async () => {
@@ -149,7 +134,7 @@ const Client = () => {
           </div>
         </figure>
          {/* message and delete */}
-          <div className="flex justify-between -mt-10">
+          <div className="flex justify-between">
                 <button
                   className="btn btn-error btn-sm text-white"
                   onClick={handleDelete}
@@ -334,6 +319,7 @@ const Client = () => {
           </tbody>
         </table>
       </section>
+      <DeleteConfirm id={client._id}/>
       <AlertBox id="client-error" text={error} alertType="alert-error" />
       <AlertBox id="client-success" text={success} alertType="alert-success" />
     </div>
