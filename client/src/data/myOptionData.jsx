@@ -49,7 +49,7 @@ const adminOptions = [
   {
     name: "Trade history",
     to: "trade-history",
-    icon: <img src="/images/trade-icon.png" alt="trade" className=""/>,
+    icon: <img src="/images/trade-icon.png" alt="trade" className="inline w-7 me-3"/>,
   },
   {
     name: "Fund history",
