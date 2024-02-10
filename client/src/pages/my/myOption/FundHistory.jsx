@@ -127,12 +127,12 @@ const FundHistory = () => {
           return (
             <div
               key={transaction._id}
-              className={`flex justify-between px-3 py-2 mb-2 text-center text-sm bg-opacity-60 ${
+              className={`grid grid-cols-5 gap-2 justify-between px-3 py-2 mb-2 text-center text-sm bg-opacity-60 ${
                 transaction.isApproved ? "bg-mySecondary" : "bg-myPrimary"
               }`}
             >
               {user.isAdmin && (
-                <div className="flex gap-2">
+                <div className="col-span-3 flex gap-2 overflow-scroll no-scrollbar text-start">
                   <input
                     type="checkbox"
                     className="checkbox checkbox-xs checkbox-success"
@@ -148,13 +148,13 @@ const FundHistory = () => {
               )}
               <div onClick={() => handleClick(transaction.client?.userId)}>
                 <p>{transaction.category}</p>
-                <p className="text-xs">{createdDate}</p>
+                <p className="text-[0.60rem]">{createdDate}</p>
               </div>
               <p
                 className={
                   transaction.category == "Withdraw"
-                    ? "text-error"
-                    : "text-success"
+                    ? "text-error text-end"
+                    : "text-success text-end"
                 }
                 onClick={() => handleClick(transaction.client?.userId)}
               >
