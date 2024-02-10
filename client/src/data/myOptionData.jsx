@@ -1,5 +1,4 @@
 import { MdOutlineVerifiedUser } from "react-icons/md";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { GiSwapBag } from "react-icons/gi";
 import { PiExcludeSquareDuotone } from "react-icons/pi";
 import { GoPeople } from "react-icons/go";
@@ -18,7 +17,7 @@ const clientOptions = [
   {
     name: "Trade history",
     to: "trade-history",
-    icon: <HiOutlineShoppingBag className={iconStyle} />,
+    icon: <img src="/images/trade-icon.png" alt="trade" className="inline w-7 me-3"/>,
   },
   {
     name: "Fund history",
@@ -50,7 +49,7 @@ const adminOptions = [
   {
     name: "Trade history",
     to: "trade-history",
-    icon: <HiOutlineShoppingBag className={iconStyle} />,
+    icon: <img src="/images/trade-icon.png" alt="trade" className=""/>,
   },
   {
     name: "Fund history",
