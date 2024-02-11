@@ -41,9 +41,7 @@ const SetAvatar = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Modify Avatar
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Modify Avatar</h1>
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
           <div className="grid grid-cols-4 gap-5 justify-between my-3">

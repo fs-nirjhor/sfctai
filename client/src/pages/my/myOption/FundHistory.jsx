@@ -83,9 +83,7 @@ const FundHistory = () => {
     <Loading />
   ) : (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Fund History
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
       <div className="bg-mySecondary flex justify-between p-2 text-center mb-2">
         <span
           className={`${navStyle} ${
@@ -129,20 +127,23 @@ const FundHistory = () => {
               key={transaction._id}
               className={`grid gap-2 justify-between px-3 py-2 mb-2 text-sm bg-opacity-60 ${
                 transaction.isApproved ? "bg-mySecondary" : "bg-myPrimary"
-              } ${
-                user.isAdmin ? "grid-cols-5" : "grid-cols-2"
-              }`}
+              } ${user.isAdmin ? "grid-cols-5" : "grid-cols-2"}`}
             >
               {user.isAdmin && (
-                <div className={`flex gap-2 overflow-x-scroll no-scrollbar text-start ${
-                  user.isAdmin ? "col-span-3" : ""
-                }`}>
+                <div
+                  className={`flex gap-2 overflow-x-scroll no-scrollbar text-start ${
+                    user.isAdmin ? "col-span-3" : ""
+                  }`}
+                >
                   <input
                     type="checkbox"
                     className="checkbox checkbox-xs checkbox-success"
                     checked={transaction.isApproved ? true : false}
                     readOnly
-                    onClick={() => transaction.category == "Withdraw" && handleApprove(transaction._id)}
+                    onClick={() =>
+                      transaction.category == "Withdraw" &&
+                      handleApprove(transaction._id)
+                    }
                   />
                   <div onClick={() => handleClick(transaction.client.userId)}>
                     <p>{transaction.client?.name}</p>
@@ -162,7 +163,9 @@ const FundHistory = () => {
                 }
                 onClick={() => handleClick(transaction.client?.userId)}
               >
-                {!transaction.isApproved && transaction.category == "Recharge" ? "Pending" : transaction.amount.toFixed(2)}
+                {!transaction.isApproved && transaction.category == "Recharge"
+                  ? "Pending"
+                  : transaction.amount.toFixed(2)}
               </p>
             </div>
           );

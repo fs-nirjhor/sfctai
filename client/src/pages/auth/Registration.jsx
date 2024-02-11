@@ -38,9 +38,7 @@ const Registration = () => {
 
   return (
     <section className="bg-gradient-to-t from-myPrimary to-transparent min-h-full pb-40 px-5">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Registration
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Registration</h1>
       <figure>
         <img
           src="/images/bannar/coin_bannar.png"

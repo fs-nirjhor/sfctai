@@ -56,7 +56,11 @@ const Client = () => {
     event.preventDefault();
     try {
       // recharge data
-      const recharge = { client: client._id, amount: approveRechargeAmount, transactionId };
+      const recharge = {
+        client: client._id,
+        amount: approveRechargeAmount,
+        transactionId,
+      };
       const response = await transactionApi.put("add-recharge", { recharge });
       if (response.data?.success) {
         document.getElementById("recharge-success").showModal();
@@ -127,15 +131,13 @@ const Client = () => {
       document.getElementById("client-error").showModal();
     }
   };
-  const doubleDataStyle ="grid grid-cols-2 p-2";
-  const formBoxStyle = "p-2"
+  const doubleDataStyle = "grid grid-cols-2 p-2";
+  const formBoxStyle = "p-2";
   return loading ? (
     <Loading />
   ) : (
     <div className="pb-20">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        {client.name}
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">{client.name}</h1>
       <section>
         <figure className="avatar w-full">
           <div
@@ -291,29 +293,33 @@ const Client = () => {
           <div>
             <div className={formBoxStyle}>
               <h3 className="mb-3">Pending Recharges</h3>
-              {!pendingRecharge.length && <p className="text-center my-2">No recharge pending</p>}
+              {!pendingRecharge.length && (
+                <p className="text-center my-2">No recharge pending</p>
+              )}
               {pendingRecharge.map((recharge) => (
                 <div key={recharge._id} className="mb-3">
-                  <p className="text-sm">Transaction ID: {recharge.credential}</p>
-                <form
-                  className="join w-full"
-                  onSubmit={() => handleApproveRecharge(recharge._id)}
-                > 
-                  <input
-                    type="number"
-                    placeholder="Enter amount"
-                    className="input input-sm input-bordered border-myPrimary join-item w-4/6"
-                    value={approveRechargeAmount}
-                    onChange={(e) => setApproveRechargeAmount(e.target.value)}
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                  <p className="text-sm">
+                    Transaction ID: {recharge.credential}
+                  </p>
+                  <form
+                    className="join w-full"
+                    onSubmit={() => handleApproveRecharge(recharge._id)}
                   >
-                    Approve
-                  </button>
-                </form>
+                    <input
+                      type="number"
+                      placeholder="Enter amount"
+                      className="input input-sm input-bordered border-myPrimary join-item w-4/6"
+                      value={approveRechargeAmount}
+                      onChange={(e) => setApproveRechargeAmount(e.target.value)}
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                    >
+                      Approve
+                    </button>
+                  </form>
                 </div>
               ))}
             </div>
@@ -343,7 +349,7 @@ const Client = () => {
       </section>
       <DeleteConfirm id={client._id} />
       <AlertBox id="client-error" text={error} alertType="alert-error" />
-      <AlertBox id="client-success" text={success} alertType="alert-success"/>
+      <AlertBox id="client-success" text={success} alertType="alert-success" />
     </div>
   );
 };

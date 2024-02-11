@@ -6,9 +6,7 @@ const AboutTeam = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        About Team
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">About Team</h1>
       <div className="bg-mySecondary p-3 rounded-md">
         <p className="mb-1">
           Use the exclusive invitation link in your account to invite your

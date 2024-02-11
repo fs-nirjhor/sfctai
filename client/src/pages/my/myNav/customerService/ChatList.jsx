@@ -6,7 +6,7 @@ const ChatList = () => {
 
   return (
     <div className="pb-20">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Chat List</h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Chat List</h1>
       <div className="rounded">
         {chats.map((chat, i) => {
           const lastMessages = chat.messages?.length - 1;

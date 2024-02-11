@@ -6,9 +6,7 @@ const AboutWithdrawal = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        About Withdrawal
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">About Withdrawal</h1>
       <p className="bg-mySecondary p-3 rounded-md">
         The minimum withdrawal amount is {minimumWithdraw} USDT, the withdrawal
         fee is {withdrawFee}% of the withdrawal amount, the platform&apos;s

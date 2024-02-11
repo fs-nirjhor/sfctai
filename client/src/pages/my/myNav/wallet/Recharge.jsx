@@ -6,7 +6,7 @@ const Recharge = () => {
     useRouteLoaderData("configuration");
   return (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Recharge</h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Recharge</h1>
       <figure className="bg-mySecondary rounded-md px-3 py-5">
         <div className="grid grid-cols-7 gap-2">
           <p className="md:pt-2 font-semibold text-center text-sm col-span-2">
@@ -32,7 +32,7 @@ const Recharge = () => {
           Don&apos;t forget to collect & submit the txid after recharge.
         </p>
         <Link
-          to="/my/txid-authentication"
+          to="/my/txid-submit"
           className="btn btn-warning btn-block bg-myPrimary text-white mt-3 hover:text-white"
         >
           SUBMIT TXID

@@ -8,11 +8,10 @@ import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
 import { useRouteLoaderData } from "react-router-dom";
 
-
 const MyOptionData = () => {
   const user = useRouteLoaderData("user");
   const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
-  
+
   const clientOptions = [
     {
       name: "Invitation Letter",
@@ -25,14 +24,20 @@ const MyOptionData = () => {
       icon: <MdSupportAgent className={iconStyle} />,
     },
     {
-      name: "TXID Authentication",
-      to: "txid-authentication",
+      name: "TXID Submit",
+      to: "txid-submit",
       icon: <MdOutlineVerifiedUser className={iconStyle} />,
     },
     {
       name: "Trade history",
       to: "trade-history",
-      icon: <img src="/images/trade-icon.png" alt="trade" className="inline w-7 me-3"/>,
+      icon: (
+        <img
+          src="/images/trade-icon.png"
+          alt="trade"
+          className="inline w-7 me-3"
+        />
+      ),
     },
     {
       name: "Fund history",
@@ -52,7 +57,7 @@ const MyOptionData = () => {
       icon: <BsDownload className={iconStyle} />,
     },
   ];
-  
+
   // admin option
   const adminIconStyle = "text-myPrimary inline-block me-3 text-2xl";
   const adminOptions = [
@@ -74,7 +79,13 @@ const MyOptionData = () => {
     {
       name: "Trade history",
       to: "trade-history",
-      icon: <img src="/images/trade-icon.png" alt="trade" className="inline w-7 me-3"/>,
+      icon: (
+        <img
+          src="/images/trade-icon.png"
+          alt="trade"
+          className="inline w-7 me-3"
+        />
+      ),
     },
     {
       name: "Fund history",
@@ -89,8 +100,8 @@ const MyOptionData = () => {
       icon: <BsDownload className={iconStyle} />,
     },
   ];
-  
+
   return { clientOptions, adminOptions };
-}
+};
 
 export default MyOptionData;

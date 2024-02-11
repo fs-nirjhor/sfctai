@@ -31,7 +31,7 @@ const SetWithdrawalPassword = () => {
   };
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
+      <h1 className="font-semibold text-center pt-2 mb-5">
         Modify Withdrawal Password
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>

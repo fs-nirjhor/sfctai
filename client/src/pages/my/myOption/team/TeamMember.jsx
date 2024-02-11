@@ -15,26 +15,24 @@ const TeamMember = ({ id }) => {
           );
           return (
             <div
-              className="card card-side bg-mySecondary px-2 mb-2"
+              className="card card-side bg-mySecondary px-2 mb-2 text-start"
               key={member._id}
             >
               <figure className="avatar">
                 <div className="h-16">
-                  <img src={member.avatar} alt="avatar" />
+                  <img src="/images/avatar/avatar5.png" alt="avatar" />
                 </div>
               </figure>
               <div className="card-body py-3">
-                <h3>
+                <p className="flex">
                   <span className="me-3">ID: {member.userId}</span>
                   <span
                     className={
                       member.transaction?.balance >= 10 ? "text-myPrimary" : ""
                     }
-                  >
-                    {" "}
-                    Name: {member.name}
+                  >Name: {member.name}
                   </span>
-                </h3>
+                </p>
                 <p className="text-gray-400 text-sm">
                   Join time: {formattedDate}
                 </p>

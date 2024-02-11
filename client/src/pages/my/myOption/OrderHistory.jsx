@@ -39,9 +39,7 @@ const FundHistory = () => {
     <Loading />
   ) : (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Trade History
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Trade History</h1>
       <div>
         {orders.map((order) => {
           const createdDate = moment(order.createdAt).format(

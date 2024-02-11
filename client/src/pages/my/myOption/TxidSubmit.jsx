@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
-import AlertBox from "./../../shared/AlertBox";
+import AlertBox from "../../shared/AlertBox";
 import { transactionApi } from "../../../router/axiosApi";
 
-const TxidAuthentication = () => {
+const TxidSubmit = () => {
   const user = useRouteLoaderData("user");
   const [amount, setAmount] = useState(0);
   const [txid, setTxid] = useState("");
   const [error, setError] = useState("An error occurred");
   const navigate = useNavigate();
-  
+
   const handleSubmit = async () => {
     event.preventDefault();
     // transaction data
@@ -40,9 +40,7 @@ const TxidAuthentication = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        TXID Authentication
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">TXID Submit</h1>
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
           {/* <input
@@ -62,7 +60,9 @@ const TxidAuthentication = () => {
             required
           />
           <div className="label">
-            <Link to="/my/wallet/recharge" className="text-white">About recharge</Link>
+            <Link to="/my/wallet/recharge" className="text-white">
+              About recharge
+            </Link>
           </div>
         </label>
         <label className="form-control w-full max-w-md mx-auto">
@@ -78,4 +78,4 @@ const TxidAuthentication = () => {
     </section>
   );
 };
-export default TxidAuthentication;
+export default TxidSubmit;

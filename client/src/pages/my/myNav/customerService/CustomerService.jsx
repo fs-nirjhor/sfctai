@@ -5,9 +5,7 @@ function CustomerService() {
   const { chats } = UseChat();
   return (
     <div>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Customer Service
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Customer Service</h1>
       <Chat chats={chats} />
     </div>
   );

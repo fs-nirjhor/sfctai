@@ -27,7 +27,7 @@ import OrderHistory from "../pages/my/myOption/OrderHistory.jsx";
 import FundHistory from "../pages/my/myOption/FundHistory.jsx";
 import Registration from "../pages/auth/Registration.jsx";
 import Login from "../pages/auth/Login.jsx";
-import TxidAuthentication from "../pages/my/myOption/TxidAuthentication.jsx";
+import TxidSubmit from "../pages/my/myOption/TxidSubmit.jsx";
 import PrivateRoute from "../pages/auth/PrivateRoute.jsx";
 import userLoader from "./userLoader.js";
 import ChatList from "../pages/my/myNav/customerService/ChatList.jsx";
@@ -129,8 +129,8 @@ const router = createBrowserRouter([
             element: <OrderHistory />,
           },
           {
-            path: "/my/txid-authentication",
-            element: <TxidAuthentication />,
+            path: "/my/txid-submit",
+            element: <TxidSubmit />,
           },
           {
             path: "/my/fund-history",

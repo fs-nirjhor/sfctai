@@ -46,9 +46,7 @@ const BindUsdt = () => {
   };
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Wallet Address
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Wallet Address</h1>
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
           <input

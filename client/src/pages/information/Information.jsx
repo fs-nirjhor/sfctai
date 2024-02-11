@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Information = () => {
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">About</h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">About</h1>
       <figure className="font-semibold">
         {information.map((info, i) => {
           return (

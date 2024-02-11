@@ -6,7 +6,7 @@ const Wallet = () => {
   const balance = transaction.balance.toFixed(4);
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Wallet</h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Wallet</h1>
       <figure className="bg-mySecondary p-3 rounded-md text-center">
         <h3>Wallet Balance</h3>
         <h1 className="mt-2 text-2xl font-bold text-myPrimary">{balance}</h1>

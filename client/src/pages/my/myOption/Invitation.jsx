@@ -11,7 +11,7 @@ const Invitation = () => {
 
   return (
     <section className="pb-20">
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">Invite</h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Invite</h1>
       <article className="bg-mySecondary px-3 py-5 rounded-md mb-2">
         <h5>Invitation code</h5>
         <QRCode value={user.invitationCode} className="mx-auto my-10" />

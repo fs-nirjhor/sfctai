@@ -35,9 +35,7 @@ const SetName = () => {
 
   return (
     <section>
-      <h1 className="text-lg font-semibold text-center pt-2 mb-5">
-        Modify Name
-      </h1>
+      <h1 className="font-semibold text-center pt-2 mb-5">Modify Name</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-control w-full max-w-md mx-auto">
           <input
