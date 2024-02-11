@@ -142,7 +142,7 @@ const FundHistory = () => {
                     className="checkbox checkbox-xs checkbox-success"
                     checked={transaction.isApproved ? true : false}
                     readOnly
-                    onClick={() => handleApprove(transaction._id)}
+                    onClick={() => transaction.category == "Withdraw" && handleApprove(transaction._id)}
                   />
                   <div onClick={() => handleClick(transaction.client.userId)}>
                     <p>{transaction.client?.name}</p>
