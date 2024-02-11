@@ -5,11 +5,11 @@ import { transactionApi } from "../../../router/axiosApi";
 
 const TxidAuthentication = () => {
   const user = useRouteLoaderData("user");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [txid, setTxid] = useState("");
   const [error, setError] = useState("An error occurred");
   const navigate = useNavigate();
-
+  
   const handleSubmit = async () => {
     event.preventDefault();
     // transaction data
@@ -45,14 +45,14 @@ const TxidAuthentication = () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
-          <input
+          {/* <input
             type="number"
             placeholder="Enter your recharge amount"
             name="txid"
             className="input bg-mySecondary w-full max-w-md text-center mb-3"
             onChange={(e) => setAmount(e.target.value)}
             required
-          />
+          /> */}
           <input
             type="text"
             placeholder="Enter your TXID"
@@ -62,7 +62,7 @@ const TxidAuthentication = () => {
             required
           />
           <div className="label">
-            <Link to="/my/wallet/recharge">About recharge</Link>
+            <Link to="/my/wallet/recharge" className="text-white">About recharge</Link>
           </div>
         </label>
         <label className="form-control w-full max-w-md mx-auto">

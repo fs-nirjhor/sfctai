@@ -127,12 +127,16 @@ const FundHistory = () => {
           return (
             <div
               key={transaction._id}
-              className={`grid grid-cols-5 gap-2 justify-between px-3 py-2 mb-2 text-center text-sm bg-opacity-60 ${
+              className={`grid gap-2 justify-between px-3 py-2 mb-2 text-sm bg-opacity-60 ${
                 transaction.isApproved ? "bg-mySecondary" : "bg-myPrimary"
+              } ${
+                user.isAdmin ? "grid-cols-5" : "grid-cols-2"
               }`}
             >
               {user.isAdmin && (
-                <div className="col-span-3 flex gap-2 overflow-x-scroll no-scrollbar text-start">
+                <div className={`flex gap-2 overflow-x-scroll no-scrollbar text-start ${
+                  user.isAdmin ? "col-span-3" : ""
+                }`}>
                   <input
                     type="checkbox"
                     className="checkbox checkbox-xs checkbox-success"
@@ -158,7 +162,7 @@ const FundHistory = () => {
                 }
                 onClick={() => handleClick(transaction.client?.userId)}
               >
-                {transaction.amount.toFixed(2)}
+                {!transaction.isApproved && transaction.category == "Recharge" ? "Pending" : transaction.amount.toFixed(2)}
               </p>
             </div>
           );

@@ -53,7 +53,7 @@ const handleRechargeRequest = async (req, res, next) => {
 const handleAddRecharge = async (req, res, next) => {
   try {
     const { recharge } = req.body;
-    const { client, amount } = recharge;
+    const { client, amount, transactionId } = recharge;
    
     const updateOptions = {
       new: true,
@@ -61,6 +61,17 @@ const handleAddRecharge = async (req, res, next) => {
       context: "query",
       select: "-loginPassword -withdrawalPassword",
     };
+
+    // approve transaction 
+
+    if (transactionId){
+      await updateItemById(
+        Transaction,
+        transactionId,
+        {isApproved: true, amount},
+        updateOptions
+      );
+    }
 
     // user update
     userUpdates = {
