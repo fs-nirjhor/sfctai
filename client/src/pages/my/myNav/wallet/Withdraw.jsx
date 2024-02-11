@@ -53,10 +53,10 @@ const Withdraw = () => {
     };
     try {
       // is time
-      const options = { timeZone: "Europe/London", hour: "numeric" };
+      const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
       const currentHour = new Date().toLocaleTimeString("en-GB", options);
-      if (!(currentHour >= 9 && currentHour < 21)) {
-        setError("Allowed trade time is 09:00 - 21:00 (UK)");
+      if (!(currentHour >= 10 && currentHour < 22)) {
+        setError("Allowed trade time is 10:00 - 22:00 (Riyadh)");
         return document.getElementById("withdraw-error").showModal();
       }
       // is usdt bind

@@ -54,7 +54,7 @@ const handleAddRecharge = async (req, res, next) => {
   try {
     const { recharge } = req.body;
     const { client, amount, transactionId } = recharge;
-   
+
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -62,13 +62,13 @@ const handleAddRecharge = async (req, res, next) => {
       select: "-loginPassword -withdrawalPassword",
     };
 
-    // approve transaction 
+    // approve transaction
 
-    if (transactionId){
+    if (transactionId) {
       await updateItemById(
         Transaction,
         transactionId,
-        {isApproved: true, amount},
+        { isApproved: true, amount },
         updateOptions
       );
     }
@@ -76,10 +76,10 @@ const handleAddRecharge = async (req, res, next) => {
     // user update
     userUpdates = {
       $inc: {
-      "transaction.balance": Number(amount),
-      "transaction.todaysRecharge": Number(amount),
-      "transaction.totalRecharge": Number(amount),
-      }
+        "transaction.balance": Number(amount),
+        "transaction.todaysRecharge": Number(amount),
+        "transaction.totalRecharge": Number(amount),
+      },
     };
 
     const updatedUser = await updateItemById(
@@ -122,14 +122,17 @@ const handleOrderRequest = async (req, res, next) => {
     const user = await findItemById(User, client);
     const configuration = await Configuration.findOne();
 
-    //? is time 
-    const options = { timeZone: "Europe/London", hour: "numeric" };
+    //? is time
+    const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
-    if (!(currentHour >= 9 && currentHour < 21)) {
-      throw createHttpError(403, "Allowed trade time is 09:00 - 21:00 (UK)");
+    if (!(currentHour >= 10 && currentHour < 22)) {
+      throw createHttpError(
+        403,
+        "Allowed trade time is 10:00 - 22:00 (Riyadh)"
+      );
     }
 
-    //? is balace sufficient 
+    //? is balace sufficient
     if (user.transaction.balance < 10) {
       throw createHttpError(403, "Insufficent Balance");
     }
@@ -193,7 +196,14 @@ const handleOrderRequest = async (req, res, next) => {
 const handleWithdrawalRequest = async (req, res, next) => {
   try {
     const { transaction } = req.body;
-    const { client, withDrawAmount, actualAmount, credential, category, password } = transaction;
+    const {
+      client,
+      withDrawAmount,
+      actualAmount,
+      credential,
+      category,
+      password,
+    } = transaction;
 
     //? is user exist
     const user = await findItemById(User, client);

@@ -9,7 +9,7 @@ const Confirm = () => {
   const configuration = useRouteLoaderData("configuration");
   const [error, setError] = useState("");
   const [time, setTime] = useState(
-    new Date().toLocaleTimeString("en-GB", { timeZone: "Europe/London" })
+    new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" })
   );
   const [coin, setCoin] = useState({});
   const [loading, setLoading] = useState(true);
@@ -63,7 +63,7 @@ const Confirm = () => {
     // set time
     const timer = setInterval(() => {
       setTime(
-        new Date().toLocaleTimeString("en-GB", { timeZone: "Europe/London" })
+        new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" })
       );
     }, 1000);
     return () => {
@@ -89,7 +89,7 @@ const Confirm = () => {
       category: "Order",
       amount: currentBalance,
       estimateRevenue: estimateRevenue,
-      coin: coin.symbol
+      coin: coin.symbol,
     };
     try {
       const res = await transactionApi.post("order-request", { transaction });

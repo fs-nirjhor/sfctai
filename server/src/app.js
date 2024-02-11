@@ -56,7 +56,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/configuration", configurationRouter);
 
-// ----deployment----
+// ----Deployment----
 const __dirname1 = path.resolve();
 app.use(express.static(path.join(__dirname1, "/client/dist")));
 
