@@ -41,16 +41,16 @@ const Start = () => {
       <figure className="p-5">
         <img src="/images/logo.png" alt="STFAI" className="mx-auto w-44" />
       </figure>
-      <div className="relative my-5 h-[28rem]">
+      <div className="relative my-5 h-[24rem]">
         <video
-          className="w-full h-full rounded absolute inset-0 object-cover blur"
+          className="w-full h-full rounded-md absolute inset-0 object-cover opacity-70"
           autoPlay
           loop
           muted
         >
           <source src="/videos/tradeVideo.mp4" type="video/mp4" />
         </video>
-        <article className="absolute w-full grid grid-cols-2 gap-4 text-center p-3 font-serif lining-nums">
+        <article className="absolute w-full grid grid-cols-2 gap-4 text-center font-serif lining-nums">
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
             <h5 className="text-sm">Balance</h5>
             <p className="font-semibold text-white">
@@ -90,7 +90,7 @@ const Start = () => {
             </p>
           </div>
           <button
-            className="col-span-2 btn btn-warning bg-myPrimary text-white font-semibold"
+            className="col-span-2 btn btn-warning bg-myPrimary text-white font-semibold rounded-md"
             onClick={handleClick}
           >
             Trade

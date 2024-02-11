@@ -1,11 +1,11 @@
 import { IoChevronForward } from "react-icons/io5";
 import { Link, useRouteLoaderData } from "react-router-dom";
-import { adminOptions, clientOptions } from './../../../data/myOptionData';
+import MyOptionData from './../../../data/myOptionData';
 import Logout from './../../auth/Logout';
 
 const MyOption = () => {
   const user = useRouteLoaderData("user");
-  
+  const { adminOptions, clientOptions } = MyOptionData();
   const myOptions = user.isAdmin ? adminOptions : clientOptions;
 
   return (

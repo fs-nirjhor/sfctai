@@ -6,7 +6,6 @@ import Product from "../pages/product/Product.jsx";
 import Information from "../pages/information/Information.jsx";
 import My from "../pages/my/My.jsx";
 import Wallet from "../pages/my/myNav/wallet/Wallet.jsx";
-import Invitation from "../pages/my/myNav/Invitation.jsx";
 import CustomerService from "../pages/my/myNav/customerService/CustomerService.jsx";
 import AboutTeam from "../pages/information/AboutTeam.jsx";
 import BuisnessLicense from "../pages/information/BuisnessLicense.jsx";
@@ -17,6 +16,7 @@ import AboutWithdrawal from "../pages/information/AboutWithdrawal.jsx";
 import TermsAndPolicy from "../pages/information/TermsAndPolicy.jsx";
 import Recharge from "../pages/my/myNav/wallet/Recharge.jsx";
 import Withdraw from "../pages/my/myNav/wallet/Withdraw.jsx";
+import Invitation from "../pages/my/myOption/Invitation.jsx";
 import BindUsdt from "../pages/my/myOption/BindUsdt.jsx";
 import Team from "../pages/my/myOption/team/Team.jsx";
 import Set from "../pages/my/myOption/set/Set.jsx";
@@ -100,11 +100,11 @@ const router = createBrowserRouter([
             element: <Wallet />,
           },
           {
-            path: "/my/wallet/recharge",
+            path: "/my/recharge",
             element: <Recharge />,
           },
           {
-            path: "/my/wallet/withdraw",
+            path: "/my/withdraw",
             element: <Withdraw />,
           },
           {
