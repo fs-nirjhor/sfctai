@@ -1,10 +1,11 @@
+import { toast } from "react-toastify";
 import { authApi } from "./axiosApi";
 
 const userLoader = async () => {
   const getUser = async () => {
     let user;
     try {
-      document.getElementById("loading-alert")?.showModal();
+      toast.loading("Authenticating...", {autoClose: false, toastId: "user-loading"});
       // Get the logged in user
       const loggedUser = await authApi.get("protected-route");
       if (loggedUser.data?.payload.access) {
@@ -14,10 +15,10 @@ const userLoader = async () => {
         const refreshedUser = await authApi.get("refresh-token");
         user = refreshedUser.data?.payload.user;
       }
-      document.getElementById("loading-alert")?.close();
+      toast.dismiss("user-loading");
       return user;
     } catch (err) {
-      document.getElementById("loading-alert")?.close();
+      toast.dismiss("user-loading");
       return false;
     }
   };

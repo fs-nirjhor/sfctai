@@ -1,9 +1,9 @@
 import moment from "moment";
 import { useRouteLoaderData } from "react-router-dom";
 
-const TeamMember = ({ id }) => {
+const TeamMember = ({ levelId }) => {
   const user = useRouteLoaderData("user");
-  const level = "level" + id;
+  const level = "level" + levelId;
   return (
     <article className="mt-5">
       {!user.team[level].length ? (

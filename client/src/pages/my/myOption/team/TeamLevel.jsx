@@ -19,7 +19,7 @@ const TeamLevel = () => {
                 </button>
                 )}
             </nav>
-             <TeamMember id={level}/>
+             <TeamMember levelId={level}/>
         </article>
     );
 };
