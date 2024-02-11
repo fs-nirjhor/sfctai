@@ -22,7 +22,7 @@ import Team from "../pages/my/myOption/team/Team.jsx";
 import Set from "../pages/my/myOption/set/Set.jsx";
 import SetWithdrawalPassword from "../pages/my/myOption/set/SetWithdrawalPassword.jsx";
 import SetLoginPassword from "../pages/my/myOption/set/SetLoginPassword.jsx";
-import SetInformation from "../pages/my/myOption/set/SetInformation.jsx";
+import SetAvatar from "../pages/my/myOption/set/SetAvatar.jsx";
 import OrderHistory from "../pages/my/myOption/OrderHistory.jsx";
 import FundHistory from "../pages/my/myOption/FundHistory.jsx";
 import Registration from "../pages/auth/Registration.jsx";
@@ -37,6 +37,7 @@ import SetConfiguration from "../pages/my/myOption/set/SetConfiguration.jsx";
 import configurationLoader from "./configurationLoader.js";
 import ClientList from "../pages/my/myOption/clients/ClientList.jsx";
 import Client from "../pages/my/myOption/clients/Client.jsx";
+import SetName from "../pages/my/myOption/set/SetName.jsx";
 
 const router = createBrowserRouter([
   {
@@ -148,8 +149,8 @@ const router = createBrowserRouter([
             element: <Set />,
           },
           {
-            path: "/my/set/information",
-            element: <SetInformation />,
+            path: "/my/set/avatar",
+            element: <SetAvatar />,
           },
           {
             path: "/my/set/login-password",
@@ -158,6 +159,10 @@ const router = createBrowserRouter([
           {
             path: "/my/set/withdrawal-password",
             element: <SetWithdrawalPassword />,
+          },
+          {
+            path: "/my/set/name",
+            element: <SetName />,
           },
           {
             element: <AdminRoute />,

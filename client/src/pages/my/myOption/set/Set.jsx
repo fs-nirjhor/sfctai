@@ -4,13 +4,13 @@ import { Link, useRouteLoaderData } from "react-router-dom";
 const Set = () => {
   const user = useRouteLoaderData("user");
   return (
-    <article>
+    <article className="font-serif">
       <h1 className="text-lg font-semibold text-center pt-2 mb-5">Set</h1>
       <Link
-        to="information"
+        to="avatar"
         className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
       >
-        <p>Modify Information</p>
+        <p>Modify Avatar</p>
         <IoChevronForward />
       </Link>
       <Link
@@ -25,6 +25,13 @@ const Set = () => {
         className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
       >
         <p>Modify Withdrawal Password</p>
+        <IoChevronForward />
+      </Link>
+      <Link
+        to="name"
+        className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
+      >
+        <p>Modify Name</p>
         <IoChevronForward />
       </Link>
       {user.isAdmin && (
