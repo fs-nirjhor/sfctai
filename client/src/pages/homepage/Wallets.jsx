@@ -7,8 +7,8 @@ const Wallets = () => {
     "/images/wallet/binance.png",
     "/images/wallet/huobi.png",
     "/images/wallet/kucoin.png",
-    "/images/wallet/coinbase.jpeg",
-    "/images/wallet/okex.jpeg",
+    "/images/wallet/coinbase.png",
+    "/images/wallet/okex.png",
   ];
   const settings = {
     dots: false,
