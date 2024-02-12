@@ -44,7 +44,7 @@ const Start = () => {
         >
           <source src="/videos/tradeVideo.mp4" type="video/mp4" />
         </video>
-        <article className="absolute w-full grid grid-cols-2 gap-4 text-center font-serif lining-nums">
+        <article className="absolute w-full grid grid-cols-2 gap-4 text-center font-serif">
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
             <h5 className="text-sm">Balance</h5>
             <p className="font-semibold text-white">

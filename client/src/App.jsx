@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-      <main className="max-w-4xl mx-auto">
+      <main className="max-w-4xl mx-auto font-serif lining-nums">
         <div className="container mx-auto text-justify">
         <Outlet />
         <ToastContainer
