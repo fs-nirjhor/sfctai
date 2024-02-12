@@ -13,8 +13,8 @@ const ChatList = () => {
           return (
             <Link
               to={chat.client?._id}
-              className={`flex justify-start gap-5 p-3 border-b-2 border-b-mySecondary text-black hover:bg-myPrimary ${
-                chat.isSeen ? "bg-white" : "bg-mySecondary"
+              className={`flex justify-start gap-5 p-3 mb-2 rounded text-black hover:bg-myPrimary ${
+                chat.isSeen ? "bg-white" : "bg-gray-400"
               }`}
               key={i}
               onClick={async () =>

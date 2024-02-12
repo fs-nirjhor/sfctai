@@ -1,4 +1,4 @@
-import { MdOutlineVerifiedUser, MdSupportAgent } from "react-icons/md";
+import { MdOutlineVerifiedUser } from "react-icons/md";
 import { GiSwapBag } from "react-icons/gi";
 import { PiExcludeSquareDuotone } from "react-icons/pi";
 import { GoPeople } from "react-icons/go";
@@ -6,10 +6,8 @@ import { GoGear } from "react-icons/go";
 import { BsDownload } from "react-icons/bs";
 import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
-import { useRouteLoaderData } from "react-router-dom";
 
 const MyOptionData = () => {
-  const user = useRouteLoaderData("user");
   const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
 
   const clientOptions = [
@@ -17,11 +15,6 @@ const MyOptionData = () => {
       name: "Invitation Letter",
       to: "invitation",
       icon: <BsEnvelopePaperHeart className={iconStyle} />,
-    },
-    {
-      name: "Customer Service",
-      to: user.isAdmin ? "chat" : `chat/${user._id}`,
-      icon: <MdSupportAgent className={iconStyle} />,
     },
     {
       name: "TXID Submit",
@@ -70,11 +63,6 @@ const MyOptionData = () => {
       name: "Invitation Letter",
       to: "invitation",
       icon: <BsEnvelopePaperHeart className={iconStyle} />,
-    },
-    {
-      name: "Customer Service",
-      to: user.isAdmin ? "chat" : `chat/${user._id}`,
-      icon: <MdSupportAgent className={iconStyle} />,
     },
     {
       name: "Trade history",
