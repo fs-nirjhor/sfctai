@@ -10,6 +10,7 @@ const FundHistory = () => {
   const navigate = useNavigate();
   const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const [nav, setNav] = useState("all");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -75,6 +76,11 @@ const FundHistory = () => {
     }
   };
 
+  const handleNavigation = (data, navBtn) => {
+    setTransactions(data);
+    setNav(navBtn)
+  }
+
   // styles
   const navStyle = "py-3 px-2 rounded w-full";
   const activeNavStyle = "bg-primary text-white";
@@ -84,40 +90,35 @@ const FundHistory = () => {
   ) : (
     <section className="pb-20">
       <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
+      {/* fund nav */}
       <div className="bg-mySecondary grid grid-cols-3 justify-between mb-3 text-center rounded">
         <span
-          className={`${navStyle} ${
-            transactions[0] == allTransactions[0] &&
-            transactions.length == allTransactions.length &&
+          className={`${navStyle} ${nav == "all" &&
             activeNavStyle
           }`}
-          onClick={() => setTransactions(allTransactions)}
+          onClick={() => handleNavigation(allTransactions, "all")}
         >
           Total Fund
         </span>
 
         <span
-          className={`${navStyle} ${
-            transactions[0] == rechargeTransactions[0] &&
-            transactions.length == rechargeTransactions.length &&
+          className={`${navStyle} ${nav == "recharge" &&
             activeNavStyle
           }`}
-          onClick={() => setTransactions(rechargeTransactions)}
+          onClick={() => handleNavigation(rechargeTransactions, "recharge")}
         >
           Recharge
         </span>
         <span
-          className={`${navStyle} ${
-            transactions[0] == withdrawTransactions[0] &&
-            transactions.length == withdrawTransactions.length &&
+          className={`${navStyle} ${nav == "withdraw" &&
             activeNavStyle
           }`}
-          onClick={() => setTransactions(withdrawTransactions)}
+          onClick={() => handleNavigation(withdrawTransactions, "withdraw")}
         >
           Withdraw
         </span>
       </div>
-
+      {/* fund list */}
       <div className="bg-white rounded shadow">
         {!transactions.length ? <p className="text-gray-400 text-center p-5 h-screen">No fund history</p> : transactions.map((transaction) => {
           const createdDate = moment(transaction.createdAt).format(
