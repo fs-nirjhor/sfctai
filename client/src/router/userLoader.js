@@ -8,7 +8,7 @@ const userLoader = async () => {
       toast.loading("Authenticating...", {autoClose: false, toastId: "user-loading"});
       // Get the logged in user
       const loggedUser = await authApi.get("protected-route");
-      if (loggedUser.data?.payload.access) {
+      if (loggedUser.data?.success) {
         user = loggedUser.data?.payload.user;
       } else {
         // handle 15 days inactivity

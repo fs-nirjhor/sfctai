@@ -22,25 +22,32 @@ const handleLogin = async (req, res, next) => {
     //? is user exist
     const user = await findOneItem(User, { phone });
 
+    //? is user banned
+    if (user.isBanned) {
+      throw createHttpError(403, "This account is banned");
+    }
+
     //? is login password matched
     const isMatch = await bcrypt.compare(password, user.loginPassword);
     if (!isMatch) {
       throw createHttpError(403, "Wrong password");
     }
 
-    //? is user banned
-    if (user.isBanned) {
-      throw createHttpError(403, "This account is banned");
-    }
+    const tokenData = {
+      id: user._id,
+      password: user.loginPassword,
+      isAdmin: user.isAdmin,
+    };
+
     // set access token
-    const accessToken = await createJwt(user, jwtAccessKey, "3d");
+    const accessToken = await createJwt(tokenData, jwtAccessKey, "3d");
     setAccessTokenCookie(res, accessToken);
 
     // set refresh token
-    const refreshToken = await createJwt(user, jwtRefreshKey, "15d");
+    const refreshToken = await createJwt(tokenData, jwtRefreshKey, "15d");
     setRefreshTokenCookie(res, refreshToken);
 
-    // prevent showing password in payload. user from database is not a pure object
+    // prevent showing password in payload. user from database is not a pure object without lean
     delete user.password;
     return successResponse(res, {
       statusCode: 200,
@@ -80,20 +87,31 @@ const handleRefreshToken = async (req, res, next) => {
     if (!decoded) {
       throw createHttpError(401, "Refresh token is invalid or expired");
     }
+
+    // get user information
+    const options = {
+      populate: {
+        path: "invitedBy team.level1 team.level2 team.level3",
+        model: "User",
+      },
+      loginPassword: 0,
+      withdrawalPassword: 0,
+    };
+    const user = await findItemById(User, decoded._id, {}, options);
+
+    const tokenData = {
+      id: user._id,
+      password: user.loginPassword,
+      isAdmin: user.isAdmin,
+    };
     // set access token
-    const accessToken = await createJwt(decoded, jwtAccessKey, "3d");
+    const accessToken = await createJwt(tokenData, jwtAccessKey, "3d");
     setAccessTokenCookie(res, accessToken);
 
     // set refresh token
-    const refreshToken = await createJwt(decoded, jwtRefreshKey, "15d");
+    const refreshToken = await createJwt(tokenData, jwtRefreshKey, "15d");
     setRefreshTokenCookie(res, refreshToken);
 
-    const options = {
-      populate: { path: "invitedBy team.level1 team.level2 team.level3", model: "User" },
-      loginPassword: 0,
-      withdrawalPassword: 0
-    };
-    const user = await findItemById(User, decoded._id, {}, options);
     return successResponse(res, {
       statusCode: 200,
       message: "Refreshed token successfully",
@@ -115,17 +133,23 @@ const handleProtectedRoute = async (req, res, next) => {
       throw createHttpError(401, "Access token is invalid or expired");
     }
     const options = {
-      populate: { path: "invitedBy team.level1 team.level2 team.level3",populate: {
-        path: 'invitedBy team.level1 team.level2 team.level3',
-      }, model: "User" },
+      populate: {
+        path: "invitedBy team.level1 team.level2 team.level3",
+        populate: {
+          path: "invitedBy team.level1 team.level2 team.level3",
+        },
+        model: "User",
+      },
       loginPassword: 0,
-      withdrawalPassword: 0
+      withdrawalPassword: 0,
     };
-    const user = await findItemById(User, decoded._id, {}, options);
+
+    const user = await findItemById(User, decoded.id, {}, options);
+
     return successResponse(res, {
       statusCode: 200,
-      message: "Accessed successfully",
-      payload: { access: true, user },
+      message: "Authenticated successfully",
+      payload: { user },
     });
   } catch (error) {
     return next(error);

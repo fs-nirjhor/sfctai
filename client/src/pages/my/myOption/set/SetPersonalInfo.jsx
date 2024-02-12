@@ -18,7 +18,7 @@ const SetPersonalInfo = () => {
     try {
       const res = await userApi.put(user._id,  updates );
       res.data?.success &&
-        toast.success("Updated successfully")
+      toast.success("Updated successfully")
       window.location.reload();
     } catch (err) {
         if (err.response.data.message) {
