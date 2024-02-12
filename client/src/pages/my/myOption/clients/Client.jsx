@@ -142,7 +142,7 @@ const Client = () => {
         <figure className="avatar w-full">
           <div
             className={`w-24 h-24 mx-auto rounded-full ring ${
-              client.transaction?.balance >= 10
+              client.transaction?.balance >= 10 || client.transaction?.isOrderPending 
                 ? "ring-myPrimary"
                 : "ring-mySecondary"
             }`}

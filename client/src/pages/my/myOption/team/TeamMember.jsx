@@ -28,7 +28,7 @@ const TeamMember = ({ levelId }) => {
                   <span className="me-3">ID: {member.userId}</span>
                   <span
                     className={
-                      member.transaction?.balance >= 10 ? "text-myPrimary" : ""
+                      member.transaction?.balance >= 10 || member.transaction?.isOrderPending ? "text-myPrimary" : ""
                     }
                   >Name: {member.name}
                   </span>

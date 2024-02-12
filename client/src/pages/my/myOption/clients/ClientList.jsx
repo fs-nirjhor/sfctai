@@ -55,7 +55,7 @@ const ClientList = () => {
               to={`/client/${client.userId}`}
               key={client._id}
               className={`hover:bg-mySecondary p-2 border-b-2 block shadow-sm ${
-                client.transaction?.balance >= 10
+                client.transaction?.balance >= 10 || client.transaction?.isOrderPending
                   ? "text-myPrimary"
                   : "text-black"
               }`}

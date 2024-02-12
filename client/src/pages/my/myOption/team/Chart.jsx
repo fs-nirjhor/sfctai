@@ -9,7 +9,7 @@ const Chart = () => {
   const countActiveMembers = (level) => {
     let activeMembersCount = 0;
     team[level].forEach((member) => {
-      if (member.transaction?.balance >= 10) {
+      if (member.transaction?.balance >= 10 || member.transaction?.isOrderPending) {
         activeMembersCount++;
       }
     });
