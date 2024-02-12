@@ -1,36 +1,43 @@
 import Slider from "react-slick";
 
 const Bannar = () => {
-  const bannars = [
-    "/images/bannar/bannar1.jpg",
-    "/images/bannar/bannar2.jpg",
-    "/images/bannar/bannar3.jpg",
-    "/images/bannar/bannar4.jpg",
-    "/images/bannar/bannar5.jpg",
-    "/images/bannar/bannar6.jpg",
-  ];
+
   const settings = {
-    dots: false,
+    dots: true,
     arrows: false,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
   };
+  const bannarStyle = "w-full aspect-video object-cover rounded";
   return (
     <section>
       <Slider {...settings}>
-        {bannars.map((bannar, i) => (
-          <figure key={i}>
+      <video
+          className={bannarStyle}
+          autoPlay
+          loop
+          muted
+        >
+          <source src="/videos/homepageVideo.mp4" type="video/mp4" />
+        </video>
+          <figure >
             <img
-              src={bannar}
-              className="h-48 w-full rounded-box"
+              src="/images/bannar/bannar1.jpg"
+              className={bannarStyle}
               alt="bannar"
             />
           </figure>
-        ))}
+          <figure >
+            <img
+              src="/images/bannar/bannar2.jpg"
+              className={bannarStyle}
+              alt="bannar"
+            />
+          </figure>
       </Slider>
     </section>
   );

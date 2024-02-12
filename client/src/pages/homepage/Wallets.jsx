@@ -23,7 +23,7 @@ const Wallets = () => {
     cssEase: "linear",
   };
   return (
-    <section className="mt-10">
+    <section className="mt-3">
       <Slider {...settings}>
         {wallets.map((wallet, i) => (
           <figure key={i} >

@@ -1,6 +1,6 @@
 const Headline = () => {
   return (
-    <section className="flex flex-row bg-white mx-5 p-2 mt-3 rounded">
+    <section className="flex flex-row bg-white p-2 mt-10 mx-3 rounded">
       <figure>
         <img src="/images/mike.png" alt="mike" className="w-10 me-5"/>
       </figure>
