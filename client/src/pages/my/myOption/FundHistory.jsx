@@ -10,7 +10,7 @@ const FundHistory = () => {
   const navigate = useNavigate();
   const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [nav, setNav] = useState("all");
+  const [activeNav, setActiveNav] = useState("all");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -76,9 +76,9 @@ const FundHistory = () => {
     }
   };
 
-  const handleNavigation = (data, navBtn) => {
+  const handleNavigation = (data, nav) => {
     setTransactions(data);
-    setNav(navBtn)
+    setActiveNav(nav)
   }
 
   // styles
@@ -93,7 +93,7 @@ const FundHistory = () => {
       {/* fund nav */}
       <div className="bg-mySecondary grid grid-cols-3 justify-between mb-3 text-center rounded">
         <span
-          className={`${navStyle} ${nav == "all" &&
+          className={`${navStyle} ${activeNav == "all" &&
             activeNavStyle
           }`}
           onClick={() => handleNavigation(allTransactions, "all")}
@@ -102,7 +102,7 @@ const FundHistory = () => {
         </span>
 
         <span
-          className={`${navStyle} ${nav == "recharge" &&
+          className={`${navStyle} ${activeNav == "recharge" &&
             activeNavStyle
           }`}
           onClick={() => handleNavigation(rechargeTransactions, "recharge")}
@@ -110,7 +110,7 @@ const FundHistory = () => {
           Recharge
         </span>
         <span
-          className={`${navStyle} ${nav == "withdraw" &&
+          className={`${navStyle} ${activeNav == "withdraw" &&
             activeNavStyle
           }`}
           onClick={() => handleNavigation(withdrawTransactions, "withdraw")}
