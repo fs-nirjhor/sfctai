@@ -51,10 +51,6 @@ const FundHistory = () => {
     (transaction) => transaction.category == "Withdraw"
   );
 
-  // styles
-  const navStyle = "w-full px-2";
-  const activeNavStyle = "border-b-4 border-myPrimary";
-
   const handleClick = (userId) => {
     if (user.isAdmin) {
       navigate(`/client/${userId}`);
@@ -79,12 +75,16 @@ const FundHistory = () => {
     }
   };
 
+  // styles
+  const navStyle = "py-3 px-2 rounded w-full";
+  const activeNavStyle = "bg-primary text-white";
+
   return loading ? (
     <Loading />
   ) : (
     <section className="pb-20">
       <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
-      <div className="bg-mySecondary flex justify-between p-2 text-center mb-2">
+      <div className="bg-mySecondary grid grid-cols-3 justify-between gap-2 mb-3 text-center rounded">
         <span
           className={`${navStyle} ${
             transactions[0] == allTransactions[0] &&
