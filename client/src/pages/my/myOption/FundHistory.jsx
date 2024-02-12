@@ -117,7 +117,8 @@ const FundHistory = () => {
           Withdraw
         </span>
       </div>
-      <div>
+
+      <div className="bg-white rounded shadow">
         {transactions.map((transaction) => {
           const createdDate = moment(transaction.createdAt).format(
             "DD/MM/YYYY HH:mm:ss"
