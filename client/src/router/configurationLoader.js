@@ -7,16 +7,17 @@ const configurationLoader = async () => {
           toast.loading("Configuring...", {autoClose: false, toastId: "configuration-loading"});
           // Get the site configuration
           const response = await configurationApi.get();
+          toast.dismiss("configuration-loading");
           if (response.data?.success) {
             const configuration = response.data?.payload.configuration; 
-            toast.dismiss("configuration-loading");
             return configuration;
           } else {
-            toast.update("configuration-loading", { render: "Configuration failed", type: "error", isLoading: false });
+            toast.error("Configuration failed")
             return null;
           }
         } catch (err) {
-          toast.update("configuration-loading", { render: err.message, type: "error", isLoading: false });
+          toast.dismiss("configuration-loading");
+          toast.error(err.message);
          return null;
         }
       }
