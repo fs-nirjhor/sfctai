@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TeamMember from "./TeamMember";
 
-const TeamLevel = () => {
+const TeamLevel = ({user}) => {
   const [level, setLevel] = useState('1');
   const levels = ['1','2','3'];
   const activeButton = "btn btn-warning bg-myPrimary text-white font-semibold"
@@ -19,7 +19,7 @@ const TeamLevel = () => {
                 </button>
                 )}
             </nav>
-             <TeamMember levelId={level}/>
+             <TeamMember levelId={level} user={user}/>
         </article>
     );
 };

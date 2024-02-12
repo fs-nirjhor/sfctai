@@ -1,8 +1,6 @@
 import moment from "moment";
-import { useRouteLoaderData } from "react-router-dom";
 
-const TeamMember = ({ levelId }) => {
-  const user = useRouteLoaderData("user");
+const TeamMember = ({ levelId, user }) => {
   const level = "level" + levelId;
   return (
     <article className="mt-5">
@@ -20,7 +18,7 @@ const TeamMember = ({ levelId }) => {
             >
               <figure className="avatar">
                 <div className="h-16">
-                  <img src="/images/avatar/avatar5.png" alt="avatar" />
+                  <img src="/images/avatar/teamAvatar.png" alt="avatar" />
                 </div>
               </figure>
               <div className="card-body py-3">

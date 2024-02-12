@@ -4,7 +4,7 @@ import MyOption from "./myOption/MyOption";
 
 const My = () => {
   return (
-    <section>
+    <section >
       <MyProfile />
       <MyNav />
       <MyOption />

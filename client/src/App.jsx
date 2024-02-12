@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <main className="max-w-4xl mx-auto">
-        <div className="container mx-auto px-4 text-justify">
+        <div className="container mx-auto text-justify">
         <Outlet />
         <ToastContainer
           position="top-center"

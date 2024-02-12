@@ -51,7 +51,6 @@ const Client = () => {
     };
     getClient();
   }, [userId, client._id]);
-
   const handleApproveRecharge = async (transactionId) => {
     event.preventDefault();
     try {
@@ -131,8 +130,8 @@ const Client = () => {
       document.getElementById("client-error").showModal();
     }
   };
-  const doubleDataStyle = "grid grid-cols-2 p-2";
-  const formBoxStyle = "p-2";
+  const doubleBoxStyle = "grid grid-cols-2 p-2";
+  const singleBoxStyle = "p-2";
   return loading ? (
     <Loading />
   ) : (
@@ -167,35 +166,45 @@ const Client = () => {
         </div>
         <section className="bg-mySecondary w-full mt-10 p-2 rounded">
           {/* header */}
-          <div className={doubleDataStyle}>
+          <div className={doubleBoxStyle}>
             <span>About</span>
             <span>Transaction</span>
           </div>
           {/* name - balance */}
-          <div className={doubleDataStyle}>
+          <div className={doubleBoxStyle}>
             <div className="overflow-x-auto">Name: {client.name}</div>
             <div>Balance: {client.transaction.balance.toFixed(2)}</div>
           </div>
           {/* phone - income */}
-          <div className={doubleDataStyle}>
+          <div className={doubleBoxStyle}>
             <div>Phone: {client.phone}</div>
             <div>Income: {client.transaction.totalIncome.toFixed(2)}</div>
           </div>
           {/* userid - recharge */}
-          <div className={doubleDataStyle}>
+          <div className={doubleBoxStyle}>
             <div>UserId: {client.userId}</div>
             <div>Recharge: {client.transaction.totalRecharge.toFixed(2)}</div>
           </div>
           {/* BINDING - WITHDRAW */}
-          <div className={doubleDataStyle}>
+          <div className={doubleBoxStyle}>
             <div className="overflow-x-auto">
               Binding Id: {client.trc20Address}
             </div>
             <div>Withdraw: {client.transaction.totalWithdraw.toFixed(2)}</div>
           </div>
+          {/* Team Status */}
+          <div className={singleBoxStyle}>
+          <Link
+            to="team"
+            className="btn btn-warning btn-sm text-white w-full"
+            state={client}
+          >
+            Team
+          </Link>
+          </div>
           {/* change phone */}
           <div>
-            <div className={formBoxStyle}>
+            <div className={singleBoxStyle}>
               <form
                 className="join w-full"
                 onSubmit={() => handleUpdate({ phone })}
@@ -219,7 +228,7 @@ const Client = () => {
           </div>
           {/* change binding id */}
           <div>
-            <div className={formBoxStyle}>
+            <div className={singleBoxStyle}>
               <form
                 className="join w-full"
                 onSubmit={() => handleUpdate({ trc20Address })}
@@ -243,7 +252,7 @@ const Client = () => {
           </div>
           {/* change login password */}
           <div>
-            <div className={formBoxStyle}>
+            <div className={singleBoxStyle}>
               <form
                 className="join w-full"
                 onSubmit={() => handleUpdate({ loginPassword })}
@@ -267,7 +276,7 @@ const Client = () => {
           </div>
           {/* change withdraw passwords */}
           <div>
-            <div className={formBoxStyle}>
+            <div className={singleBoxStyle}>
               <form
                 className="join w-full"
                 onSubmit={() => handleUpdate({ withdrawalPassword })}
@@ -291,7 +300,7 @@ const Client = () => {
           </div>
           {/* approve recharge */}
           <div>
-            <div className={formBoxStyle}>
+            <div className={singleBoxStyle}>
               <h3 className="mb-3">Pending Recharges</h3>
               {!pendingRecharge.length && (
                 <p className="text-center my-2">No recharge pending</p>
@@ -326,7 +335,7 @@ const Client = () => {
           </div>
           {/* bonus  */}
           <div>
-            <div className={formBoxStyle}>
+            <div className={singleBoxStyle}>
               <form className="join w-full" onSubmit={handleBonusAmount}>
                 <input
                   type="number"
