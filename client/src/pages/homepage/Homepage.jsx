@@ -4,9 +4,9 @@ import Wallets from "./Wallets";
 
 function Homepage() {
   return (
-    <section className="bg-[url('/images/bg/homeBg.jpg')] bg-no-repeat bg-center bg-origin-border bg-opacity-60">
+    <section className="bg-[url('/images/bg/homeBg.jpg')] bg-repeat-y bg-center bg-origin-border bg-scroll min-h-screen">
       <div className="pb-20">
-      <h1 className="font-semibold text-center pt-2 mb-5">STFAI</h1>
+      <h1 className="font-semibold text-center pt-2 mb-3">STFAI</h1>
       {/* <Bannar /> */}
       <video
         className="w-full aspect-video object-cover rounded"

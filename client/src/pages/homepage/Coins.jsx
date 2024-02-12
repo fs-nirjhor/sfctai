@@ -53,7 +53,7 @@ const Coins = () => {
                 <td>{priceUsd}</td>
                 <td
                   className={`${
-                    changePercent24Hr > 0 ? "text-green-700" : "text-red-500"
+                    changePercent24Hr > 0 ? "text-green-700" : "text-red-700"
                   }`}
                 >
                   {changePercent24Hr}%
