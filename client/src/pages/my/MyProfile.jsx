@@ -5,7 +5,7 @@ const MyProfile = () => {
   const {transaction} = user;
   const balance = transaction.balance.toFixed(2);
   return (
-    <article className="card card-side mt-3 px-2 bg-white">
+    <article className="card card-side mt-3 px-2">
       <figure className="avatar">
         <div className="h-24">
           <img src={user.avatar} alt="avatar" />
