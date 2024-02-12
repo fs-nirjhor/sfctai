@@ -28,10 +28,10 @@ const Set = () => {
         <IoChevronForward />
       </Link>
       <Link
-        to="name"
+        
         className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
       >
-        <p>Modify Name</p>
+        <p>Modify Personal Info</p>
         <IoChevronForward />
       </Link>
       {user.isAdmin && (

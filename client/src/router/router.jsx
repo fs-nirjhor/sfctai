@@ -37,7 +37,7 @@ import SetConfiguration from "../pages/my/myOption/set/SetConfiguration.jsx";
 import configurationLoader from "./configurationLoader.js";
 import ClientList from "../pages/my/myOption/clients/ClientList.jsx";
 import Client from "../pages/my/myOption/clients/Client.jsx";
-import SetName from "../pages/my/myOption/set/SetName.jsx";
+import SetPersonalInfo from "../pages/my/myOption/set/setPersonalInfo.jsx";
 
 const router = createBrowserRouter([
   {
@@ -149,6 +149,10 @@ const router = createBrowserRouter([
             element: <Set />,
           },
           {
+            path: "/my/set/info",
+            element: <SetPersonalInfo />,
+          },
+          {
             path: "/my/set/avatar",
             element: <SetAvatar />,
           },
@@ -159,10 +163,6 @@ const router = createBrowserRouter([
           {
             path: "/my/set/withdrawal-password",
             element: <SetWithdrawalPassword />,
-          },
-          {
-            path: "/my/set/name",
-            element: <SetName />,
           },
           {
             element: <AdminRoute />,
