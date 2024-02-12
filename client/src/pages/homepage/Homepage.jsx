@@ -8,7 +8,7 @@ function Homepage() {
       <h1 className="font-semibold text-center pt-2 mb-5">STFAI</h1>
       {/* <Bannar /> */}
       <video
-        className="w-full aspect-[5/2] object-cover rounded"
+        className="w-full aspect-video object-cover rounded"
         autoPlay
         loop
         muted
