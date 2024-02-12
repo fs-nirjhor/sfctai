@@ -190,7 +190,12 @@ const handleGetUser = async (req, res, next) => {
     const id = req.params.id;
     const filter = { userId: id };
     const select = { loginPassword: 0, withdrawPassword: 0 };
-    const user = await findOneItem(User, filter, select);
+    const options = {
+      populate: { path: "invitedBy team.level1 team.level2 team.level3", model: "User" },
+      loginPassword: 0,
+      withdrawalPassword: 0
+    };
+    const user = await findOneItem(User, filter, select, options);
     return successResponse(res, {
       statusCode: 200,
       message: "User returned successfully",
