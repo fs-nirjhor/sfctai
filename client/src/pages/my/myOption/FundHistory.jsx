@@ -84,7 +84,7 @@ const FundHistory = () => {
   ) : (
     <section className="pb-20">
       <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
-      <div className="bg-mySecondary grid grid-cols-3 justify-between gap-2 mb-3 text-center rounded">
+      <div className="bg-mySecondary grid grid-cols-3 justify-between mb-3 text-center rounded">
         <span
           className={`${navStyle} ${
             transactions[0] == allTransactions[0] &&
@@ -119,7 +119,7 @@ const FundHistory = () => {
       </div>
 
       <div className="bg-white rounded shadow">
-        {transactions.map((transaction) => {
+        {!transactions.length ? <p className="text-gray-400 text-center p-5 h-screen">No fund history</p> : transactions.map((transaction) => {
           const createdDate = moment(transaction.createdAt).format(
             "DD/MM/YYYY HH:mm:ss"
           );
