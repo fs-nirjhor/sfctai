@@ -34,7 +34,7 @@ const Coins = () => {
   return loading ? (
     <Loading />
   ) : (
-    <figure className="mt-3">
+    <figure className="mt-2">
       <table className="table text-center font-semibold">
         <tbody>
           {coins.map((coin) => {
