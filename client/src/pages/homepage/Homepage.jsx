@@ -4,7 +4,8 @@ import Wallets from "./Wallets";
 
 function Homepage() {
   return (
-    <section className="pb-20 bg-[url('/images/bg/homeBg.jpg')] bg-no-repeat bg-center bg-origin-border bg-opacity-60">
+    <section className="bg-[url('/images/bg/homeBg.jpg')] bg-no-repeat bg-center bg-origin-border bg-opacity-60">
+      <div className="pb-20">
       <h1 className="font-semibold text-center pt-2 mb-5">STFAI</h1>
       {/* <Bannar /> */}
       <video
@@ -18,6 +19,7 @@ function Homepage() {
 
       <Wallets />
       <Coins />
+      </div>
     </section>
   );
 }

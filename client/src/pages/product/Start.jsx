@@ -37,7 +37,7 @@ const Start = () => {
       </figure>
       <div className="relative my-5 h-[24rem]">
         <video
-          className="w-full h-full rounded-md absolute inset-0 object-cover opacity-70"
+          className="w-full h-full rounded-md absolute inset-0 object-cover"
           autoPlay
           loop
           muted
