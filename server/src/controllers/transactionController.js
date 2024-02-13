@@ -30,14 +30,23 @@ const handleGetTransaction = async (req, res, next) => {
   }
 };
 
-const handleRechargeRequest = async (req, res, next) => {
+const handleAddTransaction = async (req, res, next) => {
   try {
     const { transaction } = req.body;
+
+    // validate transaction
+    if (transaction.category === "Recharge"){
+      const allTransaction = await Transaction.exists({credential: transaction.credential});
+      if (allTransaction) {
+       throw createHttpError(409,"TXID already submitted");
+      }
+    }
+
     // add new transaction
     const newTransaction = await createItem(Transaction, transaction);
 
     if (!newTransaction) {
-      throw createHttpError(`Failed to ${newTransaction.category}`);
+      throw createHttpError(400,`Failed to ${newTransaction.category}`);
     }
 
     return successResponse(res, {
@@ -63,7 +72,6 @@ const handleAddRecharge = async (req, res, next) => {
     };
 
     // approve transaction
-
     if (transactionId) {
       await updateItemById(
         Transaction,
@@ -327,7 +335,7 @@ const handleApproveTransaction = async (req, res, next) => {
 };
 
 module.exports = {
-  handleRechargeRequest,
+  handleAddTransaction,
   handleAddRecharge,
   handleWithdrawalRequest,
   handleOrderRequest,

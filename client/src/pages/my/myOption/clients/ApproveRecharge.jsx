@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
 
-const ApproveRecharge = ({client}) => {
+const ApproveRecharge = ({id}) => {
   const [pendingRecharge, setPendingRecharge] = useState([]);
   const [approveRechargeAmount, setApproveRechargeAmount] = useState("");
 
@@ -11,33 +11,34 @@ const ApproveRecharge = ({client}) => {
       try {
         // get pending recharges
         const filter = {
-          client: client._id,
+          client: id,
           isApproved: false,
           category: "Recharge",
         };
+        toast.loading("Approving...", {toastId: "approve-recharge-loading"});
         const pendingRechargeData = await transactionApi.post("", { filter });
+        toast.dismiss("approve-recharge-loading");
         if (pendingRechargeData.data?.success) {
           setPendingRecharge(pendingRechargeData.data.payload.allTransaction);
-          setLoading(false);
         }
       } catch (err) {
+        toast.dismiss("approve-recharge-loading");
         if (err.response.data.message) {
           toast.error(err.response.data.message); // error sent by server
         } else {
           toast.error(err.message); // other error
         }
-        document.getElementById("client-error").showModal();
       }
     };
     getPendingRecharge();
-  }, [client._id]);
+  }, [id]);
 
   const handleApproveRecharge = async (transactionId) => {
     event.preventDefault();
     try {
       // recharge data
       const recharge = {
-        client: client._id,
+        client: id,
         amount: approveRechargeAmount,
         transactionId,
       };
@@ -57,8 +58,8 @@ const ApproveRecharge = ({client}) => {
   };
 
   return (
-       < >
-              <h3 className="mb-3">Pending Recharges</h3>
+       <div >
+              <h3 className="mb-3 font-semibold">Pending Recharges:</h3>
               {!pendingRecharge.length && (
                 <p className="text-center my-2">No recharge pending</p>
               )}
@@ -75,7 +76,6 @@ const ApproveRecharge = ({client}) => {
                       type="number"
                       placeholder="Enter amount"
                       className="input input-sm input-bordered border-myPrimary join-item w-4/6"
-                      value={approveRechargeAmount}
                       onChange={(e) => setApproveRechargeAmount(e.target.value)}
                       required
                     />
@@ -88,7 +88,7 @@ const ApproveRecharge = ({client}) => {
                   </form>
                 </div>
               ))}
-            </>
+            </div>
   )
 }
 export default ApproveRecharge

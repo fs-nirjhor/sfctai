@@ -43,14 +43,6 @@ const TxidSubmit = () => {
       <h1 className="font-semibold text-center pt-2 mb-5">TXID Submit</h1>
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
-          {/* <input
-            type="number"
-            placeholder="Enter your recharge amount"
-            name="txid"
-            className="input bg-mySecondary w-full max-w-md text-center mb-3"
-            onChange={(e) => setAmount(e.target.value)}
-            required
-          /> */}
           <input
             type="text"
             placeholder="Enter your TXID"

@@ -4,7 +4,7 @@ import { configurationApi } from "./axiosApi";
 const configurationLoader = async () => {
       const getConfiguration = async () => {
         try {
-          toast.loading("Configuring...", {autoClose: false, toastId: "configuration-loading"});
+          toast.loading("Configuring...", {toastId: "configuration-loading"});
           // Get the site configuration
           const response = await configurationApi.get();
           toast.dismiss("configuration-loading");

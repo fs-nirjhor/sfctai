@@ -5,7 +5,7 @@ const userLoader = async () => {
   const getUser = async () => {
     let user;
     try {
-      toast.loading("Authenticating...", {autoClose: false, toastId: "user-loading"});
+      toast.loading("Authenticating...", {toastId: "user-loading"});
       // Get the logged in user
       const loggedUser = await authApi.get("protected-route");
       if (loggedUser.data?.success) {

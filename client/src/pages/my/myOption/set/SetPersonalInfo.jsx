@@ -12,9 +12,10 @@ const SetPersonalInfo = () => {
 
   const handleClick = async (updates) => {
     event.preventDefault();
-    toast.loading("Updating...", {autoClose: false, toastId: "update-info-loading"});
     try {
+      toast.loading("Updating...", {toastId: "update-info-loading"});
       const res = await userApi.put(user._id,  updates );
+      toast.dismiss("update-info-loading");
       if(res.data?.success) {
         setName("")
         setPhone("")
@@ -22,13 +23,13 @@ const SetPersonalInfo = () => {
         toast.success("Updated successfully")
         }
     } catch (err) {
+      toast.dismiss("update-info-loading");
         if (err.response.data.message) {
             toast.error(err.response.data.message);
         } else {
             toast.error(err.message);
         }
     }
-    toast.dismiss("update-info-loading");
   };
   
   const inputStyle =

@@ -5,12 +5,11 @@ import { useEffect, useState } from "react";
 import { transactionApi, userApi } from "../../../../router/axiosApi";
 import AlertBox from "../../../shared/AlertBox";
 import DeleteConfirm from "./../set/DeleteConfirm";
+import ApproveRecharge from "./ApproveRecharge";
 
 const Client = () => {
   const { userId } = useParams();
   const [client, setClient] = useState({});
-  const [pendingRecharge, setPendingRecharge] = useState([]);
-  const [approveRechargeAmount, setApproveRechargeAmount] = useState("");
   const [bonusAmount, setBonusAmount] = useState("");
   const [trc20Address, setTrc20Address] = useState("");
   const [phone, setPhone] = useState("");
@@ -29,17 +28,6 @@ const Client = () => {
           setClient(userData.data.payload.user);
           setLoading(false);
         }
-        // get pending recharges
-        const filter = {
-          client: client._id,
-          isApproved: false,
-          category: "Recharge",
-        };
-        const pendingRechargeData = await transactionApi.post("", { filter });
-        if (pendingRechargeData.data?.success) {
-          setPendingRecharge(pendingRechargeData.data.payload.allTransaction);
-          setLoading(false);
-        }
       } catch (err) {
         if (err.response.data.message) {
           setError(err.response.data.message); // error sent by server
@@ -51,31 +39,6 @@ const Client = () => {
     };
     getClient();
   }, [userId, client._id]);
-  
-  const handleApproveRecharge = async (transactionId) => {
-    event.preventDefault();
-    try {
-      // recharge data
-      const recharge = {
-        client: client._id,
-        amount: approveRechargeAmount,
-        transactionId,
-      };
-      const response = await transactionApi.put("add-recharge", { recharge });
-      if (response.data?.success) {
-        document.getElementById("recharge-success").showModal();
-        setApproveRechargeAmount("");
-        window.location.reload();
-      }
-    } catch (err) {
-      if (err.response.data.message) {
-        setError(err.response.data.message); // error sent by server
-      } else {
-        setError(err.message); // other error
-      }
-      document.getElementById("client-error").showModal();
-    }
-  };
 
   const handleUpdate = async (update) => {
     event.preventDefault();
@@ -211,7 +174,7 @@ const Client = () => {
                 onSubmit={() => handleUpdate({ phone })}
               >
                 <input
-                  type="number"
+                  type="tel"
                   placeholder="Phone Number"
                   className="input input-sm input-bordered border-myPrimary join-item w-4/6"
                   value={phone}
@@ -235,7 +198,7 @@ const Client = () => {
                 onSubmit={() => handleUpdate({ trc20Address })}
               >
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Binding ID"
                   className="input input-sm input-bordered border-myPrimary join-item w-4/6"
                   value={trc20Address}
@@ -283,7 +246,7 @@ const Client = () => {
                 onSubmit={() => handleUpdate({ withdrawalPassword })}
               >
                 <input
-                  type="number"
+                  type="password"
                   placeholder="Withdrawal Password"
                   className="input input-sm input-bordered border-myPrimary join-item w-4/6"
                   value={withdrawalPassword}
@@ -321,41 +284,9 @@ const Client = () => {
             </div>
           </div>
           {/* approve recharge */}
-          <div>
-            <div className={singleBoxStyle}>
-              <h3 className="mb-3">Pending Recharges</h3>
-              {!pendingRecharge.length && (
-                <p className="text-center my-2">No recharge pending</p>
-              )}
-              {pendingRecharge.map((recharge) => (
-                <div key={recharge._id} className="mb-3">
-                  <p className="text-sm">
-                    Transaction ID: {recharge.credential}
-                  </p>
-                  <form
-                    className="join w-full"
-                    onSubmit={() => handleApproveRecharge(recharge._id)}
-                  >
-                    <input
-                      type="number"
-                      placeholder="Enter amount"
-                      className="input input-sm input-bordered border-myPrimary join-item w-4/6"
-                      value={approveRechargeAmount}
-                      onChange={(e) => setApproveRechargeAmount(e.target.value)}
-                      required
-                    />
-                    <button
-                      type="submit"
-                      className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
-                    >
-                      Approve
-                    </button>
-                  </form>
-                </div>
-              ))}
-            </div>
+          <div className={singleBoxStyle}>
+          <ApproveRecharge id={client._id}/>
           </div>
-          
         </section>
       </section>
       <DeleteConfirm id={client._id} />
