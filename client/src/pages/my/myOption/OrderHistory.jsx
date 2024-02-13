@@ -100,9 +100,3 @@ const FundHistory = () => {
   );
 };
 export default FundHistory;
-
-{/* <ul className="steps w-full mb-3">
-                  <li data-content="" className="step step-warning"></li>
-                  <li data-content="" className="step step-warning"></li>
-                  <li data-content="" className="step step-warning"></li>
-                </ul> */}

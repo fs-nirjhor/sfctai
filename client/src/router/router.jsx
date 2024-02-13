@@ -37,7 +37,7 @@ import SetConfiguration from "../pages/my/myOption/set/SetConfiguration.jsx";
 import configurationLoader from "./configurationLoader.js";
 import ClientList from "../pages/my/myOption/clients/ClientList.jsx";
 import Client from "../pages/my/myOption/clients/Client.jsx";
-import SetPersonalInfo from "../pages/my/myOption/set/setPersonalInfo.jsx";
+import SetPersonalInfo from "../pages/my/myOption/set/SetPersonalInfo.jsx";
 
 const router = createBrowserRouter([
   {

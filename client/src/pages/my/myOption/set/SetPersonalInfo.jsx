@@ -1,5 +1,4 @@
 import { useState } from "react";
-import AlertBox from "../../../shared/AlertBox";
 import { useRouteLoaderData } from "react-router-dom";
 import { userApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
@@ -31,6 +30,7 @@ const SetPersonalInfo = () => {
     }
     toast.dismiss("update-info-loading");
   };
+  
   const inputStyle =
     "input input-bordered input-sm border-myPrimary join-item w-4/6";
   const formStyle = "join shadow-md w-full mb-4";

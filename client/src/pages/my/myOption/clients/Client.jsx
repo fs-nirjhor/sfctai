@@ -51,6 +51,7 @@ const Client = () => {
     };
     getClient();
   }, [userId, client._id]);
+  
   const handleApproveRecharge = async (transactionId) => {
     event.preventDefault();
     try {
@@ -298,6 +299,27 @@ const Client = () => {
               </form>
             </div>
           </div>
+          {/* bonus  */}
+          <div>
+            <div className={singleBoxStyle}>
+              <form className="join w-full" onSubmit={handleBonusAmount}>
+                <input
+                  type="number"
+                  placeholder="Bonus Recharge"
+                  className="input input-sm input-bordered border-myPrimary join-item w-4/6"
+                  value={bonusAmount}
+                  onChange={(e) => setBonusAmount(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                >
+                  Bonus
+                </button>
+              </form>
+            </div>
+          </div>
           {/* approve recharge */}
           <div>
             <div className={singleBoxStyle}>
@@ -333,27 +355,7 @@ const Client = () => {
               ))}
             </div>
           </div>
-          {/* bonus  */}
-          <div>
-            <div className={singleBoxStyle}>
-              <form className="join w-full" onSubmit={handleBonusAmount}>
-                <input
-                  type="number"
-                  placeholder="Bonus Recharge"
-                  className="input input-sm input-bordered border-myPrimary join-item w-4/6"
-                  value={bonusAmount}
-                  onChange={(e) => setBonusAmount(e.target.value)}
-                  required
-                />
-                <button
-                  type="submit"
-                  className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
-                >
-                  Bonus
-                </button>
-              </form>
-            </div>
-          </div>
+          
         </section>
       </section>
       <DeleteConfirm id={client._id} />
