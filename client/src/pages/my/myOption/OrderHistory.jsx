@@ -49,7 +49,7 @@ const FundHistory = () => {
           return (
               <figure
                 key={order._id}
-                className="bg-mySecondary p-2 mb-2 rounded text-center"
+                className="bg-white p-2 mb-2 rounded text-center"
               >
                 <div className="flex justify-between mb-3">
                   <img src={image} alt={order.coin} className="h-10" />
