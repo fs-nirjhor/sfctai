@@ -7,10 +7,10 @@ const Set = () => {
     <article className="font-serif">
       <h1 className="font-semibold text-center pt-2 mb-5">Set</h1>
       <Link
-        to="avatar"
+        //to="info"
         className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
       >
-        <p>Modify Avatar</p>
+        <p>Modify Personal Info</p>
         <IoChevronForward />
       </Link>
       <Link
@@ -25,13 +25,6 @@ const Set = () => {
         className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
       >
         <p>Modify Withdrawal Password</p>
-        <IoChevronForward />
-      </Link>
-      <Link
-        //to="info"
-        className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
-      >
-        <p>Modify Personal Info</p>
         <IoChevronForward />
       </Link>
       {user.isAdmin && (

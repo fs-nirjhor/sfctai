@@ -4,6 +4,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import AlertBox from "./../../shared/AlertBox";
 import Loading from "../../shared/Loading";
 import moment from "moment";
+import TradingViewWidget from "../../shared/TradingViewWidget";
 
 const FundHistory = () => {
   const user = useRouteLoaderData("user");
@@ -34,7 +35,6 @@ const FundHistory = () => {
     };
     getOrders();
   }, [user]);
-
   return loading ? (
     <Loading />
   ) : (
@@ -47,55 +47,51 @@ const FundHistory = () => {
           );
           const image = `https://assets.coincap.io/assets/icons/${order.coin?.toLowerCase()}@2x.png`;
           return (
-            <figure
-              key={order._id}
-              className="bg-mySecondary p-2 mb-2 rounded text-center"
-            >
-              <article className="flex justify-between mb-3">
-                <img src={image} alt={order.coin} className="h-10" />
-                <p>{order.coin} Currency Trade</p>
-                <button
-                  className={`btn bg-white hover:bg-mySecondary border-1 btn-xs ${
-                    order.isApproved
-                      ? "text-success border-success"
-                      : "text-myPrimary border-myPrimary"
-                  }`}
-                >
-                  {order.isApproved ? "Completed" : "Under Review"}
-                </button>
-              </article>
-              <article className="flex justify-around mb-3">
-                <div>
-                  <p className="text-xs">Total</p>
-                  <p>
-                    {(
-                      Number(order.amount) - Number(order.estimateRevenue)
-                    ).toFixed(4)}
-                  </p>
+              <figure
+                key={order._id}
+                className="bg-mySecondary p-2 mb-2 rounded text-center"
+              >
+                <div className="flex justify-between mb-3">
+                  <img src={image} alt={order.coin} className="h-10" />
+                  <p>{order.coin} Currency Trade</p>
+                  <button
+                    className={`btn bg-white hover:bg-mySecondary border-1 btn-xs ${
+                      order.isApproved
+                        ? "text-success border-success"
+                        : "text-myPrimary border-myPrimary"
+                    }`}
+                  >
+                    {order.isApproved ? "Completed" : "Under Review"}
+                  </button>
                 </div>
-                <div>
-                  <p className="text-xs">Trade Number</p>
-                  <p>{order.credential}</p>
+                <div className="flex justify-around mb-3">
+                  <div>
+                    <p className="text-xs">Total</p>
+                    <p>
+                      {(
+                        Number(order.amount) - Number(order.estimateRevenue)
+                      ).toFixed(4)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs">Trade Number</p>
+                    <p>{order.credential}</p>
+                  </div>
                 </div>
-              </article>
-              <article>
-                <ul className="steps w-full mb-3">
-                  <li data-content="" className="step step-warning"></li>
-                  <li data-content="" className="step step-warning"></li>
-                  <li data-content="" className="step step-warning"></li>
-                </ul>
-              </article>
-              <article className="flex justify-around mb-3">
-                <div>
-                  <p className="text-xs">Estimate Reveneue</p>
-                  <p>{order.estimateRevenue.toFixed(4)}</p>
+                <div className="h-20 overflow-hidden rounded mb-3">
+                <TradingViewWidget coin={order.coin}/>
                 </div>
-                <div>
-                  <p className="text-xs">Time</p>
-                  <p>{createdDate}</p>
+                <div className="flex justify-around mb-3">
+                  <div>
+                    <p className="text-xs">Estimate Reveneue</p>
+                    <p>{order.estimateRevenue.toFixed(4)}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs">Time</p>
+                    <p>{createdDate}</p>
+                  </div>
                 </div>
-              </article>
-            </figure>
+              </figure>
           );
         })}
       </div>
@@ -104,3 +100,9 @@ const FundHistory = () => {
   );
 };
 export default FundHistory;
+
+{/* <ul className="steps w-full mb-3">
+                  <li data-content="" className="step step-warning"></li>
+                  <li data-content="" className="step step-warning"></li>
+                  <li data-content="" className="step step-warning"></li>
+                </ul> */}

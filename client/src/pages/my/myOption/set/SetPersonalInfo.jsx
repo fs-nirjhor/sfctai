@@ -11,15 +11,17 @@ const SetPersonalInfo = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  //console.log(configuration)
   const handleClick = async (updates) => {
     event.preventDefault();
     toast.loading("Updating...", {autoClose: false, toastId: "update-info-loading"});
     try {
       const res = await userApi.put(user._id,  updates );
-      res.data?.success &&
-      toast.success("Updated successfully")
-      window.location.reload();
+      if(res.data?.success) {
+        setName("")
+        setPhone("")
+        setEmail("")
+        toast.success("Updated successfully")
+        }
     } catch (err) {
         if (err.response.data.message) {
             toast.error(err.response.data.message);
@@ -52,7 +54,7 @@ const SetPersonalInfo = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-          <button type="submit" className={buttonStyle}>
+          <button type="submit" className={buttonStyle} >
             Update
           </button>
         </form>
