@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { transactionApi } from "../../router/axiosApi";
-import AlertBox from "../shared/AlertBox";
 import { coincapApi } from "../../data/config";
+import { toast } from "react-toastify";
 
 const Confirm = () => {
   const user = useRouteLoaderData("user");
   const configuration = useRouteLoaderData("configuration");
-  const [error, setError] = useState("");
   const [time, setTime] = useState(
     new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" })
   );
@@ -53,8 +52,7 @@ const Confirm = () => {
           }
         }
       } catch (err) {
-        setError(err.message);
-        document.getElementById("order-error").showModal();
+        toast.error(err.message);
       }
     };
     getCoins();
@@ -99,11 +97,10 @@ const Confirm = () => {
       }
     } catch (err) {
       if (err.response?.data?.message) {
-        setError(err.response.data.message);
+        toast.error(err.response.data.message);
       } else {
-        setError(err.message);
+        toast.error(err.message);
       }
-      document.getElementById("order-error").showModal();
     }
   };
 
@@ -145,7 +142,6 @@ const Confirm = () => {
           </button>
         </figure>
       </div>
-      <AlertBox id="order-error" text={error} alertType="alert-error" />
     </dialog>
   );
 };

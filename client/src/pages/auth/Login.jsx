@@ -1,11 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import AlertBox from "../shared/AlertBox";
 import { authApi } from "../../router/axiosApi";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const [error, setError] = useState("An error occurred");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,15 +17,14 @@ const Login = () => {
     event.preventDefault();
     try {
       await authApi.post("login", data);
-      document.getElementById("login-success").showModal();
+      toast.success("Logged in successfully")
       navigate(location.state ? location.state.from : "/");
     } catch (err) {
       if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("login-error").showModal();
     }
   };
 
@@ -100,7 +97,6 @@ const Login = () => {
       >
         Don&apos;t have an account?
       </Link>
-      <AlertBox id="login-error" text={error} alertType="alert-error" />
     </section>
   );
 };

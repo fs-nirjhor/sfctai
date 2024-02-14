@@ -1,11 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import AlertBox from "../shared/AlertBox";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { authApi, userApi } from "../../router/axiosApi";
+import { toast } from "react-toastify";
 
 const Registration = () => {
-  const [error, setError] = useState("An error occurred");
   const {
     register,
     handleSubmit,
@@ -20,7 +18,7 @@ const Registration = () => {
     event.preventDefault();
     try {
       await userApi.post("registration", data);
-      document.getElementById("registration-success").showModal();
+      toast.success("Registration successful")
       await authApi.post("login", {
         password: data.loginPassword,
         phone: data.phone,
@@ -28,11 +26,10 @@ const Registration = () => {
       navigate("/my");
     } catch (err) {
       if (err.response.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("registration-error").showModal();
     }
   };
 
@@ -193,7 +190,6 @@ const Registration = () => {
       <Link to="/login" className="text-center mt-5 block">
         Already have an account?
       </Link>
-      <AlertBox id="registration-error" text={error} alertType="alert-error" />
     </section>
   );
 };

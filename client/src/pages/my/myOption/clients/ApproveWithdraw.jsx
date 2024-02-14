@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
+import moment from "moment";
 
 const ApproveWithdraw = ({id}) => {
   const [pendingWithdraw, setPendingWithdraw] = useState([]);
@@ -83,13 +84,20 @@ const ApproveWithdraw = ({id}) => {
               {!pendingWithdraw.length && (
                 <p className="text-center my-2">No withdraw pending</p>
               )}
-              {pendingWithdraw.map((withdraw) => (
+              {pendingWithdraw.map((withdraw) => {
+                const createdDate = moment(withdraw.createdAt).format(
+                  "DD/MM/YYYY HH:mm:ss"
+                );
+                return (
                 <div key={withdraw._id} className="mb-3 p-2 bg-white rounded">
                   <p className="text-sm">
                     Transaction ID: {withdraw.credential}
                   </p>
                   <p className="text-sm">
                     Amount: ${withdraw.amount.toFixed(2)}
+                  </p>
+                  <p className="text-sm">
+                    Time: {createdDate}
                   </p>
                   <div className="flex gap-5 mt-3 px-5">
                     <button
@@ -104,7 +112,7 @@ const ApproveWithdraw = ({id}) => {
                     </button>
                       </div>
                 </div>
-              ))}
+              )})}
             </div>
   )
 }

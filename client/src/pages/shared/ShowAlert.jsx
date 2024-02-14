@@ -10,21 +10,6 @@ const ShowAlert = () => {
         alertType="alert-success"
       />
       <AlertBox
-        id="registration-success"
-        text="Registration successful"
-        alertType="alert-success"
-      />
-      <AlertBox
-        id="login-success"
-        text="Logged in successfully"
-        alertType="alert-success"
-      />
-      <AlertBox
-        id="logout-success"
-        text="Logout Successful"
-        alertType="alert-success"
-      />
-      <AlertBox
         id="update-success"
         text="Update Successful"
         alertType="alert-success"
@@ -69,11 +54,6 @@ const ShowAlert = () => {
       <AlertBox
         id="network-error"
         text="Network Error"
-        alertType="alert-error"
-      />
-      <AlertBox
-        id="admin-route-error"
-        text="Only for admin"
         alertType="alert-error"
       />
       <AlertBox

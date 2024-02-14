@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { userApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
+import SetAvatar from './SetAvatar';
 
 const SetPersonalInfo = () => {
   const user = useRouteLoaderData("user");
@@ -9,6 +10,7 @@ const SetPersonalInfo = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
 
   const handleClick = async (updates) => {
     event.preventDefault();
@@ -39,62 +41,79 @@ const SetPersonalInfo = () => {
     "btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6";
 
   return (
-    <div>
-      <h1 className="font-semibold text-center pt-2 mb-5">Modify Personal Info</h1>
-      <div className="max-w-md mx-auto pb-20">
-        {/* modify name */}
-        <form
-          className={formStyle}
-          onSubmit={() => handleClick({ name })}
-        >
-          <input
-            type="text"
-            placeholder="Enter your real name"
-            className={inputStyle}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <button type="submit" className={buttonStyle} >
-            Update
-          </button>
-        </form>
-        {/* modify phone */}
-        <form
-          className={formStyle}
-          onSubmit={() => handleClick({ phone })}
-        >
-          <input
-            type="tel"
-            placeholder="Enter your phone number"
-            className={inputStyle}
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-          <button type="submit" className={buttonStyle}>
-            Update
-          </button>
-        </form>
-        {/* modify email */}
-        <form
-          className={formStyle}
-          onSubmit={() => handleClick({ email })}
-        >
-          <input
-            type="number"
-            placeholder="Enter your email address"
-            className={inputStyle}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button type="submit" className={buttonStyle}>
-            Update
-          </button>
-        </form>
+      <div>
+        <h1 className="font-semibold text-center pt-2 mb-5">Modify Personal Info</h1>
+        <div className="max-w-md mx-auto pb-20">
+          {/* modify name */}
+          <form
+            className={formStyle}
+            onSubmit={() => handleClick({ name })}
+          >
+            <input
+              type="text"
+              placeholder="Enter your real name"
+              className={inputStyle}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <button type="submit" className={buttonStyle} >
+              Update
+            </button>
+          </form>
+          {/* modify phone */}
+          <form
+            className={formStyle}
+            onSubmit={() => handleClick({ phone })}
+          >
+            <input
+              type="tel"
+              placeholder="Enter your phone number"
+              className={inputStyle}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+            <button type="submit" className={buttonStyle}>
+              Update
+            </button>
+          </form>
+          {/* modify email */}
+          <form
+            className={formStyle}
+            onSubmit={() => handleClick({ email })}
+          >
+            <input
+              type="number"
+              placeholder="Enter your email address"
+              className={inputStyle}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit" className={buttonStyle}>
+              Update
+            </button>
+          </form>
+          {/* modify date of birth */}
+          <form
+            className={formStyle}
+            onSubmit={() => handleClick({ dateOfBirth })}
+          >
+            <input
+              type="date"
+              className={inputStyle}
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              required
+            />
+            <button type="submit" className={buttonStyle}>
+              Update
+            </button>
+          </form>
+          <SetAvatar />
+        </div>
       </div>
-    </div>
   );
 };
 export default SetPersonalInfo;

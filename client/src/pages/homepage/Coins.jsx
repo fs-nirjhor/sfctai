@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import AlertBox from "../shared/AlertBox";
 import Loading from "./../shared/Loading";
 import { coincapApi } from "../../data/config";
+import { toast } from "react-toastify";
 
 const Coins = () => {
   const [coins, setCoins] = useState([]);
-  const [error, setError] = useState("An error occurred");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,8 +17,7 @@ const Coins = () => {
         setCoins(data.data);
         setLoading(false);
       } catch (err) {
-        setError(err.message);
-        document.getElementById("coins-error").showModal();
+        toast.error(err.message);
       }
     };
     getCoins(); // get all coins
@@ -63,7 +61,6 @@ const Coins = () => {
           })}
         </tbody>
       </table>
-      <AlertBox id="coins-error" text={error} alertType="alert-error" />
     </figure>
   );
 };

@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouteLoaderData } from "react-router-dom";
 import { userApi } from "../../../../router/axiosApi";
-import AlertBox from "../../../shared/AlertBox";
+import { toast } from "react-toastify";
 
 const SetWithdrawalPassword = () => {
   const user = useRouteLoaderData("user");
-  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -19,12 +17,12 @@ const SetWithdrawalPassword = () => {
     try {
       const res = await userApi.put(`update-password/${user._id}`, data);
       res.data?.success &&
-        document.getElementById("update-success").showModal();
+        toast.success("Withdraw password updated successfully")
     } catch (err) {
       if (err.response.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
       document.getElementById("update-password-error").showModal();
     }
@@ -120,11 +118,6 @@ const SetWithdrawalPassword = () => {
           </button>
         </label>
       </form>
-      <AlertBox
-        id="update-password-error"
-        text={error}
-        alertType="alert-error"
-      />
     </section>
   );
 };

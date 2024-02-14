@@ -11,7 +11,8 @@ function App() {
         <Outlet />
         <ToastContainer
           position="top-center"
-          autoClose={3000}
+          className="top-1/2"
+          autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick={false}
@@ -19,7 +20,7 @@ function App() {
           pauseOnFocusLoss={false}
           draggable
           pauseOnHover={false}
-          theme="colored"
+          theme="light"
           transition={Zoom}
         />
         </div>

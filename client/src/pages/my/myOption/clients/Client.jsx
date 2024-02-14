@@ -7,6 +7,8 @@ import AlertBox from "../../../shared/AlertBox";
 import DeleteConfirm from "./../set/DeleteConfirm";
 import ApproveRecharge from "./ApproveRecharge";
 import ApproveWithdraw from "./ApproveWithdraw";
+import { toast } from 'react-toastify';
+import moment from "moment";
 
 const Client = () => {
   const { userId } = useParams();
@@ -16,8 +18,6 @@ const Client = () => {
   const [phone, setPhone] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [withdrawalPassword, setWithdrawalPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,11 +31,10 @@ const Client = () => {
         }
       } catch (err) {
         if (err.response.data.message) {
-          setError(err.response.data.message); // error sent by server
+          toast.error(err.response.data.message); // error sent by server
         } else {
-          setError(err.message); // other error
+          toast.error(err.message); // other error
         }
-        document.getElementById("client-error").showModal();
       }
     };
     getClient();
@@ -46,16 +45,15 @@ const Client = () => {
     try {
       const res = await userApi.put(client._id, update);
       if (res.data?.success) {
-        document.getElementById("update-success").showModal();
+        toast.success("Updated successfully")
         window.location.reload();
       }
     } catch (err) {
       if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("bind-error").showModal();
     }
   };
 
@@ -82,19 +80,21 @@ const Client = () => {
       const recharge = { client: client._id, amount: bonusAmount };
       const response = await transactionApi.put("add-recharge", { recharge });
       if (res.data?.success && response.data?.success) {
-        document.getElementById("recharge-success").showModal();
+        toast.success("Recharge successfully")
         setBonusAmount("");
         window.location.reload();
       }
     } catch (err) {
       if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("client-error").showModal();
     }
   };
+  const dateOfBirth = moment(client.dateOfBirth).format(
+    "DD/MM/YYYY"
+  );
   const doubleBoxStyle = "grid grid-cols-2 p-2";
   const singleBoxStyle = "p-2";
   return loading ? (
@@ -130,11 +130,6 @@ const Client = () => {
           </Link>
         </div>
         <section className="bg-mySecondary w-full mt-10 p-2 rounded">
-          {/* header */}
-          <div className={doubleBoxStyle}>
-            <span>About</span>
-            <span>Transaction</span>
-          </div>
           {/* name - balance */}
           <div className={doubleBoxStyle}>
             <div className="overflow-x-auto">Name: {client.name}</div>
@@ -156,6 +151,13 @@ const Client = () => {
               Binding Id: {client.trc20Address}
             </div>
             <div>Withdraw: {client.transaction.totalWithdraw.toFixed(2)}</div>
+          </div>
+          {/* Email - Date of birth */}
+          <div className={doubleBoxStyle}>
+            <div className="overflow-x-auto">
+              Email: {client.email}
+            </div>
+            <div>Date of birth: {dateOfBirth}</div>
           </div>
           {/* Team Status */}
           <div className={singleBoxStyle}>
@@ -295,8 +297,6 @@ const Client = () => {
         </section>
       </section>
       <DeleteConfirm id={client._id} />
-      <AlertBox id="client-error" text={error} alertType="alert-error" />
-      <AlertBox id="client-success" text={success} alertType="alert-success" />
     </div>
   );
 };

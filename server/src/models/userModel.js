@@ -33,6 +33,16 @@ const userSchema = new Schema(
       trim: true,
       unique: true,
     },
+    email: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    dateOfBirth: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     avatar: {
       type: String,
       trim: true,

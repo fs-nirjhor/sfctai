@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FiPower } from "react-icons/fi";
 import { IoChevronForward } from "react-icons/io5";
 import { authApi } from "../../router/axiosApi";
-import AlertBox from "../shared/AlertBox";
+import { toast } from "react-toastify";
 
 const Logout = () => {
-  const [error, setError] = useState("An error occurred");
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -14,15 +12,14 @@ const Logout = () => {
     try {
       await authApi.post("logout");
 
-      document.getElementById("logout-success").showModal();
+      toast.success("Logout Successful")
       navigate("/login");
     } catch (err) {
       if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("logout-error").showModal();
     }
   };
 
@@ -38,7 +35,6 @@ const Logout = () => {
       </p>
       <IoChevronForward />
     </Link>
-    <AlertBox id="logout-error" text={error} alertType="alert-error" />
     </>
   );
 };

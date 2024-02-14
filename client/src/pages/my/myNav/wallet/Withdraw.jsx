@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { transactionApi } from "../../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
-import AlertBox from "../../../shared/AlertBox";
 import { toast } from "react-toastify";
 
 const Withdraw = () => {

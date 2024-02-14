@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { userApi } from "../../../../router/axiosApi";
 import { useRouteLoaderData } from "react-router-dom";
-import AlertBox from "../../../shared/AlertBox";
+import { toast } from "react-toastify";
 
 const SetAvatar = () => {
   const user = useRouteLoaderData("user");
-  const [error, setError] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const images = [
@@ -31,17 +30,14 @@ const SetAvatar = () => {
         document.getElementById("update-success").showModal();
     } catch (err) {
       if (err.response.data.message) {
-        setError(err.response.data.message);
+        toast.error(err.response.data.message);
       } else {
-        setError(err.message);
+        toast.error(err.message);
       }
-      document.getElementById("update-error").showModal();
     }
   };
 
   return (
-    <section>
-      <h1 className="font-semibold text-center pt-2 mb-5">Modify Avatar</h1>
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
           <div className="grid grid-cols-4 gap-5 justify-between my-3">
@@ -70,12 +66,10 @@ const SetAvatar = () => {
             type="submit"
             className="btn btn-warning bg-myPrimary text-white font-semibold w-full mt-5"
           >
-            Submit
+            Change Avatar
           </button>
         </label>
       </form>
-      <AlertBox id="update-error" text={error} alertType="alert-error" />
-    </section>
   );
 };
 export default SetAvatar;
