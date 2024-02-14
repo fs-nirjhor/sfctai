@@ -61,7 +61,8 @@ const FundHistory = () => {
   const handleApprove = async (transactionId) => {
     event.preventDefault();
     try {
-      const response = await transactionApi.put(`approve/${transactionId}`);
+      const updates = { isApproved: true };
+      const response = await transactionApi.put(`approve/${transactionId}`, {updates});
       if (response.data?.success) {
         document.getElementById("approve-success").showModal();
       }
@@ -128,32 +129,17 @@ const FundHistory = () => {
             <div
               key={transaction._id}
               className={`grid gap-2 justify-between px-3 py-2 mb-2 text-sm bg-opacity-60 ${
-                transaction.isApproved ? "bg-mySecondary" : "bg-myPrimary"
+                transaction.isApproved ? "bg-success" : transaction.isRejected ? "bg-error text-white"  : "bg-gray-300"
               } ${user.isAdmin ? "grid-cols-5" : "grid-cols-2"}`}
+              onClick={() => handleClick(transaction.client.userId)}
             >
               {user.isAdmin && (
-                <div
-                  className={`flex gap-2 overflow-x-scroll no-scrollbar text-start ${
-                    user.isAdmin ? "col-span-3" : ""
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-xs checkbox-success"
-                    checked={transaction.isApproved ? true : false}
-                    readOnly
-                    onClick={() =>
-                      transaction.category == "Withdraw" &&
-                      handleApprove(transaction._id)
-                    }
-                  />
-                  <div onClick={() => handleClick(transaction.client.userId)}>
+                  <div className="overflow-x-scroll no-scrollbar text-start col-span-3">
                     <p>{transaction.client?.name}</p>
                     <p className="text-xs">{transaction.credential}</p>
                   </div>
-                </div>
               )}
-              <div onClick={() => handleClick(transaction.client?.userId)}>
+              <div >
                 <p>{transaction.category}</p>
                 <p className="text-[0.60rem]">{createdDate}</p>
               </div>
@@ -163,8 +149,7 @@ const FundHistory = () => {
                     ? "text-error text-end"
                     : "text-success text-end"
                 }
-                onClick={() => handleClick(transaction.client?.userId)}
-              >
+                >
                 {!transaction.isApproved && transaction.category == "Recharge"
                   ? "Pending"
                   : transaction.amount.toFixed(2)}

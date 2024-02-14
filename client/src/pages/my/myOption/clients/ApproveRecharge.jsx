@@ -15,14 +15,14 @@ const ApproveRecharge = ({id}) => {
           isApproved: false,
           category: "Recharge",
         };
-        toast.loading("Approving...", {toastId: "approve-recharge-loading"});
+        toast.loading("Loading...", {toastId: "pending-recharge-loading"});
         const pendingRechargeData = await transactionApi.post("", { filter });
-        toast.dismiss("approve-recharge-loading");
+        toast.dismiss("pending-recharge-loading");
         if (pendingRechargeData.data?.success) {
           setPendingRecharge(pendingRechargeData.data.payload.allTransaction);
         }
       } catch (err) {
-        toast.dismiss("approve-recharge-loading");
+        toast.dismiss("pending-recharge-loading");
         if (err.response.data.message) {
           toast.error(err.response.data.message); // error sent by server
         } else {

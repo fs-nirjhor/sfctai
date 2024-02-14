@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form";
 import { transactionApi } from "../../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import AlertBox from "../../../shared/AlertBox";
+import { toast } from "react-toastify";
 
 const Withdraw = () => {
   const user = useRouteLoaderData("user");
   const { withdrawFee, minimumWithdraw } = useRouteLoaderData("configuration");
   const [serviceCharge, setServiceCharge] = useState(0);
-  const [error, setError] = useState("An error occurred");
   const navigate = useNavigate();
 
   const {
@@ -56,35 +56,34 @@ const Withdraw = () => {
       const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
       const currentHour = new Date().toLocaleTimeString("en-GB", options);
       if (!(currentHour >= 10 && currentHour < 22)) {
-        setError("Allowed trade time is 10:00 - 22:00 (Riyadh)");
-        return document.getElementById("withdraw-error").showModal();
+        return toast.error(
+          "Allowed withdraw time is 10:00 - 22:00 (Arabic Time)"
+        );
       }
       // is usdt bind
       if (!user.trc20Address) {
-        setError("Please Bind USDT");
-        return document.getElementById("withdraw-error").showModal();
+        return toast.error("Please bind your id");
       }
       // request
       const res = await transactionApi.post("withdraw-request", {
         transaction,
       });
       if (res.data?.success) {
-        document.getElementById("withdraw-success").showModal();
+        toast.success("Withdraw successfull");
         //window.location.reload();
-        navigate("/");
+        navigate("/my");
       }
     } catch (err) {
       if (err.response?.data?.message) {
-        setError(err.response.data.message);
+        toast.error(err.response.data.message);
       } else {
-        setError(err.message);
+        toast.error(err.message);
       }
-      document.getElementById("withdraw-error").showModal();
     }
   };
 
   return (
-    <section >
+    <section>
       <h1 className="font-semibold text-center pt-2 mb-5">Withdraw</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="font-serif">
         <label className="form-control w-full max-w-md mx-auto">
@@ -167,7 +166,6 @@ const Withdraw = () => {
           </button>
         </label>
       </form>
-      <AlertBox id="withdraw-error" text={error} alertType="alert-error" />
     </section>
   );
 };

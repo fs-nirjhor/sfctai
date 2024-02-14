@@ -15,6 +15,9 @@ const transactionSchema = new Schema(
       type: Number,
       default: 0,
     },
+    withDrawAmount: {
+      type: Number,
+    },
     estimateRevenue: {
       type: Number,
     },
@@ -22,6 +25,10 @@ const transactionSchema = new Schema(
       type: String,
     },
     isApproved: {
+      type: Boolean,
+      default: false,
+    },
+    isRejected: {
       type: Boolean,
       default: false,
     },

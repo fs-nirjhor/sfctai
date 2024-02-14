@@ -18,7 +18,7 @@ const Start = () => {
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
     if (!(currentHour >= 10 && currentHour < 22)) {
-      return toast.error("Allowed trade time is 10:00 - 22:00 (Riyadh)");
+      return toast.error("Allowed trade time is 10:00 - 22:00 (Arabic Time)");
     } else if (transaction.todaysOrder >= configuration.orderPerDay) {
       return toast.error("Limit Exceeded");
     } else if (transaction.balance < 10) {

@@ -35,10 +35,12 @@ const handleAddTransaction = async (req, res, next) => {
     const { transaction } = req.body;
 
     // validate transaction
-    if (transaction.category === "Recharge"){
-      const allTransaction = await Transaction.exists({credential: transaction.credential});
+    if (transaction.category === "Recharge" && transaction.credential) {
+      const allTransaction = await Transaction.exists({
+        credential: transaction.credential,
+      });
       if (allTransaction) {
-       throw createHttpError(409,"TXID already submitted");
+        throw createHttpError(409, "TXID already submitted");
       }
     }
 
@@ -46,7 +48,7 @@ const handleAddTransaction = async (req, res, next) => {
     const newTransaction = await createItem(Transaction, transaction);
 
     if (!newTransaction) {
-      throw createHttpError(400,`Failed to ${newTransaction.category}`);
+      throw createHttpError(400, `Failed to ${newTransaction.category}`);
     }
 
     return successResponse(res, {
@@ -136,7 +138,7 @@ const handleOrderRequest = async (req, res, next) => {
     if (!(currentHour >= 10 && currentHour < 22)) {
       throw createHttpError(
         403,
-        "Allowed trade time is 10:00 - 22:00 (Riyadh)"
+        "Allowed trade time is 10:00 - 22:00 (Arabic Time)"
       );
     }
 
@@ -218,6 +220,16 @@ const handleWithdrawalRequest = async (req, res, next) => {
     const configuration = await Configuration.findOne();
     const minimumWithdraw = Number(configuration.minimumWithdraw);
 
+    // is time
+    const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
+    const currentHour = new Date().toLocaleTimeString("en-GB", options);
+    if (!(currentHour >= 10 && currentHour < 22)) {
+      throw createHttpError(
+        403,
+        "Allowed withdraw time is 10:00 - 22:00 (Arabic Time)"
+      );
+    }
+
     // is balance sufficent
     if (Number(withDrawAmount) > user.transaction.balance) {
       throw createHttpError(403, "Insufficent balance");
@@ -225,7 +237,7 @@ const handleWithdrawalRequest = async (req, res, next) => {
 
     // is usdt bind
     if (!user.trc20Address) {
-      throw createHttpError(403, "Please Bind USDT");
+      throw createHttpError(403, "Please bind your id");
     }
 
     // is low withdraw
@@ -252,6 +264,7 @@ const handleWithdrawalRequest = async (req, res, next) => {
     const transactionUpdates = {
       client,
       amount: actualAmount,
+      withDrawAmount,
       credential,
       category: "Withdraw",
     };
@@ -302,11 +315,64 @@ const handleWithdrawalRequest = async (req, res, next) => {
   }
 };
 
-const handleApproveTransaction = async (req, res, next) => {
+const handleRejectTransaction = async (req, res, next) => {
   try {
     const id = req.params.id;
+    const updates = { isRejected: true };
 
-    const updates = { isApproved: true };
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+    };
+
+    const rejectedTransaction = await updateItemById(
+      Transaction,
+      id,
+      updates,
+      updateOptions
+    );
+
+    if (!rejectedTransaction) {
+      throw new Error(`Failed to reject ${rejectedTransaction.category}`);
+    }
+
+    if (rejectedTransaction.category === "Withdraw") {
+      const withDrawAmount = Number(rejectedTransaction.withDrawAmount);
+      userUpdates = {
+        $inc: {
+          "transaction.balance": withDrawAmount,
+          "transaction.totalWithdraw": -withDrawAmount,
+        },
+      };
+
+      const updatedUser = await updateItemById(
+        User,
+        rejectedTransaction.client,
+        userUpdates,
+        updateOptions
+      );
+
+      if (!updatedUser) {
+        throw new Error("Failed return balance");
+      }
+    }
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: `${rejectedTransaction.category} approved successfully`,
+      payload: { rejectedTransaction },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const handleUpdateTransaction = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { updates } = req.body;
+
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -340,5 +406,6 @@ module.exports = {
   handleWithdrawalRequest,
   handleOrderRequest,
   handleGetTransaction,
-  handleApproveTransaction,
+  handleUpdateTransaction,
+  handleRejectTransaction,
 };

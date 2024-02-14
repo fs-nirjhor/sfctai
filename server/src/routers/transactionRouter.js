@@ -2,11 +2,12 @@ const express = require("express");
 const { isLoggedIn, isAdmin } = require("../middlewares/auth");
 const {
   handleAddTransaction,
-  handleApproveTransaction,
+  handleUpdateTransaction,
   handleWithdrawalRequest,
   handleOrderRequest,
   handleGetTransaction,
   handleAddRecharge,
+  handleRejectTransaction,
 } = require("../controllers/transactionController");
 
 const transactionRouter = express.Router();
@@ -28,7 +29,14 @@ transactionRouter.put(
   "/approve/:id",
   isLoggedIn,
   isAdmin,
-  handleApproveTransaction
+  handleUpdateTransaction
+);
+
+transactionRouter.put(
+  "/reject/:id",
+  isLoggedIn,
+  isAdmin,
+  handleRejectTransaction
 );
 
 module.exports = transactionRouter;

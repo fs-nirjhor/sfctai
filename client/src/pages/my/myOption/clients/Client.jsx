@@ -6,6 +6,7 @@ import { transactionApi, userApi } from "../../../../router/axiosApi";
 import AlertBox from "../../../shared/AlertBox";
 import DeleteConfirm from "./../set/DeleteConfirm";
 import ApproveRecharge from "./ApproveRecharge";
+import ApproveWithdraw from "./ApproveWithdraw";
 
 const Client = () => {
   const { userId } = useParams();
@@ -70,7 +71,7 @@ const Client = () => {
       const transaction = {
         client: client._id,
         amount: bonusAmount,
-        credential: `bonus-${userId}`,
+        credential: "",
         category: "Recharge",
         isApproved: true,
       };
@@ -286,6 +287,10 @@ const Client = () => {
           {/* approve recharge */}
           <div className={singleBoxStyle}>
           <ApproveRecharge id={client._id}/>
+          </div>
+          {/* approve withdraw */}
+          <div className={singleBoxStyle}>
+          <ApproveWithdraw id={client._id}/>
           </div>
         </section>
       </section>
