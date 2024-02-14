@@ -33,7 +33,7 @@ const Start = () => {
   return (
     <section>
       <figure className="p-5">
-        <img src="/images/logo.png" alt="STFAI" className="mx-auto w-44" />
+        <img src="/images/logo.png" alt="STFAI" className="mx-auto w-60" />
       </figure>
       <div className="relative my-5 h-[24rem]">
         <video
@@ -44,7 +44,7 @@ const Start = () => {
         >
           <source src="/videos/tradeVideo.mp4" type="video/mp4" />
         </video>
-        <article className="absolute w-full grid grid-cols-2 gap-4 text-center font-serif">
+        <article className="absolute w-full grid grid-cols-2 gap-4 text-center font-serif bg-gray-500 bg-opacity-80">
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">
             <h5 className="text-sm">Balance</h5>
             <p className="font-semibold text-white">
