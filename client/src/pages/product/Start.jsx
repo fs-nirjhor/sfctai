@@ -84,7 +84,7 @@ const Start = () => {
             </p>
           </div>
           <button
-            className="col-span-2 btn btn-warning bg-myPrimary text-white font-semibold rounded-md"
+            className="col-span-2 btn bg-white text-black font-semibold rounded-md"
             onClick={handleClick}
           >
             Trade

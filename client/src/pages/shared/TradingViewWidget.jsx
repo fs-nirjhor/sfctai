@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 
 const TradingViewWidget = ({coin}) => {
   const container = useRef();
@@ -41,4 +41,4 @@ const TradingViewWidget = ({coin}) => {
   );
 }
 
-export default TradingViewWidget;
+export default memo(TradingViewWidget);
