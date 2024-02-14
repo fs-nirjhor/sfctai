@@ -4,16 +4,16 @@ import {  MdSend } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import UseChat from "./UseChat";
 import { useState } from "react";
-import AlertBox from "../../../shared/AlertBox";
+import { toast } from "react-toastify";
 
 const SendBox = () => {
   const { sendMessage } = UseChat();
-  const [error, setError] = useState("");
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const user = useRouteLoaderData("user");
   const { client } = useParams();
   const clientId = client || user._id;
+
   const handleSubmit = async () => {
     event.preventDefault();
     try {
@@ -31,13 +31,13 @@ const SendBox = () => {
     }
     } catch (err) {
       if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("send-message-error").showModal();
     }
   };
+
   return (
     <div className="pt-5">
       <form className="mx-auto" onSubmit={handleSubmit}>
@@ -65,7 +65,6 @@ const SendBox = () => {
          SEND
         </button>
       </form>
-      <AlertBox id="send-message-error" text={error} alertType="alert-error" />
     </div>
   );
 };

@@ -1,10 +1,8 @@
-import { useState } from "react";
-import AlertBox from './../../../shared/AlertBox';
 import { useNavigate } from "react-router-dom";
 import { userApi } from "../../../../router/axiosApi";
+import { toast } from 'react-toastify';
 
 const DeleteConfirm = ({id}) => {
-    const [error, setError] = useState("");
   const navigate = useNavigate();
 
     const handleDelete = async (e) => {
@@ -12,16 +10,15 @@ const DeleteConfirm = ({id}) => {
         try {
           const res = await userApi.delete(id);
           if (res.data?.success) {
-            document.getElementById("delete-success").showModal();
+            toast.success("Deleted Successfully")
             navigate(-1);
           }
         } catch (err) {
           if (err.response?.data.message) {
-            setError(err.response.data.message); // error sent by server
+            toast.error(err.response.data.message); // error sent by server
           } else {
-            setError(err.message); // other error
+            toast.error(err.message); // other error
           }
-          document.getElementById("delete-error").showModal();
         }
       };
  
@@ -45,7 +42,6 @@ const DeleteConfirm = ({id}) => {
           </button>
         </figure>
       </div>
-      <AlertBox id="delete-error" text={error} alertType="alert-error" />
     </dialog>
   );
 };

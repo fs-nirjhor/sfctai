@@ -1,12 +1,11 @@
 import { useState } from "react";
-import AlertBox from "../../shared/AlertBox";
 import { userApi } from "../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const BindUsdt = () => {
   const user = useRouteLoaderData("user");
   const [trc20Address, setTrc20Address] = useState(user.trc20Address);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -14,7 +13,7 @@ const BindUsdt = () => {
     if (!user.trc20Address) {
       setTrc20Address(e.target.value);
     } else {
-      setError("Binding ID can not be changed");
+      toast.error("Binding ID can not be changed");
       document.getElementById("bind-error").showModal();
     }
   };
@@ -23,7 +22,7 @@ const BindUsdt = () => {
     e.preventDefault();
     try {
       if (trc20Address.length !== 20) {
-        setError("Invalid Binding ID");
+        toast.error("Invalid Binding ID");
         document.getElementById("bind-error").showModal();
       } else if (!user.trc20Address) {
         const res = await userApi.put(user._id, { trc20Address });
@@ -32,16 +31,15 @@ const BindUsdt = () => {
           navigate("/");
         }
       } else {
-        setError("Binding ID can not be changed");
+        toast.error("Binding ID can not be changed");
         document.getElementById("bind-error").showModal();
       }
     } catch (err) {
       if (err.response?.data.message) {
-        setError(err.response.data.message); // error sent by server
+        toast.error(err.response.data.message); // error sent by server
       } else {
-        setError(err.message); // other error
+        toast.error(err.message); // other error
       }
-      document.getElementById("bind-error").showModal();
     }
   };
   return (
@@ -73,7 +71,6 @@ const BindUsdt = () => {
           </label>
         )}
       </form>
-      <AlertBox id="bind-error" text={error} alertType="alert-error" />
     </section>
   );
 };

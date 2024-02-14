@@ -5,11 +5,6 @@ const ShowAlert = () => {
     <>
       {/* success alerts */}
       <AlertBox
-        id="txid-success"
-        text="Your TXID submitted successfully"
-        alertType="alert-success"
-      />
-      <AlertBox
         id="update-success"
         text="Update Successful"
         alertType="alert-success"

@@ -1,11 +1,10 @@
 import { useState } from "react";
-import AlertBox from "../../../shared/AlertBox";
 import { useRouteLoaderData } from "react-router-dom";
 import { configurationApi } from "../../../../router/axiosApi";
+import { toast } from "react-toastify";
 
 const SetConfiguration = () => {
   const configuration = useRouteLoaderData("configuration");
-  const [error, setError] = useState("");
   // updates
   const [transferAddress, setTransferAddress] = useState("");
   const [minimumRecharge, setMinimumRecharge] = useState("");
@@ -25,15 +24,14 @@ const SetConfiguration = () => {
       console.log(seed); */
       const res = await configurationApi.put(configuration._id, { update });
       res.data?.success &&
-        document.getElementById("update-success").showModal();
+        toast.success("Configuration updated successfully")
       window.location.reload();
     } catch (err) {
       if (err.response.data.message) {
-        setError(err.response.data.message);
+        toast.error(err.response.data.message);
       } else {
-        setError(err.message);
+        toast.error(err.message);
       }
-      document.getElementById("configuration-error").showModal();
     }
   };
   const listStyle = "p-2 border-b-2";
@@ -232,7 +230,6 @@ const SetConfiguration = () => {
           </button>
         </form>
       </div>
-      <AlertBox id="configuration-error" text={error} alertType="alert-error" />
     </div>
   );
 };

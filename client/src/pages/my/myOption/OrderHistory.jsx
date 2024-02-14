@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { transactionApi } from "../../../router/axiosApi";
 import { useRouteLoaderData } from "react-router-dom";
-import AlertBox from "./../../shared/AlertBox";
 import Loading from "../../shared/Loading";
 import moment from "moment";
 import TradingViewWidget from "../../shared/TradingViewWidget";
+import { toast } from "react-toastify";
 
 const FundHistory = () => {
   const user = useRouteLoaderData("user");
   const [orders, setOrders] = useState([]);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,11 +25,10 @@ const FundHistory = () => {
         }
       } catch (err) {
         if (err.response.data.message) {
-          setError(err.response.data.message);
+          toast.error(err.response.data.message);
         } else {
-          setError(err.message);
+          toast.error(err.message);
         }
-        document.getElementById("order-error").showModal();
       }
     };
     getOrders();
@@ -95,7 +93,6 @@ const FundHistory = () => {
           );
         })}
       </div>
-      <AlertBox id="order-error" text={error} alertType="alert-error" />
     </section>
   );
 };

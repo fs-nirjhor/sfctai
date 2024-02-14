@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
-import AlertBox from "../../shared/AlertBox";
 import { transactionApi } from "../../../router/axiosApi";
+import { toast } from "react-toastify";
 
 const TxidSubmit = () => {
   const user = useRouteLoaderData("user");
   const [amount, setAmount] = useState(0);
   const [txid, setTxid] = useState("");
-  const [error, setError] = useState("An error occurred");
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -24,17 +23,16 @@ const TxidSubmit = () => {
         transaction,
       });
       if (res.data?.success) {
-        document.getElementById("txid-success").showModal();
+        toast.success("Your TXID submitted successfully")
         window.location.reload();
         navigate(-1);
       }
     } catch (err) {
       if (err.response?.data?.message) {
-        setError(err.response.data.message);
+        toast.error(err.response.data.message);
       } else {
-        setError(err.message);
+        toast.error(err.message);
       }
-      document.getElementById("txid-error").showModal();
     }
   };
 
@@ -66,7 +64,6 @@ const TxidSubmit = () => {
           </button>
         </label>
       </form>
-      <AlertBox id="txid-error" text={error} alertType="alert-error" />
     </section>
   );
 };

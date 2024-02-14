@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { transactionApi } from "../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
-import AlertBox from "./../../shared/AlertBox";
 import Loading from "../../shared/Loading";
 import moment from "moment";
+import { toast } from 'react-toastify';
 
 const FundHistory = () => {
   const user = useRouteLoaderData("user");
@@ -11,7 +11,6 @@ const FundHistory = () => {
   const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [activeNav, setActiveNav] = useState("all");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,11 +32,10 @@ const FundHistory = () => {
         }
       } catch (err) {
         if (err.response.data.message) {
-          setError(err.response.data.message); // error sent by server
+          toast.error(err.response.data.message); // error sent by server
         } else {
-          setError(err.message); // other error
+          toast.error(err.message); // other error
         }
-        document.getElementById("fund-error").showModal();
       }
     };
     getTransactions();
@@ -55,25 +53,6 @@ const FundHistory = () => {
   const handleClick = (userId) => {
     if (user.isAdmin) {
       navigate(`/client/${userId}`);
-    }
-  };
-
-  const handleApprove = async (transactionId) => {
-    event.preventDefault();
-    try {
-      const updates = { isApproved: true };
-      const response = await transactionApi.put(`approve/${transactionId}`, {updates});
-      if (response.data?.success) {
-        document.getElementById("approve-success").showModal();
-      }
-      window.location.reload();
-    } catch (err) {
-      if (err.response.data.message) {
-        setError(err.response.data.message); // error sent by server
-      } else {
-        setError(err.message); // other error
-      }
-      document.getElementById("client-error").showModal();
     }
   };
 
@@ -158,12 +137,6 @@ const FundHistory = () => {
           );
         })}
       </div>
-      <AlertBox id="fund-error" text={error} alertType="alert-error" />
-      <AlertBox
-        id="approve-success"
-        text="Approved Successfully"
-        alertType="alert-success"
-      />
     </section>
   );
 };

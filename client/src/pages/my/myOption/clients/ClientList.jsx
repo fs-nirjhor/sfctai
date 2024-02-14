@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { allApi } from "../../../../router/axiosApi";
 import Loading from "../../../shared/Loading";
-import AlertBox from "../../../shared/AlertBox";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,12 +19,11 @@ const ClientList = () => {
         setLoading(false);
       } catch (err) {
         if (err.response.data.message) {
-          setError(err.response.data.message); // error sent by server
+          toast.error(err.response.data.message); // error sent by server
         } else {
-          setError(err.message); // other error
+          toast.error(err.message); // other error
         }
         setLoading(false);
-        document.getElementById("client-list-error").showModal();
       }
     };
     getClients();
@@ -65,7 +63,6 @@ const ClientList = () => {
           );
         })}
       </div>
-      <AlertBox id="client-list-error" text={error} alertType="alert-error" />
     </div>
   );
 };
