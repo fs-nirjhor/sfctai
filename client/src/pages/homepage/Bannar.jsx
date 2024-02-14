@@ -21,6 +21,7 @@ const Bannar = () => {
           autoPlay
           loop
           muted
+          poster="/videos/homepageVideo.png"
         >
           <source src="/videos/homepageVideo.mp4" type="video/mp4" />
         </video>
