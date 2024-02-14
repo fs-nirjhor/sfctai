@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
+import AlertBox from "../shared/AlertBox";
 
 const Start = () => {
   const configuration = useRouteLoaderData("configuration");
   const user = useRouteLoaderData("user");
   const { transaction } = user;
+  const [error, setError] = useState("");
 
   const balance = transaction.balance.toFixed(4);
   const todaysIndividualIncome = transaction.todaysIncome.toFixed(4);
@@ -18,13 +21,17 @@ const Start = () => {
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
     if (!(currentHour >= 10 && currentHour < 22)) {
-      return toast.error("Allowed trade time is 10:00 - 22:00 (Arabic Time)");
+      setError("Allowed trade time is 10:00 - 22:00 (Arabic Time)");
+      return document.getElementById("trade-error").showModal();
     } else if (transaction.todaysOrder >= configuration.orderPerDay) {
-      return toast.error("Limit Exceeded");
+      setError("Limit Exceeded");
+      return document.getElementById("trade-error").showModal();
     } else if (transaction.balance < 10) {
-      return toast.error("Insufficent Balance");
+      setError("Insufficent Balance");
+      return document.getElementById("trade-error").showModal();
     } else if (!user.trc20Address) {
-      return toast.error("Please Bind ID to trade");
+      setError("Please Bind ID to trade");
+      return document.getElementById("trade-error").showModal();
     } else {
       return document.getElementById("confirm_dialog").showModal();
     }
@@ -91,6 +98,7 @@ const Start = () => {
           </button>
         </article>
       </div>
+      <AlertBox id="trade-error" text={error} position="center"/>
     </section>
   );
 };

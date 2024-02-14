@@ -12,7 +12,6 @@ const Confirm = () => {
     new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" })
   );
   const [coin, setCoin] = useState({});
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // set coin
@@ -52,7 +51,6 @@ const Confirm = () => {
           } else {
             manageCoin(0);
           }
-          setLoading(false);
         }
       } catch (err) {
         setError(err.message);
