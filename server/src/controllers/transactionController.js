@@ -15,7 +15,8 @@ const handleGetTransaction = async (req, res, next) => {
     // all transaction
     const allTransaction = await Transaction.find(filter)
       .populate("client")
-      .sort({ isApproved: 1, updatedAt: -1 });
+      .sort({ isApproved: 1 })
+      .sort({ updatedAt: -1 });
 
     if (!allTransaction) {
       throw new Error("Failed to get transactions");
