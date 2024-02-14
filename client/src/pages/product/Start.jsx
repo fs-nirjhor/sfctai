@@ -6,13 +6,11 @@ const Start = () => {
   const user = useRouteLoaderData("user");
   const { transaction } = user;
 
-  const balance = transaction.balance.toFixed(4);
-  const todaysIndividualIncome = transaction.todaysIncome.toFixed(4);
-  const totalIndividualIncome = transaction.totalIncome.toFixed(4);
+  const balance = transaction.balance.toFixed(2);
+  const todaysIndividualIncome = transaction.todaysIncome.toFixed(2);
+  const totalIndividualIncome = transaction.totalIncome.toFixed(2);
 
-  const todaysTeamIncome = transaction.todaysTeamIncome.toFixed(4);
-  const totalTeamIncome = transaction.totalTeamIncome.toFixed(4);
-  const todaysOrderAmount = transaction.todaysOrderAmount.toFixed(4);
+  const todaysOrderAmount = transaction.todaysOrderAmount.toFixed(2);
 
   const handleClick = () => {
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
@@ -35,7 +33,7 @@ const Start = () => {
       <figure className="p-5">
         <img src="/images/logo.png" alt="STFAI" className="mx-auto w-60" />
       </figure>
-      <div className="relative my-5 h-[24rem]">
+      <div className="relative my-5 h-[16rem]">
         <video
           className="w-full h-full rounded-md absolute inset-0 object-cover"
           autoPlay

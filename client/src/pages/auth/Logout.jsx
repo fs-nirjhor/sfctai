@@ -29,11 +29,11 @@ const Logout = () => {
   return (
     <>
     <Link
-      className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black font-serif"
+      className="flex justify-between p-3 text-black font-serif"
       onClick={handleClick}
     >
       <p className="text-start">
-        <FiPower className="text-myPrimary inline-block me-3 text-2xl" />
+        <FiPower className="text-primary inline-block me-3 text-2xl" />
         <span>Logout</span>
       </p>
       <IoChevronForward />
