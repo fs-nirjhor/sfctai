@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const SetAvatar = () => {
   const user = useRouteLoaderData("user");
-  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [selectedAvatar, setSelectedAvatar] = useState(user);
 
   const images = [
     "/images/avatar/avatar1.png",
@@ -64,7 +64,7 @@ const SetAvatar = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-warning bg-myPrimary text-white font-semibold w-full mt-5"
+            className="btn btn-warning bg-myPrimary text-white font-semibold w-full mt-2"
           >
             Change Avatar
           </button>

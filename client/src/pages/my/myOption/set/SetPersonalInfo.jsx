@@ -84,7 +84,7 @@ const SetPersonalInfo = () => {
             onSubmit={() => handleClick({ email })}
           >
             <input
-              type="number"
+              type="email"
               placeholder="Enter your email address"
               className={inputStyle}
               value={email}
