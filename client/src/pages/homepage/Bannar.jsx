@@ -23,7 +23,7 @@ const Bannar = () => {
           muted
           poster="/videos/homepageVideo.png"
         >
-          <source src="/videos/homepageVideo.mp4" type="video/mp4" />
+          <source src="/videos/homeVideo.mp4" type="video/mp4" />
         </video>
           <figure >
             <img
