@@ -11,11 +11,12 @@ function App() {
         <Outlet />
         <ToastContainer
           position="top-center"
+          toastClassName="font-serif"
           className="top-1/2"
           autoClose={5000}
-          hideProgressBar={false}
+          hideProgressBar={true}
           newestOnTop={false}
-          closeOnClick={false}
+          closeOnClick={true}
           rtl={false}
           pauseOnFocusLoss={false}
           draggable
