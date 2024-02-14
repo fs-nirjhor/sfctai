@@ -3,7 +3,7 @@ import { transactionApi } from "../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import Loading from "../../shared/Loading";
 import moment from "moment";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const FundHistory = () => {
   const user = useRouteLoaderData("user");
@@ -58,8 +58,8 @@ const FundHistory = () => {
 
   const handleNavigation = (data, nav) => {
     setTransactions(data);
-    setActiveNav(nav)
-  }
+    setActiveNav(nav);
+  };
 
   // styles
   const navStyle = "py-3 px-2 rounded w-full";
@@ -73,26 +73,20 @@ const FundHistory = () => {
       {/* fund nav */}
       <div className="bg-mySecondary grid grid-cols-3 justify-between mb-3 text-center rounded">
         <span
-          className={`${navStyle} ${activeNav == "all" &&
-            activeNavStyle
-          }`}
+          className={`${navStyle} ${activeNav == "all" && activeNavStyle}`}
           onClick={() => handleNavigation(allTransactions, "all")}
         >
           Total Fund
         </span>
 
         <span
-          className={`${navStyle} ${activeNav == "recharge" &&
-            activeNavStyle
-          }`}
+          className={`${navStyle} ${activeNav == "recharge" && activeNavStyle}`}
           onClick={() => handleNavigation(rechargeTransactions, "recharge")}
         >
           Recharge
         </span>
         <span
-          className={`${navStyle} ${activeNav == "withdraw" &&
-            activeNavStyle
-          }`}
+          className={`${navStyle} ${activeNav == "withdraw" && activeNavStyle}`}
           onClick={() => handleNavigation(withdrawTransactions, "withdraw")}
         >
           Withdraw
@@ -100,42 +94,59 @@ const FundHistory = () => {
       </div>
       {/* fund list */}
       <div className="bg-white rounded shadow">
-        {!transactions.length ? <p className="text-gray-400 text-center p-5 h-screen">No fund history</p> : transactions.map((transaction) => {
-          const createdDate = moment(transaction.createdAt).format(
-            "DD/MM/YYYY HH:mm:ss"
-          );
-          return (
-            <div
-              key={transaction._id}
-              className={`grid gap-2 justify-between px-3 py-2 mb-2 text-sm bg-opacity-60 ${
-                transaction.isApproved ? "bg-success" : transaction.isRejected ? "bg-error text-white"  : "bg-gray-300"
-              } ${user.isAdmin ? "grid-cols-5" : "grid-cols-2"}`}
-              onClick={() => handleClick(transaction.client.userId)}
-            >
-              {user.isAdmin && (
-                  <div className="overflow-x-scroll no-scrollbar text-start col-span-3">
+        {!transactions.length ? (
+          <p className="text-gray-400 text-center p-5 h-screen">
+            No fund history
+          </p>
+        ) : (
+          transactions.map((transaction) => {
+            const createdDate = moment(transaction.createdAt).format(
+              "DD/MM/YYYY HH:mm:ss"
+            );
+            return (
+              <div
+                key={transaction._id}
+                className={`flex gap-2 items-center justify-between px-3 py-2 mb-2 text-sm bg-opacity-40 ${
+                  transaction.isRejected
+                    ? "bg-error"
+                    : transaction.isApproved
+                    ? "bg-success"
+                    : "bg-gray-300"
+                }`}
+                onClick={() => handleClick(transaction.client.userId)}
+              >
+                <p>
+                  {transaction.isRejected
+                    ? "Rejected"
+                    : transaction.isApproved
+                    ? "Approved"
+                    : "Pending"}
+                </p>
+                {user.isAdmin && (
+                  <div className="overflow-x-scroll no-scrollbar text-start flex-grow">
                     <p>{transaction.client?.name}</p>
                     <p className="text-xs">{transaction.credential}</p>
                   </div>
-              )}
-              <div >
-                <p>{transaction.category}</p>
-                <p className="text-[0.60rem]">{createdDate}</p>
-              </div>
-              <p
-                className={
-                  transaction.category == "Withdraw"
-                    ? "text-error text-end"
-                    : "text-success text-end"
-                }
+                )}
+                <div>
+                  <p>{transaction.category}</p>
+                  <p className="text-[0.60rem]">{createdDate}</p>
+                </div>
+                <p
+                  className={
+                    transaction.category == "Withdraw"
+                      ? "text-error text-end"
+                      : "text-success text-end"
+                  }
                 >
-                {!transaction.isApproved && transaction.category == "Recharge"
-                  ? "Pending"
-                  : transaction.amount.toFixed(2)}
-              </p>
-            </div>
-          );
-        })}
+                  {!transaction.isApproved && transaction.category == "Recharge"
+                    ? "__"
+                    : transaction.amount.toFixed(2)}
+                </p>
+              </div>
+            );
+          })
+        )}
       </div>
     </section>
   );
