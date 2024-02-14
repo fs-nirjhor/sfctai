@@ -59,22 +59,10 @@ const Start = () => {
             </p>
           </div>
           <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Today&apos;s Team Earn</h5>
-            <p className="font-semibold text-white">
-              {todaysTeamIncome} <span className="text-myPrimary">USDT</span>
-            </p>
-          </div>
-          <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Total Individual Earn</h5>
+            <h5 className="text-sm">Total Earn</h5>
             <p className="font-semibold text-white">
               {totalIndividualIncome}{" "}
               <span className="text-myPrimary">USDT</span>
-            </p>
-          </div>
-          <div className="bg-mySecondary bg-opacity-50 p-3 rounded-md">
-            <h5 className="text-sm">Total Team Earn</h5>
-            <p className="font-semibold text-white">
-              {totalTeamIncome} <span className="text-myPrimary">USDT</span>
             </p>
           </div>
           <div className="col-span-2 bg-mySecondary bg-opacity-50 p-3 rounded-md">

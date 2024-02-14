@@ -10,7 +10,10 @@ const Logout = () => {
   const handleClick = async () => {
     event.preventDefault();
     try {
+      // for cookie 
       await authApi.post("logout");
+      // for bearer token 
+      localStorage.removeItem("accessToken");
 
       toast.success("Logout Successful")
       navigate("/login");

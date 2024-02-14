@@ -18,7 +18,7 @@ const Registration = () => {
     event.preventDefault();
     try {
       await userApi.post("registration", data);
-      toast.success("Registration successful")
+      toast.success("Registration successful");
       await authApi.post("login", {
         password: data.loginPassword,
         phone: data.phone,
@@ -34,13 +34,13 @@ const Registration = () => {
   };
 
   return (
-    <section className="bg-gradient-to-t from-myPrimary to-transparent min-h-full pb-40 px-5">
+    <section className="bg-gradient-to-t from-white to-transparent min-h-full pb-40 px-5">
       <h1 className="font-semibold text-center pt-2 mb-5">Registration</h1>
       <figure>
         <img
           src="/images/bannar/coin_bannar.png"
           alt="coin-bannar"
-          className="mx-auto max-w-md my-5"
+          className="w-full max-w-md mx-auto"
         />
       </figure>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -169,19 +169,14 @@ const Registration = () => {
           )}
         </label>
         <label className="form-control w-full max-w-md mx-auto flex flex-row mt-10">
-          <input
-            type="checkbox"
-            className="accent-myPrimary me-2"
-            readOnly
-            checked
-          />
+          <input type="checkbox" className="me-2" readOnly checked />
           <span className="text-sm">Agree with all terms and conditions.</span>
         </label>
 
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-warning bg-myPrimary text-white font-semibold w-full mt-3"
+            className="btn bg-white font-semibold w-full mt-3"
           >
             Registration
           </button>

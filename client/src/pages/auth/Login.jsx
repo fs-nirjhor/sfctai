@@ -16,7 +16,12 @@ const Login = () => {
   const onSubmit = async (data) => {
     event.preventDefault();
     try {
-      await authApi.post("login", data);
+      const loggedUser = await authApi.post("login", data);
+      if (loggedUser.data?.success) {
+        // set access token
+        const accessToken = loggedUser.data?.payload.accessToken;
+        localStorage.setItem("accessToken", accessToken)
+      }
       toast.success("Logged in successfully")
       navigate(location.state ? location.state.from : "/");
     } catch (err) {

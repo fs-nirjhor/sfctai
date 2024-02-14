@@ -4,11 +4,14 @@ const { jwtAccessKey } = require("../secret");
 
 const isLoggedIn = async (req, res, next) => {
   try {
-    const token = req.cookies.access_token;
+    const bearerToken = req.headers?.authorization?.split(" ")[1];
+    const cookiesToken = req.cookies.access_token;
+    const token = cookiesToken || bearerToken;
     if (!token) {
-      throw createHttpError(401, "User is not logged in");
+      throw createHttpError(401, "Please log in");
     }
     const user = await jwt.verify(token, jwtAccessKey);
+    
     if (!user) {
       throw createHttpError(401, "Invalid access token");
     }
@@ -18,6 +21,7 @@ const isLoggedIn = async (req, res, next) => {
     return next(error);
   }
 };
+
 const isLoggedOut = async (req, res, next) => {
   try {
     const token = req.cookies.access_token;

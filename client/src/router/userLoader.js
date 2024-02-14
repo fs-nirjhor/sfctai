@@ -10,10 +10,9 @@ const userLoader = async () => {
       const loggedUser = await authApi.get("protected-route");
       if (loggedUser.data?.success) {
         user = loggedUser.data?.payload.user;
-      } else {
-        // handle 15 days inactivity
-        const refreshedUser = await authApi.get("refresh-token");
-        user = refreshedUser.data?.payload.user;
+        // set access token
+        const accessToken = loggedUser.data?.payload.accessToken;
+        localStorage.setItem("accessToken", accessToken)
       }
       toast.dismiss("user-loading");
       return user;

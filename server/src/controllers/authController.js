@@ -6,10 +6,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const createHttpError = require("http-errors");
 const { jwtAccessKey, jwtRefreshKey } = require("../secret");
-const {
-  setAccessTokenCookie,
-  setRefreshTokenCookie,
-} = require("../helper/cookie");
+const {setAccessTokenCookie} = require("../helper/cookie");
 
 const handleLogin = async (req, res, next) => {
   try {
@@ -40,19 +37,16 @@ const handleLogin = async (req, res, next) => {
     };
 
     // set access token
-    const accessToken = await createJwt(tokenData, jwtAccessKey, "3d");
+    const accessToken = await createJwt(tokenData, jwtAccessKey, "15d");
     setAccessTokenCookie(res, accessToken);
 
-    // set refresh token
-    const refreshToken = await createJwt(tokenData, jwtRefreshKey, "15d");
-    setRefreshTokenCookie(res, refreshToken);
-
     // prevent showing password in payload. user from database is not a pure object without lean
-    delete user.password;
+    delete user.loginPassword;
+    delete user.withdrawalPassword;
     return successResponse(res, {
       statusCode: 200,
       message: "Logged in successfully",
-      payload: { user },
+      payload: { user, accessToken },
     });
   } catch (error) {
     return next(error);
@@ -67,58 +61,13 @@ const handleLogout = async (req, res, next) => {
     }
     // clear access cookie
     res.clearCookie("access_token");
-    res.clearCookie("refresh_token");
+
     return successResponse(res, {
       statusCode: 200,
       message: "Logged out successfully",
     });
   } catch (error) {
     next(error);
-  }
-};
-
-const handleRefreshToken = async (req, res, next) => {
-  try {
-    const oldRefreshToken = req.cookies.refresh_token;
-    if (!oldRefreshToken) {
-      throw createHttpError(401, "Please login");
-    }
-    const decoded = jwt.verify(oldRefreshToken, jwtRefreshKey);
-    if (!decoded) {
-      throw createHttpError(401, "Refresh token is invalid or expired");
-    }
-
-    // get user information
-    const options = {
-      populate: {
-        path: "invitedBy team.level1 team.level2 team.level3",
-        model: "User",
-      },
-      loginPassword: 0,
-      withdrawalPassword: 0,
-    };
-    const user = await findItemById(User, decoded._id, {}, options);
-
-    const tokenData = {
-      id: user._id,
-      password: user.loginPassword,
-      isAdmin: user.isAdmin,
-    };
-    // set access token
-    const accessToken = await createJwt(tokenData, jwtAccessKey, "3d");
-    setAccessTokenCookie(res, accessToken);
-
-    // set refresh token
-    const refreshToken = await createJwt(tokenData, jwtRefreshKey, "15d");
-    setRefreshTokenCookie(res, refreshToken);
-
-    return successResponse(res, {
-      statusCode: 200,
-      message: "Refreshed token successfully",
-      payload: { access: true, user },
-    });
-  } catch (error) {
-    return next(error);
   }
 };
 
@@ -146,12 +95,23 @@ const handleProtectedRoute = async (req, res, next) => {
 
     const user = await findItemById(User, decoded.id, {}, options);
 
+    // refresh access token
+    const tokenData = {
+      id: user._id,
+      password: user.loginPassword,
+      isAdmin: user.isAdmin,
+    };
+
+    const refreshedToken = await createJwt(tokenData, jwtAccessKey, "15d");
+    setAccessTokenCookie(res, refreshedToken);
+
     return successResponse(res, {
       statusCode: 200,
       message: "Authenticated successfully",
-      payload: { user },
+      payload: { user, accessToken: refreshedToken },
     });
   } catch (error) {
+    console.log(error)
     return next(error);
   }
 };
@@ -159,6 +119,5 @@ const handleProtectedRoute = async (req, res, next) => {
 module.exports = {
   handleLogin,
   handleLogout,
-  handleRefreshToken,
   handleProtectedRoute,
 };

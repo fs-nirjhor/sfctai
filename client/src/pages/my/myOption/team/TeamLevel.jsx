@@ -5,7 +5,7 @@ const TeamLevel = ({user}) => {
   const [level, setLevel] = useState('1');
   const levels = ['1','2','3'];
   const activeButton = "btn btn-primary font-semibold"
-  const inactiveButton = "btn btn-primary bg-white text-myPrimary font-semibold"
+  const inactiveButton = "btn btn-primary bg-white text-black font-semibold"
     return (
         <article>
             <h4 className="text-sm text-center">Members</h4>
