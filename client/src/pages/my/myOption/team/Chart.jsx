@@ -24,6 +24,7 @@ const Chart = ({user}) => {
 
   // total
   const totalIncome = transaction.totalTeamIncome;
+  const todaysTeamIncome = transaction.todaysTeamIncome;
 
   // direct membership data
   const directIncome =
@@ -66,11 +67,21 @@ const Chart = ({user}) => {
   ];
 
   return (
-    <article className="text-center mb-3">
+    <section className="text-center mb-3">
+      <div className="flex justify-evenly mb-2">
+        <div>
       <h4 className="text-sm">Total Income</h4>
       <h2 className="font-lg font-semibold mb-2">
         USDT {totalIncome.toFixed(2)}
       </h2>
+        </div>
+        <div>
+      <h4 className="text-sm">Todays Income</h4>
+      <h2 className="font-lg font-semibold mb-2">
+        USDT {todaysTeamIncome.toFixed(2)}
+      </h2>
+        </div>
+      </div>
       {charts.map((chart, i) => (
         <figure className="bg-mySecondary rounded-md px-3 py-5 mb-2" key={i}>
           <h3 className="mb-3">{chart.name}</h3>
@@ -92,7 +103,7 @@ const Chart = ({user}) => {
           </table>
         </figure>
       ))}
-    </article>
+    </section>
   );
 };
 
