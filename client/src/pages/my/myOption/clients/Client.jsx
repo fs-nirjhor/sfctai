@@ -157,7 +157,7 @@ const Client = () => {
             <div className="overflow-x-auto">
               Email: {client.email}
             </div>
-            <div>Date of birth: {dateOfBirth}</div>
+            <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
           {/* Team Status */}
           <div className={singleBoxStyle}>
