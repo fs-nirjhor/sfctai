@@ -135,7 +135,7 @@ const Confirm = () => {
             Expect to take 10 to 15 minites to complete the order
           </p>
           <button
-            className="btn btn-block btn-warning bg-myPrimary text-white"
+            className="btn btn-block btn-primary"
             onClick={handleClick}
           >
             Confirm

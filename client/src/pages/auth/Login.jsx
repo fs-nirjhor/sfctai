@@ -90,7 +90,7 @@ const Login = () => {
         <label className="form-control w-full max-w-md mx-auto mt-5">
           <button
             type="submit"
-            className="btn btn-warning bg-myPrimary text-white font-semibold w-full"
+            className="btn btn-primary font-semibold w-full"
           >
             Login
           </button>

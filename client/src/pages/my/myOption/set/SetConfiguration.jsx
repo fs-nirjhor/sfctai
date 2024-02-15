@@ -39,7 +39,7 @@ const SetConfiguration = () => {
     "input input-bordered input-sm border-myPrimary join-item w-4/6";
   const formStyle = "join shadow-md w-full mb-4";
   const buttonStyle =
-    "btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6";
+    "btn btn-sm join-item w-2/6";
 
   return (
     <div>

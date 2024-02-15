@@ -58,7 +58,7 @@ const TxidSubmit = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-warning bg-myPrimary text-white font-semibold w-full mt-5"
+            className="btn btn-primary font-semibold w-full mt-5"
           >
             Submit
           </button>

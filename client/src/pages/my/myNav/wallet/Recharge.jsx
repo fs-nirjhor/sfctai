@@ -16,7 +16,7 @@ const Recharge = () => {
             {transferAddress}
           </p>
           <button
-            className="btn btn-sm btn-warning bg-myPrimary text-white"
+            className="btn btn-sm "
             onClick={() => navigator.clipboard.writeText(transferAddress)}
           >
             Copy
@@ -33,7 +33,7 @@ const Recharge = () => {
         </p>
         <Link
           to="/my/txid-submit"
-          className="btn btn-warning btn-block bg-myPrimary text-white mt-3 hover:text-white"
+          className="btn btn-primary btn-block mt-3"
         >
           SUBMIT TXID
         </Link>

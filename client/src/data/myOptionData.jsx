@@ -52,12 +52,11 @@ const MyOptionData = () => {
   ];
 
   // admin option
-  const adminIconStyle = "text-myPrimary inline-block me-3 text-2xl";
   const adminOptions = [
     {
       name: "Clients",
       to: "client-list",
-      icon: <FiUsers className={adminIconStyle} />,
+      icon: <FiUsers className={iconStyle} />,
     },
     {
       name: "Invitation Letter",

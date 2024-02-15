@@ -40,7 +40,7 @@ const SetPersonalInfo = () => {
     "input input-bordered input-sm border-myPrimary join-item w-4/6";
   const formStyle = "join shadow-md w-full mb-4";
   const buttonStyle =
-    "btn bg-white text-black btn-sm join-item w-2/6";
+    "btn btn-sm join-item w-2/6";
 
   return (
       <div>
