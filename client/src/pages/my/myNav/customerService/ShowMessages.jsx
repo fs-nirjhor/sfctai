@@ -44,7 +44,7 @@ const ShowMessages = () => {
                   } `}
                   
                 >
-                  <figure >
+                  <figure className="tooltip" data-tip={name}>
                     <img
                       src={avatar}
                       alt={name}
