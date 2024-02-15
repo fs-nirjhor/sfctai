@@ -6,12 +6,12 @@ const isLoggedIn = async (req, res, next) => {
   try {
     const bearerToken = req.headers?.authorization?.split(" ")[1];
     const cookiesToken = req.cookies.access_token;
-    const token = cookiesToken || bearerToken;
+    const accessToken = cookiesToken || bearerToken;
     
-    if (!token) {
+    if (!accessToken || accessToken == "null") {
       throw createHttpError(401, "Please log in");
     }
-    const user = await jwt.verify(token, jwtAccessKey);
+    const user = await jwt.verify(accessToken, jwtAccessKey);
     
     if (!user) {
       throw createHttpError(401, "Invalid access token");

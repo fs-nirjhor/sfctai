@@ -76,7 +76,7 @@ const handleProtectedRoute = async (req, res, next) => {
     const bearerToken = req.headers?.authorization?.split(" ")[1];
     const cookiesToken = req.cookies.access_token;
     const accessToken = cookiesToken || bearerToken;
-    if (accessToken == "null") {
+    if (!accessToken || accessToken == "null") {
       throw createHttpError(401, "Please login");
     }
     const decoded = jwt.verify(accessToken, jwtAccessKey);
