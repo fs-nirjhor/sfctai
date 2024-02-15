@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 
 const TxidSubmit = () => {
   const user = useRouteLoaderData("user");
-  const [amount, setAmount] = useState(0);
   const [txid, setTxid] = useState("");
   const navigate = useNavigate();
 
@@ -17,7 +16,7 @@ const TxidSubmit = () => {
     // transaction data
     const transaction = {
       client: user._id,
-      amount: amount,
+      amount: 0,
       credential: txid,
       category: "Recharge",
     };
@@ -26,7 +25,7 @@ const TxidSubmit = () => {
         transaction,
       });
       if (res.data?.success) {
-        toast.success("Your TXID submitted successfully")
+        toast.success("TXID submitted")
         window.location.reload();
         navigate(-1);
       }
