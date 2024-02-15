@@ -3,6 +3,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import { userApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
 import SetAvatar from './SetAvatar';
+import moment from "moment";
 
 const SetPersonalInfo = () => {
   const user = useRouteLoaderData("user");
@@ -10,7 +11,8 @@ const SetPersonalInfo = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
+  const currentDate = moment(Date.now()).format("YYYY-MM-DD");
+  const [dateOfBirth, setDateOfBirth] = useState(currentDate);
 
   const handleClick = async (updates) => {
     event.preventDefault();
@@ -38,7 +40,7 @@ const SetPersonalInfo = () => {
     "input input-bordered input-sm border-myPrimary join-item w-4/6";
   const formStyle = "join shadow-md w-full mb-4";
   const buttonStyle =
-    "btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6";
+    "btn bg-white text-black btn-sm join-item w-2/6";
 
   return (
       <div>
