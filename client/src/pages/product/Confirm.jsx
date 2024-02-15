@@ -91,7 +91,7 @@ const Confirm = () => {
       const res = await transactionApi.post("order-request", { transaction });
 
       if (res.data?.success) {
-        document.getElementById("order-success").showModal();
+        toast.success("Trade confirmed")
         document.getElementById("confirm_dialog").close();
         window.location.reload();
       }

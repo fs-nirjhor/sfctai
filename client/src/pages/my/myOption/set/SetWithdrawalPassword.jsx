@@ -17,14 +17,13 @@ const SetWithdrawalPassword = () => {
     try {
       const res = await userApi.put(`update-password/${user._id}`, data);
       res.data?.success &&
-        toast.success("Withdraw password updated successfully")
+        toast.success("Withdraw password updated")
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message); // error sent by server
       } else {
         toast.error(err.message); // other error
       }
-      document.getElementById("update-password-error").showModal();
     }
   };
   return (

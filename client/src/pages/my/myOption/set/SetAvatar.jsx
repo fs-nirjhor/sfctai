@@ -27,7 +27,7 @@ const SetAvatar = () => {
     try {
       const res = await userApi.put(user._id, updates);
       res.data?.success &&
-        document.getElementById("update-success").showModal();
+        toast.success("Avatar updated")
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message);

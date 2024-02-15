@@ -1,15 +1,20 @@
 {
   "name": "sfctai",
   "version": "1.0.0",
-  "description": "An investing website",
+  "description": "SFCTAI is a cryptocurrency trading platform",
   "main": "server.js",
   "keywords": [
-    "invest",
     "sfctai",
+    "SFCTAI",
+    "sfctai.com",
+    "trading",
+    "trading platform",
+    "cryptocurrency",
+    "crypto",
+    "coin",
     "income",
-    "trc20 address",
-    "binance",
-    "sfctai.com"
+    "earning",
+    "invest"
   ],
   "scripts": {
     "client-start": "cd client && npm start",

@@ -14,7 +14,6 @@ const BindUsdt = () => {
       setTrc20Address(e.target.value);
     } else {
       toast.error("Binding ID can not be changed");
-      document.getElementById("bind-error").showModal();
     }
   };
 
@@ -23,16 +22,14 @@ const BindUsdt = () => {
     try {
       if (trc20Address.length !== 20) {
         toast.error("Invalid Binding ID");
-        document.getElementById("bind-error").showModal();
       } else if (!user.trc20Address) {
         const res = await userApi.put(user._id, { trc20Address });
         if (res.data?.success) {
-          document.getElementById("bind-success").showModal();
+          toast.success("Binding successfully");
           navigate("/");
         }
       } else {
         toast.error("Binding ID can not be changed");
-        document.getElementById("bind-error").showModal();
       }
     } catch (err) {
       if (err.response?.data.message) {
