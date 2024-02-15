@@ -70,13 +70,13 @@ const Chart = ({user}) => {
     <section className="text-center mb-3">
       <div className="flex justify-evenly mb-5 p-2 bg-white rounded-md">
         <div>
-      <h4 className="text-sm">Total Income</h4>
+      <h4 className="text-sm">Total Earn</h4>
       <h2 className="font-lg font-semibold mb-2">
         USDT {totalIncome.toFixed(2)}
       </h2>
         </div>
         <div>
-      <h4 className="text-sm">Todays Income</h4>
+      <h4 className="text-sm">Todays Earn</h4>
       <h2 className="font-lg font-semibold mb-2">
         USDT {todaysTeamIncome.toFixed(2)}
       </h2>
