@@ -1,7 +1,6 @@
 import { useParams, useRouteLoaderData } from "react-router-dom";
 import UseChat from "./UseChat";
 import moment from "moment";
-import SendBox from './SendBox';
 
 const ShowMessages = () => {
   const user = useRouteLoaderData("user");
@@ -9,16 +8,15 @@ const ShowMessages = () => {
   const { client } = useParams();
   const clientId = client || user._id;
 
-  if (!chats) {
+  if (!chats || !chats.length) {
     return (
-      <div className="h-[59vh]">
-        <h1 className="font-semibold text-center pt-2 mb-5">Chat</h1>
+      <div className="w-full">
         <p className="text-center my-40">Start conversation</p>
       </div>
     );
   }
   return (
-      <div className="w-full xh-[59vh] h-96 overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
+      <div className="w-full overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
         {chats.map((chat) => {
           if (chat.client && chat.client?._id == clientId) {
             return chat.messages

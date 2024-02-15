@@ -1,14 +1,6 @@
-import UseChat from "./UseChat";
-import Chat from "./Chat";
 
 function CustomerService() {
-  const { chats } = UseChat();
-  return (
-    <div>
-      <h1 className="font-semibold text-center pt-2 mb-5">Customer Service</h1>
-      <Chat chats={chats} />
-    </div>
-  );
+  return document.getElementById("chat_dialog").showModal();
 }
 
 export default CustomerService;

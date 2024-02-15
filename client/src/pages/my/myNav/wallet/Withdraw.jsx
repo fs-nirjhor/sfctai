@@ -159,7 +159,7 @@ const Withdraw = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-warning bg-myPrimary text-white font-semibold w-full mt-5"
+            className="btn bg-white text-black font-semibold w-full mt-5"
           >
             Withdraw
           </button>

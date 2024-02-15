@@ -1,6 +1,5 @@
 import { useParams, useRouteLoaderData } from "react-router-dom";
 import InputEmoji from 'react-input-emoji'
-import {  MdSend } from "react-icons/md";
 import { FaImage } from "react-icons/fa";
 import UseChat from "./UseChat";
 import { useState } from "react";
@@ -51,17 +50,23 @@ const SendBox = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
-        <div className="input input-bordered join-item w-full bg-white p-0">
+        <div className="input join-item w-full p-0 border-myPrimary">
         <InputEmoji
           placeholder="Type Here..."
+          inputClass=""
           value={text}
           onChange={setText}
           borderRadius={5}
           borderColor="white"
+          fontSize={15}
+          keepOpened={true}
+          shouldReturn={false}
+          //tabIndex={5}
+          //height={32}
         />
           </div>
           </div>
-        <button className="btn btn-warning bg-myPrimary text-white mt-2 ms-auto block px-10">
+        <button className="btn btn-sm btn-warning bg-myPrimary text-white mt-2 ms-auto block px-10">
          SEND
         </button>
       </form>
