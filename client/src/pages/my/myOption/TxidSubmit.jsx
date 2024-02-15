@@ -11,6 +11,9 @@ const TxidSubmit = () => {
 
   const handleSubmit = async () => {
     event.preventDefault();
+    if (txid.length !== 12) {
+      return toast.error("Invalid TXID");
+    }
     // transaction data
     const transaction = {
       client: user._id,
@@ -42,7 +45,7 @@ const TxidSubmit = () => {
       <form onSubmit={handleSubmit}>
         <label className="form-control w-full max-w-md mx-auto">
           <input
-            type="text"
+            type="number"
             placeholder="Enter your TXID"
             name="txid"
             className="input bg-mySecondary w-full max-w-md text-center"
