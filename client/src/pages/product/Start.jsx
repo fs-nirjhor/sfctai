@@ -31,7 +31,7 @@ const Start = () => {
   return (
     <section>
       <figure className="p-5">
-        <img src="/images/logo.png" alt="STFAI" className="mx-auto w-60" />
+        <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
       </figure>
       <div className="relative my-5 h-[16rem]">
         <video

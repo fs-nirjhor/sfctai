@@ -5,8 +5,8 @@ const AboutPlatform = () => {
         User Terms And Privacy Policy
       </h1>
       <p className="bg-mySecondary p-3 rounded-md">
-        STFAI is a cryptocurrency trading platform that works with over a
-        thousand exchanges around the world. STFAI has a unique AI conversion
+        SFCTAI is a cryptocurrency trading platform that works with over a
+        thousand exchanges around the world. SFCTAI has a unique AI conversion
         system that is able to analyze large amounts of data as well as having
         the ability to learn quickly to improve the accuracy of its work. After
         people place orders on the platform, the system automatically will

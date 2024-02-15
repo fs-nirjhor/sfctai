@@ -30,7 +30,7 @@ const handleRegistration = async (req, res, next) => {
     const { invitationCode, ...newUser } = req.body;
     const invitationData = invitationCode
       ? { invitationCode }
-      : { invitationCode: "STFAI00" };
+      : { invitationCode: "SFCTAI" };
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -191,9 +191,12 @@ const handleGetUser = async (req, res, next) => {
     const filter = { userId: id };
     const select = { loginPassword: 0, withdrawPassword: 0 };
     const options = {
-      populate: { path: "invitedBy team.level1 team.level2 team.level3", model: "User" },
+      populate: {
+        path: "invitedBy team.level1 team.level2 team.level3",
+        model: "User",
+      },
       loginPassword: 0,
-      withdrawalPassword: 0
+      withdrawalPassword: 0,
     };
     const user = await findOneItem(User, filter, select, options);
     return successResponse(res, {

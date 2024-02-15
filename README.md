@@ -1,1 +1,1 @@
-## [Live Website](https://stfai.netlify.app)
+## [Live Website](https://sfctai.netlify.app)

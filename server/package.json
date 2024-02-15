@@ -1,5 +1,5 @@
 {
-  "name": "stfai",
+  "name": "sfctai",
   "version": "1.0.0",
   "description": "An currency exchange website",
   "main": "server.js",
@@ -10,13 +10,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "stfai",
+    "sfctai",
     "coin",
     "income",
     "earning",
     "invest"
   ],
-  "author": "stfai",
+  "author": "sfctai",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -39,7 +39,7 @@
     "slugify": "^1.6.6",
     "socket.io": "^4.7.3",
     "stream": "^0.0.2",
-    "stfai": "file:..",
+    "sfctai": "file:..",
     "winston": "^3.11.0"
   }
 }

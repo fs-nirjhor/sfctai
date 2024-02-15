@@ -77,7 +77,7 @@ io.on("connection", (socket) => {
           cloudinary.uploader
             .upload_stream(
               {
-                folder: `STFAI/chat/${client}`,
+                folder: `SFCTAI/chat/${client}`,
                 public_id: `${client}_${Date.now()}`,
                 use_filename: true,
                 unique_filename: false,

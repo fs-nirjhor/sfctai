@@ -20,9 +20,9 @@ const Login = () => {
       if (loggedUser.data?.success) {
         // set access token
         const accessToken = loggedUser.data?.payload.accessToken;
-        localStorage.setItem("accessToken", accessToken)
+        localStorage.setItem("accessToken", accessToken);
       }
-      toast.success("Logged in successfully")
+      toast.success("Logged in successfully");
       navigate(location.state ? location.state.from : "/");
     } catch (err) {
       if (err.response?.data.message) {
@@ -97,7 +97,7 @@ const Login = () => {
         </label>
       </form>
       <Link
-        to="/registration?invitationCode=STFAI00"
+        to="/registration?invitationCode=SFCTAI"
         className="text-center mt-5 block"
       >
         Don&apos;t have an account?

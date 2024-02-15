@@ -88,7 +88,7 @@ const userSchema = new Schema(
     invitationCode: {
       type: String,
       default: function () {
-        return createRandomString(7);
+        return createRandomString(6);
       },
       required: [true, "Invitation code is required"],
       unique: true,

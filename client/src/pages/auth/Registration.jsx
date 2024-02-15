@@ -155,8 +155,8 @@ const Registration = () => {
             required
             {...register("invitationCode", {
               required: true,
-              minLength: 7,
-              maxLength: 7,
+              minLength: 6,
+              maxLength: 6,
             })}
           />
           {errors.invitationCode && (

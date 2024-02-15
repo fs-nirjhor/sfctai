@@ -24,7 +24,7 @@ const validateUserRegistration = [
   body("invitationCode")
     .trim()
     .notEmpty()
-    .isLength(7)
+    .isLength(6)
     .withMessage("Invalid invitation code"),
 ];
 
