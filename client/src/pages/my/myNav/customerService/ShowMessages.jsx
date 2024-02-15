@@ -29,11 +29,14 @@ const ShowMessages = () => {
                     : "text-start me-auto";
                 const contentStyle =
                   message.sender == user._id
-                    ? "bg-myPrimary text-white"
-                    : "bg-white text-myPrimary border border-myPrimary";
+                    ? "bg-primary text-white"
+                    : "bg-white border border-myPrimary";
                 const time = moment(message.time).format("DD/MM/YYYY HH:mm:ss");
                 return (
-                  <div key={i}>
+                  <div key={i} className={`flex items-center gap-3 ${message.sender === user._id ? "flex-row-reverse" : "flex-row"}`}>
+                    <figure >
+                      <img src={chat.client.avatar} alt={chat.client.name} className="h-8"/>
+                    </figure>
                     <div className={`mt-2 ${messageStyle}`}>
                       {message.text ? (
                         <span
@@ -48,7 +51,7 @@ const ShowMessages = () => {
                           className={`w-2/3 p-3 ${messageStyle}`}
                         />
                       )}
-                      <p className="text-xs text-gray-400">{time}</p>
+                      <p className="text-xs text-gray-100">{time}</p>
                     </div>
                   </div>
                 );

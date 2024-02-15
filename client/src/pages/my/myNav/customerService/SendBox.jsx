@@ -41,7 +41,7 @@ const SendBox = () => {
     <div className="pt-5">
       <form className="mx-auto" onSubmit={handleSubmit}>
         <div className="join p-0 m-0 w-full">
-      <label className={`btn text-lg text-myPrimary w-2/12 ${image && "bg-myPrimary text-white"} rounded-none join-item p-2`}>
+      <label className={`btn text-lg text-primary w-2/12 ${image && "bg-primary text-white"} rounded-none join-item p-2`}>
           <FaImage />
           <input
             className="hidden"
@@ -50,7 +50,7 @@ const SendBox = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
-        <div className="input join-item w-full p-0 border-myPrimary">
+        <div className="input join-item w-full p-0 border-primary">
         <InputEmoji
           placeholder="Type Here..."
           inputClass=""
@@ -66,7 +66,7 @@ const SendBox = () => {
         />
           </div>
           </div>
-        <button className="btn btn-sm btn-warning bg-myPrimary text-white mt-2 ms-auto block px-10">
+        <button className="btn btn-sm btn-primary mt-2 ms-auto block px-10">
          SEND
         </button>
       </form>
