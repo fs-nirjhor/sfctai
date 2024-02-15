@@ -7,6 +7,7 @@ const isLoggedIn = async (req, res, next) => {
     const bearerToken = req.headers?.authorization?.split(" ")[1];
     const cookiesToken = req.cookies.access_token;
     const token = cookiesToken || bearerToken;
+    
     if (!token) {
       throw createHttpError(401, "Please log in");
     }

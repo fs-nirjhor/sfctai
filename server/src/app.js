@@ -24,7 +24,7 @@ const limiter = rateLimit({
   message: "Too many requests. \n Please try again later",
 });
 const corsOptions = {
-  origin: corsUrl,
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,

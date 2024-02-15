@@ -20,10 +20,11 @@ const Login = () => {
       if (loggedUser.data?.success) {
         // set access token
         const accessToken = loggedUser.data?.payload.accessToken;
-        localStorage.setItem("accessToken", accessToken);
+        await localStorage.setItem("accessToken", accessToken);
       }
       toast.success("Logged in successfully");
-      navigate(location.state ? location.state.from : "/");
+      //navigate(location.state ? location.state.from : "/");
+      window.location.replace(location.state ? location.state?.from?.pathname : "/")
     } catch (err) {
       if (err.response?.data.message) {
         toast.error(err.response.data.message); // error sent by server

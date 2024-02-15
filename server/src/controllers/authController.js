@@ -73,14 +73,16 @@ const handleLogout = async (req, res, next) => {
 
 const handleProtectedRoute = async (req, res, next) => {
   try {
-    const accessToken = req.cookies.access_token;
-    if (!accessToken) {
+    const bearerToken = req.headers?.authorization?.split(" ")[1];
+    const cookiesToken = req.cookies.access_token;
+    const accessToken = cookiesToken || bearerToken;
+    if (accessToken == "null") {
       throw createHttpError(401, "Please login");
     }
     const decoded = jwt.verify(accessToken, jwtAccessKey);
     if (!decoded) {
       throw createHttpError(401, "Access token is invalid or expired");
-    }
+    } 
     const options = {
       populate: {
         path: "invitedBy team.level1 team.level2 team.level3",
@@ -111,7 +113,6 @@ const handleProtectedRoute = async (req, res, next) => {
       payload: { user, accessToken: refreshedToken },
     });
   } catch (error) {
-    console.log(error)
     return next(error);
   }
 };

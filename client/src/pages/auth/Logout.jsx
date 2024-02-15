@@ -11,12 +11,14 @@ const Logout = () => {
     event.preventDefault();
     try {
       // for cookie 
-      await authApi.post("logout");
+      //await authApi.post("logout");
+
       // for bearer token 
       localStorage.removeItem("accessToken");
 
-      toast.success("Logout Successful")
-      navigate("/login");
+      toast.success("Logout Successful");
+      window.location.reload();
+      //navigate("/login");
     } catch (err) {
       if (err.response?.data.message) {
         toast.error(err.response.data.message); // error sent by server

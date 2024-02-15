@@ -14,7 +14,7 @@ authRouter.post('/login', isLoggedOut, validateUserLogin, runValidations, handle
 authRouter.post('/logout', isLoggedIn, handleLogout);
 
 // api/auth/protected-route
-authRouter.get("/protected-route", isLoggedIn, handleProtectedRoute);
+authRouter.get("/protected-route", handleProtectedRoute);
 
 
 module.exports = authRouter;

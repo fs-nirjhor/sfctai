@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation, useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loading from "./../shared/Loading";
+import { toast } from 'react-toastify';
 
 const PrivateRoute = () => {
   const user = useRouteLoaderData("user");
@@ -14,7 +15,7 @@ const PrivateRoute = () => {
           setAuthenticated(true);
         } else {
         setLoading(false);
-        document.getElementById("private-router-error").showModal();
+        toast.error(("Please login"))
       }
     }
     checkAuthentication();
