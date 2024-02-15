@@ -33,7 +33,7 @@ const ChatList = () => {
               </figure>
               <div>
                 <p>{chat.client?.name}</p>
-                <p className="text-sm text-gray-400">
+                <p className={`text-sm ${chat.isSeen ? "text-gray-400" : "text-white"}`}>
                   {chat.messages[lastMessages]?.text}
                 </p>
               </div>
