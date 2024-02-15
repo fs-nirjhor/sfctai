@@ -37,12 +37,12 @@ const ShowMessages = () => {
               return (
                 <div
                   key={i}
-                  className={`flex items-center gap-3 tooltip ${
+                  className={`flex items-center gap-3 ${
                     message.sender === user._id
                       ? "flex-row-reverse"
                       : "flex-row"
                   } `}
-                  data-tip={name}
+                  
                 >
                   <figure >
                     <img
@@ -51,7 +51,7 @@ const ShowMessages = () => {
                       className="h-8"
                     />
                   </figure>
-                  <div className={`mt-2 ${messageStyle}`}>
+                  <div className={`mt-2 tooltip ${messageStyle}`} data-tip={name}>
                     {message.text ? (
                       <span
                         className={`max-w-md inline-block rounded-md px-3 py-1 ${contentStyle}`}
