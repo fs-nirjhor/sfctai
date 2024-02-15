@@ -17,7 +17,7 @@ const Logout = () => {
       localStorage.removeItem("accessToken");
 
       toast.success("Logout Successful");
-      window.location.reload();
+      window.location.replace("/");
       //navigate("/login");
     } catch (err) {
       if (err.response?.data.message) {

@@ -14,8 +14,8 @@ const PrivateRoute = () => {
           setLoading(false);
           setAuthenticated(true);
         } else {
-        setLoading(false);
-        toast.error(("Please login"))
+          setLoading(false);
+          setAuthenticated(false);
       }
     }
     checkAuthentication();

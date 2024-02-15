@@ -18,6 +18,7 @@ const userLoader = async () => {
       return user;
     } catch (err) {
       toast.dismiss("user-loading");
+      toast.error("Please login")
       return false;
     }
   };
