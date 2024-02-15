@@ -68,7 +68,7 @@ const Chart = ({user}) => {
 
   return (
     <section className="text-center mb-3">
-      <div className="flex justify-evenly mb-2">
+      <div className="flex justify-evenly mb-5 p-2 bg-white rounded-md">
         <div>
       <h4 className="text-sm">Total Income</h4>
       <h2 className="font-lg font-semibold mb-2">

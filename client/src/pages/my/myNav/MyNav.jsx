@@ -4,19 +4,20 @@ import { RiBankLine } from "react-icons/ri";
 import { Link, useRouteLoaderData } from "react-router-dom";
 
 const MyNav = () => {
-  const user = useRouteLoaderData("user")
+  const user = useRouteLoaderData("user");
+  const iconStyle = "text-3xl mx-auto text-primary";
   return (
     <article className="flex justify-evenly py-3 rounded-md mt-2 bg-mySecondary bg-opacity-80 font-serif">
       <Link to="recharge" className="card">
-        <IoWallet className="text-3xl text-white mx-auto" />
+        <IoWallet className={iconStyle} />
         <h2 className="text-sm my-1 text-black">Recharge</h2>
       </Link>
       <Link to="withdraw" className="card">
-        <RiBankLine className="text-3xl text-white mx-auto" />
+        <RiBankLine className={iconStyle} />
         <h2 className="text-sm my-1 text-black">Withdraw</h2>
       </Link>
       <Link to={user.isAdmin ? "chat" : `chat/${user._id}`} className="card">
-        <MdSupportAgent className="text-3xl text-white mx-auto" />
+        <MdSupportAgent className={iconStyle} />
         <h2 className="text-sm my-1 text-black">Customer Service</h2>
       </Link>
     </article>
