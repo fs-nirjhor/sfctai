@@ -58,9 +58,9 @@ const handleSearch = (text) => {
         />
       </div>
       <div className="flex justify-between items-center">
-        <button className="btn btn-sm" onClick={() => pagination.previous && setPage(pagination.previous)}>Previous</button>
+        <button className={`btn btn-sm ${!pagination.previous && "btn-disabled"}`} onClick={() => pagination.previous && setPage(pagination.previous)}>Previous</button>
         <p className="font-medium">{message}</p>
-        <button className="btn btn-sm" onClick={() => pagination.next && setPage(pagination.next)}>Next</button>
+        <button className={`btn btn-sm ${!pagination.next && "btn-disabled"}`} onClick={() => pagination.next && setPage(pagination.next)}>Next</button>
       </div>
       </section>
       <div>
