@@ -34,6 +34,13 @@ const ClientList = () => {
     };
     getClients();
   }, [search, page]);
+
+const handleSearch = (text) => {
+  event.preventDefault();
+  setSearch(text);
+  setPage(1);
+};
+
   return loading ? (
     <Loading />
   ) : (
@@ -46,7 +53,7 @@ const ClientList = () => {
           placeholder="Search Clients"
           className="input input-bordered border-myPrimary w-full"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
           required
         />
       </div>
