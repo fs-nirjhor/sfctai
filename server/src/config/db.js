@@ -19,7 +19,7 @@ const connectDB = async () => {
      todayScheduler.start();
   } catch (error) {
     logger.error(`Database Connection: ${error.message}`);
-    createHttpError(500, error.message);
+    throw createHttpError(500, error.message);
   }
 };
 
