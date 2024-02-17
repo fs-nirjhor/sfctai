@@ -6,6 +6,7 @@ import { GoGear } from "react-icons/go";
 import { BsDownload } from "react-icons/bs";
 import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
+import { serverUrl } from "./config";
 
 const MyOptionData = () => {
   const iconStyle = "text-primary inline-block me-3 text-2xl";
@@ -44,11 +45,11 @@ const MyOptionData = () => {
     },
     { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
     { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
-    {
+   /*  {
       name: "Download App",
-      to: "",
+      to: `${serverUrl}/api/download-app`,
       icon: <BsDownload className={iconStyle} />,
-    },
+    }, */
   ];
 
   // admin option
@@ -81,11 +82,11 @@ const MyOptionData = () => {
     },
     { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
     { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
-    {
+    /* {
       name: "Download App",
-      to: "",
+      to: `${serverUrl}/api/download-app`,
       icon: <BsDownload className={iconStyle} />,
-    },
+    }, */
   ];
 
   return { clientOptions, adminOptions };

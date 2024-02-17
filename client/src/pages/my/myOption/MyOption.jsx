@@ -2,6 +2,7 @@ import { IoChevronForward } from "react-icons/io5";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import MyOptionData from './../../../data/myOptionData';
 import Logout from './../../auth/Logout';
+import DownloadApp from "./DownloadApp";
 
 const MyOption = () => {
   const user = useRouteLoaderData("user");
@@ -19,6 +20,7 @@ const MyOption = () => {
             <IoChevronForward />
           </Link>
         ))}
+        <DownloadApp />
         <Logout />
       </article>
   );
