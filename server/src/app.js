@@ -14,6 +14,7 @@ const { corsUrl } = require("./secret");
 const transactionRouter = require("./routers/transactionRouter");
 const configurationRouter = require("./routers/configurationRouter");
 const path = require("path");
+const apkRouter = require("./routers/apkRouter");
 
 // initialize
 const app = express();
@@ -45,33 +46,14 @@ app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/transactions", transactionRouter);
 app.use("/api/configuration", configurationRouter);
+app.use("/api/apk", apkRouter);
 
 // Routes
-/* app.get("/", (req, res) => {
-  res.send("Welcome to the SFCTAI Server");
-});
- */
 
 const __dirname1 = path.resolve();
 app.use(express.static(path.join(__dirname1, "/client/dist")));
 
-// download app
-app.get("/api/download-app", async (req, res, next) => {
-  const relativeFilePath = './assets/SFCTAI.apk';
-  const appDirectory = path.dirname(require.main.filename);
-  const absoluteFilePath = path.resolve(appDirectory, relativeFilePath);
-
-   res.download(absoluteFilePath, (err) => {
-      if (err) {
-       //createHttpError(404, err.message)
-       //next(err);
-       console.log(err.message);
-      } 
-    });
-  
-});
-
-// ----Logs----
+// Logs
 app.get("/api/logs", (req, res) => {
   const logsPath = `${path.resolve()}/logs/combined.log`
   res.sendFile(logsPath, (err) => {
