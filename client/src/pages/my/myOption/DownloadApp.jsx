@@ -25,7 +25,7 @@ const DownloadApp = () => {
   return (
     <>
     <Link 
-      to={`${serverUrl}/api/download-app`}
+      to={`${serverUrl}/api/download-app`} target="_blank"
       className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black font-serif"
     >
       <p className="text-start">
