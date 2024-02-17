@@ -1,21 +1,23 @@
 const multer = require("multer");
 const path = require("path");
 
-
 const relativeFilePath = '../assets';
   const thisDirectory = path.dirname(require.main.filename);
   const absoluteFilePath = path.resolve(thisDirectory, relativeFilePath);
 
 const apkStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, absoluteFilePath);
   },
- // filename: file.originalname
+  filename: (req, file, cb) => {
+    cb(null, "SFCTAI.apk");
+  },
+
 });
 
 const apkFilter = (req, file, cb) => {
     const extension = path.extname(file.originalname);
-    if (extension == ".apk") {
+    if (extension == "apk") {
       const error = new Error("Please upload .apk file");
       return cb(error, false);
     }
@@ -25,7 +27,7 @@ const apkFilter = (req, file, cb) => {
 
 const uploadApk = multer({
   storage: apkStorage,
-  fileFilter: apkFilter,
+  //fileFilter: apkFilter,
 });
 
 

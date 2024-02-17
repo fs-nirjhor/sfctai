@@ -81,6 +81,7 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
   const { status, message } = err;
+  console.log(message)
   return errorResponse(res, { statusCode: status, message });
 });
 
