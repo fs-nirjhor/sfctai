@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoChevronForward } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { allApi } from "../../../router/axiosApi";
@@ -6,14 +6,12 @@ import { BsDownload } from "react-icons/bs";
 import { serverUrl } from "../../../data/config";
 
 const DownloadApp = () => {
-    const navigate = useNavigate();
 
   const handleClick = async () => {
     event.preventDefault();
     try {
-      const result = await allApi.get("download-app");
-      console.log(result)
-      window.location.replace(`${serverUrl}/api/download-app`);
+    await allApi.get("download-app");
+      window.location.assign(`${serverUrl}/api/download-app`);
       toast.success("Download Started");
     } catch (err) {
       if (err.response?.data.message) {
