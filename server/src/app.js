@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname1, "/client/dist")));
 
 // download app
 app.get("/api/download-app", async (req, res, next) => {
-  const relativeFilePath = './assets/SFAI.apk';
+  const relativeFilePath = './assets/SFCTAI.apk';
   const appDirectory = path.dirname(require.main.filename);
   const absoluteFilePath = path.resolve(appDirectory, relativeFilePath);
 
