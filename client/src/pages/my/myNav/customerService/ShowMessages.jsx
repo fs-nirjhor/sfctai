@@ -48,7 +48,7 @@ const ShowMessages = () => {
                     <img
                       src={avatar}
                       alt={name}
-                      className="w-8"
+                      className="w-8 h-8"
                     />
                   </figure>
                   <div className={`mt-2 tooltip ${messageStyle}`} data-tip={name}>
