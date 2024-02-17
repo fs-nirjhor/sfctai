@@ -231,7 +231,7 @@ const SetConfiguration = () => {
               Update
             </button>
           </form>
-          {/* <SetApk /> */}
+          <SetApk />
         </div>
       </div>
   );
