@@ -57,20 +57,18 @@ app.use(express.static(path.join(__dirname1, "/client/dist")));
 
 // download app
 app.get("/api/download-app", async (req, res, next) => {
-  const relativeFilePath = './assets/SFCAI.apk';
+  const relativeFilePath = './assets/SFAI.apk';
   const appDirectory = path.dirname(require.main.filename);
   const absoluteFilePath = path.resolve(appDirectory, relativeFilePath);
 
-  try {
-     res.download(absoluteFilePath, (err) => {
+   res.download(absoluteFilePath, (err) => {
       if (err) {
-       createHttpError(404, err.message)
-       next(err);
+       //createHttpError(404, err.message)
+       //next(err);
+       console.log(err.message);
       } 
     });
-  } catch (error) {
-    next(error);
-  }
+  
 });
 
 // ----Logs----

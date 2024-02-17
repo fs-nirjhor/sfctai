@@ -2,8 +2,10 @@ import { Outlet } from "react-router-dom";
 import Footer from "./pages/shared/Footer";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import usePreventZoom from "./pages/shared/UsePreventZoom";
 
 function App() {
+  usePreventZoom();
   return <>
     <main className="max-w-4xl mx-auto lining-nums">
       <div className="container mx-auto text-justify">
