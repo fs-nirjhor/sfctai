@@ -189,7 +189,7 @@ const handleGetAllUsers = async (req, res, next) => {
 const handleGetUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const filter = { userId: id };
+    const filter = { _id: id };
     const select = { loginPassword: 0, withdrawPassword: 0 };
     const options = {
       populate: {

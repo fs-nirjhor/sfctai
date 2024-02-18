@@ -68,7 +68,7 @@ const ClientList = () => {
         {clients.map((client) => {
           return (
             <Link
-              to={`/client/${client.userId}`}
+              to={`/client/${client._id}`}
               key={client._id}
               className={`hover:bg-mySecondary p-2 border-b-2 block shadow-sm ${
                 client.transaction?.balance >= 10 ||
