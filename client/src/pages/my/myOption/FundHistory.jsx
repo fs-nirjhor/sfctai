@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { transactionApi } from "../../../router/axiosApi";
+import { allApi } from "../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import Loading from "../../shared/Loading";
 import moment from "moment";
@@ -8,16 +8,21 @@ import { toast } from "react-toastify";
 const FundHistory = () => {
   const user = useRouteLoaderData("user");
   const navigate = useNavigate();
-  const [allTransactions, setAllTransactions] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [activeNav, setActiveNav] = useState("all");
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({});
+  const [page, setPage] = useState(1);
+  const [category, setCategory] = useState("")
 
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const filter = user.isAdmin ? {} : { client: user._id };
-        const response = await transactionApi.post("/", { filter });
+        const filter = {} ;
+        if (!user.isAdmin) { filter.client = user._id }
+        if (category) { filter.category = category }
+        const response = await allApi.post(
+          `transactions?page=${page}&limit=10`, { filter }
+        );
         if (response.data?.success) {
           const transactionWithOrder = response.data.payload.allTransaction;
           const transactionWithoutOrder = transactionWithOrder.filter(
@@ -26,11 +31,13 @@ const FundHistory = () => {
               transaction.category == "Withdraw"
           );
 
-          setAllTransactions(transactionWithoutOrder);
           setTransactions(transactionWithoutOrder);
-          setLoading(false);
+          setPagination(response.data.payload.pagination);
         }
+        setLoading(false);
       } catch (err) {
+        setPagination({})
+        setLoading(false);
         if (err.response.data.message) {
           toast.error(err.response.data.message); // error sent by server
         } else {
@@ -39,26 +46,20 @@ const FundHistory = () => {
       }
     };
     getTransactions();
-  }, [user]);
-
-  // funds filter
-
-  const rechargeTransactions = allTransactions.filter(
-    (transaction) => transaction.category == "Recharge"
-  );
-  const withdrawTransactions = allTransactions.filter(
-    (transaction) => transaction.category == "Withdraw"
-  );
+  }, [user, page, category]);
 
   const handleClick = (userId) => {
+    event.preventDefault();
     if (user.isAdmin) {
       navigate(`/client/${userId}`);
     }
   };
 
-  const handleNavigation = (data, nav) => {
-    setTransactions(data);
-    setActiveNav(nav);
+  const handleNavigation = (nav) => {
+    event.preventDefault();
+    setCategory(nav);
+    setPage(1);
+    setLoading(true);
   };
 
   // styles
@@ -69,29 +70,56 @@ const FundHistory = () => {
     <Loading />
   ) : (
     <section className="pb-20">
+      <section className="sticky top-0 bg-myBg pb-3">
       <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
+      {/* pagination */}
+        <div className="flex justify-between items-center">
+          <button
+            className={`btn btn-sm ${!pagination.previous && "btn-disabled"}`}
+            onClick={() => pagination.previous && setPage(pagination.previous)}
+          >
+            Previous
+          </button>
+          <div className="font-medium join bg-white w-40">
+            <input
+              type="number"
+              className="input input-sm input-bordered w-1/2 join-item"
+              value={page}
+              onChange={(e) => setPage(e.target.value)}
+              required
+            />
+            <span className="join-item input input-sm border-s-2 border-s-primary">{pagination.totalPage || 0}</span>
+          </div>
+          <button
+            className={`btn btn-sm ${!pagination.next && "btn-disabled"}`}
+            onClick={() => pagination.next && setPage(pagination.next)}
+          >
+            Next
+          </button>
+        </div>
       {/* fund nav */}
-      <div className="bg-mySecondary grid grid-cols-3 justify-between mb-3 text-center rounded">
+      <div className="bg-mySecondary grid grid-cols-3 justify-between mt-3 text-center rounded">
         <span
-          className={`${navStyle} ${activeNav == "all" && activeNavStyle}`}
-          onClick={() => handleNavigation(allTransactions, "all")}
+          className={`${navStyle} ${category == "" && activeNavStyle}`}
+          onClick={() => handleNavigation("")}
         >
           Total Fund
         </span>
 
         <span
-          className={`${navStyle} ${activeNav == "recharge" && activeNavStyle}`}
-          onClick={() => handleNavigation(rechargeTransactions, "recharge")}
+          className={`${navStyle} ${category == "Recharge" && activeNavStyle}`}
+          onClick={() => handleNavigation("Recharge")}
         >
           Recharge
         </span>
         <span
-          className={`${navStyle} ${activeNav == "withdraw" && activeNavStyle}`}
-          onClick={() => handleNavigation(withdrawTransactions, "withdraw")}
+          className={`${navStyle} ${category == "Withdraw" && activeNavStyle}`}
+          onClick={() => handleNavigation("Withdraw")}
         >
           Withdraw
         </span>
       </div>
+      </section>
       {/* fund list */}
       <div className="bg-white rounded shadow">
         {!transactions.length ? (
