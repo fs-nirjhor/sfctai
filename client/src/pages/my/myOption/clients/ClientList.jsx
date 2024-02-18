@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ClientList = () => {
+  const [loading, setLoading] = useState(true);
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
   const [message, setMessage] = useState("No users found");
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getClients = async () => {
@@ -49,7 +49,7 @@ const ClientList = () => {
     <Loading />
   ) : (
     <div className="pb-20">
-      <section className="sticky top-0 bg-myBg pb-5">
+      <section className="sticky top-0 bg-myBg pb-3">
         <h1 className="font-semibold text-center pt-2 mb-5">Client List</h1>
         <div className="w-full max-w-lg mx-auto mb-3 shadow-md" >
           <input
@@ -86,7 +86,7 @@ const ClientList = () => {
           </button>
         </div>
       </section>
-      <div>
+      <section>
         {clients.map((client) => {
           return (
             <Link
@@ -103,7 +103,7 @@ const ClientList = () => {
             </Link>
           );
         })}
-      </div>
+      </section>
     </div>
   );
 };

@@ -1,43 +1,77 @@
 import { useEffect, useState } from "react";
-import { transactionApi } from "../../../router/axiosApi";
+import { allApi } from "../../../router/axiosApi";
 import { useRouteLoaderData } from "react-router-dom";
 import Loading from "../../shared/Loading";
 import moment from "moment";
 import TradingViewWidget from "../../shared/TradingViewWidget";
 import { toast } from "react-toastify";
 
-const FundHistory = () => {
+const TradeHistory = () => {
   const user = useRouteLoaderData("user");
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({});
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const getOrders = async () => {
+    const getTrades = async () => {
       try {
         const filter = user.isAdmin
           ? { category: "Order" }
           : { client: user._id, category: "Order" };
-        const response = await transactionApi.post("/", { filter });
+        const response = await allApi.post(
+          `transactions?page=${page}&limit=5`, { filter }
+        );
         if (response.data?.success) {
-          console.log(response.data.payload)
           setOrders(response.data.payload.allTransaction);
-          setLoading(false);
+          setPagination(response.data.payload.pagination);
         }
+        setLoading(false);
       } catch (err) {
+        setOrders([])
+        setPagination({})
+        setLoading(false);
         if (err.response.data.message) {
-          toast.error(err.response.data.message);
+          toast.error(err.response.data.message); // error sent by server
         } else {
-          toast.error(err.message);
+          toast.error(err.message); // other error
         }
       }
     };
-    getOrders();
-  }, [user]);
+    getTrades();
+  }, [user, page]);
+
   return loading ? (
     <Loading />
   ) : (
     <section className="pb-20">
+      <section className="sticky top-0 bg-myBg pb-3">
       <h1 className="font-semibold text-center pt-2 mb-5">Trade History</h1>
+        <div className="flex justify-between items-center">
+          <button
+            className={`btn btn-sm ${!pagination.previous && "btn-disabled"}`}
+            onClick={() => pagination.previous && setPage(pagination.previous)}
+          >
+            Previous
+          </button>
+          <div className="font-medium join bg-white w-40">
+            <input
+              type="number"
+              className="input input-sm input-bordered w-1/2 join-item"
+              value={page}
+              onChange={(e) => setPage(e.target.value)}
+              required
+            />
+            <span className="join-item input input-sm border-s-2 border-s-primary">{pagination.totalPage || 0}</span>
+          </div>
+          <button
+            className={`btn btn-sm ${!pagination.next && "btn-disabled"}`}
+            onClick={() => pagination.next && setPage(pagination.next)}
+          >
+            Next
+          </button>
+        </div>
+      </section>
       <div>
         {orders.map((order) => {
           const createdDate = moment(order.createdAt).format(
@@ -96,4 +130,4 @@ const FundHistory = () => {
     </section>
   );
 };
-export default FundHistory;
+export default TradeHistory;
