@@ -12,31 +12,31 @@ const FundHistory = () => {
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const filter = {} ;
-        if (!user.isAdmin) { filter.client = user._id }
-        if (category) { filter.category = category }
+        const filter = {};
+        if (!user.isAdmin) {
+          filter.client = user._id;
+        }
+        if (category) {
+          filter.category = category;
+        } else {
+          filter.category = { $ne: "Order" };
+        }
         const response = await allApi.post(
-          `transactions?page=${page}&limit=10`, { filter }
+          `transactions?page=${page}&limit=10`,
+          { filter }
         );
         if (response.data?.success) {
-          const transactionWithOrder = response.data.payload.allTransaction;
-          const transactionWithoutOrder = transactionWithOrder.filter(
-            (transaction) =>
-              transaction.category == "Recharge" ||
-              transaction.category == "Withdraw"
-          );
-
-          setTransactions(transactionWithoutOrder);
+          setTransactions(response.data.payload.allTransaction);
           setPagination(response.data.payload.pagination);
         }
         setLoading(false);
       } catch (err) {
-        setPagination({})
+        setPagination({});
         setLoading(false);
         if (err.response.data.message) {
           toast.error(err.response.data.message); // error sent by server
@@ -71,8 +71,8 @@ const FundHistory = () => {
   ) : (
     <section className="pb-20">
       <section className="sticky top-0 bg-myBg pb-3">
-      <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
-      {/* pagination */}
+        <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
+        {/* pagination */}
         <div className="flex justify-between items-center">
           <button
             className={`btn btn-sm ${!pagination.previous && "btn-disabled"}`}
@@ -88,7 +88,9 @@ const FundHistory = () => {
               onChange={(e) => setPage(e.target.value)}
               required
             />
-            <span className="join-item input input-sm border-s-2 border-s-primary">{pagination.totalPage || 0}</span>
+            <span className="join-item input input-sm border-s-2 border-s-primary">
+              {pagination.totalPage || 0}
+            </span>
           </div>
           <button
             className={`btn btn-sm ${!pagination.next && "btn-disabled"}`}
@@ -97,28 +99,32 @@ const FundHistory = () => {
             Next
           </button>
         </div>
-      {/* fund nav */}
-      <div className="bg-mySecondary grid grid-cols-3 justify-between mt-3 text-center rounded">
-        <span
-          className={`${navStyle} ${category == "" && activeNavStyle}`}
-          onClick={() => handleNavigation("")}
-        >
-          Total Fund
-        </span>
+        {/* fund nav */}
+        <div className="bg-mySecondary grid grid-cols-3 justify-between mt-3 text-center rounded">
+          <span
+            className={`${navStyle} ${category == "" && activeNavStyle}`}
+            onClick={() => handleNavigation("")}
+          >
+            Total Fund
+          </span>
 
-        <span
-          className={`${navStyle} ${category == "Recharge" && activeNavStyle}`}
-          onClick={() => handleNavigation("Recharge")}
-        >
-          Recharge
-        </span>
-        <span
-          className={`${navStyle} ${category == "Withdraw" && activeNavStyle}`}
-          onClick={() => handleNavigation("Withdraw")}
-        >
-          Withdraw
-        </span>
-      </div>
+          <span
+            className={`${navStyle} ${
+              category == "Recharge" && activeNavStyle
+            }`}
+            onClick={() => handleNavigation("Recharge")}
+          >
+            Recharge
+          </span>
+          <span
+            className={`${navStyle} ${
+              category == "Withdraw" && activeNavStyle
+            }`}
+            onClick={() => handleNavigation("Withdraw")}
+          >
+            Withdraw
+          </span>
+        </div>
       </section>
       {/* fund list */}
       <div className="bg-white rounded shadow">

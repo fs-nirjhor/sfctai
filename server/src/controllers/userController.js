@@ -175,7 +175,6 @@ const handleGetAllUsers = async (req, res, next) => {
       limit,
       page
     );
-    const range = `${(page * limit) - (limit - 1)}-${(page * limit) - (limit - 1) + (users.length-1)}`;
     
     return successResponse(res, {
       statusCode: 200,
