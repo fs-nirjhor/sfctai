@@ -7,15 +7,18 @@ const UseChat = () => {
   const user = useRouteLoaderData("user")
   const socketRef = useRef();
   const [chats, setChats] = useState([]);
+  const [pagination, setPagination] = useState({});
+  const [page, setPage] = useState(1);
   
   useEffect(() =>{
     socketRef.current = socketIOClient(serverUrl);
-    const data = {isAdmin: user.isAdmin, id: user._id}
+    const filter = {isAdmin: user.isAdmin, id: user._id, page: page, limit: 10}
 
-      socketRef.current.emit("chats", data);
+      socketRef.current.emit("chats", filter);
 
-      socketRef.current.on("chats", (newChat) =>{
-      setChats(newChat);
+      socketRef.current.on("chats", (data) =>{
+      setChats(data.chats);
+      setPagination(data.pagination);
     });
     
     socketRef.current.on("message",(newMessage) =>{
@@ -29,7 +32,7 @@ const UseChat = () => {
     return ()=>{
       socketRef.current.disconnect();
     }
-  },[user]);
+  },[user, page]);
 
   // sending  
   const sendMessage = (newMessage) =>{
@@ -40,7 +43,7 @@ const UseChat = () => {
     socketRef.current.emit("seen", data)
   }
 
-  return {chats, sendMessage, seenMessage};
+  return {chats, sendMessage, seenMessage, pagination, page, setPage };
 }
 
 export default UseChat;

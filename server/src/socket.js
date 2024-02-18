@@ -11,6 +11,8 @@ const {
 } = require("./secret");
 const cloudinary = require("cloudinary").v2;
 const { Readable } = require("stream");
+const logger = require("./helper/winstonLogger");
+const { setPagination } = require("./helper/managePagination");
 
 // Configure Cloudinary with your credentials
 cloudinary.config({
@@ -31,15 +33,25 @@ io.on("connection", (socket) => {
   //console.log("User connected:", socket.id);
 
   // Handle connection with user data
-  socket.on("chats", async ({ isAdmin, id }) => {
+  socket.on("chats", async ({ isAdmin, id, page, limit }) => {
     try {
-      let chats;
+      let data = {chats: [], pagination: {}}
 
       if (isAdmin) {
-        chats = await Chat.find()
+        const chats = await Chat.find()
           .populate("client")
           .sort({ updatedAt: -1 })
+          .limit(limit)
+          .skip((page - 1) * limit)
           .lean();
+          if (!chats) {
+            throw createHttpError(404, "No chat found");
+          }
+          // set pagination
+          const count = await Chat.find().countDocuments();
+          const result = chats.length;
+          const pagination = setPagination(count, limit, page, result);
+          data = {chats, pagination}
       } else {
         // Check if a chat exists for the client
         const existingChat = await Chat.findOne({ client: id })
@@ -51,13 +63,12 @@ io.on("connection", (socket) => {
           const newChat = await Chat.create({ client: id }).lean;
         } else {
           // If a chat exists, fetch it
-          chats = [existingChat];
+          data = {chats: [existingChat], pagination:{}};
         }
       }
       // Emit the chats
-      socket.emit("chats", chats);
+      socket.emit("chats", data);
     } catch (error) {
-      console.log(error);
       throw createHttpError(400, error.message);
     }
   });
@@ -160,7 +171,7 @@ io.on("connection", (socket) => {
       // send response
       io.emit("seen", response);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
       throw createHttpError(400, error.message);
     }
   });

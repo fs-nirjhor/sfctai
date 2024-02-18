@@ -15,6 +15,7 @@ const transactionRouter = require("./routers/transactionRouter");
 const configurationRouter = require("./routers/configurationRouter");
 const path = require("path");
 const apkRouter = require("./routers/apkRouter");
+const logger = require("./helper/winstonLogger");
 
 // initialize
 const app = express();
@@ -81,7 +82,7 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
   const { status, message } = err;
-  console.log(message)
+  logger.error(message)
   return errorResponse(res, { statusCode: status, message });
 });
 
