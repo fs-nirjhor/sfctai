@@ -19,7 +19,7 @@ const FundHistory = () => {
           : { client: user._id, category: "Order" };
         const response = await transactionApi.post("/", { filter });
         if (response.data?.success) {
-          setOrders(response.data.payload.allTransaction);
+          console.log(response.data.payload)
           setOrders(response.data.payload.allTransaction);
           setLoading(false);
         }

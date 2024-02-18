@@ -38,6 +38,7 @@ const findOneItem = async (Model, data, select = {}, options = {}) => {
     throw error;
   }
 };
+
 const findAllUsers = async (search, limit, page) => {
   try {
     const searchRegExp = new RegExp(".*" + search + ".*", "i");
@@ -57,15 +58,17 @@ const findAllUsers = async (search, limit, page) => {
       .limit(limit)
       .skip((page - 1) * limit)
       .select("-createdAt -updatedAt -__v");
-    const count = await User.find(filter).countDocuments();
-    const pagination = setPagination(count, limit, page);
     if (!users || users.length === 0) {
-      throw createHttpError(404, "No users found");
-    }
+        throw createHttpError(404, "No users found");
+      }
+    const count = await User.find(filter).countDocuments();
+    const result = users.length;
+    const pagination = setPagination(count, limit, page, result);
     return { users, count, pagination };
   } catch (error) {
     throw error;
   }
 };
+
 
 module.exports = { findItemById, findOneItem, findAllUsers };

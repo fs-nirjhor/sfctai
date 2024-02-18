@@ -59,7 +59,7 @@ const SetApk = () => {
         required
       />
       <button onClick={handleUpload} className={buttonStyle}>
-        Upload
+        APP
       </button>
     </form>
   );

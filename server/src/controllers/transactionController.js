@@ -8,23 +8,53 @@ const { findItemById } = require("../services/findItem");
 const User = require("../models/userModel");
 const Configuration = require("../models/configurationModel");
 const { createRandomString } = require("../helper/createRandom");
+const { setPagination } = require("../helper/managePagination");
 
 const handleGetTransaction = async (req, res, next) => {
   try {
     const { filter } = req.body;
+    const limit = parseInt(req.query.limit);
+    const page = parseInt(req.query.page);
+    const search = req.query.search || "";
+
     // all transaction
-    const allTransaction = await Transaction.find(filter)
+    /* const allTransaction = await Transaction.find(filter)
       .populate("client")
       .sort({ isApproved: 1 })
       .sort({ updatedAt: -1 });
 
     if (!allTransaction) {
       throw new Error("Failed to get transactions");
+    } */
+
+    if (search) {
+      filter.$or = [
+        { client: { $regex: searchRegExp } },
+        { credential: { $regex: searchRegExp } },
+      ];
     }
+
+    const allTransaction = await Transaction.find(filter)
+      .populate("client")
+      .sort({ isApproved: 1 })
+      .sort({ updatedAt: -1 })
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .select("-createdAt -updatedAt -__v");
+
+    if (!allTransaction) {
+      throw createHttpError(404, "No transaction found");
+    }
+    // set pagination
+    const count = await Transaction.find(filter).countDocuments();
+    const result = allTransaction.length;
+    
+    const pagination = setPagination(count, limit, page, result);
+
     return successResponse(res, {
       statusCode: 200,
-      message: "Transantions get successfully",
-      payload: { allTransaction },
+      message: `${count || 0} transaction found`,
+      payload: { allTransaction, pagination },
     });
   } catch (error) {
     next(error);

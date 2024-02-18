@@ -1,7 +1,6 @@
 import { Navigate, Outlet, useLocation, useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loading from "./../shared/Loading";
-import { toast } from 'react-toastify';
 
 const PrivateRoute = () => {
   const user = useRouteLoaderData("user");

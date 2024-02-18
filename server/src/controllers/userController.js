@@ -176,9 +176,10 @@ const handleGetAllUsers = async (req, res, next) => {
       page
     );
     const range = `${(page * limit) - (limit - 1)}-${(page * limit) - (limit - 1) + (users.length-1)}`;
+    
     return successResponse(res, {
       statusCode: 200,
-      message: `${range || 0} / ${count || 0}`,
+      message: `${count || 0} user found`,
       payload: { users, pagination },
     });
   } catch (error) {
