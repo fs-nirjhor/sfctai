@@ -30,24 +30,20 @@ const ShowMessages = () => {
             .slice()
             .reverse()
             .map((message, i) => {
-              const isMYText = Boolean(message.sender == user._id || message.sender != chat.client._id);
               const messageStyle =
-              message.sender == user._id || message.sender != chat.client._id
-                  ? "text-end ms-auto"
+              message.sender == user._id ? "text-end ms-auto"
                   : "text-start me-auto";
               const contentStyle =
-              message.sender == user._id || message.sender != chat.client._id
-                  ? "bg-primary text-white"
+              message.sender == user._id ? "bg-primary text-white"
                   : "bg-white border border-myPrimary";
               const time = moment(message.time).format("DD/MM/YYYY HH:mm:ss");
-              const name = message.sender == user._id || message.sender != chat.client._id ? user.name : chat.client?.name;
-              const avatar = message.sender == user._id || message.sender != chat.client._id ? user.avatar : chat.client?.avatar;
+              const name = message.sender == user._id ? user.name : chat.client?.name;
+              const avatar = message.sender == user._id ? user.avatar : chat.client?.avatar;
               return (
                 <div
                   key={i}
                   className={`flex items-center gap-3 ${
-                    message.sender == user._id || message.sender != chat.client._id
-                      ? "flex-row-reverse"
+                    message.sender == user._id ? "flex-row-reverse"
                       : "flex-row"
                   } `}
                   
