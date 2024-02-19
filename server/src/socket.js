@@ -25,7 +25,7 @@ const server = http.createServer(app);
 const io = socketIO(server, {
   pingTimeout: 60000,
   cors: {
-    origin: clientUrl,
+    origin: "*" //clientUrl,
   },
 });
 

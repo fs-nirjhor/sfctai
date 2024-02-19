@@ -10,9 +10,9 @@ const server = require("./socket");
 // listening server on port
 server.listen(serverPort, async () => {
   try {
-    logger.info(`SFCTAI server listening on ${serverUrl}`);
+    logger.info(`SFCTAI server listening on ${serverPort}`);
     await connectDB();
   } catch (error) {
-    console.log(error.message);
+    logger.error(error.message);
   }
 });
