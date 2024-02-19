@@ -11,7 +11,7 @@ const isLoggedIn = async (req, res, next) => {
     if (!accessToken || accessToken == "null") {
       throw createHttpError(401, "Please log in");
     }
-    const user = await jwt.verify(accessToken, jwtAccessKey);
+    const user = jwt.verify(accessToken, jwtAccessKey);
     
     if (!user) {
       throw createHttpError(401, "Invalid access token");
@@ -27,7 +27,7 @@ const isLoggedOut = async (req, res, next) => {
   try {
     const token = req.cookies.access_token;
     if (token) {
-      const user = await jwt.verify(token, jwtAccessKey);
+      const user = jwt.verify(token, jwtAccessKey);
     }
     return next();
   } catch (error) {

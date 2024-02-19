@@ -37,8 +37,8 @@ const handleLogin = async (req, res, next) => {
     };
 
     // set access token
-    const accessToken = await createJwt(tokenData, jwtAccessKey, "15d");
-    setAccessTokenCookie(res, accessToken);
+    const accessToken = createJwt(tokenData, jwtAccessKey, "15d");
+    //setAccessTokenCookie(res, accessToken);
 
     // prevent showing password in payload. user from database is not a pure object without lean
     delete user.loginPassword;
@@ -104,8 +104,8 @@ const handleProtectedRoute = async (req, res, next) => {
       isAdmin: user.isAdmin,
     };
 
-    const refreshedToken = await createJwt(tokenData, jwtAccessKey, "15d");
-    setAccessTokenCookie(res, refreshedToken);
+    const refreshedToken = createJwt(tokenData, jwtAccessKey, "15d");
+    //setAccessTokenCookie(res, refreshedToken);
 
     return successResponse(res, {
       statusCode: 200,
