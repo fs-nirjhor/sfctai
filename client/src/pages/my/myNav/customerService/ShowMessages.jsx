@@ -35,7 +35,7 @@ const ShowMessages = () => {
                   : "text-start me-auto";
               const contentStyle =
               message.sender == user._id ? "bg-primary text-white"
-                  : "bg-white border border-myPrimary";
+                  : "bg-white border border-primary";
               const time = moment(message.time).format("DD/MM/YYYY HH:mm:ss");
               const name = message.sender == user._id ? user.name : chat.client?.name;
               const avatar = message.sender == user._id ? user.avatar : chat.client?.avatar;

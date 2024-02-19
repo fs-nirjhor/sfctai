@@ -1,16 +1,27 @@
+import { useNavigate } from "react-router-dom";
 import SendBox from "./SendBox";
 import ShowMessages from "./ShowMessages";
+import { VscChromeClose } from "react-icons/vsc";
 
 const Chat = () => {
-  
+  const navigate = useNavigate()
   return (
-    <div className="fixed top-0 right-0 left-0 bottom-0 w-full px-2 mx-auto h-screen">
-      <h1 className="font-semibold text-center py-2">Customer Service</h1>
-      <div className="flex flex-col justify-end chatPage">
-        <ShowMessages />
-        <SendBox />
+      <div>
+        <dialog
+          className="max-w-md rounded-md shadow-md mx-auto modal bg-white"
+          open
+        >
+          <div className="flex flex-col justify-between w-full h-screen p-2">
+          <div className="pb-2 inline-flex justify-between">
+            <span></span>
+            <h1 className="font-semibold text-center h1">Customer Service</h1>
+            <span className="text-end" onClick={() => navigate(-1)}><VscChromeClose /></span>
+          </div>
+            <ShowMessages />
+            <SendBox />
+          </div>
+        </dialog>
       </div>
-    </div>
   );
 };
 
