@@ -35,12 +35,13 @@ const handleGetTransaction = async (req, res, next) => {
     }
 
     const allTransaction = await Transaction.find(filter)
-      .populate("client")
-      .sort({ isApproved: 1 })
-      .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip((page - 1) * limit)
-      .select("-createdAt -updatedAt -__v");
+    .sort({ isApproved: 1 })
+    .sort({ createdAt: -1 })
+    .limit(limit)
+    .skip((page - 1) * limit)
+    .select("-createdAt -updatedAt -__v")
+    .populate("client")
+    .lean();
 
     if (!allTransaction) {
       throw createHttpError(404, "No transaction found");
