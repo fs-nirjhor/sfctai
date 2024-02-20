@@ -38,9 +38,6 @@ body {
   @apply bg-transparent
 }
 
-.chatpage {
-  height: calc(100vh - 8rem)
-}
 
 @layer utilities {
   /* Hide scrollbar for IE, Edge and Firefox */
