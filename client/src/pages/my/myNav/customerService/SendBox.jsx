@@ -38,7 +38,7 @@ const SendBox = () => {
   };
 
   return (
-    <div className="pt-5">
+    <div className="pt-2">
       <form className="mx-auto" onSubmit={handleSubmit}>
         <div className="join p-0 m-0 w-full">
           <label
