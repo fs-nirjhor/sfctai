@@ -54,7 +54,7 @@ const SendBox = () => {
               onChange={(e) => setImage(e.target.files[0])}
             />
           </label>
-          <div className="input input-sm join-item w-full p-0">
+          <div className="input input-sm join-item w-full p-0 border-primary">
             <InputEmoji
               placeholder="Type Here..."
               inputClass="h-5"
