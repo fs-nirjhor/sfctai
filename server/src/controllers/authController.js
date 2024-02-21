@@ -75,7 +75,7 @@ const handleProtectedRoute = async (req, res, next) => {
   try {
     const bearerToken = req.headers?.authorization?.split(" ")[1];
     const cookiesToken = req.cookies.access_token;
-    const accessToken = cookiesToken || bearerToken;
+    const accessToken = bearerToken //// || cookiesToken;
     if (!accessToken || accessToken == "null") {
       throw createHttpError(401, "Please login");
     }
