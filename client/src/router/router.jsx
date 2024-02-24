@@ -117,10 +117,6 @@ const router = createBrowserRouter([
             element: <CustomerService />,
           },
           {
-            path: "/my/chat",
-            element: <ChatList />,
-          },
-          {
             path: "/my/chat/:client",
             element: <Chat />,
           },
@@ -167,6 +163,10 @@ const router = createBrowserRouter([
           {
             element: <AdminRoute />,
             children: [
+              {
+                path: "/my/chat",
+                element: <ChatList />,
+              },
               {
                 path: "/client/:userId",
                 element: <Client />,

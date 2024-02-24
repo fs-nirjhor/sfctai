@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const SendBox = () => {
-  const { sendMessage } = UseChat();
+  const { sendMessage, page } = UseChat();
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const user = useRouteLoaderData("user");
@@ -23,6 +23,8 @@ const SendBox = () => {
           image: image,
           sender: user._id,
           client: clientId,
+          page: page,
+          limit: 10,
         };
         await sendMessage(messageData);
         setText("");

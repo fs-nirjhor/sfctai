@@ -30,7 +30,7 @@ const io = socketIO(server, {
 });
 
 io.on("connection", (socket) => {
-  logger.info("Socket connected:", socket.id);
+  //logger.info("Socket connected:", socket.id);
 
   // Handle connection with user data
   socket.on("chats", async ({ isAdmin, id, page, limit }) => {
@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
   });
 
   // Handle incoming messages
-  socket.on("message", async ({ isAdmin, text, image, sender, client }) => {
+  socket.on("message", async ({ isAdmin, text, image, sender, client, page, limit }) => {
     try {
       // Upload image to Cloudinary
       let imageUrl = "";
@@ -131,16 +131,19 @@ io.on("connection", (socket) => {
 
       if (isAdmin) {
         response = await Chat.find()
-          .populate("client")
-          .sort({ updatedAt: -1 })
-          .lean();
+        .populate("client")
+        .sort({ updatedAt: -1 })
+        .limit(limit)
+        .skip((page - 1) * limit)
+        .lean();
       } else {
         response = [updatedChat];
       }
+      console.log(page, limit);
       // send response
       io.emit("message", response);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       throw createHttpError(400, error.message);
     }
   });
@@ -181,7 +184,7 @@ io.on("connection", (socket) => {
 
   // Handle disconnection
   socket.on("disconnect", () => {
-    logger.info("Socket disconnected:", socket.id);
+    //logger.info("Socket disconnected:", socket.id);
   });
 });
 
