@@ -139,7 +139,6 @@ io.on("connection", (socket) => {
       } else {
         response = [updatedChat];
       }
-      console.log(page, limit);
       // send response
       io.emit("message", response);
     } catch (error) {
@@ -149,7 +148,7 @@ io.on("connection", (socket) => {
   });
 
   // handle seen messages
-  socket.on("seen", async ({ isAdmin, client }) => {
+  socket.on("seen", async ({ isAdmin, client, page, limit }) => {
     try {
       // update message
       const updatedChat = await Chat.findOneAndUpdate(
@@ -168,9 +167,11 @@ io.on("connection", (socket) => {
 
       if (isAdmin) {
         response = await Chat.find()
-          .populate("client")
-          .sort({ updatedAt: -1 })
-          .lean();
+        .populate("client")
+        .sort({ updatedAt: -1 })
+        .limit(limit)
+        .skip((page - 1) * limit)
+        .lean();
       } else {
         response = [updatedChat];
       }
