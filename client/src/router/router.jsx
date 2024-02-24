@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App.jsx";
 import ErrorPage from "../pages/shared/ErrorPage.jsx";
 import Homepage from "../pages/homepage/Homepage.jsx";
-import Product from "../pages/product/Product.jsx";
+import Product from "../pages/trade/Product.jsx";
 import Information from "../pages/information/Information.jsx";
 import My from "../pages/my/My.jsx";
 import Wallet from "../pages/my/myNav/wallet/Wallet.jsx";
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
         id: "user",
         children: [
           {
-            path: "/product",
+            path: "/trade",
             element: <Product />,
           },
           {

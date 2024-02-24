@@ -21,7 +21,7 @@ const Footer = () => {
         </svg>
         <span className="btm-nav-label text-myPrimary first-letter:text-lg">HOME</span>
       </NavLink>
-      <NavLink to="product">
+      <NavLink to="trade">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 text-myPrimary"
