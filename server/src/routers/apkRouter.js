@@ -23,14 +23,18 @@ apkRouter.get("/download", async (req, res, next) => {
 
 // upload app 
 apkRouter.post('/upload', uploadApk.single('file'), (req, res, next) => {
-    const file = req.file;
-    if (file) {
-    return successResponse(res, {
-        statusCode: 200,
-        message: "Apk uploaded successfully",
-      });
-    } else {
-        createHttpError(500, "File upload failed")
+    try {
+      const file = req.file;
+      if (!file) {
+        throw createHttpError(400, "Failed to upload file")
+      }
+      
+      return successResponse(res, {
+          statusCode: 200,
+          message: "Apk uploaded successfully",
+        });
+    } catch (error) {
+      next(error);
     }
   });
   

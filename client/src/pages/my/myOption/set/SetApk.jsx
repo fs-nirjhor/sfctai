@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { serverUrl } from "../../../../data/config";
 import { toast } from 'react-toastify';
 
 const SetApk = () => {
   const [file, setFile] = useState(null);
-  const toastId = useRef(null);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -15,32 +14,30 @@ const SetApk = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
-
     try {
-      axios.request({
+      toast.loading('Upload in Progress', { hideProgressBar: false, closeOnClick: false, draggable: false, progressClassName: "h-3", toastId: "uploading" });
+
+      const response = await axios.request({
         method: "post", 
         url: `${serverUrl}/api/apk/upload`, 
         data: formData, 
         onUploadProgress: p => {
           const progress = p.loaded / p.total;
-  
-          // check if we already displayed a toast
-          if (toastId.current === null) {
-            toastId.current = toast.loading('Upload in Progress', { progress, hideProgressBar: false, closeOnClick: false, draggable: false, progressClassName: "h-3" });
-          } else {
-            toast.update(toastId.current, { progress });
-          }
+            toast.update("uploading", { progress });
         }
-      }).then(data => {
-        toast.done(toastId.current);
-        if(data.data?.success){
-        setFile(null);
+      });
+        if(response.data?.success){
         toast.success("File uploaded successfully");
         }
-      })
-    } catch (error) {
-      toast.error(error.message);
+    } catch (err) {
+      if (err.response?.data?.message) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error("Failed to upload file");
+      }
     }
+    setFile(null);
+    toast.done("uploading")
   };
 
   const inputStyle =
@@ -50,7 +47,7 @@ const SetApk = () => {
     "btn btn-sm join-item w-2/6";
 
   return (
-    <form className={formStyle}>
+    <form className={formStyle} onSubmit={handleUpload}>
       <input
         type="file"
         onChange={handleFileChange}
@@ -58,8 +55,8 @@ const SetApk = () => {
         accept=".apk"
         required
       />
-      <button onClick={handleUpload} className={buttonStyle}>
-        APP
+      <button className={buttonStyle}>
+        Upload
       </button>
     </form>
   );

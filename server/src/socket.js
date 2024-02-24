@@ -30,7 +30,7 @@ const io = socketIO(server, {
 });
 
 io.on("connection", (socket) => {
-  //console.log("User connected:", socket.id);
+  logger.info("Socket connected:", socket.id);
 
   // Handle connection with user data
   socket.on("chats", async ({ isAdmin, id, page, limit }) => {
@@ -61,6 +61,7 @@ io.on("connection", (socket) => {
         if (!existingChat) {
           // If no chat exists, create a new one
           const newChat = await Chat.create({ client: id }).lean;
+          data = {chats: [newChat], pagination:{}};
         } else {
           // If a chat exists, fetch it
           data = {chats: [existingChat], pagination:{}};
@@ -105,6 +106,7 @@ io.on("connection", (socket) => {
             .end(image);
         });
       }
+      
       // message data
       const newMessage = {
         text: text,
@@ -143,6 +145,7 @@ io.on("connection", (socket) => {
     }
   });
 
+  // handle seen messages
   socket.on("seen", async ({ isAdmin, client }) => {
     try {
       // update message
@@ -178,7 +181,7 @@ io.on("connection", (socket) => {
 
   // Handle disconnection
   socket.on("disconnect", () => {
-    //console.log("User disconnected:", socket.id);
+    logger.info("Socket disconnected:", socket.id);
   });
 });
 
