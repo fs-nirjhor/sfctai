@@ -35,9 +35,12 @@ const Login = () => {
   };
 
   return (
-    <section>
+    <section className="bg-gradient-to-t from-white to-transparent min-h-full pb-40 px-5">
       <h1 className="font-semibold text-center pt-2 mb-5">Login</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="px-5">
+      <figure className="px-5">
+        <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
+      </figure>
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-[url('/images/bannar/coin_bannar.png')] bg-top bg-origin-border bg-cover bg-scroll bg-no-repeat pt-5">
         <label className="form-control w-full max-w-md mx-auto">
           <div className="label">
             <span className="label-text">Phone Number</span>
