@@ -123,7 +123,7 @@ const FundHistory = () => {
                     ? "bg-success"
                     : "bg-gray-300"
                 }`}
-                onClick={() => handleClick(transaction.client.userId)}
+                onClick={() => handleClick(transaction.client._id)}
               >
                 <p>
                   {transaction.isRejected
