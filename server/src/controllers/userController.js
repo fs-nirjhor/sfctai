@@ -24,6 +24,7 @@ const {
 const { createItem } = require("../services/createItem");
 const Chat = require("../models/chatModel");
 const Transaction = require("../models/transactionModel");
+const cloudinary = require("../config/cloudinaryConfig");
 
 const handleRegistration = async (req, res, next) => {
   try {
@@ -220,6 +221,8 @@ const handleDeleteUser = async (req, res, next) => {
       client: id,
     });
     const deletedChat = await Chat.findOneAndDelete({ client: id });
+    const deleteImages = await cloudinary.uploader.destroy(`SFCTAI/chat/${id}`)
+    console.log(deleteImages)
 
     const updateOptions = {
       new: true,

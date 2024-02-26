@@ -24,8 +24,8 @@ const ChatList = () => {
                 chat.isSeen ? "bg-white" : "bg-gray-400"
               }`}
               key={i}
-              onClick={async () =>
-                await seenMessage({
+              onClick={ () =>
+                 seenMessage({
                   isAdmin: chat.client?.isAdmin,
                   client: chat.client?._id,
                 })

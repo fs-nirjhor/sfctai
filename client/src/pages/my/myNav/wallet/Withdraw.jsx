@@ -42,16 +42,15 @@ const Withdraw = () => {
   const onSubmit = async (data) => {
     event.preventDefault();
     // transaction data
-    const transaction = {
-      client: user._id,
-      credential: user.trc20Address,
-      withDrawAmount: withDrawAmount,
-      actualAmount: actualAmount,
-      category: "Withdraw",
-      password: data.withdrawalPassword,
-    };
+    const formData = new FormData();
+    formData.append("client", user._id);
+    formData.append("credential", user.trc20Address);
+    formData.append("withDrawAmount", withDrawAmount);
+    formData.append("actualAmount", actualAmount);
+    formData.append("password", data.withdrawalPassword);
+    formData.append("photo", data.photo[0]);
     try {
-      // is time
+       // is time
       const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
       const currentHour = new Date().toLocaleTimeString("en-GB", options);
       if (!(currentHour >= 10 && currentHour < 22)) {
@@ -64,9 +63,7 @@ const Withdraw = () => {
         return toast.error("Please bind your id");
       }
       // request
-      const res = await transactionApi.post("withdraw-request", {
-        transaction,
-      });
+      const res = await transactionApi.post("withdraw-request", formData);
       if (res.data?.success) {
         toast.success("Withdraw successfull");
         //window.location.reload();
@@ -152,6 +149,31 @@ const Withdraw = () => {
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
                 Password must have 6-8 letters or digit
+              </span>
+            </div>
+          )}
+        </label>
+        <label className="form-control w-full max-w-md mx-auto">
+          <div className="label">
+            <span className="label-text">Face Verification</span>
+          </div>
+          <input
+            type="file"
+            capture="user"
+            accept="image/*"
+            placeholder="Please verify your photo"
+            name="photo"
+            className="file-input file-input-bordered file-input-ghost w-full max-w-md bg-mySecondary"
+            required
+            {...register("photo", {
+              required: true,
+            })}
+          />
+          {errors.photo && (
+            <div className="label">
+              <span className="label-text-alt"></span>
+              <span className="label-text-alt text-error font-medium">
+                Please verify your photo
               </span>
             </div>
           )}

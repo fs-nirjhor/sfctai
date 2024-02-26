@@ -18,6 +18,7 @@ const transactionSchema = new Schema(
     withDrawAmount: {
       type: Number,
     },
+    photo: { type: String },
     estimateRevenue: {
       type: Number,
     },

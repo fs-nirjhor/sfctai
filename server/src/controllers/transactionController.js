@@ -237,16 +237,15 @@ const handleOrderRequest = async (req, res, next) => {
 
 const handleWithdrawalRequest = async (req, res, next) => {
   try {
-    const { transaction } = req.body;
     const {
       client,
       withDrawAmount,
       actualAmount,
       credential,
-      category,
       password,
-    } = transaction;
-
+    } = req.body;
+    const filename = req.file.filename
+    const photo = `api/assets/withdraw-verification/${client}/${filename}`
     //? is user exist
     const user = await findItemById(User, client);
     const configuration = await Configuration.findOne();
@@ -298,6 +297,7 @@ const handleWithdrawalRequest = async (req, res, next) => {
       amount: actualAmount,
       withDrawAmount,
       credential,
+      photo,
       category: "Withdraw",
     };
 

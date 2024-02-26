@@ -49,10 +49,13 @@ app.use("/api/transactions", transactionRouter);
 app.use("/api/configuration", configurationRouter);
 app.use("/api/apk", apkRouter);
 
-// Routes
+const thisDirectory = path.dirname(require.main.filename);
+const assetsFilePath = path.resolve(thisDirectory, "./assets");
+// serve assets 
+app.use('/api/assets', express.static(assetsFilePath));
 
-const __dirname1 = path.resolve();
-app.use(express.static(path.join(__dirname1, "/client/dist")));
+
+// Routes
 
 // Logs
 app.get("/api/logs", (req, res) => {
@@ -72,8 +75,14 @@ app.get("/test", (req, res) => {
 });
 
 // ----Deployment----
+app.use(express.static(path.join(thisDirectory, "../../client/dist")));
 app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname1, "client", "dist", "index.html"))
+  res.sendFile(path.resolve(thisDirectory, "../../client/dist/index.html"), (err) => {
+    if (err) {
+      createHttpError(404, err.message)
+      res.status(404).send(err.message);
+    }
+  })
 );
 
 // error handler

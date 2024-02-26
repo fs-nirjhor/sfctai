@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
 import moment from "moment";
+import { serverUrl } from "../../../../data/config";
 
 const ApproveWithdraw = ({id}) => {
   const [pendingWithdraw, setPendingWithdraw] = useState([]);
@@ -77,7 +78,7 @@ const ApproveWithdraw = ({id}) => {
       }
     }
   };
-
+console.log(pendingWithdraw)
   return (
        <div >
               <h3 className="mb-3 font-semibold">Pending Withdraws:</h3>
@@ -89,7 +90,9 @@ const ApproveWithdraw = ({id}) => {
                   "DD/MM/YYYY HH:mm:ss"
                 );
                 return (
-                <div key={withdraw._id} className="mb-3 p-2 bg-white rounded">
+                <section key={withdraw._id} className="mb-3 p-2 bg-white rounded flex items-center gap-3">
+                  <img src={`${serverUrl}/${withdraw.photo}`} alt={withdraw._id} className="w-20"/>
+                  <div>
                   <p className="text-sm">
                     Transaction ID: {withdraw.credential}
                   </p>
@@ -99,7 +102,7 @@ const ApproveWithdraw = ({id}) => {
                   <p className="text-sm">
                     Time: {createdDate}
                   </p>
-                  <div className="flex gap-5 mt-3 px-5">
+                  <div className="flex gap-3 mt-3">
                     <button
                       className="btn btn-warning btn-sm bg-myPrimary text-white" onClick={() => handleApproveWithdraw(withdraw._id)}
                       >
@@ -111,7 +114,8 @@ const ApproveWithdraw = ({id}) => {
                       Reject
                     </button>
                       </div>
-                </div>
+                 </div>
+                </section>
               )})}
             </div>
   )

@@ -3,23 +3,11 @@ const createHttpError = require("http-errors");
 const Chat = require("./models/chatModel");
 const http = require("http");
 const app = require("./app");
-const {
-  cloudinaryName,
-  cloudinaryKey,
-  cloudinarySecret,
-  clientUrl,
-} = require("./secret");
-const cloudinary = require("cloudinary").v2;
+const {clientUrl} = require("./secret");
 const { Readable } = require("stream");
 const logger = require("./helper/winstonLogger");
 const { setPagination } = require("./helper/managePagination");
-
-// Configure Cloudinary with your credentials
-cloudinary.config({
-  cloud_name: cloudinaryName,
-  api_key: cloudinaryKey,
-  api_secret: cloudinarySecret,
-});
+const cloudinary = require("./config/cloudinaryConfig");
 
 const server = http.createServer(app);
 const io = socketIO(server, {
