@@ -41,6 +41,7 @@ const Withdraw = () => {
 
   const onSubmit = async (data) => {
     event.preventDefault();
+  
     // transaction data
     const formData = new FormData();
     formData.append("client", user._id);
@@ -49,7 +50,8 @@ const Withdraw = () => {
     formData.append("actualAmount", actualAmount);
     formData.append("password", data.withdrawalPassword);
     formData.append("photo", data.photo[0]);
-    try {
+   
+    //validation 
        // is time
       const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
       const currentHour = new Date().toLocaleTimeString("en-GB", options);
@@ -62,12 +64,23 @@ const Withdraw = () => {
       if (!user.trc20Address) {
         return toast.error("Please bind your id");
       }
+      // is withdraw already
+    if (user.transaction.todaysWithdraw) {
+      return toast.error("Only 1 withdraw per day");
+    }
+
+    toast.loading('Please wait..', { hideProgressBar: false, closeOnClick: false, draggable: false, progressClassName: "h-3", toastId: "withdraw-loading" });
+    try {
       // request
-      const res = await transactionApi.post("withdraw-request", formData);
+      const onUploadProgress = progressEvent => {
+        const progress = progressEvent.loaded / progressEvent.total;
+          toast.update("withdraw-loading", { progress });
+      }
+      const res = await transactionApi.post("withdraw-request", formData, {onUploadProgress});
       if (res.data?.success) {
         toast.success("Withdraw successfull");
-        //window.location.reload();
-        navigate("/my");
+        window.location.assign("/my");
+        //navigate("/my");
       }
     } catch (err) {
       if (err.response?.data?.message) {
@@ -76,6 +89,7 @@ const Withdraw = () => {
         toast.error(err.message);
       }
     }
+    toast.done("withdraw-loading")
   };
 
   return (

@@ -14,8 +14,8 @@ const SetApk = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", file);
+    toast.loading('Upload in Progress', { hideProgressBar: false, closeOnClick: false, draggable: false, progressClassName: "h-3", toastId: "uploading" });
     try {
-      toast.loading('Upload in Progress', { hideProgressBar: false, closeOnClick: false, draggable: false, progressClassName: "h-3", toastId: "uploading" });
 
       const response = await axios.request({
         method: "post", 
