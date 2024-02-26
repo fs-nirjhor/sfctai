@@ -1,9 +1,12 @@
 const { createLogger, format, transports} = require("winston");
 const { combine, colorize, simple, timestamp, prettyPrint } = format;
 const path = require("path");
-const __dirname1 = path.resolve();
+
+const thisDirectory = path.dirname(require.main.filename);
+const logsFilePath = path.resolve(thisDirectory, "../logs");
+
 const infoTransport = new transports.File({
-  filename: `${__dirname1}/logs/combined.log`,
+  filename: `${logsFilePath}/combined.log`,
   level: "info",
   format: combine(
     timestamp({ format: "DD-MM-YYYY hh:mm:ss" }),
@@ -13,7 +16,7 @@ const infoTransport = new transports.File({
   maxFiles: 3,
 });
 const errorTransport = new transports.File({
-  filename: `${__dirname1}/logs/error.log`,
+  filename: `${logsFilePath}/error.log`,
   level: "error",
   format: combine(timestamp({ format: "DD-MM-YYYY hh:mm:ss" }), prettyPrint()),
   maxsize: 1048576,

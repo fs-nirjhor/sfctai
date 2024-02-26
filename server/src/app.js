@@ -50,16 +50,17 @@ app.use("/api/configuration", configurationRouter);
 app.use("/api/apk", apkRouter);
 
 const thisDirectory = path.dirname(require.main.filename);
-const assetsFilePath = path.resolve(thisDirectory, "./assets");
-// serve assets 
-app.use('/api/assets', express.static(assetsFilePath));
 
+// serve assets 
+const assetsFilePath = path.resolve(thisDirectory, "./assets");
+app.use('/api/assets', express.static(assetsFilePath));
 
 // Routes
 
 // Logs
+const logsFilePath = path.resolve(thisDirectory, "../logs");
 app.get("/api/logs", (req, res) => {
-  const logsPath = `${path.resolve()}/logs/combined.log`
+  const logsPath = `${logsFilePath}/combined.log`
   res.sendFile(logsPath, (err) => {
     if (err) {
       createHttpError(404, err.message)
