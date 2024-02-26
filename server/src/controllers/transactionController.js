@@ -1,5 +1,7 @@
 const createHttpError = require("http-errors");
 const bcrypt = require("bcryptjs");
+const sharp = require("sharp");
+
 const { updateItemById } = require("../services/updateItem");
 const Transaction = require("../models/transactionModel");
 const { createItem } = require("../services/createItem");
@@ -244,7 +246,12 @@ const handleWithdrawalRequest = async (req, res, next) => {
       credential,
       password,
     } = req.body;
-    const filename = req.file.filename
+    // compress image
+    /* const processedImage = await sharp(req.file?.path)
+    .resize({ percentage: 40, withoutEnlargement: true }) 
+    .toFile(req.file?.path); */
+   // return console.log(req.file.size)
+    const filename = req.file?.filename;
     const photo = `api/assets/withdraw-verification/${client}/${filename}`
     //? is user exist
     const user = await findItemById(User, client);
