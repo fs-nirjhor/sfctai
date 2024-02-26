@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 
 const Information = () => {
   return (
-    <section>
+    <section className="bg-[url('/images/bg/myBg.jpg')] bg-repeat-y bg-center bg-origin-border bg-cover bg-scroll min-h-screen">
       <h1 className="font-semibold text-center pt-2 mb-5">About</h1>
-      <figure className="font-semibold">
+      <figure className="p-5">
+        <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
+      </figure>
+      <div className="font-semibold">
         {information.map((info, i) => {
           return (
             <Link
@@ -17,7 +20,7 @@ const Information = () => {
             </Link>
           );
         })}
-      </figure>
+      </div>
     </section>
   );
 };
