@@ -427,6 +427,12 @@ const handleUpdateTransaction = async (req, res, next) => {
       throw new Error(`Failed to approve ${approvedTransaction.category}`);
     }
 
+    if (approvedTransaction.category === "Withdraw" && updates.isApproved) {
+      const filePath =
+      approvedTransaction.photo?.replace("api", mainDirectory);
+      await deleteFile(filePath);
+    }
+
     return successResponse(res, {
       statusCode: 200,
       message: `${approvedTransaction.category} approved successfully`,
