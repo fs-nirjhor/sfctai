@@ -2,6 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const deleteFile = require("../helper/deleteFile");
 const fs = require("fs");
+const sharp = require("sharp");
 
 const relativeFilePath = "./assets";
 const thisDirectory = path.dirname(require.main.filename);
@@ -33,22 +34,21 @@ const uploadApk = multer({
 
 // photo upload
 const withdrawPhotoFilter = async (req, file, cb) => {
-  if (file.mimetype.startsWith("image/")) {
-    cb(null, true);
-  } else {
-    cb(new Error("Invalid file type. Only images allowed."));
-  }
+  if (!file.mimetype.startsWith("image/")) {
+    throw createHttpError(400, "Only images are allowed");
+  } 
+  cb(null, true);
 };
 
 const withdrawPhotoStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  /* destination: (req, file, cb) => {
     const destination = `${absoluteFilePath}/withdraw-verification/${req.body?.client}`;
 
     // Create the photo folder if it doesn't exist
     fs.mkdirSync(destination, { recursive: true }); 
 
     cb(null, destination);
-  },
+  }, */
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
@@ -59,4 +59,33 @@ const uploadWithdrawPhoto = multer({
   storage: withdrawPhotoStorage,
 });
 
-module.exports = { uploadApk, uploadWithdrawPhoto };
+const compressWithdrawImage = async (req, res, next) => {
+  try {
+    // Check if file exists
+    if (!req.file) {
+      throw createHttpError(404,"No image provided");
+    }
+  
+    // filename 
+    const extension = path.extname(req.file.originalname);
+    const filename =
+      req.file.originalname.replace(extension, ".webp");
+    // file path
+    const destination = `${absoluteFilePath}/withdraw-verification/${req.body?.client}`;
+    // Create the photo path if it doesn't exist
+    fs.mkdirSync(destination, { recursive: true });
+
+    const inputPath = req.file?.path;
+    const outputPath = `${destination}/${filename}`//path.join(destination, filename);
+    const processedImage = await sharp(inputPath)
+    .webp({ quality: 20 })
+    //.resize({ percentage: 40, withoutEnlargement: true }) 
+    .toFile(outputPath);
+    req.body.filename = filename;
+    next()
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { uploadApk, uploadWithdrawPhoto, compressWithdrawImage };

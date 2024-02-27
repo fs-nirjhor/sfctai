@@ -9,7 +9,7 @@ const {
   handleAddRecharge,
   handleRejectTransaction,
 } = require("../controllers/transactionController");
-const { uploadWithdrawPhoto } = require("../middlewares/uploadFile");
+const { uploadWithdrawPhoto, compressWithdrawImage } = require("../middlewares/uploadFile");
 
 const transactionRouter = express.Router();
 
@@ -23,6 +23,7 @@ transactionRouter.post(
   "/withdraw-request",
   isLoggedIn,
   uploadWithdrawPhoto.single("photo"),
+  compressWithdrawImage,
   handleWithdrawalRequest
 );
 
