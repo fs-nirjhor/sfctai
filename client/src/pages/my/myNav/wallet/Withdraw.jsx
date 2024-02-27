@@ -3,12 +3,15 @@ import { useForm } from "react-hook-form";
 import { transactionApi } from "../../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
+import { GoPlus } from "react-icons/go";
 
 const Withdraw = () => {
   const user = useRouteLoaderData("user");
+  const navigate = useNavigate();
+
   const { withdrawFee, minimumWithdraw } = useRouteLoaderData("configuration");
   const [serviceCharge, setServiceCharge] = useState(0);
-  const navigate = useNavigate();
+  const [actualAmount, setActualAmount] = useState(0);
 
   const {
     register,
@@ -17,8 +20,8 @@ const Withdraw = () => {
     formState: { errors },
   } = useForm();
 
-  const [actualAmount, setActualAmount] = useState(0);
   const withDrawAmount = watch("withDrawAmount");
+  const photo = watch("photo");
 
   const balance = user.transaction.balance;
 
@@ -41,7 +44,7 @@ const Withdraw = () => {
 
   const onSubmit = async (data) => {
     event.preventDefault();
-  
+
     // transaction data
     const formData = new FormData();
     formData.append("client", user._id);
@@ -50,33 +53,41 @@ const Withdraw = () => {
     formData.append("actualAmount", actualAmount);
     formData.append("password", data.withdrawalPassword);
     formData.append("photo", data.photo[0]);
-   
-    //validation 
-       // is time
-      const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
-      const currentHour = new Date().toLocaleTimeString("en-GB", options);
-      if (!(currentHour >= 10 && currentHour < 22)) {
-        return toast.error(
-          "Allowed withdraw time is 10:00 - 22:00 (Arabic Time)"
-        );
-      }
-      // is usdt bind
-      if (!user.trc20Address) {
-        return toast.error("Please bind your id");
-      }
-      // is withdraw already
+
+    //validation
+    // is time
+    const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
+    const currentHour = new Date().toLocaleTimeString("en-GB", options);
+    if (!(currentHour >= 10 && currentHour < 22)) {
+      return toast.error(
+        "Allowed withdraw time is 10:00 - 22:00 (Arabic Time)"
+      );
+    }
+    // is usdt bind
+    if (!user.trc20Address) {
+      return toast.error("Please bind your id");
+    }
+    // is withdraw already
     if (user.transaction.todaysWithdraw) {
       return toast.error("Only 1 withdraw per day");
     }
 
-    toast.loading('Please wait..', { hideProgressBar: false, closeOnClick: false, draggable: false, progressClassName: "h-3", toastId: "withdraw-loading" });
+    toast.loading("Please wait..", {
+      hideProgressBar: false,
+      closeOnClick: false,
+      draggable: false,
+      progressClassName: "h-3",
+      toastId: "withdraw-loading",
+    });
     try {
       // request
-      const onUploadProgress = progressEvent => {
+      const onUploadProgress = (progressEvent) => {
         const progress = progressEvent.loaded / progressEvent.total;
-          toast.update("withdraw-loading", { progress });
-      }
-      const res = await transactionApi.post("withdraw-request", formData, {onUploadProgress});
+        toast.update("withdraw-loading", { progress });
+      };
+      const res = await transactionApi.post("withdraw-request", formData, {
+        onUploadProgress,
+      });
       if (res.data?.success) {
         toast.success("Withdraw successfull");
         window.location.assign("/my");
@@ -89,13 +100,13 @@ const Withdraw = () => {
         toast.error(err.message);
       }
     }
-    toast.done("withdraw-loading")
+    toast.done("withdraw-loading");
   };
 
   return (
-    <section>
+    <section className="pb-20">
       <h1 className="font-semibold text-center pt-2 mb-5">Withdraw</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="font-serif">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-control w-full max-w-md mx-auto">
           <div className="label">
             <span className="label-text">Cash Amount</span>
@@ -167,9 +178,14 @@ const Withdraw = () => {
             </div>
           )}
         </label>
-        <label className="form-control w-full max-w-md mx-auto">
+        <div className="form-control w-full max-w-md mx-auto mt-5">
           <div className="label">
             <span className="label-text">Face Verification</span>
+          </div>
+        <label className="w-40 mx-auto">
+          <div className="relative ">
+            <span className={`absolute bg-gray-300 bg-opacity-80 w-full h-full flex justify-center items-center rounded ${photo?.length && 'hidden'}`}><GoPlus  className="text-6xl text-white"/></span>
+            <img src="/images/face.jpg" alt="face" className="w-full rounded"/>
           </div>
           <input
             type="file"
@@ -177,7 +193,7 @@ const Withdraw = () => {
             accept="image/*"
             placeholder="Please verify your photo"
             name="photo"
-            className="file-input file-input-bordered file-input-ghost w-full max-w-md bg-mySecondary"
+            className="hidden"
             required
             {...register("photo", {
               required: true,
@@ -192,6 +208,7 @@ const Withdraw = () => {
             </div>
           )}
         </label>
+        </div>
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"

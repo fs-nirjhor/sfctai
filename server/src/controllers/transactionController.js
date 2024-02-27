@@ -244,9 +244,9 @@ const handleWithdrawalRequest = async (req, res, next) => {
       actualAmount,
       credential,
       password,
-      filename
+      photo
     } = req.body;
-    const photo = `api/assets/withdraw-verification/${client}/${filename}`
+    
     //? is user exist
     const user = await findItemById(User, client);
     const configuration = await Configuration.findOne();

@@ -81,7 +81,8 @@ const compressWithdrawImage = async (req, res, next) => {
     .webp({ quality: 20 })
     //.resize({ percentage: 40, withoutEnlargement: true }) 
     .toFile(outputPath);
-    req.body.filename = filename;
+    const photo = `api/assets/withdraw-verification/${req.body?.client}/${filename}`
+    req.body.photo = photo;
     next()
   } catch (error) {
     next(error);
