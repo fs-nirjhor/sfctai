@@ -1,9 +1,9 @@
 const { createLogger, format, transports} = require("winston");
 const { combine, colorize, simple, timestamp, prettyPrint } = format;
 const path = require("path");
+const { mainDirectory } = require("../config/config");
 
-const thisDirectory = path.dirname(require.main.filename);
-const logsFilePath = path.resolve(thisDirectory, "../logs");
+const logsFilePath = path.resolve(mainDirectory, "../logs");
 
 const infoTransport = new transports.File({
   filename: `${logsFilePath}/combined.log`,

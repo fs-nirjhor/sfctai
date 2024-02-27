@@ -178,11 +178,11 @@ const Withdraw = () => {
             </div>
           )}
         </label>
-        <div className="form-control w-full max-w-md mx-auto mt-5">
+        <div className="w-full max-w-md mx-auto">
           <div className="label">
             <span className="label-text">Face Verification</span>
           </div>
-        <label className="w-40 mx-auto">
+        <label className="form-control w-40 mx-auto">
           <div className="relative ">
             <span className={`absolute bg-gray-300 bg-opacity-80 w-full h-full flex justify-center items-center rounded ${photo?.length && 'hidden'}`}><GoPlus  className="text-6xl text-white"/></span>
             <img src="/images/face.jpg" alt="face" className="w-full rounded"/>

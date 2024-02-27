@@ -10,6 +10,8 @@ const User = require("../models/userModel");
 const Configuration = require("../models/configurationModel");
 const { createRandomString } = require("../helper/createRandom");
 const { setPagination } = require("../helper/managePagination");
+const deleteFile = require("../helper/deleteFile");
+const { mainDirectory } = require("../config/config");
 
 const handleGetTransaction = async (req, res, next) => {
   try {
@@ -246,7 +248,6 @@ const handleWithdrawalRequest = async (req, res, next) => {
       password,
       photo
     } = req.body;
-    
     //? is user exist
     const user = await findItemById(User, client);
     const configuration = await Configuration.findOne();
@@ -371,6 +372,9 @@ const handleRejectTransaction = async (req, res, next) => {
     }
 
     if (rejectedTransaction.category === "Withdraw") {
+      const filePath =
+      rejectedTransaction.photo?.replace("api", mainDirectory);
+      await deleteFile(filePath);
       const withDrawAmount = Number(rejectedTransaction.withDrawAmount);
       userUpdates = {
         $inc: {

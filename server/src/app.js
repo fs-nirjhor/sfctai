@@ -16,6 +16,7 @@ const configurationRouter = require("./routers/configurationRouter");
 const path = require("path");
 const apkRouter = require("./routers/apkRouter");
 const logger = require("./helper/winstonLogger");
+const { mainDirectory } = require("./config/config");
 
 // initialize
 const app = express();
@@ -49,16 +50,14 @@ app.use("/api/transactions", transactionRouter);
 app.use("/api/configuration", configurationRouter);
 app.use("/api/apk", apkRouter);
 
-const thisDirectory = path.dirname(require.main.filename);
-
 // serve assets 
-const assetsFilePath = path.resolve(thisDirectory, "./assets");
+const assetsFilePath = path.resolve(mainDirectory, "./assets");
 app.use('/api/assets', express.static(assetsFilePath));
 
 // Routes
 
 // Logs
-const logsFilePath = path.resolve(thisDirectory, "../logs");
+const logsFilePath = path.resolve(mainDirectory, "../logs");
 app.get("/api/logs", (req, res) => {
   const logsPath = `${logsFilePath}/combined.log`
   res.sendFile(logsPath, (err) => {
@@ -76,9 +75,9 @@ app.get("/test", (req, res) => {
 });
 
 // ----Deployment----
-app.use(express.static(path.join(thisDirectory, "../../client/dist")));
+app.use(express.static(path.join(mainDirectory, "../../client/dist")));
 app.get("*", (req, res) =>
-  res.sendFile(path.resolve(thisDirectory, "../../client/dist/index.html"), (err) => {
+  res.sendFile(path.resolve(mainDirectory, "../../client/dist/index.html"), (err) => {
     if (err) {
       createHttpError(404, err.message)
       res.status(404).send(err.message);

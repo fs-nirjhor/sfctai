@@ -1,4 +1,5 @@
 // website configuration
+const path = require("path");
 
 const transferAddress = "TSarEYNTV9eupDFfGGLf9oHMVnTRNxs9E6&778jhjhHHuyi";
 
@@ -17,6 +18,8 @@ const level3Commission = 4; // %
 
 const defaultUserImagePath = "/images/avatar/avatar1.png";
 
+const mainDirectory = path.dirname(require.main.filename);
+
 
 module.exports = {
   defaultUserImagePath,
@@ -30,4 +33,5 @@ module.exports = {
   level2Commission,
   level3Commission,
   transferAddress,
+  mainDirectory
 };

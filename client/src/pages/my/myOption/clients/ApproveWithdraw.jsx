@@ -78,7 +78,6 @@ const ApproveWithdraw = ({id}) => {
       }
     }
   };
-console.log(pendingWithdraw)
   return (
        <div >
               <h3 className="mb-3 font-semibold">Pending Withdraws:</h3>

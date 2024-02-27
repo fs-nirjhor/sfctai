@@ -3,10 +3,9 @@ const path = require("path");
 const deleteFile = require("../helper/deleteFile");
 const fs = require("fs");
 const sharp = require("sharp");
+const { mainDirectory } = require("../config/config");
 
-const relativeFilePath = "./assets";
-const thisDirectory = path.dirname(require.main.filename);
-const absoluteFilePath = path.resolve(thisDirectory, relativeFilePath);
+const assetsFilePath = path.resolve(mainDirectory, "./assets");
 
 // apk upload
 const apkFilter = async (req, file, cb) => {
@@ -14,13 +13,13 @@ const apkFilter = async (req, file, cb) => {
   if (extension !== ".apk") {
     throw createHttpError("Please upload .apk file");
   }
-  await deleteFile(absoluteFilePath + "/SFCTAI.apk");
+  await deleteFile(assetsFilePath + "/SFCTAI.apk");
   return cb(null, true);
 };
 
 const apkStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, absoluteFilePath);
+    cb(null, assetsFilePath);
   },
   filename: (req, file, cb) => {
     cb(null, "SFCTAI.apk");
@@ -42,7 +41,7 @@ const withdrawPhotoFilter = async (req, file, cb) => {
 
 const withdrawPhotoStorage = multer.diskStorage({
   /* destination: (req, file, cb) => {
-    const destination = `${absoluteFilePath}/withdraw-verification/${req.body?.client}`;
+    const destination = `${assetsFilePath}/withdraw-verification/${req.body?.client}`;
 
     // Create the photo folder if it doesn't exist
     fs.mkdirSync(destination, { recursive: true }); 
@@ -68,10 +67,10 @@ const compressWithdrawImage = async (req, res, next) => {
   
     // filename 
     const extension = path.extname(req.file.originalname);
-    const filename =
-      req.file.originalname.replace(extension, ".webp");
+    const filename = req.file.originalname.replace(extension, "") + "_" + Date.now() + ".webp";
+      //req.file.originalname.replace(extension, ".webp");
     // file path
-    const destination = `${absoluteFilePath}/withdraw-verification/${req.body?.client}`;
+    const destination = `${assetsFilePath}/withdraw-verification/${req.body?.client}`;
     // Create the photo path if it doesn't exist
     fs.mkdirSync(destination, { recursive: true });
 
