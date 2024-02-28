@@ -81,6 +81,8 @@ io.on("connection", (socket) => {
                 public_id: `${client}_${Date.now()}`,
                 use_filename: true,
                 unique_filename: false,
+                format: 'webp',
+                quality: 20
               },
               (error, result) => {
                 if (error) {
