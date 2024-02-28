@@ -20,6 +20,7 @@ const MyOption = () => {
             <IoChevronForward />
           </Link>
         ))}
+        <DownloadApp />
         <Logout />
       </article>
   );

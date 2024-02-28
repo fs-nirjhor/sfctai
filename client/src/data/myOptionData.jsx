@@ -45,11 +45,11 @@ const MyOptionData = () => {
     },
     { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
     { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
-    {
+    /* {
       name: "Download App",
       to: `${serverUrl}/api/assets/SFCTAI.apk`,
       icon: <BsDownload className={iconStyle} />,
-    },
+    }, */
   ];
 
   // admin option
@@ -82,11 +82,11 @@ const MyOptionData = () => {
     },
     { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
     { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
-    {
+    /* {
       name: "Download App",
       to: `${serverUrl}/api/assets/SFCTAI.apk`,
       icon: <BsDownload className={iconStyle} />,
-    },
+    }, */
   ];
 
   return { clientOptions, adminOptions };
