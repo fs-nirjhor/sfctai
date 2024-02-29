@@ -26,7 +26,8 @@ const BindUsdt = () => {
         const res = await userApi.put(user._id, { trc20Address });
         if (res.data?.success) {
           toast.success("Binding successfully");
-          navigate("/");
+          window.location.assign("/my");
+          //navigate("/");
         }
       } else {
         toast.error("Binding ID can not be changed");

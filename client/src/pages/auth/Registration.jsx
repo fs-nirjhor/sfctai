@@ -17,13 +17,21 @@ const Registration = () => {
   const onSubmit = async (data) => {
     event.preventDefault();
     try {
+      // registration 
       await userApi.post("registration", data);
-      toast.success("Registration successful");
-      await authApi.post("login", {
+      // login 
+      const loggedUser = await authApi.post("login", {
         password: data.loginPassword,
         phone: data.phone,
       });
-      navigate("/my");
+      if (loggedUser.data?.success) {
+        // set access token
+        const accessToken = loggedUser.data?.payload?.accessToken;
+        await localStorage.setItem("accessToken", accessToken);
+      }
+      toast.success("Registration successful");
+      //navigate("/my");
+      window.location.replace("/my")
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message); // error sent by server

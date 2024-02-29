@@ -24,7 +24,7 @@ const Login = () => {
       }
       toast.success("Logged in successfully");
       //navigate(location.state ? location.state.from : "/");
-      window.location.replace(location.state ? location.state?.from?.pathname : "/")
+      window.location.replace(location.state ? location.state?.from?.pathname : "/my")
     } catch (err) {
       if (err.response?.data.message) {
         toast.error(err.response.data.message); // error sent by server
