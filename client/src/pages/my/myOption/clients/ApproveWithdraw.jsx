@@ -88,9 +88,10 @@ const ApproveWithdraw = ({id}) => {
                 const createdDate = moment(withdraw.createdAt).format(
                   "DD/MM/YYYY HH:mm:ss"
                 );
+                const photo = withdraw.photo //`${serverUrl}/${withdraw.photo}`
                 return (
                 <section key={withdraw._id} className="mb-3 p-2 bg-white rounded flex items-center gap-3">
-                  <img src={`${serverUrl}/${withdraw.photo}`} alt={withdraw._id} className="w-20"/>
+                  <img src={photo} alt={withdraw._id} className="w-20"/>
                   <div>
                   <p className="text-sm">
                     Transaction ID: {withdraw.credential}

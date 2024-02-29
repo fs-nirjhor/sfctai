@@ -12,6 +12,7 @@ const { createRandomString } = require("../helper/createRandom");
 const { setPagination } = require("../helper/managePagination");
 const deleteFile = require("../helper/deleteFile");
 const { mainDirectory } = require("../config/config");
+const { deleteImageBySecureUrl } = require("../helper/deleteCloudinaryFile");
 
 const handleGetTransaction = async (req, res, next) => {
   try {
@@ -372,9 +373,13 @@ const handleRejectTransaction = async (req, res, next) => {
     }
 
     if (rejectedTransaction.category === "Withdraw") {
-      const filePath =
+      // delete image from server
+      /* const filePath =
       rejectedTransaction.photo?.replace("api", mainDirectory);
-      await deleteFile(filePath);
+      await deleteFile(filePath); */
+      // delete image from cloudinary 
+      const deletedImage = await deleteImageBySecureUrl(rejectedTransaction.photo)
+
       const withDrawAmount = Number(rejectedTransaction.withDrawAmount);
       userUpdates = {
         $inc: {
@@ -426,11 +431,13 @@ const handleUpdateTransaction = async (req, res, next) => {
     if (!approvedTransaction) {
       throw new Error(`Failed to approve ${approvedTransaction.category}`);
     }
-
     if (approvedTransaction.category === "Withdraw" && updates.isApproved) {
-      const filePath =
+      // delete image from server
+      /* const filePath =
       approvedTransaction.photo?.replace("api", mainDirectory);
-      await deleteFile(filePath);
+      await deleteFile(filePath); */
+      // delete image from cloudinary 
+      const deletedImage = await deleteImageBySecureUrl(approvedTransaction.photo)
     }
 
     return successResponse(res, {

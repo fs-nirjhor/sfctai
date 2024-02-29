@@ -191,10 +191,9 @@ const Withdraw = () => {
             type="file"
             capture="user"
             accept="image/*"
-            placeholder="Please verify your photo"
             name="photo"
             className="hidden"
-            required
+            //required
             {...register("photo", {
               required: true,
             })}

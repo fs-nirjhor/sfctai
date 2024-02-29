@@ -79,10 +79,11 @@ io.on("connection", (socket) => {
               {
                 folder: `SFCTAI/chat/${client}`,
                 public_id: `${client}_${Date.now()}`,
+                tags: ["chat", "SFCTAI", client],
                 use_filename: true,
                 unique_filename: false,
                 format: 'webp',
-                quality: 20
+                quality: 25
               },
               (error, result) => {
                 if (error) {

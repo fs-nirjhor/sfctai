@@ -216,13 +216,18 @@ const handleDeleteUser = async (req, res, next) => {
     const id = req.params.id;
     const filter = { _id: id };
     const options = { password: 0 };
+    // delete user
     const deletedUser = await deleteItem(User, filter, options);
-    const deletedTransaction = await Transaction.findOneAndDelete({
+    // delete all transactions
+    await Transaction.findOneAndDelete({
       client: id,
     });
-    const deletedChat = await Chat.findOneAndDelete({ client: id });
-    const deleteImages = await cloudinary.uploader.destroy(`SFCTAI/chat/${id}`)
-    console.log(deleteImages)
+    // delete all chats
+    await Chat.findOneAndDelete({ client: id });
+    // delete all images and folders in cloudinary 
+    await cloudinary.api.delete_resources_by_tag(id);
+    await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
+    await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
 
     const updateOptions = {
       new: true,
@@ -260,13 +265,14 @@ const handleDeleteUser = async (req, res, next) => {
     );
     if (!level3Inviter) {
       throw createHttpError(404, "Failed to remove from level3 team");
-    }
-
+    } 
+    
     return successResponse(res, {
       statusCode: 200,
       message: "User deleted successfully",
       payload: { deletedUser },
     });
+   
   } catch (error) {
     next(error);
   }

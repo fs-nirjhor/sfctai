@@ -4,6 +4,7 @@ const deleteFile = require("../helper/deleteFile");
 const fs = require("fs");
 const sharp = require("sharp");
 const { mainDirectory } = require("../config/config");
+const cloudinary = require("../config/cloudinaryConfig");
 
 const assetsFilePath = path.resolve(mainDirectory, "./assets");
 
@@ -35,7 +36,7 @@ const uploadApk = multer({
 const withdrawPhotoFilter = async (req, file, cb) => {
   if (!file.mimetype.startsWith("image/")) {
     throw createHttpError(400, "Only images are allowed");
-  } 
+  }
   cb(null, true);
 };
 
@@ -62,30 +63,55 @@ const compressWithdrawImage = async (req, res, next) => {
   try {
     // Check if file exists
     if (!req.file) {
-      throw createHttpError(404,"No image provided");
+      throw createHttpError(404, "No image provided");
     }
-  
-    // filename 
+
+    // filename
     const extension = path.extname(req.file.originalname);
-    const filename = req.file.originalname.replace(extension, "") + "_" + Date.now() + ".webp";
-      //req.file.originalname.replace(extension, ".webp");
+    const filename =
+      req.file.originalname.replace(extension, "") + "_" + Date.now() + ".webp";
+    //req.file.originalname.replace(extension, ".webp");
     // file path
     const destination = `${assetsFilePath}/withdraw-verification/${req.body?.client}`;
     // Create the photo path if it doesn't exist
     fs.mkdirSync(destination, { recursive: true });
 
     const inputPath = req.file?.path;
-    const outputPath = `${destination}/${filename}`//path.join(destination, filename);
+    const outputPath = `${destination}/${filename}`; //path.join(destination, filename);
     const processedImage = await sharp(inputPath)
-    .webp({ quality: 20 })
-    //.resize({ percentage: 40, withoutEnlargement: true }) 
-    .toFile(outputPath);
-    const photo = `api/assets/withdraw-verification/${req.body?.client}/${filename}`
+      .webp({ quality: 20 })
+      //.resize({ percentage: 40, withoutEnlargement: true })
+      .toFile(outputPath);
+    const photo = `api/assets/withdraw-verification/${req.body?.client}/${filename}`;
     req.body.photo = photo;
-    next()
+    next();
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { uploadApk, uploadWithdrawPhoto, compressWithdrawImage };
+const withdrawImageToCloudinary = async (req, res, next) => {
+  try {
+    const client = req.body?.client;
+    const cloudImage = await cloudinary.uploader.upload(req.file?.path, {
+      folder: `SFCTAI/withdraw-verification/${client}`,
+      public_id: `${client}_${Date.now()}`,
+      tags: ["withdraw-verification", "SFCTAI", client],
+      use_filename: true,
+      unique_filename: true,
+      format: "webp",
+      quality: 20,
+    });
+    req.body.photo = cloudImage.secure_url;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  uploadApk,
+  uploadWithdrawPhoto,
+  compressWithdrawImage,
+  withdrawImageToCloudinary,
+};
