@@ -4,9 +4,9 @@ import Loading from "../../../shared/Loading";
 import Pagination from "../../../shared/Pagination";
 
 const ChatList = () => {
-  const { chats, seenMessage, pagination, page, setPage } = UseChat();
+  const { chatlist, seenMessage, pagination, page, setPage } = UseChat();
 
-  return !chats.length ? (
+  return !chatlist.length ? (
     <Loading />
   ) : (
     <div className="pb-20">
@@ -15,7 +15,7 @@ const ChatList = () => {
         <Pagination page={page} setPage={setPage} pagination={pagination} />
       </section>
       <div className="rounded">
-        {chats.map((chat, i) => {
+        {chatlist.map((chat, i) => {
           const lastMessages = chat.messages?.length - 1;
           return (
             <Link

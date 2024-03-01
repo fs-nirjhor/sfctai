@@ -3,7 +3,7 @@ const createHttpError = require("http-errors");
 const Chat = require("./models/chatModel");
 const http = require("http");
 const app = require("./app");
-const {clientUrl} = require("./secret");
+const { clientUrl } = require("./secret");
 const { Readable } = require("stream");
 const logger = require("./helper/winstonLogger");
 const { setPagination } = require("./helper/managePagination");
@@ -13,48 +13,42 @@ const server = http.createServer(app);
 const io = socketIO(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "*" //clientUrl,
+    origin: "*", //clientUrl,
   },
 });
 
 io.on("connection", (socket) => {
   //logger.info("Socket connected:", socket.id);
 
-  // Handle connection with user data
+  // get chats or chatlist
   socket.on("chats", async ({ isAdmin, id, page, limit }) => {
     try {
-      let data = {chats: [], pagination: {}}
+      const data = { chats: {}, chatlist: [], pagination: {} };
 
-      if (isAdmin) {
-        const chats = await Chat.find()
-          .populate("client")
-          .sort({ updatedAt: -1 })
-          .limit(limit)
-          .skip((page - 1) * limit)
-          .lean();
-          if (!chats) {
+        if (isAdmin) {
+        // update chatlist for admin 
+          const chatlist = await Chat.find()
+            .populate("client")
+            .sort({ updatedAt: -1 })
+            .limit(limit)
+            .skip((page - 1) * limit)
+            .lean();
+          if (!chatlist) {
             throw createHttpError(404, "No chat found");
           }
+          data.chatlist = chatlist;
           // set pagination
           const count = await Chat.find().countDocuments();
-          const result = chats.length;
-          const pagination = setPagination(count, limit, page, result);
-          data = {chats, pagination}
-      } else {
-        // Check if a chat exists for the client
+          const result = chatlist.length;
+          data.pagination = setPagination(count, limit, page, result);
+        } 
+        // Find chat for the client
         const existingChat = await Chat.findOne({ client: id })
-          .populate("client")
-          .lean();
+        .populate("client")
+        .lean();
+        // If no chat exists, create a new one
+        data.chats = existingChat || await Chat.create({ client: id }).lean;
 
-        if (!existingChat) {
-          // If no chat exists, create a new one
-          const newChat = await Chat.create({ client: id }).lean;
-          data = {chats: [newChat], pagination:{}};
-        } else {
-          // If a chat exists, fetch it
-          data = {chats: [existingChat], pagination:{}};
-        }
-      }
       // Emit the chats
       socket.emit("chats", data);
     } catch (error) {
@@ -63,80 +57,81 @@ io.on("connection", (socket) => {
   });
 
   // Handle incoming messages
-  socket.on("message", async ({ isAdmin, text, image, sender, client, page, limit }) => {
-    try {
-      // Upload image to Cloudinary
-      let imageUrl = "";
-      if (image) {
-        const imageStream = new Readable();
-        imageStream.push(image);
-        imageStream.push(null);
+  socket.on(
+    "message",
+    async ({ isAdmin, text, image, sender, client, page, limit }) => {
+      try {
+        // Upload image to Cloudinary
+        let imageUrl = "";
+        if (image) {
+          const imageStream = new Readable();
+          imageStream.push(image);
+          imageStream.push(null);
 
-        // Wrap the Cloudinary upload operation in a Promise
-        imageUrl = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream(
-              {
-                folder: `SFCTAI/chat/${client}`,
-                public_id: `${client}_${Date.now()}`,
-                tags: ["chat", "SFCTAI", client],
-                use_filename: true,
-                unique_filename: false,
-                format: 'webp',
-                quality: 25
-              },
-              (error, result) => {
-                if (error) {
-                  console.error(error);
-                  reject(error);
-                } else {
-                  resolve(result.secure_url);
+          // Wrap the Cloudinary upload operation in a Promise
+          imageUrl = await new Promise((resolve, reject) => {
+            cloudinary.uploader
+              .upload_stream(
+                {
+                  folder: `SFCTAI/chat/${client}`,
+                  public_id: `${client}_${Date.now()}`,
+                  tags: ["chat", "SFCTAI", client],
+                  use_filename: true,
+                  unique_filename: false,
+                  format: "webp",
+                  quality: 25,
+                },
+                (error, result) => {
+                  if (error) {
+                    console.error(error);
+                    reject(error);
+                  } else {
+                    resolve(result.secure_url);
+                  }
                 }
-              }
-            )
-            .end(image);
-        });
-      }
-      
-      // message data
-      const newMessage = {
-        text: text,
-        image: imageUrl,
-        sender: sender,
-      };
-
-      // update message
-      const updatedChat = await Chat.findOneAndUpdate(
-        { client },
-        { $push: { messages: newMessage }, $set: { isSeen: false } },
-        {
-          new: true,
-          runValidators: true,
-          context: "query",
-          populate: { path: "client" },
+              )
+              .end(image);
+          });
         }
-      ).lean();
 
-      // conditional response
-      let response;
+        // message data
+        const newMessage = {
+          text: text,
+          image: imageUrl,
+          sender: sender,
+        };
 
-      if (isAdmin) {
-        response = await Chat.find()
-        .populate("client")
-        .sort({ updatedAt: -1 })
-        .limit(limit)
-        .skip((page - 1) * limit)
-        .lean();
-      } else {
-        response = [updatedChat];
+        // conditional response
+        const data = { chats: {}, chatlist: [], pagination: {} };
+
+        // update message
+        data.chats = await Chat.findOneAndUpdate(
+          { client },
+          { $push: { messages: newMessage }, $set: { isSeen: false } },
+          {
+            new: true,
+            runValidators: true,
+            context: "query",
+            populate: { path: "client" },
+          }
+        ).lean();
+        
+        if (isAdmin) {
+          data.chatlist = await Chat.find()
+            .populate("client")
+            .sort({ updatedAt: -1 })
+            .limit(limit)
+            .skip((page - 1) * limit)
+            .lean();
+        } 
+        // send response
+        io.emit("message", data);
+      } catch (error) {
+        //console.log(error);
+        throw createHttpError(400, error.message);
       }
-      // send response
-      io.emit("message", response);
-    } catch (error) {
-      //console.log(error);
-      throw createHttpError(400, error.message);
     }
-  });
+  );
 
   // handle seen messages
   socket.on("seen", async ({ isAdmin, client, page, limit }) => {
@@ -158,11 +153,11 @@ io.on("connection", (socket) => {
 
       if (isAdmin) {
         response = await Chat.find()
-        .populate("client")
-        .sort({ updatedAt: -1 })
-        .limit(limit)
-        .skip((page - 1) * limit)
-        .lean();
+          .populate("client")
+          .sort({ updatedAt: -1 })
+          .limit(limit)
+          .skip((page - 1) * limit)
+          .lean();
       } else {
         response = [updatedChat];
       }

@@ -1,45 +1,48 @@
 import { useEffect, useState, useRef } from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useParams, useRouteLoaderData } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { serverUrl } from "../../../../data/config";
 
 const UseChat = () => {
   const user = useRouteLoaderData("user");
   const socketRef = useRef();
+  const { client } = useParams();
   const [chats, setChats] = useState([]);
+  const [chatlist, setChatlist] = useState([])
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
-  console.log(page)
+  //console.log(page);
   useEffect(() => {
     socketRef.current = socketIOClient(serverUrl);
     const filter = {
       isAdmin: user.isAdmin,
-      id: user._id,
+      id: client || user._id,
       page: page,
       limit: 10,
     };
-
+    
     socketRef.current.emit("chats", filter);
 
     socketRef.current.on("chats", (data) => {
       setChats(data.chats);
+      setChatlist(data.chatlist);
       setPagination(data.pagination);
     });
 
-    socketRef.current.on("message", (newMessage) => {
-      setChats(newMessage);
+    socketRef.current.on("message", (data) => {
+      setChats(data.chats);
+      setChatlist(data.chatlist);
     });
 
     socketRef.current.on("seen", (newMessage) => {
-      setChats(newMessage);
+      setChatlist(newMessage);
     });
 
     return () => {
       socketRef.current.disconnect();
     };
-  }, [user, page]);
+  }, [user, client, page]);
 
-  // sending
   const sendMessage = (newMessage) => {
     newMessage.page = page;
     newMessage.limit = 10;
@@ -52,7 +55,15 @@ const UseChat = () => {
     socketRef.current.emit("seen", data);
   };
 
-  return { chats, sendMessage, seenMessage, pagination, page, setPage };
+  return {
+    chats,
+    chatlist,
+    pagination,
+    page,
+    sendMessage,
+    seenMessage,
+    setPage,
+  };
 };
 
 export default UseChat;
