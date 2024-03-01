@@ -42,12 +42,19 @@ io.on("connection", (socket) => {
           const result = chatlist.length;
           data.pagination = setPagination(count, limit, page, result);
         } 
-        // Find chat for the client
-        const existingChat = await Chat.findOne({ client: id })
-        .populate("client")
-        .lean();
+        // Seen chat on load
+        const seenChat = await Chat.findOneAndUpdate(
+          { client: id },
+          { $set: { isSeen: true } },
+          {
+            new: true,
+            runValidators: true,
+            context: "query",
+            populate: { path: "client" },
+          }
+        ).lean();
         // If no chat exists, create a new one
-        data.chats = existingChat || await Chat.create({ client: id }).lean;
+        data.chats = seenChat || await Chat.create({ client: id }).lean;
 
       // Emit the chats
       socket.emit("chats", data);
@@ -132,42 +139,6 @@ io.on("connection", (socket) => {
       }
     }
   );
-
-  // handle seen messages
-  socket.on("seen", async ({ isAdmin, client, page, limit }) => {
-    try {
-      // update message
-      const updatedChat = await Chat.findOneAndUpdate(
-        { client },
-        { $set: { isSeen: true } },
-        {
-          new: true,
-          runValidators: true,
-          context: "query",
-          populate: { path: "client" },
-        }
-      ).lean();
-
-      // conditional response
-      let response;
-
-      if (isAdmin) {
-        response = await Chat.find()
-          .populate("client")
-          .sort({ updatedAt: -1 })
-          .limit(limit)
-          .skip((page - 1) * limit)
-          .lean();
-      } else {
-        response = [updatedChat];
-      }
-      // send response
-      io.emit("seen", response);
-    } catch (error) {
-      logger.error(error);
-      throw createHttpError(400, error.message);
-    }
-  });
 
   // Handle disconnection
   socket.on("disconnect", () => {

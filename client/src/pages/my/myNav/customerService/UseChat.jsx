@@ -49,19 +49,12 @@ const UseChat = () => {
     socketRef.current.emit("message", newMessage);
   };
 
-  const seenMessage = (data) => {
-    data.page = page;
-    data.limit = 10;
-    socketRef.current.emit("seen", data);
-  };
-
   return {
     chats,
     chatlist,
-    pagination,
     page,
+    pagination,
     sendMessage,
-    seenMessage,
     setPage,
   };
 };

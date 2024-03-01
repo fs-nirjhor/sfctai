@@ -4,7 +4,7 @@ import Loading from "../../../shared/Loading";
 import Pagination from "../../../shared/Pagination";
 
 const ChatList = () => {
-  const { chatlist, seenMessage, pagination, page, setPage } = UseChat();
+  const { chatlist, pagination, page, setPage } = UseChat();
 
   return !chatlist.length ? (
     <Loading />
@@ -24,13 +24,7 @@ const ChatList = () => {
                 chat.isSeen ? "bg-white" : "bg-gray-400"
               }`}
               key={i}
-              onClick={ () =>
-                 seenMessage({
-                  isAdmin: chat.client?.isAdmin,
-                  client: chat.client?._id,
-                })
-              }
-            >
+              >
               <figure>
                 <img
                   src={chat.client?.avatar}
