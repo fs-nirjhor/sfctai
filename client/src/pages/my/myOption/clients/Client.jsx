@@ -94,7 +94,7 @@ const Client = () => {
   const dateOfBirth = moment(client.dateOfBirth).format(
     "DD/MM/YYYY"
   );
-  const doubleBoxStyle = "grid grid-cols-2 p-2";
+  const doubleBoxStyle = "grid grid-cols-2 p-2 gap-3";
   const singleBoxStyle = "p-2";
   return loading ? (
     <Loading />
@@ -159,13 +159,20 @@ const Client = () => {
             <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
           {/* Team Status */}
-          <div className={singleBoxStyle}>
+          <div className={doubleBoxStyle}>
           <Link
             to="team"
-            className="btn btn-warning btn-sm text-white w-full"
+            className="btn btn-warning btn-sm text-white"
             state={client}
           >
             Team
+          </Link>
+          <Link
+            to="fund-history"
+            className="btn btn-warning btn-sm text-white"
+            state={client}
+          >
+            Fund History
           </Link>
           </div>
           {/* change phone */}

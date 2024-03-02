@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { allApi } from "../../../router/axiosApi";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useLocation, useNavigate, useRouteLoaderData } from "react-router-dom";
 import Loading from "../../shared/Loading";
 import moment from "moment";
 import { toast } from "react-toastify";
 import Pagination from './../../shared/Pagination';
 
 const FundHistory = () => {
-  const user = useRouteLoaderData("user");
+  const loggedUser = useRouteLoaderData("user");
+  const {state} = useLocation();
+  const user = state || loggedUser
+
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -171,6 +171,10 @@ const router = createBrowserRouter([
                 element: <Team />,
               },
               {
+                path: "/client/:userId/fund-history",
+                element: <FundHistory />,
+              },
+              {
                 path: "/my/client-list",
                 element: <ClientList />,
               },
