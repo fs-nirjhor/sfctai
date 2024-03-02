@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { transactionApi } from "../../../../router/axiosApi";
+import { transactionApi } from "../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoPlus } from "react-icons/go";
@@ -182,31 +182,41 @@ const Withdraw = () => {
           <div className="label">
             <span className="label-text">Face Verification</span>
           </div>
-        <label className="form-control w-40 mx-auto">
-          <div className="relative ">
-            <span className={`absolute bg-gray-300 bg-opacity-80 w-full h-full flex justify-center items-center rounded ${photo?.length && 'hidden'}`}><GoPlus  className="text-6xl text-white"/></span>
-            <img src="/images/face.jpg" alt="face" className="w-full rounded"/>
-          </div>
-          <input
-            type="file"
-            capture="user"
-            accept="image/*"
-            name="photo"
-            className="hidden"
-            //required
-            {...register("photo", {
-              required: true,
-            })}
-          />
-          {errors.photo && (
-            <div className="label">
-              <span className="label-text-alt"></span>
-              <span className="label-text-alt text-error font-medium">
-                Please verify your photo
+          <label className="form-control w-40 mx-auto">
+            <div className="relative ">
+              <span
+                className={`absolute bg-gray-300 bg-opacity-80 w-full h-full flex justify-center items-center rounded ${
+                  photo?.length && "hidden"
+                }`}
+              >
+                <GoPlus className="text-6xl text-white" />
               </span>
+              <img
+                src="/images/face.jpg"
+                alt="face"
+                className="w-full rounded"
+              />
             </div>
-          )}
-        </label>
+            <input
+              type="file"
+              capture="user"
+              accept="image/*"
+              name="photo"
+              className="hidden"
+              //required
+              {...register("photo", {
+                required: true,
+              })}
+            />
+            {errors.photo && (
+              <div className="label">
+                <span className="label-text-alt"></span>
+                <span className="label-text-alt text-error font-medium">
+                  Please verify your photo
+                </span>
+              </div>
+            )}
+          </label>
         </div>
         <label className="form-control w-full max-w-md mx-auto">
           <button

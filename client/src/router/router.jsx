@@ -5,7 +5,6 @@ import Homepage from "../pages/homepage/Homepage.jsx";
 import Trade from "../pages/trade/Trade.jsx";
 import Information from "../pages/information/Information.jsx";
 import My from "../pages/my/My.jsx";
-import Wallet from "../pages/my/myNav/wallet/Wallet.jsx";
 import CustomerService from "../pages/my/myNav/customerService/CustomerService.jsx";
 import AboutTeam from "../pages/information/AboutTeam.jsx";
 import BuisnessLicense from "../pages/information/BuisnessLicense.jsx";
@@ -14,8 +13,8 @@ import AboutPlatform from "../pages/information/AboutPlatform.jsx";
 import AboutRecharge from "../pages/information/AboutRecharge.jsx";
 import AboutWithdrawal from "../pages/information/AboutWithdrawal.jsx";
 import TermsAndPolicy from "../pages/information/TermsAndPolicy.jsx";
-import Recharge from "../pages/my/myNav/wallet/Recharge.jsx";
-import Withdraw from "../pages/my/myNav/wallet/Withdraw.jsx";
+import Recharge from "../pages/my/myNav/Recharge.jsx";
+import Withdraw from "../pages/my/myNav/Withdraw.jsx";
 import Invitation from "../pages/my/myOption/Invitation.jsx";
 import BindUsdt from "../pages/my/myOption/BindUsdt.jsx";
 import Team from "../pages/my/myOption/team/Team.jsx";
@@ -95,10 +94,6 @@ const router = createBrowserRouter([
           {
             path: "/my",
             element: <My />,
-          },
-          {
-            path: "/my/wallet",
-            element: <Wallet />,
           },
           {
             path: "/my/recharge",
