@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { authApi } from "../../router/axiosApi";
 import { toast } from "react-toastify";
+import UseNotification from "../../data/UseNotification";
 
 const Login = () => {
   const location = useLocation();
-  const navigate = useNavigate();
+   // get device id for notification 
+   const {deviceId} = UseNotification()
+   //console.log(deviceId);
 
   const {
     register,
@@ -16,11 +19,12 @@ const Login = () => {
   const onSubmit = async (data) => {
     event.preventDefault();
     try {
+      data.deviceId = deviceId;
       const loggedUser = await authApi.post("login", data);
-      if (loggedUser.data?.success) {
+      if (loggedUser?.data?.success) {
         // set access token
         const accessToken = loggedUser.data?.payload.accessToken;
-        await localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("accessToken", accessToken);
       }
       toast.success("Logged in successfully");
       //navigate(location.state ? location.state.from : "/");

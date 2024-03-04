@@ -6,18 +6,28 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const createHttpError = require("http-errors");
 const { jwtAccessKey, jwtRefreshKey } = require("../secret");
-const {setAccessTokenCookie} = require("../helper/cookie");
+const { setAccessTokenCookie } = require("../helper/cookie");
+const {
+  subscribeToNotification,
+  unsubscribeFromNotification,
+} = require("../helper/notificationHelper");
 
 const handleLogin = async (req, res, next) => {
   try {
-    const { phone, password } = req.body;
+    const { phone, password, deviceId } = req.body;
 
     //? is phone and password provided
     if (!phone || !password) {
       throw createHttpError(403, "Please input your email and password");
     }
     //? is user exist
-    const user = await findOneItem(User, { phone });
+    const user = await User.findOneAndUpdate({ phone }, { $push: { deviceId } },
+      {
+        new: true,
+        runValidators: true,
+        context: "query",
+      }
+    ).lean();
 
     //? is user banned
     if (user.isBanned) {
@@ -30,15 +40,17 @@ const handleLogin = async (req, res, next) => {
       throw createHttpError(403, "Wrong password");
     }
 
+    // set access token
     const tokenData = {
       id: user._id,
       password: user.loginPassword,
       isAdmin: user.isAdmin,
     };
-
-    // set access token
     const accessToken = createJwt(tokenData, jwtAccessKey, "15d");
     //setAccessTokenCookie(res, accessToken);
+
+    // subsctibe to notification
+    await subscribeToNotification(deviceId, user._id+"", user.isAdmin);
 
     // prevent showing password in payload. user from database is not a pure object without lean
     delete user.loginPassword;
@@ -55,12 +67,16 @@ const handleLogin = async (req, res, next) => {
 
 const handleLogout = async (req, res, next) => {
   try {
+    const { deviceId, userId, isAdmin } = req.body;
+    // unsubscribe from notification
+    await unsubscribeFromNotification(deviceId, userId+"", isAdmin);
+    //await unsubscribeFromNotification(deviceId, "clients");
     // check access cookie
-    if (!req.cookies.access_token) {
+    /* if (!req.cookies.access_token) {
       throw createHttpError(401, "User already logged out");
-    }
+    } */
     // clear access cookie
-    res.clearCookie("access_token");
+    // res.clearCookie("access_token");
 
     return successResponse(res, {
       statusCode: 200,
@@ -75,14 +91,14 @@ const handleProtectedRoute = async (req, res, next) => {
   try {
     const bearerToken = req.headers?.authorization?.split(" ")[1];
     const cookiesToken = req.cookies.access_token;
-    const accessToken = bearerToken //// || cookiesToken;
+    const accessToken = bearerToken; //// || cookiesToken;
     if (!accessToken || accessToken == "null") {
       throw createHttpError(401, "Please login");
     }
     const decoded = jwt.verify(accessToken, jwtAccessKey);
     if (!decoded) {
       throw createHttpError(401, "Access token is invalid or expired");
-    } 
+    }
     const options = {
       populate: {
         path: "invitedBy team.level1 team.level2 team.level3",

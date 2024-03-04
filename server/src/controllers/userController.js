@@ -216,8 +216,6 @@ const handleDeleteUser = async (req, res, next) => {
     const id = req.params.id;
     const filter = { _id: id };
     const options = { password: 0 };
-    // delete user
-    const deletedUser = await deleteItem(User, filter, options);
     // delete all transactions
     await Transaction.findOneAndDelete({
       client: id,
@@ -228,6 +226,10 @@ const handleDeleteUser = async (req, res, next) => {
     await cloudinary.api.delete_resources_by_tag(id);
     await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
     await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
+    // delete user
+    const deletedUser = await deleteItem(User, filter, options);
+    // unsubscribe from notifications
+    await unsubscribeFromNotification(deletedUser.deviceId, id+"", deletedUser.isAdmin);
 
     const updateOptions = {
       new: true,

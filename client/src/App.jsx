@@ -1,10 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Footer from "./pages/shared/Footer";
-import { ToastContainer, Zoom } from "react-toastify";
+import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usePreventZoom from "./pages/shared/UsePreventZoom";
+import { onMessage } from "firebase/messaging";
+import NotificationToast from "./pages/shared/NotificationToast";
+import { messaging } from "./data/firebase.init";
 
 function App() {
+  onMessage(messaging, (payload) => {
+    console.log(payload);
+    toast(<NotificationToast payload={payload} />);
+  });
   usePreventZoom();
   return <>
     <main className="max-w-4xl mx-auto lining-nums">

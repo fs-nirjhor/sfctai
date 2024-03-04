@@ -3,11 +3,12 @@ const createHttpError = require("http-errors");
 const Chat = require("./models/chatModel");
 const http = require("http");
 const app = require("./app");
-const { clientUrl } = require("./secret");
+const { clientUrl, serverUrl } = require("./secret");
 const { Readable } = require("stream");
 const logger = require("./helper/winstonLogger");
 const { setPagination } = require("./helper/managePagination");
 const cloudinary = require("./config/cloudinaryConfig");
+const { messaging } = require("./config/firebase.init");
 
 const server = http.createServer(app);
 const io = socketIO(server, {
@@ -25,36 +26,36 @@ io.on("connection", (socket) => {
     try {
       const data = { chats: {}, chatlist: [], pagination: {} };
 
-        if (isAdmin) {
-        // update chatlist for admin 
-          const chatlist = await Chat.find()
-            .populate("client")
-            .sort({ updatedAt: -1 })
-            .limit(limit)
-            .skip((page - 1) * limit)
-            .lean();
-          if (!chatlist) {
-            throw createHttpError(404, "No chat found");
-          }
-          data.chatlist = chatlist;
-          // set pagination
-          const count = await Chat.find().countDocuments();
-          const result = chatlist.length;
-          data.pagination = setPagination(count, limit, page, result);
-        } 
-        // Seen chat on load
-        const seenChat = await Chat.findOneAndUpdate(
-          { client: id },
-          { $set: { isSeen: true } },
-          {
-            new: true,
-            runValidators: true,
-            context: "query",
-            populate: { path: "client" },
-          }
-        ).lean();
-        // If no chat exists, create a new one
-        data.chats = seenChat || await Chat.create({ client: id }).lean;
+      if (isAdmin) {
+        // update chatlist for admin
+        const chatlist = await Chat.find()
+          .populate("client")
+          .sort({ updatedAt: -1 })
+          .limit(limit)
+          .skip((page - 1) * limit)
+          .lean();
+        if (!chatlist) {
+          throw createHttpError(404, "No chat found");
+        }
+        data.chatlist = chatlist;
+        // set pagination
+        const count = await Chat.find().countDocuments();
+        const result = chatlist.length;
+        data.pagination = setPagination(count, limit, page, result);
+      }
+      // Seen chat on load
+      const seenChat = await Chat.findOneAndUpdate(
+        { client: id },
+        { $set: { isSeen: true } },
+        {
+          new: true,
+          runValidators: true,
+          context: "query",
+          populate: { path: "client" },
+        }
+      ).lean();
+      // If no chat exists, create a new one
+      data.chats = seenChat || (await Chat.create({ client: id }).lean);
 
       // Emit the chats
       socket.emit("chats", data);
@@ -122,7 +123,7 @@ io.on("connection", (socket) => {
             populate: { path: "client" },
           }
         ).lean();
-        
+
         if (isAdmin) {
           data.chatlist = await Chat.find()
             .populate("client")
@@ -130,9 +131,47 @@ io.on("connection", (socket) => {
             .limit(limit)
             .skip((page - 1) * limit)
             .lean();
-        } 
+        }
         // send response
         io.emit("message", data);
+        // send notification
+        const topic = isAdmin ? client : "admin";
+        const notificationData = {
+          topic: topic,
+          /* notification: {
+            title: `New message from ${
+              isAdmin ? "SFCTAI" : data.chats?.client?.name
+            }!`,
+            body: text,
+          }, */
+          data: {
+            title: `New message from ${
+              isAdmin ? "SFCTAI" : data.chats?.client?.name
+            }!`,
+            body: text,
+            image: imageUrl,
+            icon: `${isAdmin ? "" : data.chats?.client?.avatar}`,
+            avatar: data.chats?.client?.avatar,
+            sender: sender,
+            client: client,
+          },
+         /*  android: {
+            notification: {
+              icon: "./assets/icon.png",
+              color: "#38bdf8",
+            },
+          },
+          webpush: {
+            headers: {
+              image: "./assets/icon.png",
+            },
+            fcm_options: {
+              link: `${serverUrl}/my/chat/${client}`,
+            },
+          }, */
+        };
+        const notified = await messaging.send(notificationData);
+        console.log(notified);
       } catch (error) {
         //console.log(error);
         throw createHttpError(400, error.message);

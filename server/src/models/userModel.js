@@ -48,6 +48,10 @@ const userSchema = new Schema(
       trim: true,
       default: defaultUserImagePath,
     },
+    deviceId: {
+      type: [String],
+      default: [],
+    },
     trc20Address: {
       type: String,
       trim: true,
