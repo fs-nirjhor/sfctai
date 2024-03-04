@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getToken } from "firebase/messaging";
 import { vapidKey } from "./config";
-import { messaging } from "./firebase.init";
 import { toast } from "react-toastify";
+import { foregroundMessaging } from "./foregroundMessaging";
 
 const UseNotification = () => {
   const [deviceId, setDeviceId] = useState("");
@@ -11,15 +11,15 @@ const UseNotification = () => {
       try {
         const permission = await Notification.requestPermission();
         if (permission === "granted") {
-          const token = await getToken(messaging, {
+          const token = await getToken(foregroundMessaging, {
             vapidKey: vapidKey,
           });
           setDeviceId(token);
         } else {
-          toast.error("Permission denied for push notifications");
+          toast.error("Please enable permission for push notifications");
         }
       } catch (error) {
-        toast.error("Error requesting notification permission:", error.message);
+        toast.error(error.message);
       }
     };
 

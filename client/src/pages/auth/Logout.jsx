@@ -13,12 +13,12 @@ const Logout = () => {
   const handleClick = async () => {
     event.preventDefault();
     try {
-      localStorage.removeItem("accessToken");
       // unsubscribe from notification
       if (deviceId) {
-      const data = { deviceId: deviceId, userId: user._id, isAdmin: user.isAdmin };
-      await authApi.post("logout", data);
+        const data = { deviceId: deviceId, userId: user._id, isAdmin: user.isAdmin };
+        await authApi.post("logout", data);
       }
+      localStorage.removeItem("accessToken");
 
       toast.success("Logout Successful");
       window.location.replace("/");

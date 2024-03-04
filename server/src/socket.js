@@ -134,44 +134,67 @@ io.on("connection", (socket) => {
         }
         // send response
         io.emit("message", data);
+
         // send notification
         const topic = isAdmin ? client : "admin";
+        const referer = new URL(socket.handshake?.headers?.referer);
+        const origin = referer?.origin;
+        const link = `${origin}/my/chat/${client}`
+        const icon = `${origin}/api/assets/icon.png`
         const notificationData = {
           topic: topic,
-          /* notification: {
-            title: `New message from ${
-              isAdmin ? "SFCTAI" : data.chats?.client?.name
-            }!`,
-            body: text,
-          }, */
           data: {
             title: `New message from ${
               isAdmin ? "SFCTAI" : data.chats?.client?.name
             }!`,
             body: text,
             image: imageUrl,
-            icon: `${isAdmin ? "" : data.chats?.client?.avatar}`,
+            icon: `${isAdmin ? icon : data.chats?.client?.avatar}`,
             avatar: data.chats?.client?.avatar,
             sender: sender,
             client: client,
+            link: link,
           },
-         /*  android: {
-            notification: {
-              icon: "./assets/icon.png",
-              color: "#38bdf8",
-            },
+          notification: {
+            title: `New message from ${
+              isAdmin ? "SFCTAI" : data.chats?.client?.name
+            }!`,
+            body: text,
+            image: imageUrl
           },
           webpush: {
+            notification: {
+              badge: icon,
+              icon: icon,
+            },
             headers: {
-              image: "./assets/icon.png",
+              image: icon,
+              "Urgency": "high",
+            },
+            fcmOptions: {
+              link: link,
+            },
+          },
+          /*  android: {
+            notification: {
+              icon: icon,
+              color: "#38bdf8",
+              clickAction: link,
+              imageUrl: icon,
+            }
+          },
+          apns: {
+            payload: {
+              aps: {
+                'mutable-content': 1
+              }
             },
             fcm_options: {
-              link: `${serverUrl}/my/chat/${client}`,
-            },
+              image: icon
+            }
           }, */
         };
-        const notified = await messaging.send(notificationData);
-        console.log(notified);
+         await messaging.send(notificationData);
       } catch (error) {
         //console.log(error);
         throw createHttpError(400, error.message);

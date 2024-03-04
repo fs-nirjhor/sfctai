@@ -8,7 +8,6 @@ const Login = () => {
   const location = useLocation();
    // get device id for notification 
    const {deviceId} = UseNotification()
-   //console.log(deviceId);
 
   const {
     register,

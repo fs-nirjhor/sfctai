@@ -17,15 +17,20 @@ const messaging = firebase.messaging();
 
 //Listens for background notifications
 messaging.onBackgroundMessage((payload) => {
-  //console.log("Received background message: ", payload);
+  console.log( payload);
 
-  //customise notification
+ /*  //customise notification
   const notificationTitle = payload.data?.title;
   const notificationOptions = {
     body: payload.data?.body,
     icon: payload.data?.icon || "/images/icon.png",
-    badge: "/images/icon.png",
-    click_action: `/my/chat/${payload.data?.client}`,
+    badge: payload.data?.icon || "/images/icon.png",
+    click_action: payload.data?.link,
   };
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  self.registration.showNotification(notificationTitle, notificationOptions).addEventListener('notificationclick', function(event) {
+    event.notification.close();
+    event.waitUntil(
+      clients.openWindow(payload?.data?.link)
+    );
+  }); */
 });
