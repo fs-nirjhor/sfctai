@@ -32,16 +32,18 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage((payload) => {
   //console.log(payload);
   //customise notification
-  const notificationTitle = payload.data?.title;
+  const data = payload?.data;
+  const notificationTitle = data?.title;
   const notificationOptions = {
-    body: payload.data?.body,
-    icon: payload.data?.icon || "/images/icon.png",
-    badge: payload.data?.icon || "/images/icon.png",
-    renotify: true,
-    tag: payload.data?.tag,
+    body: data?.body,
+    image: data?.image,
+    icon: data?.icon || "/images/icon.png",
+    badge: data?.icon || "/images/icon.png",
+    tag: data?.tag,
     timestamp: Math.floor(Date.now()),
+    renotify: true,
     data: {
-      link: payload?.data?.link,
+      link: data?.link,
     }
   };
   // send notification 

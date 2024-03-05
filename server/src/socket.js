@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
       // Emit the chats
       socket.emit("chats", data);
     } catch (error) {
-      console.log(error.message)
+      logger.error(error.message)
       //throw createHttpError(400, error.message);
     }
   });
@@ -143,30 +143,32 @@ io.on("connection", (socket) => {
         const link = `${origin}/my/chat/${client}`
         const icon = `${origin}/api/assets/icon.png`
         const avatar = data.chats?.client?.avatar
+        const title = `New message from ${
+          isAdmin ? "SFCTAI" : data.chats?.client?.name
+        }!`;
         const notificationData = {
           topic: topic,
           data: {
-            title: `New message from ${
-              isAdmin ? "SFCTAI" : data.chats?.client?.name
-            }!`,
+            title: title,
             body: text,
             image: imageUrl,
             icon: `${isAdmin ? icon : avatar}`,
-            link: link,
-            tag: topic,
-          },
-           /* notification: {
             title: `New message from ${
-              isAdmin ? "SFCTAI" : data.chats?.client?.name
+              isAdmin ? "Admin" : data.chats?.client?.name
             }!`,
+            badge: icon,
+            link: link,
+            tag: `message-${client}`,
+          },
+           /* 
+           notification: {
+            title: title,
             body: text,
             image: imageUrl
           }, 
           webpush: {
             notification: {
-              title: `New message from ${
-                isAdmin ? "SFCTAI" : data.chats?.client?.name
-              }!`,
+              title: title,
               body: text,
               image: imageUrl,
               badge: icon,
@@ -178,13 +180,16 @@ io.on("connection", (socket) => {
             fcmOptions: {
               link: link,
             },
-          }, */
+          }, 
+          */
            android: {
             notification: {
+              title: title,
+              body: text,
+              image: imageUrl,
               icon: icon,
               color: "#38bdf8",
               clickAction: link,
-              imageUrl: icon,
             }
           },
           apns: {
@@ -200,7 +205,7 @@ io.on("connection", (socket) => {
         };
          await messaging.send(notificationData);
       } catch (error) {
-        console.log(error.message);
+        logger.error(error.message);
         //throw createHttpError(400, error.message);
       }
     }
