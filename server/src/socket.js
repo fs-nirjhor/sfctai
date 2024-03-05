@@ -152,31 +152,33 @@ io.on("connection", (socket) => {
             image: imageUrl,
             icon: `${isAdmin ? icon : avatar}`,
             link: link,
+            tag: topic,
           },
-          notification: {
+           /* notification: {
             title: `New message from ${
               isAdmin ? "SFCTAI" : data.chats?.client?.name
             }!`,
             body: text,
             image: imageUrl
-          },
+          }, 
           webpush: {
             notification: {
+              title: `New message from ${
+                isAdmin ? "SFCTAI" : data.chats?.client?.name
+              }!`,
+              body: text,
+              image: imageUrl,
               badge: icon,
               icon: `${isAdmin ? icon : avatar}`,
               renotify: true,
               tag: `sfctai-${topic}`,
               timestamp: Math.floor(Date.now()),
             },
-            headers: {
-              image: icon,
-              "Urgency": "high",
-            },
             fcmOptions: {
               link: link,
             },
-          },
-          /*  android: {
+          }, */
+           android: {
             notification: {
               icon: icon,
               color: "#38bdf8",
@@ -193,7 +195,7 @@ io.on("connection", (socket) => {
             fcm_options: {
               image: icon
             }
-          }, */
+          },
         };
          await messaging.send(notificationData);
       } catch (error) {
