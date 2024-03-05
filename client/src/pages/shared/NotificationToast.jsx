@@ -4,7 +4,7 @@ const NotificationToast = ({ payload }) => {
   const data = payload?.data;
   return (
     <Link
-      to={`/my/chat/${data?.client}`}
+      to={data?.link}
       className="flex gap-3 justify-between items-center text-black"
     >
       <figure className="image">

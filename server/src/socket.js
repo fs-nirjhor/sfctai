@@ -60,7 +60,8 @@ io.on("connection", (socket) => {
       // Emit the chats
       socket.emit("chats", data);
     } catch (error) {
-      throw createHttpError(400, error.message);
+      console.log(error.message)
+      //throw createHttpError(400, error.message);
     }
   });
 
@@ -199,8 +200,8 @@ io.on("connection", (socket) => {
         };
          await messaging.send(notificationData);
       } catch (error) {
-        //console.log(error);
-        throw createHttpError(400, error.message);
+        console.log(error.message);
+        //throw createHttpError(400, error.message);
       }
     }
   );
