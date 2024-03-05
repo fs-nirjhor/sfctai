@@ -44,15 +44,17 @@ const handleLogin = async (req, res, next) => {
     //setAccessTokenCookie(res, accessToken);
 
     // subsctibe to notification
+    if (deviceId) {
+     await subscribeToNotification(deviceId, user._id+"", user.isAdmin);
+    }
     if (deviceId && !user.deviceId?.includes(deviceId)) {
-      await User.findOneAndUpdate({ phone }, { $push: { deviceId } },
+      await User.findOneAndUpdate({ phone }, { $push: { deviceId: deviceId } },
         {
           new: true,
           runValidators: true,
           context: "query",
         }
       ).lean();
-     await subscribeToNotification(deviceId, user._id+"", user.isAdmin);
     }
 
     // prevent showing password in payload. user from database is not a pure object without lean
@@ -73,16 +75,15 @@ const handleLogout = async (req, res, next) => {
     const { deviceId, userId, isAdmin } = req.body;
     // unsubscribe from notification
     if (deviceId) {
-      await User.findByIdAndUpdate(userId, { $pull: { deviceId } },
+      await unsubscribeFromNotification(deviceId, userId+"", isAdmin);
+      await User.findByIdAndUpdate(userId, { $pull: { deviceId: deviceId } },
        {
          new: true,
          runValidators: true,
          context: "query",
        }
      ).lean();
-     await unsubscribeFromNotification(deviceId, userId+"", isAdmin);
     }
-    //await unsubscribeFromNotification(deviceId, "clients");
     // check access cookie
     /* if (!req.cookies.access_token) {
       throw createHttpError(401, "User already logged out");
