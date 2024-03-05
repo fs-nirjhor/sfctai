@@ -27,7 +27,7 @@ const TxidSubmit = () => {
       if (res.data?.success) {
         toast.success("TXID submitted")
         window.location.reload();
-        navigate(-1);
+        navigate("/my");
       }
     } catch (err) {
       if (err.response?.data?.message) {

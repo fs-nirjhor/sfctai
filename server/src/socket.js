@@ -146,7 +146,7 @@ io.on("connection", (socket) => {
         const avatar = data.chats?.client?.avatar
         const icon = isAdmin ? badge : avatar
         const tag = `message-${client}`;
-        const title = isAdmin ? "SFCTAI" : data.chats?.client?.name ;
+        const title = isAdmin ? "SFCTAI" : data.chats?.client?.name;
 
         const notificationData = {
           topic: topic,

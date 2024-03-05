@@ -15,6 +15,7 @@ const transactionSchema = new Schema(
       type: Number,
       default: 0,
     },
+    // without fee
     withDrawAmount: {
       type: Number,
     },
