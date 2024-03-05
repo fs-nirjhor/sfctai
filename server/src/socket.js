@@ -141,6 +141,7 @@ io.on("connection", (socket) => {
         const origin = referer?.origin;
         const link = `${origin}/my/chat/${client}`
         const icon = `${origin}/api/assets/icon.png`
+        const avatar = data.chats?.client?.avatar
         const notificationData = {
           topic: topic,
           data: {
@@ -149,10 +150,7 @@ io.on("connection", (socket) => {
             }!`,
             body: text,
             image: imageUrl,
-            icon: `${isAdmin ? icon : data.chats?.client?.avatar}`,
-            avatar: data.chats?.client?.avatar,
-            sender: sender,
-            client: client,
+            icon: `${isAdmin ? icon : avatar}`,
             link: link,
           },
           notification: {
@@ -165,7 +163,10 @@ io.on("connection", (socket) => {
           webpush: {
             notification: {
               badge: icon,
-              icon: icon,
+              icon: `${isAdmin ? icon : avatar}`,
+              renotify: true,
+              tag: `sfctai-${topic}`,
+              timestamp: Math.floor(Date.now()),
             },
             headers: {
               image: icon,
