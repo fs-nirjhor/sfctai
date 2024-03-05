@@ -5,8 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import usePreventZoom from "./pages/shared/UsePreventZoom";
 import NotificationToast from "./pages/shared/NotificationToast";
 import { onMessage } from "firebase/messaging";
-//import { onBackgroundMessage } from "firebase/messaging/sw";
-//import { backgroundMessaging } from "./data/backgroundMessaging";
 import { foregroundMessaging } from "./data/foregroundMessaging";
 
 function App() {
@@ -14,9 +12,6 @@ function App() {
     console.log(payload);
     toast(<NotificationToast payload={payload} />);
   });
-  /* onBackgroundMessage(backgroundMessaging, (payload) => {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  }); */
   usePreventZoom();
   return <>
     <main className="max-w-4xl mx-auto lining-nums">
