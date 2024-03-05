@@ -137,28 +137,27 @@ io.on("connection", (socket) => {
         io.emit("message", data);
 
         // send notification
-        const topic = isAdmin ? client : "admin";
         const referer = new URL(socket.handshake?.headers?.referer);
         const origin = referer?.origin;
+
         const link = `${origin}/my/chat/${client}`
-        const icon = `${origin}/api/assets/icon.png`
+        const topic = isAdmin ? client : "admin";
+        const badge = `${origin}/api/assets/icon.png`
         const avatar = data.chats?.client?.avatar
-        const title = `New message from ${
-          isAdmin ? "SFCTAI" : data.chats?.client?.name
-        }!`;
+        const icon = isAdmin ? badge : avatar
+        const tag = `message-${client}`;
+        const title = isAdmin ? "SFCTAI" : data.chats?.client?.name ;
+
         const notificationData = {
           topic: topic,
           data: {
             title: title,
             body: text,
             image: imageUrl,
-            icon: `${isAdmin ? icon : avatar}`,
-            title: `New message from ${
-              isAdmin ? "Admin" : data.chats?.client?.name
-            }!`,
-            badge: icon,
+            icon: icon,
+            badge: badge,
             link: link,
-            tag: `message-${client}`,
+            tag: tag,
           },
            /* 
            notification: {
@@ -171,10 +170,10 @@ io.on("connection", (socket) => {
               title: title,
               body: text,
               image: imageUrl,
-              badge: icon,
-              icon: `${isAdmin ? icon : avatar}`,
+              badge: badge,
+              icon: icon,
+              tag: tag,
               renotify: true,
-              tag: `sfctai-${topic}`,
               timestamp: Math.floor(Date.now()),
             },
             fcmOptions: {
@@ -187,7 +186,7 @@ io.on("connection", (socket) => {
               title: title,
               body: text,
               image: imageUrl,
-              icon: icon,
+              icon: badge,
               color: "#38bdf8",
               clickAction: link,
             }
@@ -199,7 +198,7 @@ io.on("connection", (socket) => {
               }
             },
             fcm_options: {
-              image: icon
+              image: badge
             }
           },
         };
