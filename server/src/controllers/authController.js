@@ -21,13 +21,7 @@ const handleLogin = async (req, res, next) => {
       throw createHttpError(403, "Please input your email and password");
     }
     //? is user exist
-    const user = await User.findOneAndUpdate({ phone }, { $push: { deviceId } },
-      {
-        new: true,
-        runValidators: true,
-        context: "query",
-      }
-    ).lean();
+    const user = await User.findOne({ phone }).lean();
 
     //? is user banned
     if (user.isBanned) {
@@ -50,7 +44,16 @@ const handleLogin = async (req, res, next) => {
     //setAccessTokenCookie(res, accessToken);
 
     // subsctibe to notification
-    await subscribeToNotification(deviceId, user._id+"", user.isAdmin);
+    if (deviceId && !user.deviceId?.includes(deviceId)) {
+      await User.findOneAndUpdate({ phone }, { $push: { deviceId } },
+        {
+          new: true,
+          runValidators: true,
+          context: "query",
+        }
+      ).lean();
+     await subscribeToNotification(deviceId, user._id+"", user.isAdmin);
+    }
 
     // prevent showing password in payload. user from database is not a pure object without lean
     delete user.loginPassword;
@@ -69,7 +72,16 @@ const handleLogout = async (req, res, next) => {
   try {
     const { deviceId, userId, isAdmin } = req.body;
     // unsubscribe from notification
-    await unsubscribeFromNotification(deviceId, userId+"", isAdmin);
+    if (deviceId) {
+      await User.findByIdAndUpdate(userId, { $pull: { deviceId } },
+       {
+         new: true,
+         runValidators: true,
+         context: "query",
+       }
+     ).lean();
+     await unsubscribeFromNotification(deviceId, userId+"", isAdmin);
+    }
     //await unsubscribeFromNotification(deviceId, "clients");
     // check access cookie
     /* if (!req.cookies.access_token) {

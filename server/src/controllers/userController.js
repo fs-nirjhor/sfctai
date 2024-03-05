@@ -229,7 +229,9 @@ const handleDeleteUser = async (req, res, next) => {
     // delete user
     const deletedUser = await deleteItem(User, filter, options);
     // unsubscribe from notifications
-    await unsubscribeFromNotification(deletedUser.deviceId, id+"", deletedUser.isAdmin);
+    if (deletedUser?.deviceId?.length) {
+      await unsubscribeFromNotification(deletedUser.deviceId, id+"", deletedUser.isAdmin);
+    }
 
     const updateOptions = {
       new: true,
