@@ -99,7 +99,7 @@ const Client = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="pb-20">
+    <div className="pb-20 px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">{client.name}</h1>
       <section>
         <figure className="avatar w-full">

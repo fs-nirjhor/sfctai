@@ -1,6 +1,6 @@
 const AboutPlatform = () => {
   return (
-    <section>
+    <section className="px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">
         User Terms And Privacy Policy
       </h1>

@@ -4,7 +4,7 @@ const AboutRecharge = () => {
   const { minimumRecharge } = useRouteLoaderData("configuration");
 
   return (
-    <section>
+    <section className="px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">About Recharge</h1>
       <div className="bg-mySecondary p-3 rounded-md">
         <p>

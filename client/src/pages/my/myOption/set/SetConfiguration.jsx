@@ -44,7 +44,7 @@ const SetConfiguration = () => {
     "btn btn-sm join-item w-2/6";
 
   return (
-      <div>
+      <div className="pb-20 px-2">
         <h1 className="font-semibold text-center pt-2 mb-5">Configuration</h1>
         <section className="bg-mySecondary w-full mb-5 rounded">
           <p className={"text-center " + listStyle}>Current Configuration</p>
@@ -80,12 +80,12 @@ const SetConfiguration = () => {
             <span>Level 2 Commission: </span>
             <span>{configuration.level2Commission}%</span>
           </p>
-          <p className={listStyle}>
+          <p className={listStyle+" border-b-0"}>
             <span>Level 3 Commission: </span>
             <span>{configuration.level3Commission}%</span>
           </p>
         </section>
-        <div className="max-w-md mx-auto pb-20">
+        <div className="max-w-md mx-auto">
           <h3 className="text-center mb-3">Change Configuration</h3>
           <form
             className={formStyle}

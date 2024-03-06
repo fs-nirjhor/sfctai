@@ -49,7 +49,7 @@ const ClientList = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="pb-20">
+    <div className="pb-20 px-2">
       <section className="sticky top-0 bg-myBg pb-3">
         <h1 className="font-semibold text-center pt-2 mb-5">Client List</h1>
         <div className="w-full max-w-lg mx-auto mb-3 shadow-md" >

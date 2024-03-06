@@ -45,7 +45,7 @@ const TradeHistory = () => {
   return loading ? (
     <Loading />
   ) : (
-    <section className="pb-20">
+    <section className="pb-20 px-2">
       <section className="sticky top-0 bg-myBg pb-3">
       <h1 className="font-semibold text-center pt-2 mb-5">Trade History</h1>
       <Pagination page={page} setPage={setPage} pagination={pagination}/>

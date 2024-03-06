@@ -9,7 +9,7 @@ const ChatList = () => {
   return !chatlist.length ? (
     <Loading />
   ) : (
-    <div className="pb-20">
+    <div className="pb-20 px-2">
       <section className="sticky top-0 bg-myBg pb-3">
         <h1 className="font-semibold text-center pt-2 mb-5">Chat List</h1>
         <Pagination page={page} setPage={setPage} pagination={pagination} />

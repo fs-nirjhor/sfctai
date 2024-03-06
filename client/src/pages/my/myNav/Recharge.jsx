@@ -5,7 +5,7 @@ const Recharge = () => {
   const { minimumRecharge, transferAddress } =
     useRouteLoaderData("configuration");
   return (
-    <section className="pb-20">
+    <section className="pb-20 px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">Recharge</h1>
       <figure className="bg-mySecondary rounded-md px-3 py-5">
         <div className="grid grid-cols-7 gap-2">
