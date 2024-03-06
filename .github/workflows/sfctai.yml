@@ -27,4 +27,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: "cd ~/sfctai && ./.scripts/sfctai.sh"
+          script: |
+              git pull
+              export NVM_DIR=~/.nvm
+              source ~/.nvm/nvm.sh
+              npm run build
+              pm2 reload sfctai_server
