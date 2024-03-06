@@ -41,7 +41,7 @@ const Footer = () => {
         <span className="text-xl">T</span>RADE
         </p>
       </NavLink>
-      <NavLink to="information">
+      <NavLink to="about">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 text-myPrimary"

@@ -51,35 +51,35 @@ const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-        path: "/information",
+        path: "/about",
         element: <About />,
       },
       {
-        path: "/information/buisness-license",
+        path: "/about/buisness-license",
         element: <BuisnessLicense />,
       },
       {
-        path: "/information/msb-license",
+        path: "/about/msb-license",
         element: <MsbLicense />,
       },
       {
-        path: "/information/about-platform",
+        path: "/about/about-platform",
         element: <AboutPlatform />,
       },
       {
-        path: "/information/about-recharge",
+        path: "/about/about-recharge",
         element: <AboutRecharge />,
       },
       {
-        path: "/information/about-withdrawal",
+        path: "/about/about-withdrawal",
         element: <AboutWithdrawal />,
       },
       {
-        path: "/information/about-team",
+        path: "/about/about-team",
         element: <AboutTeam />,
       },
       {
-        path: "/information/terms-and-policy",
+        path: "/about/terms-and-policy",
         element: <TermsAndPolicy />,
       },
       {

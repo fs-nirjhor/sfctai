@@ -52,7 +52,7 @@ const TxidSubmit = () => {
             required
           />
           <div className="label">
-            <Link to="/my/wallet/recharge" className="text-white">
+            <Link to="/my/recharge" className="text-white">
               About recharge
             </Link>
           </div>
