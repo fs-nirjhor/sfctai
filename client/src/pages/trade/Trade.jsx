@@ -30,10 +30,9 @@ const Trade = () => {
   };
   // bg-[url('/images/start_bg.png')] bg-no-repeat bg-center bg-origin-border
   return (
-    <section className="bg-[url('/images/bg/tradeBg.jpg')] bg-repeat-y bg-center bg-origin-border min-h-screen">
-      <div className="pb-20">
+    <main className="bg-[url('/images/bg/tradeBg.jpg')] bg-repeat-y bg-center bg-origin-border min-h-screen">
       <h1 className="font-semibold text-center pt-2 mb-5">Copy Trade</h1>
-      <section>
+      <section className="pb-20 px-2">
       <figure className="p-5">
         <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
       </figure>
@@ -81,10 +80,9 @@ const Trade = () => {
           </button>
         </article>
       </div>
-    </section>
       <Confirm />
-      </div>
     </section>
+    </main>
   );
 };
 export default Trade;
