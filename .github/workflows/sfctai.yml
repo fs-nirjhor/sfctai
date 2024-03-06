@@ -28,6 +28,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+              cd ~/sfctai
               git pull
               export NVM_DIR=~/.nvm
               source ~/.nvm/nvm.sh
