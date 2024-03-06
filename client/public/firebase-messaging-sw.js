@@ -26,29 +26,38 @@ const firebaseConfig = {
 
 // Initialize Firebase app
 firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging();
 
 //Listens for background notifications
-messaging.onBackgroundMessage((payload) => {
-  //console.log(payload);
-  //customise notification
-  const data = payload?.data;
-  const notificationTitle = data?.title;
-  const notificationOptions = {
-    body: data?.body,
-    image: data?.image,
-    icon: data?.icon || "/images/icon.png",
-    badge: data?.icon || "/images/icon.png",
-    tag: data?.tag,
-    timestamp: Math.floor(Date.now()),
-    renotify: true,
-    data: {
-      link: data?.link,
-    }
-  };
-  // send notification 
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+const handleBackgroundNotifications = () => {
+  try {
+    const messaging = firebase.messaging();
+
+    // handle background notifications
+    messaging.onBackgroundMessage((payload) => {
+      //customise notification
+      const data = payload?.data;
+      const notificationTitle = data?.title;
+      const notificationOptions = {
+        body: data?.body,
+        image: data?.image,
+        icon: data?.icon || "/images/icon.png",
+        badge: data?.icon || "/images/icon.png",
+        tag: data?.tag,
+        timestamp: Math.floor(Date.now()),
+        renotify: true,
+        data: {
+          link: data?.link,
+        }
+      };
+      // send notification 
+      self.registration.showNotification(notificationTitle, notificationOptions);
+    });
+  } catch (error) {
+    console.log(error.message)
+  }
+};
+
+handleBackgroundNotifications();
 
 // add link on notification
 self.addEventListener("notificationclick", function (event) {
