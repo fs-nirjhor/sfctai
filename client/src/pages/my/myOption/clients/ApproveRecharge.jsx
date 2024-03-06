@@ -56,6 +56,25 @@ const ApproveRecharge = ({id}) => {
       }
     }
   };
+  const handleRejectRecharge = async (transactionId) => {
+    event.preventDefault();
+    try {
+      toast.loading("Rejecting...", { toastId: "reject-recharge-loading" });
+      const response = await transactionApi.put(`reject/${transactionId}`);
+      toast.dismiss("reject-recharge-loading");
+      if (response.data?.success) {
+        toast.success("Recharge successfully rejected");
+        window.location.reload();
+      }
+    } catch (err) {
+      toast.dismiss("reject-recharge-loading");
+      if (err.response.data.message) {
+        toast.error(err.response.data.message); // error sent by server
+      } else {
+        toast.error(err.message); // other error
+      }
+    }
+  };
 
   return (
        <div >
@@ -68,10 +87,7 @@ const ApproveRecharge = ({id}) => {
                   <p className="text-sm">
                     Transaction ID: {recharge.credential}
                   </p>
-                  <form
-                    className="join w-full"
-                    onSubmit={() => handleApproveRecharge(recharge._id)}
-                  >
+                  <form className="join w-full" >
                     <input
                       type="number"
                       placeholder="Enter amount"
@@ -80,10 +96,16 @@ const ApproveRecharge = ({id}) => {
                       required
                     />
                     <button
-                      type="submit"
-                      className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                      onClick={() => handleApproveRecharge(recharge._id)}
+                      className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-1/6"
                     >
                       Approve
+                    </button>
+                    <button
+                    onClick={() => handleRejectRecharge(recharge._id)}
+                      className="btn btn-error text-white btn-sm join-item w-1/6"
+                    >
+                      Reject
                     </button>
                   </form>
                 </div>
