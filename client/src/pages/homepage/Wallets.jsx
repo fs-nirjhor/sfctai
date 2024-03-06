@@ -14,16 +14,17 @@ const Wallets = () => {
     dots: false,
     arrows: false,
     infinite: true,
+    pauseOnHover: false,
+    autoplay: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true,
     speed: 8000,
     autoplaySpeed: 1000,
-    pauseOnHover: true,
     cssEase: "linear",
+    className: "py-5",
   };
   return (
-    <section className="mt-3">
+    <section >
       <Slider {...settings}>
         {wallets.map((wallet, i) => (
           <figure key={i} >

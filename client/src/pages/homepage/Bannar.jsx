@@ -12,7 +12,7 @@ const Bannar = () => {
     autoplaySpeed: 3000,
     pauseOnHover: false,
   };
-  const bannarStyle = "w-full aspect-video object-cover rounded";
+  const bannarStyle = "w-full aspect-video object-cover";
   return (
     <section>
       <Slider {...settings}>

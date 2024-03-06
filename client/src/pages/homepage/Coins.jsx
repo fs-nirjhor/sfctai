@@ -32,7 +32,7 @@ const Coins = () => {
   return loading ? (
     <Loading />
   ) : (
-    <figure className="mt-2">
+    <section >
       <table className="table text-center font-semibold">
         <tbody>
           {coins.map((coin) => {
@@ -61,7 +61,7 @@ const Coins = () => {
           })}
         </tbody>
       </table>
-    </figure>
+    </section>
   );
 };
 export default Coins;
