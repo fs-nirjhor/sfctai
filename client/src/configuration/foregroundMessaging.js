@@ -1,6 +1,6 @@
-import { getMessaging } from "firebase/messaging";
+import { getMessaging, isSupported } from "firebase/messaging";
 import { app } from "./firebase.init";
 
-const foregroundMessaging = getMessaging(app);
+const foregroundMessaging = isSupported ? getMessaging(app) : null;
 
 export { foregroundMessaging };

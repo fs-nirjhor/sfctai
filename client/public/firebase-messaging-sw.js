@@ -30,9 +30,10 @@ firebase.initializeApp(firebaseConfig);
 //Listens for background notifications
 const handleBackgroundNotifications = () => {
   try {
-    const messaging = firebase.messaging();
-    console.log(messaging)
-    if (messaging) {
+    const isSupported = firebase.messaging.isSupported();
+    console.log(isSupported);
+    if (isSupported) {
+      const messaging = firebase.messaging();
       // handle background notifications
       messaging.onBackgroundMessage((payload) => {
         //customise notification
@@ -53,7 +54,16 @@ const handleBackgroundNotifications = () => {
         // send notification 
         self.registration.showNotification(notificationTitle, notificationOptions);
       });
-    }
+      // add link on notification
+      self.addEventListener("notificationclick", function (event) {
+        //console.log(event)
+        const link = event.notification?.data?.link
+        if (link) {
+          event.notification.close();
+          event.waitUntil(clients.openWindow(link));
+        }
+      });
+    } //// end: if (messaging)
   } catch (error) {
     console.log(error.message)
   }
@@ -61,13 +71,4 @@ const handleBackgroundNotifications = () => {
 
 handleBackgroundNotifications();
 
-// add link on notification
-self.addEventListener("notificationclick", function (event) {
-  //console.log(event)
-  const link = event.notification?.data?.link
-  if (link) {
-    event.notification.close();
-    event.waitUntil(clients.openWindow(link));
-  }
-});
 
