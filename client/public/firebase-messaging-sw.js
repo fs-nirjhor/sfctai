@@ -31,27 +31,29 @@ firebase.initializeApp(firebaseConfig);
 const handleBackgroundNotifications = () => {
   try {
     const messaging = firebase.messaging();
-
-    // handle background notifications
-    messaging.onBackgroundMessage((payload) => {
-      //customise notification
-      const data = payload?.data;
-      const notificationTitle = data?.title;
-      const notificationOptions = {
-        body: data?.body,
-        image: data?.image,
-        icon: data?.icon || "/images/icon.png",
-        badge: data?.icon || "/images/icon.png",
-        tag: data?.tag,
-        timestamp: Math.floor(Date.now()),
-        renotify: true,
-        data: {
-          link: data?.link,
-        }
-      };
-      // send notification 
-      self.registration.showNotification(notificationTitle, notificationOptions);
-    });
+    console.log(messaging)
+    if (messaging) {
+      // handle background notifications
+      messaging.onBackgroundMessage((payload) => {
+        //customise notification
+        const data = payload?.data;
+        const notificationTitle = data?.title;
+        const notificationOptions = {
+          body: data?.body,
+          image: data?.image,
+          icon: data?.icon || "/images/icon.png",
+          badge: data?.icon || "/images/icon.png",
+          tag: data?.tag,
+          timestamp: Math.floor(Date.now()),
+          renotify: true,
+          data: {
+            link: data?.link,
+          }
+        };
+        // send notification 
+        self.registration.showNotification(notificationTitle, notificationOptions);
+      });
+    }
   } catch (error) {
     console.log(error.message)
   }
@@ -63,7 +65,9 @@ handleBackgroundNotifications();
 self.addEventListener("notificationclick", function (event) {
   //console.log(event)
   const link = event.notification?.data?.link
-  event.notification.close();
-  event.waitUntil(clients.openWindow(link));
+  if (link) {
+    event.notification.close();
+    event.waitUntil(clients.openWindow(link));
+  }
 });
 
