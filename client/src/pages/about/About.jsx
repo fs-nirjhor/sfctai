@@ -1,4 +1,4 @@
-import information from "../../data/infoData";
+import about from "./aboutData";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -9,7 +9,7 @@ const About = () => {
         <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
       </figure>
       <div className="font-semibold px-2">
-        {information.map((info, i) => {
+        {about.map((info, i) => {
           return (
             <Link
               className="bg-mySecondary p-3 mb-3 rounded-md block text-black font-light"

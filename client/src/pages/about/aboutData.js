@@ -1,4 +1,4 @@
-const information = [
+const about = [
   {
     title: "About platform",
     link: "about-platform",
@@ -17,4 +17,4 @@ const information = [
   }
 ];
 
-export default information;
+export default about;
