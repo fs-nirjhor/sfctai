@@ -1,25 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Footer from "./pages/shared/Footer";
-import { ToastContainer, Zoom, toast } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usePreventZoom from "./pages/shared/UsePreventZoom";
-import NotificationToast from "./pages/shared/NotificationToast";
-import { onMessage, isSupported } from "firebase/messaging";
-import { foregroundMessaging } from "./configuration/foregroundMessaging";
+import UseNotification from "./configuration/UseNotification";
 
 function App() {
-  const handleForgroundMessaging = () => {
-    try {
-      const fcmSupported = isSupported();
-      if (fcmSupported) {
-        onMessage(foregroundMessaging, (payload) => {
-          toast(<NotificationToast payload={payload} />);
-        });
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
+  const { handleForgroundMessaging } = UseNotification();
   handleForgroundMessaging();
   usePreventZoom();
   return (

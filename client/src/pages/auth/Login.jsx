@@ -3,18 +3,26 @@ import { useLocation, Link } from "react-router-dom";
 import { authApi } from "../../router/axiosApi";
 import { toast } from "react-toastify";
 import UseNotification from "../../configuration/UseNotification";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const location = useLocation();
-  // get device id for notification
-  const { deviceId } = UseNotification();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const [deviceId, setDeviceId] = useState("");
+  const { requestToken } = UseNotification();
+  
+  useEffect(() => {
+    // get device id for notification
+     (async() => {
+      const token = await requestToken()
+      setDeviceId(token);
+    })();
+  }, [])
+  
   const onSubmit = async (data) => {
     event.preventDefault();
     try {

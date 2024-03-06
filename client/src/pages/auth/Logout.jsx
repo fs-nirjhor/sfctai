@@ -4,11 +4,21 @@ import { IoChevronForward } from "react-icons/io5";
 import { authApi } from "../../router/axiosApi";
 import { toast } from "react-toastify";
 import UseNotification from "../../configuration/UseNotification";
+import { useEffect, useState } from "react";
 
 const Logout = () => {
   //const navigate = useNavigate();
-  const { deviceId } = UseNotification();
   const user = useRouteLoaderData("user");
+  const [deviceId, setDeviceId] = useState("");
+  const { requestToken } = UseNotification();
+  
+  useEffect(() => {
+    // get device id for notification
+    (async() => {
+      const token = await requestToken()
+      setDeviceId(token);
+    })();
+  }, [requestToken])
 
   const handleClick = async () => {
     event.preventDefault();
