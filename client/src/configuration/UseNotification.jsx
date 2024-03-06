@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getToken } from "firebase/messaging";
+import { getToken, isSupported } from "firebase/messaging";
 import { vapidKey } from "./config";
 import { toast } from "react-toastify";
 import { foregroundMessaging } from "./foregroundMessaging";
@@ -9,8 +9,9 @@ const UseNotification = () => {
   useEffect(() => {
     const requestPermission = async () => {
       try {
+        const fcmSupported = await isSupported()
         const permission = await Notification.requestPermission();
-        if (permission === "granted") {
+        if (permission === "granted" && fcmSupported) {
           const token = await getToken(foregroundMessaging, {
             vapidKey: vapidKey,
           });
