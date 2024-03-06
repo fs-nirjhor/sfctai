@@ -1,6 +1,6 @@
 import { IoChevronForward } from "react-icons/io5";
 import { BsDownload } from "react-icons/bs";
-import { serverUrl } from "../../../data/config";
+import { serverUrl } from "../../../configuration/config";
 
 const DownloadApp = () => {
   return (

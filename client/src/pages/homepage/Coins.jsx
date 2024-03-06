@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Loading from "./../shared/Loading";
-import { coincapApi } from "../../data/config";
+import { coincapApi } from "../../configuration/config";
 import { toast } from "react-toastify";
 
 const Coins = () => {

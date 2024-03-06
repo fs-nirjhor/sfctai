@@ -1,6 +1,6 @@
 import QRCode from "react-qr-code";
 import { useRouteLoaderData } from "react-router-dom";
-import { serverUrl } from "../../../data/config";
+import { serverUrl } from "../../../configuration/config";
 
 const Invitation = () => {
   const user = useRouteLoaderData("user");

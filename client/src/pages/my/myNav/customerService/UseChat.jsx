@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useRouteLoaderData } from "react-router-dom";
 import socketIOClient from "socket.io-client";
-import { serverUrl } from "../../../../data/config";
+import { serverUrl } from "../../../../configuration/config";
 
 const UseChat = () => {
   const user = useRouteLoaderData("user");
   const socketRef = useRef();
   const { client } = useParams();
   const [chats, setChats] = useState([]);
-  const [chatlist, setChatlist] = useState([])
+  const [chatlist, setChatlist] = useState([]);
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
   //console.log(page);
@@ -20,7 +20,7 @@ const UseChat = () => {
       page: page,
       limit: 10,
     };
-    
+
     socketRef.current.emit("chats", filter);
 
     socketRef.current.on("chats", (data) => {

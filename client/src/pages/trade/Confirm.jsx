@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { transactionApi } from "../../router/axiosApi";
-import { coincapApi } from "../../data/config";
+import { coincapApi } from "../../configuration/config";
 import { toast } from "react-toastify";
 
 const Confirm = () => {
@@ -91,7 +91,7 @@ const Confirm = () => {
       const res = await transactionApi.post("order-request", { transaction });
 
       if (res.data?.success) {
-        toast.success("Trade confirmed")
+        toast.success("Trade confirmed");
         document.getElementById("confirm_dialog").close();
         window.location.reload();
       }
@@ -134,10 +134,7 @@ const Confirm = () => {
           <p className="mb-5 text-center">
             Expect to take 10 to 15 minites to complete the order
           </p>
-          <button
-            className="btn btn-block btn-primary"
-            onClick={handleClick}
-          >
+          <button className="btn btn-block btn-primary" onClick={handleClick}>
             Confirm
           </button>
         </figure>

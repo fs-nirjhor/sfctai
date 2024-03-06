@@ -1,5 +1,5 @@
 import axios from "axios";
-import { serverUrl } from "../data/config";
+import { serverUrl } from "../configuration/config";
 
 /* // cookies setup
 axios.defaults.withCredentials = true;
@@ -12,14 +12,17 @@ const headers = { Authorization: `Bearer ${accessToken}` };
 const authApi = axios.create({ baseURL: `${serverUrl}/api/auth/`, headers });
 const userApi = axios.create({ baseURL: `${serverUrl}/api/users/`, headers });
 const transactionApi = axios.create({
-  baseURL: `${serverUrl}/api/transactions/`, headers
+  baseURL: `${serverUrl}/api/transactions/`,
+  headers,
 });
 const configurationApi = axios.create({
-  baseURL: `${serverUrl}/api/configuration/`, headers
+  baseURL: `${serverUrl}/api/configuration/`,
+  headers,
 });
 
 const allApi = axios.create({
-  baseURL: `${serverUrl}/api/`, headers
+  baseURL: `${serverUrl}/api/`,
+  headers,
 });
 
 export { userApi, authApi, transactionApi, configurationApi, allApi };

@@ -2,12 +2,12 @@ import { useForm } from "react-hook-form";
 import { useLocation, Link } from "react-router-dom";
 import { authApi } from "../../router/axiosApi";
 import { toast } from "react-toastify";
-import UseNotification from "../../data/UseNotification";
+import UseNotification from "../../configuration/UseNotification";
 
 const Login = () => {
   const location = useLocation();
-   // get device id for notification 
-   const {deviceId} = UseNotification()
+  // get device id for notification
+  const { deviceId } = UseNotification();
 
   const {
     register,
@@ -27,7 +27,9 @@ const Login = () => {
       }
       toast.success("Logged in successfully");
       //navigate(location.state ? location.state.from : "/");
-      window.location.replace(location.state ? location.state?.from?.pathname : "/my")
+      window.location.replace(
+        location.state ? location.state?.from?.pathname : "/my"
+      );
     } catch (err) {
       if (err.response?.data.message) {
         toast.error(err.response.data.message); // error sent by server
@@ -43,7 +45,10 @@ const Login = () => {
       <figure className="px-5">
         <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
       </figure>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-[url('/images/bannar/coin_bannar.png')] bg-top bg-origin-border bg-cover bg-scroll bg-no-repeat pt-5">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-[url('/images/bannar/coin_bannar.png')] bg-top bg-origin-border bg-cover bg-scroll bg-no-repeat pt-5"
+      >
         <label className="form-control w-full max-w-md mx-auto">
           <div className="label">
             <span className="label-text">Phone Number</span>
