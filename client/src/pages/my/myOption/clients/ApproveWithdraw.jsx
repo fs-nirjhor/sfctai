@@ -1,39 +1,8 @@
-import { useEffect, useState } from "react";
 import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import moment from "moment";
-import { serverUrl } from "../../../../configuration/config";
 
-const ApproveWithdraw = ({ id }) => {
-  const [pendingWithdraw, setPendingWithdraw] = useState([]);
-
-  useEffect(() => {
-    const getPendingWithdraw = async () => {
-      try {
-        // get pending withdraws
-        const filter = {
-          client: id,
-          isApproved: false,
-          isRejected: false,
-          category: "Withdraw",
-        };
-        toast.loading("Loading...", { toastId: "pending-withdraw-loading" });
-        const pendingWithdrawData = await transactionApi.post("", { filter });
-        toast.dismiss("pending-withdraw-loading");
-        if (pendingWithdrawData.data?.success) {
-          setPendingWithdraw(pendingWithdrawData.data.payload.allTransaction);
-        }
-      } catch (err) {
-        toast.dismiss("pending-withdraw-loading");
-        if (err.response.data.message) {
-          toast.error(err.response.data.message); // error sent by server
-        } else {
-          toast.error(err.message); // other error
-        }
-      }
-    };
-    getPendingWithdraw();
-  }, [id]);
+const ApproveWithdraw = ({id, pendingWithdraw }) => {
 
   const handleApproveWithdraw = async (transactionId) => {
     event.preventDefault();

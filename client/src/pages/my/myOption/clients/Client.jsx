@@ -12,6 +12,8 @@ import moment from "moment";
 const Client = () => {
   const { userId } = useParams();
   const [client, setClient] = useState({});
+  const [pendingRecharge, setPendingRecharge] = useState([]);
+  const [pendingWithdraw, setPendingWithdraw] = useState([]);
   const [bonusAmount, setBonusAmount] = useState("");
   const [trc20Address, setTrc20Address] = useState("");
   const [phone, setPhone] = useState("");
@@ -20,6 +22,7 @@ const Client = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // get client data
     const getClient = async () => {
       try {
         // get client
@@ -36,8 +39,38 @@ const Client = () => {
         }
       }
     };
+    // get pending transactions
+    const getPendingTransactions = async () => {
+      try {
+        const filter = {
+          client: userId,
+          isApproved: false,
+          isRejected: false,
+          category: { $ne: "Order" },
+        };
+        const pendingTransactionData = await transactionApi.post("", { filter });
+        if (pendingTransactionData.data?.success) {
+          const pendingTransactions = pendingTransactionData?.data?.payload?.allTransaction;
+          const recharges = pendingTransactions.filter(
+            (transaction) => transaction.category == "Recharge"
+          );
+          const withdraws = pendingTransactions.filter(
+            (transaction) => transaction.category == "Withdraw"
+          );
+          setPendingRecharge(recharges);
+          setPendingWithdraw(withdraws)
+        }
+      } catch (err) {
+        if (err.response.data.message) {
+          toast.error(err.response.data.message); // error sent by server
+        } else {
+          toast.error(err.message); // other error
+        }
+      }
+    };
     getClient();
-  }, [userId, client._id]);
+    getPendingTransactions();
+  }, [userId]);
 
   const handleUpdate = async (update) => {
     event.preventDefault();
@@ -158,7 +191,7 @@ const Client = () => {
             </div>
             <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
-          {/* Team Status */}
+          {/* Team and fund history */}
           <div className={doubleBoxStyle}>
           <Link
             to="team"
@@ -294,11 +327,11 @@ const Client = () => {
           </div>
           {/* approve recharge */}
           <div className={singleBoxStyle}>
-          <ApproveRecharge id={client._id}/>
+          <ApproveRecharge id={client._id} pendingRecharge={pendingRecharge}/>
           </div>
           {/* approve withdraw */}
           <div className={singleBoxStyle}>
-          <ApproveWithdraw id={client._id}/>
+          <ApproveWithdraw id={client._id} pendingWithdraw={pendingWithdraw}/>
           </div>
         </section>
       </section>

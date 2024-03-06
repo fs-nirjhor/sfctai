@@ -1,37 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from 'react-toastify';
 
-const ApproveRecharge = ({id}) => {
-  const [pendingRecharge, setPendingRecharge] = useState([]);
+const ApproveRecharge = ({id, pendingRecharge}) => {
   const [approveRechargeAmount, setApproveRechargeAmount] = useState("");
-
-  useEffect(() => {
-    const getPendingRecharge = async () => {
-      try {
-        // get pending recharges
-        const filter = {
-          client: id,
-          isApproved: false,
-          category: "Recharge",
-        };
-        toast.loading("Loading...", {toastId: "pending-recharge-loading"});
-        const pendingRechargeData = await transactionApi.post("", { filter });
-        toast.dismiss("pending-recharge-loading");
-        if (pendingRechargeData.data?.success) {
-          setPendingRecharge(pendingRechargeData.data.payload.allTransaction);
-        }
-      } catch (err) {
-        toast.dismiss("pending-recharge-loading");
-        if (err.response.data.message) {
-          toast.error(err.response.data.message); // error sent by server
-        } else {
-          toast.error(err.message); // other error
-        }
-      }
-    };
-    getPendingRecharge();
-  }, [id]);
 
   const handleApproveRecharge = async (transactionId) => {
     event.preventDefault();
