@@ -8,10 +8,16 @@ import { onMessage } from "firebase/messaging";
 import { foregroundMessaging } from "./configuration/foregroundMessaging";
 
 function App() {
-  onMessage(foregroundMessaging, (payload) => {
-    console.log(payload);
-    toast(<NotificationToast payload={payload} />);
-  });
+  const handleForgroundMessaging = () => {
+    try {
+      onMessage(foregroundMessaging, (payload) => {
+        toast(<NotificationToast payload={payload} />);
+      });
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+  handleForgroundMessaging();
   usePreventZoom();
   return (
     <>
