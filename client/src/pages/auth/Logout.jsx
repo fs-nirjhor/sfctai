@@ -3,22 +3,29 @@ import { FiPower } from "react-icons/fi";
 import { IoChevronForward } from "react-icons/io5";
 import { authApi } from "../../router/axiosApi";
 import { toast } from "react-toastify";
-import UseNotification from "../../configuration/UseNotification";
 import { useEffect, useState } from "react";
+import { isSupported } from "firebase/messaging";
 
 const Logout = () => {
   //const navigate = useNavigate();
   const user = useRouteLoaderData("user");
   const [deviceId, setDeviceId] = useState("");
-  const { requestToken } = UseNotification();
   
   useEffect(() => {
     // get device id for notification
-    (async() => {
-      const token = await requestToken()
-      setDeviceId(token);
+     (async() => {
+      try {
+        const fcmSupport = await isSupported();
+        if (fcmSupport) {
+          const { requestToken } = await import("../../configuration/UseNotification.jsx");
+          const token = await requestToken()
+          setDeviceId(token);
+        }
+      } catch (error) {
+        console.log(error)
+      }
     })();
-  }, [requestToken])
+  }, [])
 
   const handleClick = async () => {
     event.preventDefault();

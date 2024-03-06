@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { useLocation, Link } from "react-router-dom";
 import { authApi } from "../../router/axiosApi";
 import { toast } from "react-toastify";
-import UseNotification from "../../configuration/UseNotification";
 import { useEffect, useState } from "react";
+import { isSupported } from "firebase/messaging";
 
 const Login = () => {
   const location = useLocation();
@@ -13,13 +13,20 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [deviceId, setDeviceId] = useState("");
-  const { requestToken } = UseNotification();
   
   useEffect(() => {
     // get device id for notification
      (async() => {
-      const token = await requestToken()
-      setDeviceId(token);
+      try {
+        const fcmSupport = await isSupported();
+        if (fcmSupport) {
+          const { requestToken } = await import("../../configuration/UseNotification.jsx");
+          const token = await requestToken()
+          setDeviceId(token);
+        }
+      } catch (error) {
+        console.log(error)
+      }
     })();
   }, [])
   

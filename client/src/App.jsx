@@ -3,12 +3,26 @@ import Footer from "./pages/shared/Footer";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usePreventZoom from "./pages/shared/UsePreventZoom";
-import UseNotification from "./configuration/UseNotification";
+import { useEffect } from "react";
+import { isSupported } from "firebase/messaging";
 
 function App() {
-  const { handleForgroundMessaging } = UseNotification();
-  handleForgroundMessaging();
+  
   usePreventZoom();
+  useEffect(() => {
+    // get device id for notification
+     (async() => {
+      try {
+        const fcmSupport = await isSupported();
+        if (fcmSupport) {
+          const { handleForgroundMessaging } = await import("./configuration/UseNotification.jsx");
+          handleForgroundMessaging();
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    })();
+  }, [])
   return (
     <>
       <main className="max-w-4xl mx-auto lining-nums">
