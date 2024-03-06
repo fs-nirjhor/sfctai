@@ -10,14 +10,16 @@ const UseNotification = () => {
     const requestPermission = async () => {
       try {
         const fcmSupported = await isSupported()
-        const permission = await Notification.requestPermission();
-        if (permission === "granted" && fcmSupported) {
-          const token = await getToken(foregroundMessaging, {
-            vapidKey: vapidKey,
-          });
-          setDeviceId(token);
-        } else {
-          toast.error("Please enable permission for push notifications");
+        if (fcmSupported) {
+          const permission = await Notification.requestPermission();
+          if (permission === "granted") {
+            const token = await getToken(foregroundMessaging, {
+              vapidKey: vapidKey,
+            });
+            setDeviceId(token);
+          } else {
+            toast.error("Please enable permission for push notifications");
+          }
         }
       } catch (error) {
         toast.error(error.message);

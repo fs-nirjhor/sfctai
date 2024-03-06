@@ -4,15 +4,18 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import usePreventZoom from "./pages/shared/UsePreventZoom";
 import NotificationToast from "./pages/shared/NotificationToast";
-import { onMessage } from "firebase/messaging";
+import { onMessage, isSupported } from "firebase/messaging";
 import { foregroundMessaging } from "./configuration/foregroundMessaging";
 
 function App() {
   const handleForgroundMessaging = () => {
     try {
-      onMessage(foregroundMessaging, (payload) => {
-        toast(<NotificationToast payload={payload} />);
-      });
+      const fcmSupported = isSupported();
+      if (fcmSupported) {
+        onMessage(foregroundMessaging, (payload) => {
+          toast(<NotificationToast payload={payload} />);
+        });
+      }
     } catch (error) {
       console.log(error.message)
     }
