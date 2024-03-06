@@ -22,3 +22,5 @@ pm2 reload sfctai_server
 echo "PM2 Reload Successfully!"
 
 echo "Deployment Finished!"
+
+# set permission: cd /.scripts && git update-index --add --chmod=+x sfctai.sh 
