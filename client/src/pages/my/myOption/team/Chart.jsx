@@ -3,7 +3,7 @@ import { useRouteLoaderData } from "react-router-dom";
 const Chart = ({user}) => {
   const configuration = useRouteLoaderData("configuration");
   const { transaction, team } = user;
-  console.log(user)
+  
   // functions
   const countActiveMembers = (level) => {
     let activeMembersCount = 0;
