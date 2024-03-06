@@ -3,16 +3,16 @@ import App from "../App.jsx";
 import ErrorPage from "../pages/shared/ErrorPage.jsx";
 import Homepage from "../pages/homepage/Homepage.jsx";
 import Trade from "../pages/trade/Trade.jsx";
-import Information from "../pages/information/Information.jsx";
+import About from "../pages/about/About.jsx";
 import My from "../pages/my/My.jsx";
 import CustomerService from "../pages/my/myNav/customerService/CustomerService.jsx";
-import AboutTeam from "../pages/information/AboutTeam.jsx";
-import BuisnessLicense from "../pages/information/BuisnessLicense.jsx";
-import MsbLicense from "../pages/information/MsbLicense.jsx";
-import AboutPlatform from "../pages/information/AboutPlatform.jsx";
-import AboutRecharge from "../pages/information/AboutRecharge.jsx";
-import AboutWithdrawal from "../pages/information/AboutWithdrawal.jsx";
-import TermsAndPolicy from "../pages/information/TermsAndPolicy.jsx";
+import AboutTeam from "../pages/about/AboutTeam.jsx";
+import BuisnessLicense from "../pages/about/BuisnessLicense.jsx";
+import MsbLicense from "../pages/about/MsbLicense.jsx";
+import AboutPlatform from "../pages/about/AboutPlatform.jsx";
+import AboutRecharge from "../pages/about/AboutRecharge.jsx";
+import AboutWithdrawal from "../pages/about/AboutWithdrawal.jsx";
+import TermsAndPolicy from "../pages/about/TermsAndPolicy.jsx";
 import Recharge from "../pages/my/myNav/Recharge.jsx";
 import Withdraw from "../pages/my/myNav/Withdraw.jsx";
 import Invitation from "../pages/my/myOption/Invitation.jsx";
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/information",
-        element: <Information />,
+        element: <About />,
       },
       {
         path: "/information/buisness-license",

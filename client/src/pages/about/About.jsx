@@ -1,14 +1,14 @@
 import information from "../../data/infoData";
 import { Link } from "react-router-dom";
 
-const Information = () => {
+const About = () => {
   return (
     <section className="bg-[url('/images/bg/myBg.jpg')] bg-repeat-y bg-center bg-origin-border bg-cover bg-scroll min-h-screen">
       <h1 className="font-semibold text-center pt-2 mb-5">About</h1>
       <figure className="p-5">
         <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
       </figure>
-      <div className="font-semibold">
+      <div className="font-semibold px-2">
         {information.map((info, i) => {
           return (
             <Link
@@ -24,4 +24,4 @@ const Information = () => {
     </section>
   );
 };
-export default Information;
+export default About;
