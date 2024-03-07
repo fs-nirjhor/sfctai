@@ -31,7 +31,6 @@ firebase.initializeApp(firebaseConfig);
 const handleBackgroundNotifications = () => {
   try {
     const isSupported = firebase.messaging.isSupported();
-    console.log(isSupported);
     if (isSupported) {
       const messaging = firebase.messaging();
       // handle background notifications
