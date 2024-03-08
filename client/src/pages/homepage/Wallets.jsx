@@ -18,7 +18,7 @@ const Wallets = () => {
     autoplay: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    speed: 8000,
+    speed: 10000, //10s
     autoplaySpeed: 1000,
     cssEase: "linear",
     className: "py-5",
