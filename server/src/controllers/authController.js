@@ -20,13 +20,14 @@ const handleLogin = async (req, res, next) => {
     if (!phone || !password) {
       throw createHttpError(403, "Please input your number and password");
     }
-    //? is user exist
+
     const user = await User.findOne({ phone }).lean();
 
-    //? is user banned
+    //? is user exist
     if (!user) {
-      throw createHttpError(404, "Incorrect number or password");
+      throw createHttpError(404, "No user found");
     }
+
     //? is user banned
     if (user.isBanned) {
       throw createHttpError(403, "This account is banned");
