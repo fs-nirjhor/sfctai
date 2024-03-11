@@ -124,7 +124,7 @@ const Login = () => {
         </label>
       </form>
       <Link
-        to="/registration?invitationCode=SFCTAI"
+        to="/registration"
         className="text-center mt-5 block"
       >
         Don&apos;t have an account?
@@ -133,3 +133,5 @@ const Login = () => {
   );
 };
 export default Login;
+
+////registration?invitationCode=SFCTAI
