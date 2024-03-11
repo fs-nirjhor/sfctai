@@ -21,8 +21,8 @@ const SetConfiguration = () => {
   const handleClick = async (update) => {
     event.preventDefault();
     try {
-      /* const seed = await axios.post('http://localhost:3001/api/seed/configuration')
-      console.log(seed); */
+      // seeding is just a setup for first time of new database
+      //! const res = await allApi.post('seed/configuration')
       const res = await configurationApi.put(configuration._id, { update });
       res.data?.success &&
         toast.success("Configuration updated successfully")
@@ -50,39 +50,39 @@ const SetConfiguration = () => {
           <p className={"text-center " + listStyle}>Current Configuration</p>
           <p className={"overflow-x-auto " + listStyle}>
             <span>Transfer Address: </span>
-            <span>{configuration.transferAddress}</span>
+            <span>{configuration?.transferAddress}</span>
           </p>
           <p className={listStyle}>
             <span>Minimum Recharge: </span>
-            <span>${configuration.minimumRecharge}</span>
+            <span>${configuration?.minimumRecharge}</span>
           </p>
           <p className={listStyle}>
             <span>Minimum Withdraw: </span>
-            <span>${configuration.minimumWithdraw}</span>
+            <span>${configuration?.minimumWithdraw}</span>
           </p>
           <p className={listStyle}>
             <span>Withdraw Fee: </span>
-            <span>${configuration.withdrawFee}</span>
+            <span>${configuration?.withdrawFee}</span>
           </p>
           <p className={listStyle}>
             <span>Trade Per Day: </span>
-            <span>{configuration.orderPerDay} times</span>
+            <span>{configuration?.orderPerDay} times</span>
           </p>
           <p className={listStyle}>
             <span>Monthly Profit: </span>
-            <span>{configuration.monthlyProfit}%</span>
+            <span>{configuration?.monthlyProfit}%</span>
           </p>
           <p className={listStyle}>
             <span>Level 1 Commission: </span>
-            <span>{configuration.level1Commission}%</span>
+            <span>{configuration?.level1Commission}%</span>
           </p>
           <p className={listStyle}>
             <span>Level 2 Commission: </span>
-            <span>{configuration.level2Commission}%</span>
+            <span>{configuration?.level2Commission}%</span>
           </p>
           <p className={listStyle+" border-b-0"}>
             <span>Level 3 Commission: </span>
-            <span>{configuration.level3Commission}%</span>
+            <span>{configuration?.level3Commission}%</span>
           </p>
         </section>
         <div className="max-w-md mx-auto">

@@ -39,7 +39,7 @@ const fakeData = {
   ],
   configuration: [
     {
-      transferAddress: "TSarEYNTV9eupDFfGGLf9oHMVnTRNxs9E6&778jhjhHHuyi",
+      transferAddress: "TSarEYNTV9eupDFfGGLf9oHMVnTRNxs9E6",
       minimumRecharge: 10, // USDT
       minimumWithdraw: 6, // USDT
       withdrawFee: 3, // %
@@ -48,7 +48,6 @@ const fakeData = {
       level1Commission: 14, // %
       level2Commission: 7, // %
       level3Commission: 4, // %
-      defaultUserImagePath: "/images/avatar/avatar1.png",
     },
   ],
 };
