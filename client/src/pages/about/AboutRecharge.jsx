@@ -1,14 +1,14 @@
 import { Link, useRouteLoaderData } from "react-router-dom";
 
 const AboutRecharge = () => {
-  const { minimumRecharge } = useRouteLoaderData("configuration");
+  const configuration = useRouteLoaderData("configuration");
 
   return (
     <section className="px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">About Recharge</h1>
       <div className="bg-mySecondary p-3 rounded-md">
         <p>
-          The minimum value of recharge is {minimumRecharge} USDT, only USDT is
+          The minimum value of recharge is {configuration?.minimumRecharge} USDT, only USDT is
           supported for recharge, if you use other currencies for recharge, the
           funds will not be returned and the user will bear the loss.
         </p>

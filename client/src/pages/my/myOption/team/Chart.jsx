@@ -1,9 +1,12 @@
 import { useRouteLoaderData } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const Chart = ({user}) => {
   const configuration = useRouteLoaderData("configuration");
   const { transaction, team } = user;
-  
+  if (configuration) {
+    toast.error("Configuration not found")
+  }
   // functions
   const countActiveMembers = (level) => {
     let activeMembersCount = 0;

@@ -1,7 +1,7 @@
 import { useRouteLoaderData } from "react-router-dom";
 
 const AboutTeam = () => {
-  const { level1Commission, level2Commission, level3Commission } =
+  const configuration =
     useRouteLoaderData("configuration");
 
   return (
@@ -19,15 +19,15 @@ const AboutTeam = () => {
           different levels of team commissions.
         </p>
         <li>
-          Level 1 team members receive {level1Commission}% of the proceeds of
+          Level 1 team members receive {configuration?.level1Commission}% of the proceeds of
           their orders as your team commission.
         </li>
         <li>
-          Level 2 team members receive {level2Commission}% of the proceeds of
+          Level 2 team members receive {configuration?.level2Commission}% of the proceeds of
           their orders as your team commission.
         </li>
         <li>
-          Level 3 team members receive {level3Commission}% of the proceeds of
+          Level 3 team members receive {configuration?.level3Commission}% of the proceeds of
           their orders as your team commission.
         </li>
       </div>
