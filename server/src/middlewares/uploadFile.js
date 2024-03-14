@@ -5,17 +5,25 @@ const fs = require("fs");
 const sharp = require("sharp");
 const { mainDirectory } = require("../config/config");
 const cloudinary = require("../config/cloudinaryConfig");
+const createHttpError = require("http-errors");
 
 const assetsFilePath = path.resolve(mainDirectory, "./assets");
 
 // apk upload
 const apkFilter = async (req, file, cb) => {
-  const extension = path.extname(file.originalname);
-  if (extension !== ".apk") {
-    throw createHttpError("Please upload .apk file");
+  try {
+    // check if its .apk file
+    const extension = path.extname(file.originalname);
+    if (extension !== ".apk") {
+      throw createHttpError("Please upload .apk file");
+    }
+    // delete previous file if exist
+    const apkFilePath = assetsFilePath + "/SFCTAI.apk";
+    await deleteFile(apkFilePath);
+    return cb(null, true);
+  } catch (error) {
+    return cb(error, false);
   }
-  await deleteFile(assetsFilePath + "/SFCTAI.apk");
-  return cb(null, true);
 };
 
 const apkStorage = multer.diskStorage({
