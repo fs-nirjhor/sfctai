@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const Chart = ({user}) => {
   const configuration = useRouteLoaderData("configuration");
   const { transaction, team } = user;
-  if (configuration) {
+  if (!configuration) {
     toast.error("Configuration not found")
   }
   // functions
