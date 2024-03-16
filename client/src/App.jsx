@@ -30,7 +30,7 @@ function App() {
           <Outlet />
           <ToastContainer
             position="top-center"
-            toastClassName="font-serif"
+            toastClassName="font-serif m-3 rounded shadow"
             className="top-1/2"
             autoClose={5000}
             hideProgressBar={true}
