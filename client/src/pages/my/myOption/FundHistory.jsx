@@ -116,7 +116,6 @@ const FundHistory = () => {
             const createdDate = moment(transaction.createdAt).format(
               "DD/MM/YYYY HH:mm:ss"
             );
-            console.log(transaction);
             return (
               <div
                 key={transaction._id}

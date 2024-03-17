@@ -25,8 +25,8 @@ const TxidSubmit = () => {
         transaction,
       });
       if (res.data?.success) {
-        toast.success("TXID submitted")
-        window.location.reload();
+        toast.success("TXID submitted");
+        // window.location.reload();
         navigate("/my");
       }
     } catch (err) {
