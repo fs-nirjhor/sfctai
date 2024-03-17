@@ -4,12 +4,12 @@ import { useLocation, useNavigate, useRouteLoaderData } from "react-router-dom";
 import Loading from "../../shared/Loading";
 import moment from "moment";
 import { toast } from "react-toastify";
-import Pagination from './../../shared/Pagination';
+import Pagination from "./../../shared/Pagination";
 
 const FundHistory = () => {
   const loggedUser = useRouteLoaderData("user");
-  const {state} = useLocation();
-  const user = state || loggedUser
+  const { state } = useLocation();
+  const user = state || loggedUser;
 
   const navigate = useNavigate();
   const [transactions, setTransactions] = useState([]);
@@ -77,7 +77,7 @@ const FundHistory = () => {
       <section className="sticky top-0 bg-myBg pb-3">
         <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
         {/* pagination */}
-        <Pagination page={page} setPage={setPage} pagination={pagination}/>
+        <Pagination page={page} setPage={setPage} pagination={pagination} />
         {/* fund nav */}
         <div className="bg-mySecondary grid grid-cols-3 justify-between mt-3 text-center rounded">
           <span
@@ -116,6 +116,7 @@ const FundHistory = () => {
             const createdDate = moment(transaction.createdAt).format(
               "DD/MM/YYYY HH:mm:ss"
             );
+            console.log(transaction);
             return (
               <div
                 key={transaction._id}
@@ -154,7 +155,7 @@ const FundHistory = () => {
                 >
                   {!transaction.isApproved && transaction.category == "Recharge"
                     ? "__"
-                    : transaction.amount.toFixed(2)}
+                    : transaction.amount}
                 </p>
               </div>
             );
