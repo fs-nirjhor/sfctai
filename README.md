@@ -1,1 +1,1 @@
-## [Live Website](https://www.sfctai.com)
+## [Visit Website](https://www.sfctai.com)
