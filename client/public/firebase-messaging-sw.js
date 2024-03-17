@@ -48,15 +48,22 @@ const handleBackgroundNotifications = () => {
           renotify: true,
           data: {
             link: data?.link,
-          }
+          },
         };
-        // send notification 
-        self.registration.showNotification(notificationTitle, notificationOptions);
+        // send notification
+        self.addEventListener("push", function (event) {
+          event.waitUntil(
+            self.registration.showNotification(
+              notificationTitle,
+              notificationOptions
+            )
+          );
+        });
       });
       // add link on notification
       self.addEventListener("notificationclick", function (event) {
         //console.log(event)
-        const link = event.notification?.data?.link
+        const link = event.notification?.data?.link;
         if (link) {
           event.notification.close();
           event.waitUntil(clients.openWindow(link));
@@ -64,10 +71,8 @@ const handleBackgroundNotifications = () => {
       });
     } //// end: if (messaging)
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   }
 };
 
 handleBackgroundNotifications();
-
-
