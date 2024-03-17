@@ -10,22 +10,24 @@ const Logout = () => {
   //const navigate = useNavigate();
   const user = useRouteLoaderData("user");
   const [deviceId, setDeviceId] = useState("");
-  
+
   useEffect(() => {
     // get device id for notification
-     (async() => {
+    (async () => {
       try {
         const fcmSupport = await isSupported();
         if (fcmSupport) {
-          const { requestToken } = await import("../../configuration/UseNotification.jsx");
-          const token = await requestToken()
+          const { requestToken } = await import(
+            "../../configuration/UseNotification.jsx"
+          );
+          const token = await requestToken();
           setDeviceId(token);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     })();
-  }, [])
+  }, []);
 
   const handleClick = async () => {
     event.preventDefault();
@@ -42,7 +44,7 @@ const Logout = () => {
       localStorage.removeItem("accessToken");
 
       toast.success("Logout Successful");
-      window.location.replace("/");
+      window.location.reload();
       //navigate("/login");
     } catch (err) {
       if (err.response?.data.message) {
