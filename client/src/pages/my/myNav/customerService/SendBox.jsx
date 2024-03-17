@@ -1,17 +1,13 @@
-import { useParams, useRouteLoaderData } from "react-router-dom";
 import InputEmoji from "react-input-emoji";
 import { FaImage } from "react-icons/fa";
 import UseChat from "./UseChat";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const SendBox = () => {
+const SendBox = ({ clientId, user }) => {
   const { sendMessage } = UseChat();
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
-  const user = useRouteLoaderData("user");
-  const { client } = useParams();
-  const clientId = client || user._id;
 
   const handleSubmit = async () => {
     event.preventDefault();
@@ -23,7 +19,7 @@ const SendBox = () => {
           image: image,
           sender: user._id,
           client: clientId,
-         };
+        };
         await sendMessage(messageData);
         setText("");
         setImage(null);
