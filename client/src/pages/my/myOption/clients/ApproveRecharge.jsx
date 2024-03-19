@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 const ApproveRecharge = ({ id, pendingRecharge }) => {
   const [approveRechargeAmount, setApproveRechargeAmount] = useState("");
+  const [processing, setProcessing] = useState(false);
 
   const handleApproveRecharge = async (transactionId) => {
     event.preventDefault();
@@ -17,6 +18,7 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
         amount: approveRechargeAmount,
         transactionId,
       };
+      setProcessing(true);
       const response = await transactionApi.put("add-recharge", { recharge });
       if (response.data?.success) {
         toast.success("Recharge successfully approved");
@@ -35,6 +37,7 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
     event.preventDefault();
     try {
       toast.loading("Rejecting...", { toastId: "reject-recharge-loading" });
+      setProcessing(true);
       const response = await transactionApi.put(`reject/${transactionId}`);
       toast.dismiss("reject-recharge-loading");
       if (response.data?.success) {
@@ -70,13 +73,17 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
             />
             <button
               onClick={() => handleApproveRecharge(recharge._id)}
-              className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-1/6"
+              className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-1/6 ${
+                processing && "btn-disabled"
+              }`}
             >
               Approve
             </button>
             <button
               onClick={() => handleRejectRecharge(recharge._id)}
-              className="btn btn-error text-white btn-sm join-item w-1/6"
+              className={`btn btn-error text-white btn-sm join-item w-1/6 ${
+                processing && "btn-disabled"
+              }`}
             >
               Reject
             </button>

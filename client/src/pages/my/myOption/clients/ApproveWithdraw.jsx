@@ -2,8 +2,8 @@ import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import moment from "moment";
 
-const ApproveWithdraw = ({id, pendingWithdraw }) => {
-
+const ApproveWithdraw = ({ id, pendingWithdraw }) => {
+  const [processing, setProcessing] = useState(false);
   const handleApproveWithdraw = async (transactionId) => {
     event.preventDefault();
     try {
@@ -12,6 +12,7 @@ const ApproveWithdraw = ({id, pendingWithdraw }) => {
         isApproved: true,
       };
       toast.loading("Approving...", { toastId: "approve-withdraw-loading" });
+      setProcessing(true);
       const response = await transactionApi.put(`approve/${transactionId}`, {
         updates,
       });
@@ -34,6 +35,7 @@ const ApproveWithdraw = ({id, pendingWithdraw }) => {
     event.preventDefault();
     try {
       toast.loading("Rejecting...", { toastId: "reject-withdraw-loading" });
+      setProcessing(true);
       const response = await transactionApi.put(`reject/${transactionId}`);
       toast.dismiss("reject-withdraw-loading");
       if (response.data?.success) {
@@ -72,13 +74,17 @@ const ApproveWithdraw = ({id, pendingWithdraw }) => {
               <p className="text-sm">Time: {createdDate}</p>
               <div className="flex gap-3 mt-3">
                 <button
-                  className="btn btn-warning btn-sm bg-myPrimary text-white"
+                  className={`btn btn-warning btn-sm bg-myPrimary text-white ${
+                    processing && "btn-disabled"
+                  }`}
                   onClick={() => handleApproveWithdraw(withdraw._id)}
                 >
                   Approve
                 </button>
                 <button
-                  className="btn btn-warning btn-sm bg-myPrimary text-white"
+                  className={`btn btn-warning btn-sm bg-myPrimary text-white ${
+                    processing && "btn-disabled"
+                  }`}
                   onClick={() => handleRejectWithdraw(withdraw._id)}
                 >
                   Reject
