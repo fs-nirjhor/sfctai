@@ -12,6 +12,7 @@ const Withdraw = () => {
   const { withdrawFee, minimumWithdraw } = useRouteLoaderData("configuration");
   const [serviceCharge, setServiceCharge] = useState(0);
   const [actualAmount, setActualAmount] = useState(0);
+  const [processing, setProcessing] = useState(false);
 
   const {
     register,
@@ -85,6 +86,7 @@ const Withdraw = () => {
         const progress = progressEvent.loaded / progressEvent.total;
         toast.update("withdraw-loading", { progress });
       };
+      setProcessing(true);
       const res = await transactionApi.post("withdraw-request", formData, {
         onUploadProgress,
       });
@@ -221,7 +223,9 @@ const Withdraw = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn bg-white text-black font-semibold w-full mt-5"
+            className={`btn bg-white text-black font-semibold w-full mt-5 ${
+              processing && "btn-disabled"
+            }`}
           >
             Withdraw
           </button>
