@@ -6,7 +6,7 @@ import { transactionApi, userApi } from "../../../../router/axiosApi";
 import DeleteConfirm from "./../set/DeleteConfirm";
 import ApproveRecharge from "./ApproveRecharge";
 import ApproveWithdraw from "./ApproveWithdraw";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import moment from "moment";
 
 const Client = () => {
@@ -20,6 +20,7 @@ const Client = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [withdrawalPassword, setWithdrawalPassword] = useState("");
   const [loading, setLoading] = useState(true);
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
     // get client data
@@ -48,9 +49,12 @@ const Client = () => {
           isRejected: false,
           category: { $ne: "Order" },
         };
-        const pendingTransactionData = await transactionApi.post("", { filter });
+        const pendingTransactionData = await transactionApi.post("", {
+          filter,
+        });
         if (pendingTransactionData.data?.success) {
-          const pendingTransactions = pendingTransactionData?.data?.payload?.allTransaction;
+          const pendingTransactions =
+            pendingTransactionData?.data?.payload?.allTransaction;
           const recharges = pendingTransactions.filter(
             (transaction) => transaction.category == "Recharge"
           );
@@ -58,7 +62,7 @@ const Client = () => {
             (transaction) => transaction.category == "Withdraw"
           );
           setPendingRecharge(recharges);
-          setPendingWithdraw(withdraws)
+          setPendingWithdraw(withdraws);
         }
       } catch (err) {
         if (err.response.data.message) {
@@ -75,9 +79,10 @@ const Client = () => {
   const handleUpdate = async (update) => {
     event.preventDefault();
     try {
+      setProcessing(true);
       const res = await userApi.put(client._id, update);
       if (res.data?.success) {
-        toast.success("Updated successfully")
+        toast.success("Updated successfully");
         window.location.reload();
       }
     } catch (err) {
@@ -105,6 +110,7 @@ const Client = () => {
         category: "Recharge",
         isApproved: true,
       };
+      setProcessing(true);
       const res = await transactionApi.post("recharge-request", {
         transaction,
       });
@@ -112,7 +118,7 @@ const Client = () => {
       const recharge = { client: client._id, amount: bonusAmount };
       const response = await transactionApi.put("add-recharge", { recharge });
       if (res.data?.success && response.data?.success) {
-        toast.success("Recharge successfully")
+        toast.success("Recharge successfully");
         setBonusAmount("");
         window.location.reload();
       }
@@ -124,9 +130,7 @@ const Client = () => {
       }
     }
   };
-  const dateOfBirth = moment(client.dateOfBirth).format(
-    "DD/MM/YYYY"
-  );
+  const dateOfBirth = moment(client.dateOfBirth).format("DD/MM/YYYY");
   const doubleBoxStyle = "grid grid-cols-2 p-2 gap-3";
   const singleBoxStyle = "p-2";
   return loading ? (
@@ -138,7 +142,8 @@ const Client = () => {
         <figure className="avatar w-full">
           <div
             className={`w-24 h-24 mx-auto rounded-full ring ${
-              client.transaction?.balance >= 10 || client.transaction?.isOrderPending 
+              client.transaction?.balance >= 10 ||
+              client.transaction?.isOrderPending
                 ? "ring-myPrimary"
                 : "ring-mySecondary"
             }`}
@@ -186,27 +191,25 @@ const Client = () => {
           </div>
           {/* Email - Date of birth */}
           <div className={doubleBoxStyle}>
-            <div className="overflow-x-auto">
-              Email: {client.email}
-            </div>
+            <div className="overflow-x-auto">Email: {client.email}</div>
             <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
           {/* Team and fund history */}
           <div className={doubleBoxStyle}>
-          <Link
-            to="team"
-            className="btn btn-warning btn-sm text-white"
-            state={client}
-          >
-            Team
-          </Link>
-          <Link
-            to="fund-history"
-            className="btn btn-warning btn-sm text-white"
-            state={client}
-          >
-            Fund History
-          </Link>
+            <Link
+              to="team"
+              className="btn btn-warning btn-sm text-white"
+              state={client}
+            >
+              Team
+            </Link>
+            <Link
+              to="fund-history"
+              className="btn btn-warning btn-sm text-white"
+              state={client}
+            >
+              Fund History
+            </Link>
           </div>
           {/* change phone */}
           <div>
@@ -318,7 +321,9 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                  className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6 ${
+                    processing && "btn-disabled"
+                  }`}
                 >
                   Bonus
                 </button>
@@ -327,11 +332,17 @@ const Client = () => {
           </div>
           {/* approve recharge */}
           <div className={singleBoxStyle}>
-          <ApproveRecharge id={client._id} pendingRecharge={pendingRecharge}/>
+            <ApproveRecharge
+              id={client._id}
+              pendingRecharge={pendingRecharge}
+            />
           </div>
           {/* approve withdraw */}
           <div className={singleBoxStyle}>
-          <ApproveWithdraw id={client._id} pendingWithdraw={pendingWithdraw}/>
+            <ApproveWithdraw
+              id={client._id}
+              pendingWithdraw={pendingWithdraw}
+            />
           </div>
         </section>
       </section>
