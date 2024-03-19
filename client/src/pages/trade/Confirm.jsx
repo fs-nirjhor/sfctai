@@ -11,6 +11,7 @@ const Confirm = () => {
     new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" })
   );
   const [coin, setCoin] = useState({});
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
     // set coin
@@ -88,11 +89,13 @@ const Confirm = () => {
       coin: coin.symbol,
     };
     try {
+      setProcessing(true);
+      document.getElementById("confirm_dialog").close();
       const res = await transactionApi.post("order-request", { transaction });
 
       if (res.data?.success) {
         toast.success("Trade confirmed");
-        document.getElementById("confirm_dialog").close();
+        setProcessing(false);
         window.location.reload();
       }
     } catch (err) {
@@ -101,6 +104,7 @@ const Confirm = () => {
       } else {
         toast.error(err.message);
       }
+      setProcessing(false);
     }
   };
 
@@ -134,7 +138,12 @@ const Confirm = () => {
           <p className="mb-5 text-center">
             Expect to take 10 to 15 minites to complete the order
           </p>
-          <button className="btn btn-block btn-primary" onClick={handleClick}>
+          <button
+            className={`btn btn-block btn-primary ${
+              processing && "btn-disabled"
+            }`}
+            onClick={handleClick}
+          >
             Confirm
           </button>
         </figure>
