@@ -16,13 +16,13 @@ const Trade = () => {
   const handleClick = () => {
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
-    /* if (!(currentHour >= 10 && currentHour < 22)) {
+    if (!(currentHour >= 10 && currentHour < 22)) {
       return toast.error("Allowed trade time is 10:00 - 22:00 (Arabic Time)");
     } else if (transaction.todaysOrder >= configuration.orderPerDay) {
       return toast.error("Limit Exceeded");
     } else if (transaction.balance < 10) {
       return toast.error("Insufficent Balance");
-    } else */ if (!user.trc20Address) {
+    } else if (!user.trc20Address) {
       return toast.error("Please Bind ID to trade");
     } else {
       return document.getElementById("confirm_dialog").showModal();

@@ -7,6 +7,7 @@ const TxidSubmit = () => {
   const user = useRouteLoaderData("user");
   const [txid, setTxid] = useState("");
   const navigate = useNavigate();
+  const [processing, setProcessing] = useState(false);
 
   const handleSubmit = async () => {
     event.preventDefault();
@@ -21,6 +22,7 @@ const TxidSubmit = () => {
       category: "Recharge",
     };
     try {
+      setProcessing(true);
       const res = await transactionApi.post("recharge-request", {
         transaction,
       });
@@ -60,7 +62,9 @@ const TxidSubmit = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-primary font-semibold w-full mt-5"
+            className={`btn btn-primary font-semibold w-full mt-5 ${
+              processing && "btn-disabled"
+            }`}
           >
             Submit
           </button>
