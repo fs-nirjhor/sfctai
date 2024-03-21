@@ -201,7 +201,7 @@ const Client = () => {
             <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
           {/* Team and fund history */}
-          <div className={doubleBoxStyle}>
+          <div className="grid grid-cols-3 p-2 gap-2">
             <Link
               to="team"
               className="btn btn-warning btn-sm text-white"
@@ -215,6 +215,13 @@ const Client = () => {
               state={client}
             >
               Fund History
+            </Link>
+            <Link
+              to="trade-history"
+              className="btn btn-warning btn-sm text-white"
+              state={client}
+            >
+              Trade History
             </Link>
           </div>
           {/* change phone */}

@@ -75,7 +75,9 @@ const FundHistory = () => {
   ) : (
     <section className="pb-20 px-2">
       <section className="sticky top-0 bg-myBg pb-3">
-        <h1 className="font-semibold text-center pt-2 mb-5">Fund History</h1>
+        <h1 className="font-semibold text-center pt-2 mb-5">
+          {state && state.name + "'s"} Fund History
+        </h1>
         {/* pagination */}
         <Pagination page={page} setPage={setPage} pagination={pagination} />
         {/* fund nav */}

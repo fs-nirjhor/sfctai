@@ -175,6 +175,10 @@ const router = createBrowserRouter([
                 element: <FundHistory />,
               },
               {
+                path: "/client/:userId/trade-history",
+                element: <TradeHistory />,
+              },
+              {
                 path: "/my/client-list",
                 element: <ClientList />,
               },
