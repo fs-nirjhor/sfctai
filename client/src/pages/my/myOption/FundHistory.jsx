@@ -135,6 +135,7 @@ const FundHistory = () => {
                 }`}
                 onClick={() => handleClick(transaction.client._id)}
               >
+                {/* condition */}
                 <p>
                   {transaction.isRejected
                     ? "Rejected"
@@ -144,16 +145,19 @@ const FundHistory = () => {
                     ? "Approved"
                     : "Pending"}
                 </p>
+                {/* admin view */}
                 {user.isAdmin && (
-                  <div className="overflow-x-scroll no-scrollbar text-start flex-grow">
+                  <div className="overflow-x-scroll no-scrollbar text-start ">
                     <p>{transaction.client?.name}</p>
                     <p className="text-xs">{transaction.credential}</p>
                   </div>
                 )}
+                {/* category and time */}
                 <div>
                   <p>{transaction.category}</p>
                   <p className="text-[0.60rem]">{createdDate}</p>
                 </div>
+                {/* amount */}
                 <p
                   className={
                     transaction.category == "Withdraw"
@@ -163,7 +167,7 @@ const FundHistory = () => {
                 >
                   {!transaction.isApproved && transaction.category == "Recharge"
                     ? "__"
-                    : transaction.amount}
+                    : transaction.amount.toFixed(2)}
                 </p>
               </div>
             );
