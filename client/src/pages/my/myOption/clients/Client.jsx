@@ -170,12 +170,18 @@ const Client = () => {
           {/* name - balance */}
           <div className={doubleBoxStyle}>
             <div className="overflow-x-auto">Name: {client.name}</div>
-            <div>Balance: {client.transaction.balance.toFixed(2)}</div>
+            <div>Balance: {client?.transaction?.balance?.toFixed(2)}</div>
           </div>
           {/* phone - income */}
           <div className={doubleBoxStyle}>
             <div>Phone: {client.phone}</div>
-            <div>Income: {client.transaction.totalIncome.toFixed(2)}</div>
+            <div>
+              Income:{" "}
+              {(
+                client?.transaction?.totalIncome +
+                client?.transaction?.totalTeamIncome
+              )?.toFixed(2)}
+            </div>
           </div>
           {/* userid - recharge */}
           <div className={doubleBoxStyle}>
