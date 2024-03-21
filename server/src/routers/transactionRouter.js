@@ -2,14 +2,18 @@ const express = require("express");
 const { isLoggedIn, isAdmin } = require("../middlewares/auth");
 const {
   handleAddTransaction,
-  handleUpdateTransaction,
+  handleApproveTransaction,
   handleWithdrawalRequest,
   handleOrderRequest,
   handleGetTransaction,
   handleAddRecharge,
   handleRejectTransaction,
 } = require("../controllers/transactionController");
-const { uploadWithdrawPhoto, compressWithdrawImage, withdrawImageToCloudinary } = require("../middlewares/uploadFile");
+const {
+  uploadWithdrawPhoto,
+  compressWithdrawImage,
+  withdrawImageToCloudinary,
+} = require("../middlewares/uploadFile");
 
 const transactionRouter = express.Router();
 
@@ -33,7 +37,7 @@ transactionRouter.put(
   "/approve/:id",
   isLoggedIn,
   isAdmin,
-  handleUpdateTransaction
+  handleApproveTransaction
 );
 
 transactionRouter.put(

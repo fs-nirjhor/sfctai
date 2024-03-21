@@ -41,7 +41,7 @@ const Logout = () => {
         };
         await authApi.post("logout", data);
       }
-      localStorage.removeItem("accessToken");
+      await localStorage.removeItem("accessToken");
 
       toast.success("Logout Successful");
       window.location.reload();

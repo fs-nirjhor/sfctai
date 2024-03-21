@@ -116,11 +116,16 @@ const FundHistory = () => {
             const createdDate = moment(transaction.createdAt).format(
               "DD/MM/YYYY HH:mm:ss"
             );
+            if (transaction.amount < 0) {
+              transaction.category = "Reduce";
+            }
             return (
               <div
                 key={transaction._id}
                 className={`flex gap-2 items-center justify-between px-3 py-2 mb-2 text-sm bg-opacity-40 ${
-                  transaction.isRejected
+                  transaction.category == "Reduce"
+                    ? "bg-gray-300"
+                    : transaction.isRejected
                     ? "bg-error"
                     : transaction.isApproved
                     ? "bg-success"
@@ -131,6 +136,8 @@ const FundHistory = () => {
                 <p>
                   {transaction.isRejected
                     ? "Rejected"
+                    : transaction.category == "Reduce"
+                    ? ""
                     : transaction.isApproved
                     ? "Approved"
                     : "Pending"}

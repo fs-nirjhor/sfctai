@@ -44,7 +44,6 @@ const handleGetTransaction = async (req, res, next) => {
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit)
-      .select("-createdAt -updatedAt -__v")
       .populate("client")
       .lean();
 
@@ -70,8 +69,8 @@ const handleGetTransaction = async (req, res, next) => {
 const handleAddTransaction = async (req, res, next) => {
   try {
     const { transaction } = req.body;
-    const { client, amount, credential, category, isApproved} = transaction;
-    const user = await User.findById(client)
+    const { client, amount, credential, category, isApproved } = transaction;
+    const user = await User.findById(client);
 
     // validate transaction
     if (category === "Recharge" && credential) {
@@ -82,48 +81,48 @@ const handleAddTransaction = async (req, res, next) => {
         throw createHttpError(409, "TXID already submitted");
       }
       // set notification data
-    const origin = req.headers.origin;
+      const origin = req.headers.origin;
 
-    const topic = "admin";
-    const link = `${origin}/client/${client}`;
-    const badge = `${origin}/api/assets/icon.png`;
-    const icon = user.avatar;
-    const tag = `transaction-${client}`;
-    const title = `${user.name} request for Recharge`;
-    const body = `Credential: ${credential} \nName: ${user.name} \nID: ${user.userId}`;
+      const topic = "admin";
+      const link = `${origin}/client/${client}`;
+      const badge = `${origin}/api/assets/icon.png`;
+      const icon = user.avatar;
+      const tag = `transaction-${client}`;
+      const title = `${user.name} request for Recharge`;
+      const body = `Credential: ${credential} \nName: ${user.name} \nID: ${user.userId}`;
 
-    const notificationData = {
-      topic: topic,
-      data: {
-        title: title,
-        body: body,
-        icon: icon,
-        badge: badge,
-        link: link,
-        tag: tag,
-      },
-      android: {
-        notification: {
+      const notificationData = {
+        topic: topic,
+        data: {
           title: title,
           body: body,
-          icon: badge,
-          color: "#38bdf8",
-          clickAction: link,
+          icon: icon,
+          badge: badge,
+          link: link,
+          tag: tag,
         },
-      },
-      apns: {
-        payload: {
-          aps: {
-            "mutable-content": 1,
+        android: {
+          notification: {
+            title: title,
+            body: body,
+            icon: badge,
+            color: "#38bdf8",
+            clickAction: link,
           },
         },
-        fcm_options: {
-          image: badge,
+        apns: {
+          payload: {
+            aps: {
+              "mutable-content": 1,
+            },
+          },
+          fcm_options: {
+            image: badge,
+          },
         },
-      },
-    };
-    // send notification
-    await messaging.send(notificationData);
+      };
+      // send notification
+      await messaging.send(notificationData);
     }
 
     // add new transaction
@@ -156,7 +155,7 @@ const handleAddRecharge = async (req, res, next) => {
 
     // approve transaction
     if (transactionId) {
-       await updateItemById(
+      await updateItemById(
         Transaction,
         transactionId,
         { isApproved: true, amount },
@@ -187,13 +186,15 @@ const handleAddRecharge = async (req, res, next) => {
     // set notification data
     const origin = req.headers.origin;
 
-    const topic = client+"";
+    const topic = client + "";
     const link = `${origin}/my/fund-history`;
     const badge = `${origin}/api/assets/icon.png`;
     const icon = `${origin}/api/assets/icon.png`;
     const tag = `transaction-${client}`;
     const title = "Balance Added!";
-    const body = `Amount: $${amount} \nBalance: $${updatedUser.transaction.balance.toFixed(2)} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;
+    const body = `Amount: $${amount} \nBalance: $${updatedUser.transaction.balance.toFixed(
+      2
+    )} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;
 
     const notificationData = {
       topic: topic,
@@ -536,7 +537,7 @@ const handleRejectTransaction = async (req, res, next) => {
     // set notification data
     const origin = req.headers.origin;
 
-    const topic = rejectedTransaction.client+"";
+    const topic = rejectedTransaction.client + "";
     const link = `${origin}/client/${rejectedTransaction.client}`;
     const badge = `${origin}/api/assets/icon.png`;
     const icon = `${origin}/api/assets/icon.png`;
@@ -587,7 +588,7 @@ const handleRejectTransaction = async (req, res, next) => {
   }
 };
 
-const handleUpdateTransaction = async (req, res, next) => {
+const handleApproveTransaction = async (req, res, next) => {
   try {
     const id = req.params.id;
     const { updates } = req.body;
@@ -618,48 +619,48 @@ const handleUpdateTransaction = async (req, res, next) => {
         approvedTransaction.photo
       );
       // set notification data
-    const origin = req.headers.origin;
+      const origin = req.headers.origin;
 
-    const topic = approvedTransaction.client+"";
-    const link = `${origin}/my/fund-history`;
-    const badge = `${origin}/api/assets/icon.png`;
-    const icon = `${origin}/api/assets/icon.png`;
-    const tag = `transaction-${approvedTransaction.client}`;
-    const title = "Withdraw Approved!";
-    const body = `Amount: $${approvedTransaction.amount} \nCredential: ${approvedTransaction.credential}`;
+      const topic = approvedTransaction.client + "";
+      const link = `${origin}/my/fund-history`;
+      const badge = `${origin}/api/assets/icon.png`;
+      const icon = `${origin}/api/assets/icon.png`;
+      const tag = `transaction-${approvedTransaction.client}`;
+      const title = "Withdraw Approved!";
+      const body = `Amount: $${approvedTransaction.amount} \nCredential: ${approvedTransaction.credential}`;
 
-    const notificationData = {
-      topic: topic,
-      data: {
-        title: title,
-        body: body,
-        icon: icon,
-        badge: badge,
-        link: link,
-        tag: tag,
-      },
-      android: {
-        notification: {
+      const notificationData = {
+        topic: topic,
+        data: {
           title: title,
           body: body,
-          icon: badge,
-          color: "#38bdf8",
-          clickAction: link,
+          icon: icon,
+          badge: badge,
+          link: link,
+          tag: tag,
         },
-      },
-      apns: {
-        payload: {
-          aps: {
-            "mutable-content": 1,
+        android: {
+          notification: {
+            title: title,
+            body: body,
+            icon: badge,
+            color: "#38bdf8",
+            clickAction: link,
           },
         },
-        fcm_options: {
-          image: badge,
+        apns: {
+          payload: {
+            aps: {
+              "mutable-content": 1,
+            },
+          },
+          fcm_options: {
+            image: badge,
+          },
         },
-      },
-    };
-    // send notification
-    await messaging.send(notificationData);
+      };
+      // send notification
+      await messaging.send(notificationData);
     }
 
     return successResponse(res, {
@@ -678,6 +679,6 @@ module.exports = {
   handleWithdrawalRequest,
   handleOrderRequest,
   handleGetTransaction,
-  handleUpdateTransaction,
+  handleApproveTransaction,
   handleRejectTransaction,
 };
