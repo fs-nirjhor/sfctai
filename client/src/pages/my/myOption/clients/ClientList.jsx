@@ -26,9 +26,9 @@ const ClientList = () => {
         }
         setLoading(false);
       } catch (err) {
-        setClients([])
-        setPagination({})
-        setMessage("No users found")
+        setClients([]);
+        setPagination({});
+        setMessage("No users found");
         setLoading(false);
         if (err.response.data.message) {
           toast.error(err.response.data.message); // error sent by server
@@ -46,13 +46,11 @@ const ClientList = () => {
     setPage(1);
   };
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <div className="pb-20 px-2">
       <section className="sticky top-0 bg-myBg pb-3">
         <h1 className="font-semibold text-center pt-2 mb-5">Client List</h1>
-        <div className="w-full max-w-lg mx-auto mb-3 shadow-md" >
+        <div className="w-full max-w-lg mx-auto mb-3 shadow-md">
           <input
             type="text"
             placeholder="Search Clients"
@@ -62,25 +60,29 @@ const ClientList = () => {
           />
         </div>
         <p className="text-center text-white mb-2 font-semibold">{message}</p>
-        <Pagination page={page} setPage={setPage} pagination={pagination}/>
+        <Pagination page={page} setPage={setPage} pagination={pagination} />
       </section>
       <section>
-        {clients.map((client) => {
-          return (
-            <Link
-              to={`/client/${client._id}`}
-              key={client._id}
-              className={`hover:bg-mySecondary p-2 border-b-2 block shadow-sm ${
-                client.transaction?.balance >= 10 ||
-                client.transaction?.isOrderPending
-                  ? "text-myPrimary"
-                  : "text-black"
-              }`}
-            >
-              {client.name}
-            </Link>
-          );
-        })}
+        {loading ? (
+          <Loading />
+        ) : (
+          clients.map((client) => {
+            return (
+              <Link
+                to={`/client/${client._id}`}
+                key={client._id}
+                className={`hover:bg-mySecondary p-2 border-b-2 block shadow-sm ${
+                  client.transaction?.balance >= 10 ||
+                  client.transaction?.isOrderPending
+                    ? "text-myPrimary"
+                    : "text-black"
+                }`}
+              >
+                {client.name}
+              </Link>
+            );
+          })
+        )}
       </section>
     </div>
   );
