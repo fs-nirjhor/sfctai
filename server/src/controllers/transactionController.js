@@ -56,7 +56,6 @@ const handleGetTransaction = async (req, res, next) => {
   }
 };
 
-//! new
 const handleBonus = async (req, res, next) => {
   try {
     const { transaction } = req.body;
@@ -158,7 +157,6 @@ const handleBonus = async (req, res, next) => {
   }
 };
 
-//! new
 const handleReduce = async (req, res, next) => {
   try {
     const { transaction } = req.body;
@@ -259,7 +257,7 @@ const handleReduce = async (req, res, next) => {
     next(error);
   }
 };
-//! new
+
 const handleRechargeRequest = async (req, res, next) => {
   try {
     const { transaction } = req.body;
@@ -332,7 +330,7 @@ const handleRechargeRequest = async (req, res, next) => {
     next(error);
   }
 };
-//! new
+
 const handleApproveRecharge = async (req, res, next) => {
   try {
     const { recharge } = req.body;
@@ -672,6 +670,90 @@ const handleWithdrawalRequest = async (req, res, next) => {
   }
 };
 
+const handleApproveWithdraw = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updateData = { isApproved: true, isPending: false };
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+    };
+
+    const approvedTransaction = await updateItemById(
+      Transaction,
+      id,
+      updateData,
+      updateOptions
+    );
+
+    if (!approvedTransaction) {
+      throw new Error(`Failed to approve withdraw`);
+    }
+
+    // delete image from server // not in use
+    /* const filePath =
+      approvedTransaction.photo?.replace("api", mainDirectory);
+      await deleteFile(filePath); */
+
+    // delete image from cloudinary
+    const deletedImage = await deleteImageBySecureUrl(
+      approvedTransaction.photo
+    );
+    // set notification data
+    const origin = req.headers.origin;
+
+    const topic = approvedTransaction.client + "";
+    const link = `${origin}/my/fund-history`;
+    const badge = `${origin}/api/assets/icon.png`;
+    const icon = `${origin}/api/assets/icon.png`;
+    const tag = `transaction-${approvedTransaction.client}`;
+    const title = "Withdraw Approved!";
+    const body = `Amount: $${approvedTransaction.amount} \nCredential: ${approvedTransaction.credential}`;
+
+    const notificationData = {
+      topic: topic,
+      data: {
+        title: title,
+        body: body,
+        icon: icon,
+        badge: badge,
+        link: link,
+        tag: tag,
+      },
+      android: {
+        notification: {
+          title: title,
+          body: body,
+          icon: badge,
+          color: "#38bdf8",
+          clickAction: link,
+        },
+      },
+      apns: {
+        payload: {
+          aps: {
+            "mutable-content": 1,
+          },
+        },
+        fcm_options: {
+          image: badge,
+        },
+      },
+    };
+    // send notification
+    await messaging.send(notificationData);
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: `Withdraw approved successfully`,
+      payload: { approvedTransaction },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const handleRejectTransaction = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -771,91 +853,6 @@ const handleRejectTransaction = async (req, res, next) => {
       statusCode: 200,
       message: `${rejectedTransaction.category} approved successfully`,
       payload: { rejectedTransaction },
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-//! new
-const handleApproveWithdraw = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const updateData = { isApproved: true, isPending: false };
-    const updateOptions = {
-      new: true,
-      runValidators: true,
-      context: "query",
-    };
-
-    const approvedTransaction = await updateItemById(
-      Transaction,
-      id,
-      updateData,
-      updateOptions
-    );
-
-    if (!approvedTransaction) {
-      throw new Error(`Failed to approve withdraw`);
-    }
-
-    // delete image from server // not in use
-    /* const filePath =
-      approvedTransaction.photo?.replace("api", mainDirectory);
-      await deleteFile(filePath); */
-
-    // delete image from cloudinary
-    const deletedImage = await deleteImageBySecureUrl(
-      approvedTransaction.photo
-    );
-    // set notification data
-    const origin = req.headers.origin;
-
-    const topic = approvedTransaction.client + "";
-    const link = `${origin}/my/fund-history`;
-    const badge = `${origin}/api/assets/icon.png`;
-    const icon = `${origin}/api/assets/icon.png`;
-    const tag = `transaction-${approvedTransaction.client}`;
-    const title = "Withdraw Approved!";
-    const body = `Amount: $${approvedTransaction.amount} \nCredential: ${approvedTransaction.credential}`;
-
-    const notificationData = {
-      topic: topic,
-      data: {
-        title: title,
-        body: body,
-        icon: icon,
-        badge: badge,
-        link: link,
-        tag: tag,
-      },
-      android: {
-        notification: {
-          title: title,
-          body: body,
-          icon: badge,
-          color: "#38bdf8",
-          clickAction: link,
-        },
-      },
-      apns: {
-        payload: {
-          aps: {
-            "mutable-content": 1,
-          },
-        },
-        fcm_options: {
-          image: badge,
-        },
-      },
-    };
-    // send notification
-    await messaging.send(notificationData);
-
-    return successResponse(res, {
-      statusCode: 200,
-      message: `Withdraw approved successfully`,
-      payload: { approvedTransaction },
     });
   } catch (error) {
     next(error);
