@@ -1,5 +1,10 @@
 const { model, Schema } = require("mongoose");
 
+const positiveAmount = {
+  type: Number,
+  min: [0, "Too less amount"],
+  default: 0,
+};
 const transactionSchema = new Schema(
   {
     client: {
@@ -11,20 +16,18 @@ const transactionSchema = new Schema(
       type: String,
       default: "",
     },
-    amount: {
-      type: Number,
-      default: 0,
-    },
+    amount: positiveAmount,
     // without fee
-    withDrawAmount: {
-      type: Number,
-    },
+    withDrawAmount: positiveAmount,
     photo: { type: String },
-    estimateRevenue: {
-      type: Number,
-    },
+    // order
+    estimateRevenue: positiveAmount,
     coin: {
       type: String,
+    },
+    isPending: {
+      type: Boolean,
+      default: true,
     },
     isApproved: {
       type: Boolean,
@@ -44,10 +47,11 @@ const transactionSchema = new Schema(
               value == "Recharge" ||
               value == "Withdraw" ||
               value == "Order" ||
-              value == "Income"
+              value == "Bonus" ||
+              value == "Reduce"
             );
           },
-          message: "Only recharge and withdraw transaction will be reserved",
+          message: "Invalid category",
         },
       ],
     },

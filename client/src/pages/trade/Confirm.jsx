@@ -79,6 +79,9 @@ const Confirm = () => {
   const orderAmount = Number(currentBalance - estimateRevenue);
 
   const handleClick = async () => {
+    if (processing) {
+      return toast.error("Try again later");
+    }
     // order data
     const transaction = {
       client: user._id,

@@ -8,6 +8,9 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
 
   const handleApproveRecharge = async (transactionId) => {
     event.preventDefault();
+    if (processing) {
+      return toast.error("Try again later");
+    }
     if (!approveRechargeAmount) {
       return toast.error("Please enter recharge amount");
     }
@@ -19,13 +22,17 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
         transactionId,
       };
       setProcessing(true);
-      const response = await transactionApi.put("add-recharge", { recharge });
+      const response = await transactionApi.put("approve-recharge", {
+        recharge,
+      });
       if (response.data?.success) {
         toast.success("Recharge successfully approved");
         setApproveRechargeAmount("");
+        setProcessing(false);
         window.location.reload();
       }
     } catch (err) {
+      setProcessing(false);
       if (err.response.data.message) {
         toast.error(err.response.data.message); // error sent by server
       } else {

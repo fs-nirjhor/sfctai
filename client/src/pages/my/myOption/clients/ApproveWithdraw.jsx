@@ -8,23 +8,21 @@ const ApproveWithdraw = ({ id, pendingWithdraw }) => {
   const handleApproveWithdraw = async (transactionId) => {
     event.preventDefault();
     try {
-      const updates = {
-        client: id,
-        isApproved: true,
-      };
       toast.loading("Approving...", { toastId: "approve-withdraw-loading" });
       setProcessing(true);
-      const response = await transactionApi.put(`approve/${transactionId}`, {
-        updates,
-      });
+      const response = await transactionApi.put(
+        `approve-withdraw/${transactionId}`
+      );
       toast.dismiss("approve-withdraw-loading");
       if (response.data?.success) {
         toast.success("Withdraw successfully approved");
+        setProcessing(false);
         window.location.reload();
       }
     } catch (err) {
       toast.dismiss("approve-withdraw-loading");
       if (err.response.data.message) {
+        setProcessing(false);
         toast.error(err.response.data.message); // error sent by server
       } else {
         toast.error(err.message); // other error

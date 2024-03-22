@@ -11,6 +11,9 @@ const TxidSubmit = () => {
 
   const handleSubmit = async () => {
     event.preventDefault();
+    if (processing) {
+      return toast.error("Try again later");
+    }
     if (txid.length !== 12) {
       return toast.error("Invalid TXID");
     }

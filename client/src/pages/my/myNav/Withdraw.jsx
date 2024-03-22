@@ -45,7 +45,9 @@ const Withdraw = () => {
 
   const onSubmit = async (data) => {
     event.preventDefault();
-
+    if (processing) {
+      return toast.error("Try again later");
+    }
     // transaction data
     const formData = new FormData();
     formData.append("client", user._id);

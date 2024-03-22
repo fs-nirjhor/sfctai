@@ -12,32 +12,32 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
     const tenMinutesAgo = new Date();
     tenMinutesAgo.setMinutes(tenMinutesAgo.getMinutes() - 10);
     // approved orders
-    const approvedOrders = await Transaction.find({
+    const ordersToApproved = await Transaction.find({
       category: "Order",
       createdAt: { $lte: tenMinutesAgo.toISOString() },
       isApproved: false,
     });
 
-    if (approvedOrders.length) {
+    if (ordersToApproved.length) {
       const updateOptions = {
         new: true,
         runValidators: true,
         context: "query",
       };
       // approve order
-      const ordersToApproved = await Transaction.updateMany(
+      const approvedOrders = await Transaction.updateMany(
         {
           category: "Order",
           createdAt: { $lte: tenMinutesAgo.toISOString() },
           isApproved: false,
         },
-        { isApproved: true },
+        { isApproved: true, isPending: false },
         updateOptions
       );
 
-      if (ordersToApproved.modifiedCount) {
+      if (approvedOrders.modifiedCount) {
         // update user on order successs
-        for (const order of approvedOrders) {
+        for (const order of ordersToApproved) {
           const orderAmount = Number(order.amount);
           const estimateRevenue = Number(order.estimateRevenue);
           // site configuration
@@ -131,9 +131,8 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
         } // for
       } // if modifiedCount
     } // if orders length
-    logger.info(`${approvedOrders.length} orders approved.`);
+    logger.info(`${ordersToApproved.length} orders approved.`);
   } catch (error) {
-    console.log(error);
     throw createHttpError(400, `Approve trade failed: ${error.message}`);
   }
 });
@@ -168,7 +167,7 @@ const todayScheduler = cron.schedule("0 0 0/3 * * *", async () => {
           "transaction.todaysOrderAmount": 0,
           "transaction.lastResetTimestamp": currentTime.toDateString(),
         },
-      }, 
+      },
       updateOptions
     );
     logger.info(`${updateResult.modifiedCount || 0} todays data reset.`);

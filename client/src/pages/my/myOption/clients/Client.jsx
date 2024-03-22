@@ -15,6 +15,7 @@ const Client = () => {
   const [pendingRecharge, setPendingRecharge] = useState([]);
   const [pendingWithdraw, setPendingWithdraw] = useState([]);
   const [bonusAmount, setBonusAmount] = useState("");
+  const [reduceAmount, setReduceAmount] = useState("");
   const [trc20Address, setTrc20Address] = useState("");
   const [phone, setPhone] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -78,6 +79,9 @@ const Client = () => {
 
   const handleUpdate = async (update) => {
     event.preventDefault();
+    if (processing) {
+      return toast.error("Try again later");
+    }
     try {
       setProcessing(true);
       const res = await userApi.put(client._id, update);
@@ -101,25 +105,26 @@ const Client = () => {
 
   const handleBonusAmount = async () => {
     event.preventDefault();
+    if (processing) {
+      return toast.error("Try again later");
+    }
     try {
       // bonus data
       const transaction = {
         client: client._id,
         amount: bonusAmount,
-        credential: "",
-        category: "Recharge",
+        credential: client.userId,
+        category: "Bonus",
         isApproved: true,
       };
       setProcessing(true);
-      const res = await transactionApi.post("recharge-request", {
+      const res = await transactionApi.post("bonus", {
         transaction,
       });
-      // recharge data
-      const recharge = { client: client._id, amount: bonusAmount };
-      const response = await transactionApi.put("add-recharge", { recharge });
-      if (res.data?.success && response.data?.success) {
-        toast.success("Recharge successfully");
+      if (res.data?.success) {
+        toast.success("Bonus added successfully");
         setBonusAmount("");
+        setProcessing(false);
         window.location.reload();
       }
     } catch (err) {
@@ -128,8 +133,45 @@ const Client = () => {
       } else {
         toast.error(err.message); // other error
       }
+      setProcessing(false);
     }
   };
+
+  const handleReduceAmount = async () => {
+    event.preventDefault();
+    if (processing) {
+      return toast.error("Try again later");
+    }
+    try {
+      // bonus data
+      const transaction = {
+        client: client._id,
+        amount: reduceAmount,
+        credential: client.userId,
+        category: "Reduce",
+        isApproved: true,
+      };
+      setProcessing(true);
+      const res = await transactionApi.post("reduce", {
+        transaction,
+      });
+
+      if (res.data?.success) {
+        toast.success("Balance Reduced successfully");
+        setReduceAmount("");
+        setProcessing(false);
+        window.location.reload();
+      }
+    } catch (err) {
+      if (err.response?.data.message) {
+        toast.error(err.response.data.message); // error sent by server
+      } else {
+        toast.error(err.message); // other error
+      }
+      setProcessing(false);
+    }
+  };
+
   const dateOfBirth = moment(client.dateOfBirth).format("DD/MM/YYYY");
   const doubleBoxStyle = "grid grid-cols-2 p-2 gap-3";
   const singleBoxStyle = "p-2";
@@ -200,7 +242,7 @@ const Client = () => {
             <div className="overflow-x-auto">Email: {client.email}</div>
             <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
-          {/* Team and fund history */}
+          {/* Team, fund, trade */}
           <div className="grid grid-cols-3 p-2 gap-2">
             <Link
               to="team"
@@ -326,7 +368,7 @@ const Client = () => {
               <form className="join w-full" onSubmit={handleBonusAmount}>
                 <input
                   type="number"
-                  placeholder="Bonus Recharge"
+                  placeholder="Bonus Amount"
                   className="input input-sm input-bordered border-myPrimary join-item w-4/6"
                   value={bonusAmount}
                   onChange={(e) => setBonusAmount(e.target.value)}
@@ -339,6 +381,29 @@ const Client = () => {
                   }`}
                 >
                   Bonus
+                </button>
+              </form>
+            </div>
+          </div>
+          {/* reduce  */}
+          <div>
+            <div className={singleBoxStyle}>
+              <form className="join w-full" onSubmit={handleReduceAmount}>
+                <input
+                  type="number"
+                  placeholder="Reduce Amount"
+                  className="input input-sm input-bordered border-myPrimary join-item w-4/6"
+                  value={reduceAmount}
+                  onChange={(e) => setReduceAmount(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6 ${
+                    processing && "btn-disabled"
+                  }`}
+                >
+                  Reduce
                 </button>
               </form>
             </div>

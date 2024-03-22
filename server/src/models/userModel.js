@@ -6,6 +6,11 @@ const {
 } = require("../helper/createRandom");
 const { defaultUserImagePath } = require("../config/config");
 
+const positiveAmount = {
+  type: Number,
+  min: [0, "Too less amount"],
+  default: 0,
+};
 const userSchema = new Schema(
   {
     name: {
@@ -103,28 +108,30 @@ const userSchema = new Schema(
       level3: { type: [Schema.Types.ObjectId], ref: "User", default: [] },
     },
     transaction: {
-      balance: { type: Number, min: 0, default: 0 },
+      balance: positiveAmount,
       // income
-      todaysIncome: { type: Number, min: 0, default: 0 },
-      totalIncome: { type: Number, min: 0, default: 0 },
+      todaysIncome: positiveAmount,
+      totalIncome: positiveAmount,
       // team income
-      todaysTeamIncome: { type: Number, min: 0, default: 0 },
-      totalTeamIncome: { type: Number, min: 0, default: 0 },
+      todaysTeamIncome: positiveAmount,
+      totalTeamIncome: positiveAmount,
       // recharge
-      todaysRecharge: { type: Number, default: 0 },
-      totalRecharge: { type: Number, default: 0 },
+      todaysRecharge: positiveAmount,
+      totalRecharge: positiveAmount,
       // withdraw
-      todaysWithdraw: { type: Number, min: 0, default: 0 },
-      totalWithdraw: { type: Number, min: 0, default: 0 },
+      todaysWithdraw: positiveAmount,
+      totalWithdraw: positiveAmount,
       // orders
-      todaysOrder: { type: Number, min: 0, default: 0 },
-      totalOrder: { type: Number, min: 0, default: 0 },
-      todaysOrderAmount: { type: Number, min: 0, default: 0 },
-      totalOrderAmount: { type: Number, min: 0, default: 0 },
+      todaysOrder: positiveAmount,
+      totalOrder: positiveAmount,
+      todaysOrderAmount: positiveAmount,
+      totalOrderAmount: positiveAmount,
       isOrderPending: {
         type: Boolean,
         default: false,
       },
+      totalBonus: positiveAmount,
+      totalReduce: positiveAmount,
       lastResetTimestamp: { type: Date, default: Date.now },
     },
     isAdmin: {

@@ -22,16 +22,6 @@ const handleGetTransaction = async (req, res, next) => {
     const page = parseInt(req.query.page);
     const search = req.query.search || "";
 
-    // all transaction
-    /* const allTransaction = await Transaction.find(filter)
-      .populate("client")
-      .sort({ isApproved: 1 })
-      .sort({ updatedAt: -1 });
-
-    if (!allTransaction) {
-      throw new Error("Failed to get transactions");
-    } */
-
     if (search) {
       filter.$or = [
         { client: { $regex: searchRegExp } },
@@ -40,7 +30,7 @@ const handleGetTransaction = async (req, res, next) => {
     }
 
     const allTransaction = await Transaction.find(filter)
-      .sort({ isApproved: 1 })
+      .sort({ isPending: -1 })
       .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit)
@@ -66,86 +56,27 @@ const handleGetTransaction = async (req, res, next) => {
   }
 };
 
-const handleAddTransaction = async (req, res, next) => {
+//! new
+const handleBonus = async (req, res, next) => {
   try {
     const { transaction } = req.body;
-    const { client, amount, credential, category, isApproved } = transaction;
-    const user = await User.findById(client);
-
-    // validate transaction
-    if (category === "Recharge" && credential) {
-      const allTransaction = await Transaction.exists({
-        credential: credential,
-      });
-      if (allTransaction) {
-        throw createHttpError(409, "TXID already submitted");
-      }
-      // set notification data
-      const origin = req.headers.origin;
-
-      const topic = "admin";
-      const link = `${origin}/client/${client}`;
-      const badge = `${origin}/api/assets/icon.png`;
-      const icon = user.avatar;
-      const tag = `transaction-${client}`;
-      const title = `${user.name} request for Recharge`;
-      const body = `Credential: ${credential} \nName: ${user.name} \nID: ${user.userId}`;
-
-      const notificationData = {
-        topic: topic,
-        data: {
-          title: title,
-          body: body,
-          icon: icon,
-          badge: badge,
-          link: link,
-          tag: tag,
-        },
-        android: {
-          notification: {
-            title: title,
-            body: body,
-            icon: badge,
-            color: "#38bdf8",
-            clickAction: link,
-          },
-        },
-        apns: {
-          payload: {
-            aps: {
-              "mutable-content": 1,
-            },
-          },
-          fcm_options: {
-            image: badge,
-          },
-        },
-      };
-      // send notification
-      await messaging.send(notificationData);
-    }
+    const { client, amount, credential } = transaction;
 
     // add new transaction
-    const newTransaction = await createItem(Transaction, transaction);
-
+    const bonusData = {
+      client,
+      amount,
+      credential,
+      category: "Bonus",
+      isApproved: true,
+      isPending: false,
+    };
+    const newTransaction = await createItem(Transaction, bonusData);
     if (!newTransaction) {
-      throw createHttpError(400, `Failed to ${newTransaction.category}`);
+      throw createHttpError(400, `Failed to add bonus`);
     }
 
-    return successResponse(res, {
-      statusCode: 200,
-      message: `${newTransaction.category} requested successfully`,
-      payload: { newTransaction },
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const handleAddRecharge = async (req, res, next) => {
-  try {
-    const { recharge } = req.body;
-    const { client, amount, transactionId } = recharge;
+    // update user
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -153,22 +84,10 @@ const handleAddRecharge = async (req, res, next) => {
       select: "-loginPassword -withdrawalPassword",
     };
 
-    // approve transaction
-    if (transactionId) {
-      await updateItemById(
-        Transaction,
-        transactionId,
-        { isApproved: true, amount },
-        updateOptions
-      );
-    }
-
-    // user update
     userUpdates = {
       $inc: {
         "transaction.balance": Number(amount),
-        "transaction.todaysRecharge": Number(amount),
-        "transaction.totalRecharge": Number(amount),
+        "transaction.totalBonus": Number(amount),
       },
     };
 
@@ -180,7 +99,7 @@ const handleAddRecharge = async (req, res, next) => {
     );
 
     if (!updatedUser) {
-      throw new Error("Failed to recharge");
+      throw new Error("Failed to add bonus");
     }
 
     // set notification data
@@ -191,7 +110,7 @@ const handleAddRecharge = async (req, res, next) => {
     const badge = `${origin}/api/assets/icon.png`;
     const icon = `${origin}/api/assets/icon.png`;
     const tag = `transaction-${client}`;
-    const title = "Balance Added!";
+    const title = "Bonus Added!";
     const body = `Amount: $${amount} \nBalance: $${updatedUser.transaction.balance.toFixed(
       2
     )} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;
@@ -231,7 +150,277 @@ const handleAddRecharge = async (req, res, next) => {
 
     return successResponse(res, {
       statusCode: 200,
-      message: `Recharge $${amount} Successfully!`,
+      message: `Bonus added successfully`,
+      payload: { newTransaction },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//! new
+const handleReduce = async (req, res, next) => {
+  try {
+    const { transaction } = req.body;
+    const { client, amount, credential } = transaction;
+
+    // add new transaction
+    const reduceData = {
+      client,
+      amount,
+      credential,
+      category: "Reduce",
+      isApproved: true,
+      isPending: false,
+    };
+    const newTransaction = await createItem(Transaction, reduceData);
+    if (!newTransaction) {
+      throw createHttpError(400, `Failed to reduce balance`);
+    }
+
+    // update user
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+      select: "-loginPassword -withdrawalPassword",
+    };
+
+    userUpdates = {
+      $inc: {
+        "transaction.balance": -Number(amount),
+        "transaction.totalReduce": Number(amount),
+      },
+    };
+
+    const updatedUser = await updateItemById(
+      User,
+      client,
+      userUpdates,
+      updateOptions
+    );
+
+    if (!updatedUser) {
+      throw new Error("Failed to reduce balance");
+    }
+
+    // set notification data
+    const origin = req.headers.origin;
+
+    const topic = client + "";
+    const link = `${origin}/my/fund-history`;
+    const badge = `${origin}/api/assets/icon.png`;
+    const icon = `${origin}/api/assets/icon.png`;
+    const tag = `transaction-${client}`;
+    const title = "Balance reduced!";
+    const body = `Amount: $${amount} \nBalance: $${updatedUser.transaction.balance.toFixed(
+      2
+    )} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;
+
+    const notificationData = {
+      topic: topic,
+      data: {
+        title: title,
+        body: body,
+        icon: icon,
+        badge: badge,
+        link: link,
+        tag: tag,
+      },
+      android: {
+        notification: {
+          title: title,
+          body: body,
+          icon: badge,
+          color: "#38bdf8",
+          clickAction: link,
+        },
+      },
+      apns: {
+        payload: {
+          aps: {
+            "mutable-content": 1,
+          },
+        },
+        fcm_options: {
+          image: badge,
+        },
+      },
+    };
+    // send notification
+    await messaging.send(notificationData);
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: `Balance reduced successfully`,
+      payload: { newTransaction },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+//! new
+const handleRechargeRequest = async (req, res, next) => {
+  try {
+    const { transaction } = req.body;
+    const { client, credential } = transaction;
+    const user = await User.findById(client);
+
+    // validate transaction
+    const allTransaction = await Transaction.exists({
+      credential: credential,
+    });
+    if (allTransaction) {
+      throw createHttpError(409, "TXID already submitted");
+    }
+
+    // add new transaction
+    const transactionData = { client, credential, category: "Recharge" };
+    const newTransaction = await createItem(Transaction, transactionData);
+    if (!newTransaction) {
+      throw createHttpError(400, `Failed to Recharge`);
+    }
+
+    // set notification data
+    const origin = req.headers.origin;
+    const topic = "admin";
+    const link = `${origin}/client/${client}`;
+    const badge = `${origin}/api/assets/icon.png`;
+    const icon = user.avatar;
+    const tag = `transaction-${client}`;
+    const title = `${user.name} request for Recharge`;
+    const body = `Credential: ${credential} \nName: ${user.name} \nID: ${user.userId}`;
+    const notificationData = {
+      topic: topic,
+      data: {
+        title: title,
+        body: body,
+        icon: icon,
+        badge: badge,
+        link: link,
+        tag: tag,
+      },
+      android: {
+        notification: {
+          title: title,
+          body: body,
+          icon: badge,
+          color: "#38bdf8",
+          clickAction: link,
+        },
+      },
+      apns: {
+        payload: {
+          aps: {
+            "mutable-content": 1,
+          },
+        },
+        fcm_options: {
+          image: badge,
+        },
+      },
+    };
+    // send notification
+    await messaging.send(notificationData);
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: `Recharge requested successfully`,
+      payload: { newTransaction },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+//! new
+const handleApproveRecharge = async (req, res, next) => {
+  try {
+    const { recharge } = req.body;
+    const { client, amount, transactionId } = recharge;
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+      select: "-loginPassword -withdrawalPassword",
+    };
+
+    // approve transaction
+    await updateItemById(
+      Transaction,
+      transactionId,
+      { isApproved: true, isPending: false, amount },
+      updateOptions
+    );
+
+    // user update
+    userUpdates = {
+      $inc: {
+        "transaction.balance": Number(amount),
+        "transaction.todaysRecharge": Number(amount),
+        "transaction.totalRecharge": Number(amount),
+      },
+    };
+
+    const updatedUser = await updateItemById(
+      User,
+      client,
+      userUpdates,
+      updateOptions
+    );
+
+    if (!updatedUser) {
+      throw new Error("Failed to recharge");
+    }
+
+    // set notification data
+    const origin = req.headers.origin;
+
+    const topic = client + "";
+    const link = `${origin}/my/fund-history`;
+    const badge = `${origin}/api/assets/icon.png`;
+    const icon = `${origin}/api/assets/icon.png`;
+    const tag = `transaction-${client}`;
+    const title = "Recharge Approved!";
+    const body = `Amount: $${amount} \nBalance: $${updatedUser.transaction.balance.toFixed(
+      2
+    )} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;
+
+    const notificationData = {
+      topic: topic,
+      data: {
+        title: title,
+        body: body,
+        icon: icon,
+        badge: badge,
+        link: link,
+        tag: tag,
+      },
+      android: {
+        notification: {
+          title: title,
+          body: body,
+          icon: badge,
+          color: "#38bdf8",
+          clickAction: link,
+        },
+      },
+      apns: {
+        payload: {
+          aps: {
+            "mutable-content": 1,
+          },
+        },
+        fcm_options: {
+          image: badge,
+        },
+      },
+    };
+    // send notification
+    await messaging.send(notificationData);
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: `Recharged $${amount} Successfully!`,
       payload: { updatedUser },
     });
   } catch (error) {
@@ -486,7 +675,7 @@ const handleWithdrawalRequest = async (req, res, next) => {
 const handleRejectTransaction = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const updates = { isRejected: true };
+    const updates = { isRejected: true, isPending: false };
 
     const updateOptions = {
       new: true,
@@ -588,11 +777,11 @@ const handleRejectTransaction = async (req, res, next) => {
   }
 };
 
-const handleApproveTransaction = async (req, res, next) => {
+//! new
+const handleApproveWithdraw = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { updates } = req.body;
-
+    const updateData = { isApproved: true, isPending: false };
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -602,70 +791,70 @@ const handleApproveTransaction = async (req, res, next) => {
     const approvedTransaction = await updateItemById(
       Transaction,
       id,
-      updates,
+      updateData,
       updateOptions
     );
 
     if (!approvedTransaction) {
-      throw new Error(`Failed to approve ${approvedTransaction.category}`);
+      throw new Error(`Failed to approve withdraw`);
     }
-    if (approvedTransaction.category === "Withdraw" && updates.isApproved) {
-      // delete image from server
-      /* const filePath =
+
+    // delete image from server // not in use
+    /* const filePath =
       approvedTransaction.photo?.replace("api", mainDirectory);
       await deleteFile(filePath); */
-      // delete image from cloudinary
-      const deletedImage = await deleteImageBySecureUrl(
-        approvedTransaction.photo
-      );
-      // set notification data
-      const origin = req.headers.origin;
 
-      const topic = approvedTransaction.client + "";
-      const link = `${origin}/my/fund-history`;
-      const badge = `${origin}/api/assets/icon.png`;
-      const icon = `${origin}/api/assets/icon.png`;
-      const tag = `transaction-${approvedTransaction.client}`;
-      const title = "Withdraw Approved!";
-      const body = `Amount: $${approvedTransaction.amount} \nCredential: ${approvedTransaction.credential}`;
+    // delete image from cloudinary
+    const deletedImage = await deleteImageBySecureUrl(
+      approvedTransaction.photo
+    );
+    // set notification data
+    const origin = req.headers.origin;
 
-      const notificationData = {
-        topic: topic,
-        data: {
+    const topic = approvedTransaction.client + "";
+    const link = `${origin}/my/fund-history`;
+    const badge = `${origin}/api/assets/icon.png`;
+    const icon = `${origin}/api/assets/icon.png`;
+    const tag = `transaction-${approvedTransaction.client}`;
+    const title = "Withdraw Approved!";
+    const body = `Amount: $${approvedTransaction.amount} \nCredential: ${approvedTransaction.credential}`;
+
+    const notificationData = {
+      topic: topic,
+      data: {
+        title: title,
+        body: body,
+        icon: icon,
+        badge: badge,
+        link: link,
+        tag: tag,
+      },
+      android: {
+        notification: {
           title: title,
           body: body,
-          icon: icon,
-          badge: badge,
-          link: link,
-          tag: tag,
+          icon: badge,
+          color: "#38bdf8",
+          clickAction: link,
         },
-        android: {
-          notification: {
-            title: title,
-            body: body,
-            icon: badge,
-            color: "#38bdf8",
-            clickAction: link,
+      },
+      apns: {
+        payload: {
+          aps: {
+            "mutable-content": 1,
           },
         },
-        apns: {
-          payload: {
-            aps: {
-              "mutable-content": 1,
-            },
-          },
-          fcm_options: {
-            image: badge,
-          },
+        fcm_options: {
+          image: badge,
         },
-      };
-      // send notification
-      await messaging.send(notificationData);
-    }
+      },
+    };
+    // send notification
+    await messaging.send(notificationData);
 
     return successResponse(res, {
       statusCode: 200,
-      message: `${approvedTransaction.category} approved successfully`,
+      message: `Withdraw approved successfully`,
       payload: { approvedTransaction },
     });
   } catch (error) {
@@ -674,11 +863,13 @@ const handleApproveTransaction = async (req, res, next) => {
 };
 
 module.exports = {
-  handleAddTransaction,
-  handleAddRecharge,
+  handleRechargeRequest,
+  handleApproveRecharge,
+  handleBonus,
+  handleReduce,
   handleWithdrawalRequest,
   handleOrderRequest,
   handleGetTransaction,
-  handleApproveTransaction,
+  handleApproveWithdraw,
   handleRejectTransaction,
 };
