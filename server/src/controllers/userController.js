@@ -224,8 +224,15 @@ const handleDeleteUser = async (req, res, next) => {
     // delete all chats
     await Chat.findOneAndDelete({ client: id });
     // delete all images and folders in cloudinary
-    //! Temporary 
-/* 
+    //! Temporary
+    try {
+      await cloudinary.api.delete_resources_by_tag(id);
+      await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
+      await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
+    } catch (error) {
+      console.log(error.message);
+    }
+    /* 
     await cloudinary.api.delete_resources_by_tag(id);
     await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
     await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
