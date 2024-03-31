@@ -25,6 +25,7 @@ const { createItem } = require("../services/createItem");
 const Chat = require("../models/chatModel");
 const Transaction = require("../models/transactionModel");
 const cloudinary = require("../config/cloudinaryConfig");
+const { unsubscribeFromNotification } = require("../helper/notificationHelper");
 
 const handleRegistration = async (req, res, next) => {
   try {
@@ -176,7 +177,7 @@ const handleGetAllUsers = async (req, res, next) => {
       limit,
       page
     );
-    
+
     return successResponse(res, {
       statusCode: 200,
       message: `${count || 0} user found`,
@@ -222,15 +223,22 @@ const handleDeleteUser = async (req, res, next) => {
     });
     // delete all chats
     await Chat.findOneAndDelete({ client: id });
-    // delete all images and folders in cloudinary 
+    // delete all images and folders in cloudinary
+    //! Temporary 
+/* 
     await cloudinary.api.delete_resources_by_tag(id);
     await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
     await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
+     */
     // delete user
     const deletedUser = await deleteItem(User, filter, options);
     // unsubscribe from notifications
     if (deletedUser?.deviceId?.length) {
-      await unsubscribeFromNotification(deletedUser.deviceId, id+"", deletedUser.isAdmin);
+      await unsubscribeFromNotification(
+        deletedUser.deviceId,
+        id + "",
+        deletedUser.isAdmin
+      );
     }
 
     const updateOptions = {
@@ -269,15 +277,15 @@ const handleDeleteUser = async (req, res, next) => {
     );
     if (!level3Inviter) {
       throw createHttpError(404, "Failed to remove from level3 team");
-    } 
-    
+    }
+
     return successResponse(res, {
       statusCode: 200,
       message: "User deleted successfully",
       payload: { deletedUser },
     });
-   
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
