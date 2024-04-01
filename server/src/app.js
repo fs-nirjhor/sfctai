@@ -50,22 +50,33 @@ app.use("/api/transactions", transactionRouter);
 app.use("/api/configuration", configurationRouter);
 app.use("/api/apk", apkRouter);
 
-// serve assets 
+// serve assets
 const assetsFilePath = path.resolve(mainDirectory, "./assets");
-app.use('/api/assets', express.static(assetsFilePath));
+app.use("/api/assets", express.static(assetsFilePath));
 
 // Routes
 
-// Logs
+// All Logs
 const logsFilePath = path.resolve(mainDirectory, "../logs");
+
 app.get("/api/logs", (req, res) => {
-  const logsPath = `${logsFilePath}/combined.log`
+  const logsPath = `${logsFilePath}/combined.log`;
   res.sendFile(logsPath, (err) => {
     if (err) {
-      createHttpError(404, err.message)
+      createHttpError(404, err.message);
       res.status(404).send("Failed to show logs");
     }
-  })
+  });
+});
+// Errors log
+app.get("/api/errors", (req, res) => {
+  const logsPath = `${logsFilePath}/error.log`;
+  res.sendFile(logsPath, (err) => {
+    if (err) {
+      createHttpError(404, err.message);
+      res.status(404).send("Failed to show error logs");
+    }
+  });
 });
 
 // test server
@@ -77,12 +88,15 @@ app.get("/test", (req, res) => {
 // ----Deployment----
 app.use(express.static(path.join(mainDirectory, "../../client/dist")));
 app.get("*", (req, res) =>
-  res.sendFile(path.resolve(mainDirectory, "../../client/dist/index.html"), (err) => {
-    if (err) {
-      createHttpError(404, err.message)
-      res.status(404).send(err.message);
+  res.sendFile(
+    path.resolve(mainDirectory, "../../client/dist/index.html"),
+    (err) => {
+      if (err) {
+        createHttpError(404, err.message);
+        res.status(404).send(err.message);
+      }
     }
-  })
+  )
 );
 
 // error handler
@@ -91,7 +105,7 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
   const { status, message } = err;
-  logger.error(message)
+  logger.error(message);
   return errorResponse(res, { statusCode: status, message });
 });
 
