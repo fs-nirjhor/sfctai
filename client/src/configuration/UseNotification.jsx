@@ -15,7 +15,6 @@ export const requestToken = async () => {
       });
       return token;
     } else {
-      toast.error("Please enable permission for push notifications");
       return null;
     }
   } catch (error) {
