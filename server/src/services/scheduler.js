@@ -19,118 +19,111 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
     });
 
     if (ordersToApproved.length) {
-      const updateOptions = {
-        new: true,
-        runValidators: true,
-        context: "query",
-      };
-      // approve order
-      const approvedOrders = await Transaction.updateMany(
-        {
-          category: "Order",
-          createdAt: { $lte: tenMinutesAgo.toISOString() },
-          isApproved: false,
-        },
-        { isApproved: true, isPending: false },
-        updateOptions
-      );
+      for (const order of ordersToApproved) {
+        const updateOptions = {
+          new: true,
+          runValidators: true,
+          context: "query",
+        };
+        // approve orders
+        const approvedOrder = await Transaction.findByIdAndUpdate(
+          order._id,
+          { isApproved: true, isPending: false },
+          updateOptions
+        );
+        if (!approvedOrder) {
+          throw createHttpError(400, "Failed to approve order");
+        }
 
-      if (approvedOrders.modifiedCount) {
-        // update user on order successs
-        for (const order of ordersToApproved) {
-          const orderAmount = Number(order.amount);
-          const estimateRevenue = Number(order.estimateRevenue);
-          // site configuration
-          const configuration = await Configuration.findOne();
-          if (!configuration) {
-            throw createHttpError(400, "Failed to find configuration on order");
-          }
-          // find client
-          const client = await findItemById(User, order.client);
-          if (!client) {
-            throw createHttpError(400, "Failed to find client on trade");
-          }
-          // update clients transaction
-          const clientUpdates = {
-            $inc: {
-              "transaction.balance": orderAmount,
-              "transaction.todaysIncome": estimateRevenue,
-              "transaction.totalIncome": estimateRevenue,
-            },
-            $set: {
-              "transaction.isOrderPending": false,
-            },
-          };
-          const updatedClient = await User.findByIdAndUpdate(
-            order.client,
-            clientUpdates,
-            updateOptions
-          );
+        // update clients transaction
+        const orderAmount = Number(order.amount);
+        const estimateRevenue = Number(order.estimateRevenue);
 
-          if (!updatedClient) {
-            throw createHttpError(400, "Failed to update client on trade");
-          }
+        const clientUpdates = {
+          $inc: {
+            "transaction.balance": orderAmount,
+            "transaction.todaysIncome": estimateRevenue,
+            "transaction.totalIncome": estimateRevenue,
+          },
+          $set: {
+            "transaction.isOrderPending": false,
+          },
+        };
+        const updatedClient = await User.findByIdAndUpdate(
+          order.client,
+          clientUpdates,
+          updateOptions
+        );
 
-          // commissions
-          const inviter1Commission =
-            estimateRevenue * (Number(configuration.level1Commission) / 100);
-          const inviter2Commission =
-            estimateRevenue * (Number(configuration.level2Commission) / 100);
-          const inviter3Commission =
-            estimateRevenue * (Number(configuration.level3Commission) / 100);
+        if (!updatedClient) {
+          throw createHttpError(400, "Failed to update client on trade");
+        }
 
-          // Update inviter1 transaction
-          const inviter1Updates = {
-            $inc: {
-              "transaction.balance": inviter1Commission,
-              "transaction.todaysTeamIncome": inviter1Commission,
-              "transaction.totalTeamIncome": inviter1Commission,
-            },
-          };
-          const updatedInviter1 = await User.findByIdAndUpdate(
-            updatedClient.invitedBy,
-            inviter1Updates
-          );
-          if (!updatedInviter1) {
-            throw createHttpError(400, "Failed to update inviter 1 on trade");
-          }
+        // site configuration
+        const configuration = await Configuration.findOne();
+        if (!configuration) {
+          throw createHttpError(400, "Failed to find configuration on order");
+        }
+        // commissions
+        const inviter1Commission =
+          estimateRevenue * (Number(configuration.level1Commission) / 100);
+        const inviter2Commission =
+          estimateRevenue * (Number(configuration.level2Commission) / 100);
+        const inviter3Commission =
+          estimateRevenue * (Number(configuration.level3Commission) / 100);
 
-          // Update inviter2 transaction
-          const inviter2Updates = {
-            $inc: {
-              "transaction.balance": inviter2Commission,
-              "transaction.todaysTeamIncome": inviter2Commission,
-              "transaction.totalTeamIncome": inviter2Commission,
-            },
-          };
-          const updatedInviter2 = await User.findByIdAndUpdate(
-            updatedInviter1.invitedBy,
-            inviter2Updates,
-            updateOptions
-          );
-          if (!updatedInviter2) {
-            throw createHttpError(400, "Failed to update inviter 2 on trade");
-          }
+        // Update inviter1 transaction
+        const inviter1Updates = {
+          $inc: {
+            "transaction.balance": inviter1Commission,
+            "transaction.todaysTeamIncome": inviter1Commission,
+            "transaction.totalTeamIncome": inviter1Commission,
+          },
+        };
+        const updatedInviter1 = await User.findByIdAndUpdate(
+          updatedClient.invitedBy,
+          inviter1Updates
+        );
+        if (!updatedInviter1) {
+          throw createHttpError(400, "Failed to update inviter 1 on trade");
+        }
 
-          // Update inviter 3 transaction
-          const inviter3Updates = {
-            $inc: {
-              "transaction.balance": inviter3Commission,
-              "transaction.todaysTeamIncome": inviter3Commission,
-              "transaction.totalTeamIncome": inviter3Commission,
-            },
-          };
-          const updatedInviter3 = await User.findByIdAndUpdate(
-            updatedInviter2.invitedBy,
-            inviter3Updates,
-            updateOptions
-          );
-          if (!updatedInviter3) {
-            throw createHttpError(400, "Failed to update inviter 3 on trade");
-          }
-        } // for
-      } // if modifiedCount
+        // Update inviter2 transaction
+        const inviter2Updates = {
+          $inc: {
+            "transaction.balance": inviter2Commission,
+            "transaction.todaysTeamIncome": inviter2Commission,
+            "transaction.totalTeamIncome": inviter2Commission,
+          },
+        };
+        const updatedInviter2 = await User.findByIdAndUpdate(
+          updatedInviter1.invitedBy,
+          inviter2Updates,
+          updateOptions
+        );
+        if (!updatedInviter2) {
+          throw createHttpError(400, "Failed to update inviter 2 on trade");
+        }
+
+        // Update inviter 3 transaction
+        const inviter3Updates = {
+          $inc: {
+            "transaction.balance": inviter3Commission,
+            "transaction.todaysTeamIncome": inviter3Commission,
+            "transaction.totalTeamIncome": inviter3Commission,
+          },
+        };
+        const updatedInviter3 = await User.findByIdAndUpdate(
+          updatedInviter2.invitedBy,
+          inviter3Updates,
+          updateOptions
+        );
+        if (!updatedInviter3) {
+          throw createHttpError(400, "Failed to update inviter 3 on trade");
+        }
+      } // for
     } // if orders length
+
     logger.info(`${ordersToApproved.length} orders approved.`);
   } catch (error) {
     throw createHttpError(400, `Approve trade failed: ${error.message}`);
