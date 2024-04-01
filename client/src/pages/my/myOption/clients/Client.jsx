@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Loading from "../../../shared/Loading";
 import { useEffect, useState } from "react";
 import { transactionApi, userApi } from "../../../../router/axiosApi";
-import DeleteConfirm from "./../set/DeleteConfirm";
+import DeleteConfirm from "./DeleteConfirm";
 import ApproveRecharge from "./ApproveRecharge";
 import ApproveWithdraw from "./ApproveWithdraw";
 import { toast } from "react-toastify";
