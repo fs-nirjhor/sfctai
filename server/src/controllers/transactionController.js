@@ -156,6 +156,107 @@ const handleBonus = async (req, res, next) => {
     next(error);
   }
 };
+const handleExtraRecharge = async (req, res, next) => {
+  try {
+    const { transaction } = req.body;
+    const { client, amount, credential } = transaction;
+
+    // add new transaction
+    const rechargeData = {
+      client,
+      amount,
+      credential,
+      category: "Recharge",
+      isApproved: true,
+      isPending: false,
+    };
+    const newTransaction = await createItem(Transaction, rechargeData);
+    if (!newTransaction) {
+      throw createHttpError(400, `Failed to add Recharge`);
+    }
+
+    // update user
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+      select: "-loginPassword -withdrawalPassword",
+    };
+
+    userUpdates = {
+      $inc: {
+        "transaction.balance": Number(amount),
+        "transaction.todaysRecharge": Number(amount),
+        "transaction.totalRecharge": Number(amount),
+      },
+    };
+
+    const updatedUser = await updateItemById(
+      User,
+      client,
+      userUpdates,
+      updateOptions
+    );
+
+    if (!updatedUser) {
+      throw new Error("Failed to add recharge");
+    }
+
+    // set notification data
+    const origin = req.headers.origin;
+
+    const topic = client + "";
+    const link = `${origin}/my/fund-history`;
+    const badge = `${origin}/api/assets/icon.png`;
+    const icon = `${origin}/api/assets/icon.png`;
+    const tag = `transaction-${client}`;
+    const title = "Recharge Added!";
+    const body = `Amount: $${amount} \nBalance: $${updatedUser.transaction.balance.toFixed(
+      2
+    )} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;
+
+    const notificationData = {
+      topic: topic,
+      data: {
+        title: title,
+        body: body,
+        icon: icon,
+        badge: badge,
+        link: link,
+        tag: tag,
+      },
+      android: {
+        notification: {
+          title: title,
+          body: body,
+          icon: badge,
+          color: "#38bdf8",
+          clickAction: link,
+        },
+      },
+      apns: {
+        payload: {
+          aps: {
+            "mutable-content": 1,
+          },
+        },
+        fcm_options: {
+          image: badge,
+        },
+      },
+    };
+    // send notification
+    await messaging.send(notificationData);
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: `Recharge added successfully`,
+      payload: { newTransaction },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const handleReduce = async (req, res, next) => {
   try {
@@ -863,6 +964,7 @@ module.exports = {
   handleRechargeRequest,
   handleApproveRecharge,
   handleBonus,
+  handleExtraRecharge,
   handleReduce,
   handleWithdrawalRequest,
   handleOrderRequest,

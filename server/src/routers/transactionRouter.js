@@ -10,6 +10,7 @@ const {
   handleApproveRecharge,
   handleRechargeRequest,
   handleReduce,
+  handleExtraRecharge,
 } = require("../controllers/transactionController");
 const {
   uploadWithdrawPhoto,
@@ -39,6 +40,12 @@ transactionRouter.put(
   handleApproveRecharge
 );
 transactionRouter.post("/bonus", isLoggedIn, isAdmin, handleBonus);
+transactionRouter.post(
+  "/extra-recharge",
+  isLoggedIn,
+  isAdmin,
+  handleExtraRecharge
+);
 transactionRouter.post("/reduce", isLoggedIn, isAdmin, handleReduce);
 // approve withdrawal
 transactionRouter.put(

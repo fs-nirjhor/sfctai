@@ -17,6 +17,7 @@ const Client = () => {
   const [bonusAmount, setBonusAmount] = useState("");
   const [reduceAmount, setReduceAmount] = useState("");
   const [trc20Address, setTrc20Address] = useState("");
+  const [extraRecharge, setExtraRecharge] = useState("");
   const [phone, setPhone] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [withdrawalPassword, setWithdrawalPassword] = useState("");
@@ -124,6 +125,39 @@ const Client = () => {
       if (res.data?.success) {
         toast.success("Bonus added successfully");
         setBonusAmount("");
+        setProcessing(false);
+        window.location.reload();
+      }
+    } catch (err) {
+      if (err.response?.data.message) {
+        toast.error(err.response.data.message); // error sent by server
+      } else {
+        toast.error(err.message); // other error
+      }
+      setProcessing(false);
+    }
+  };
+  const handleExtraRecharge = async () => {
+    event.preventDefault();
+    if (processing) {
+      return toast.error("Try again later");
+    }
+    try {
+      // bonus data
+      const transaction = {
+        client: client._id,
+        amount: extraRecharge,
+        credential: client.userId,
+        category: "Recharge",
+        isApproved: true,
+      };
+      setProcessing(true);
+      const res = await transactionApi.post("extra-recharge", {
+        transaction,
+      });
+      if (res.data?.success) {
+        toast.success("Recharge added successfully");
+        setExtraRecharge("");
         setProcessing(false);
         window.location.reload();
       }
@@ -404,6 +438,29 @@ const Client = () => {
                   }`}
                 >
                   Reduce
+                </button>
+              </form>
+            </div>
+          </div>
+          {/* extra recharge  */}
+          <div>
+            <div className={singleBoxStyle}>
+              <form className="join w-full" onSubmit={handleExtraRecharge}>
+                <input
+                  type="number"
+                  placeholder="Recharge Amount"
+                  className="input input-sm input-bordered border-myPrimary join-item w-4/6"
+                  value={extraRecharge}
+                  onChange={(e) => setExtraRecharge(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6 ${
+                    processing && "btn-disabled"
+                  }`}
+                >
+                  Recharge
                 </button>
               </form>
             </div>
