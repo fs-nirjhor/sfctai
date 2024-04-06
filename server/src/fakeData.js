@@ -39,7 +39,7 @@ const fakeData = {
   ],
   configuration: [
     {
-      transferAddress: "TSarEYNTV9eupDFfGGLf9oHMVnTRNxs9E6",
+      transferAddress: "TKhcwK1YQtiQ8W68JF9Mste4rtCN2DtqDV",
       minimumRecharge: 10, // USDT
       minimumWithdraw: 6, // USDT
       withdrawFee: 3, // %

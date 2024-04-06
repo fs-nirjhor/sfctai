@@ -1,4 +1,4 @@
-import { MdOutlineVerifiedUser } from "react-icons/md";
+import { MdOutlineVerifiedUser, MdVerifiedUser } from "react-icons/md";
 import { GiSwapBag } from "react-icons/gi";
 import { PiExcludeSquareDuotone } from "react-icons/pi";
 import { GoPeople } from "react-icons/go";
@@ -10,13 +10,18 @@ const MyOptionData = () => {
   const iconStyle = "text-primary inline-block me-3 text-2xl";
 
   const clientOptions = [
+    /* {
+      name: "Real-name authentication",
+      to: "authentication",
+      icon: <MdVerifiedUser className={iconStyle} />,
+    }, */
     {
-      name: "Invitation Letter",
+      name: "Invitation letter",
       to: "invitation",
       icon: <BsEnvelopePaperHeart className={iconStyle} />,
     },
     {
-      name: "TXID Submit",
+      name: "TXID submit",
       to: "txid-submit",
       icon: <MdOutlineVerifiedUser className={iconStyle} />,
     },
@@ -52,8 +57,13 @@ const MyOptionData = () => {
       to: "client-list",
       icon: <FiUsers className={iconStyle} />,
     },
+    /* {
+      name: "Real-name authentication",
+      to: "authentication",
+      icon: <MdVerifiedUser className={iconStyle} />,
+    }, */
     {
-      name: "Invitation Letter",
+      name: "Invitation letter",
       to: "invitation",
       icon: <BsEnvelopePaperHeart className={iconStyle} />,
     },

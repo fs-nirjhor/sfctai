@@ -26,8 +26,7 @@ const SetAvatar = () => {
     }
     try {
       const res = await userApi.put(user._id, updates);
-      res.data?.success &&
-        toast.success("Avatar updated")
+      res.data?.success && toast.success("Avatar updated");
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message);
@@ -38,38 +37,38 @@ const SetAvatar = () => {
   };
 
   return (
-      <form onSubmit={handleSubmit}>
-        <label className="form-control w-full max-w-md mx-auto">
-          <div className="grid grid-cols-4 gap-5 justify-between my-3">
-            {images.map((avatar, index) => {
-              const ringStyle =
-                selectedAvatar === avatar
-                  ? "h-16 w-16 rounded-full ring ring-primary"
-                  : "h-16 w-16";
-              return (
-                <figure
-                  className="avatar cursor-pointer"
-                  key={index}
-                  onClick={() => handleAvatarClick(avatar)}
-                >
-                  <div className={ringStyle}>
-                    <img src={avatar} alt={`Avatar ${index + 1}`} />
-                  </div>
-                </figure>
-              );
-            })}
-          </div>
-        </label>
+    <form onSubmit={handleSubmit}>
+      <label className="form-control w-full max-w-md mx-auto">
+        <div className="grid grid-cols-4 gap-5 justify-between my-3">
+          {images.map((avatar, index) => {
+            const ringStyle =
+              selectedAvatar === avatar
+                ? "h-16 w-16 rounded-full ring ring-primary"
+                : "h-16 w-16";
+            return (
+              <figure
+                className="avatar cursor-pointer"
+                key={index}
+                onClick={() => handleAvatarClick(avatar)}
+              >
+                <div className={ringStyle}>
+                  <img src={avatar} alt={`Avatar ${index + 1}`} />
+                </div>
+              </figure>
+            );
+          })}
+        </div>
+      </label>
 
-        <label className="form-control w-full max-w-md mx-auto">
-          <button
-            type="submit"
-            className="btn btn-primary font-semibold w-full mt-2"
-          >
-            Change Avatar
-          </button>
-        </label>
-      </form>
+      <label className="form-control w-full max-w-md mx-auto">
+        <button
+          type="submit"
+          className="btn btn-primary font-semibold w-full mt-2"
+        >
+          Change Avatar
+        </button>
+      </label>
+    </form>
   );
 };
 export default SetAvatar;

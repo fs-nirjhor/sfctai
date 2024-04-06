@@ -37,6 +37,7 @@ import configurationLoader from "./configurationLoader.js";
 import ClientList from "../pages/my/myOption/clients/ClientList.jsx";
 import Client from "../pages/my/myOption/clients/Client.jsx";
 import SetPersonalInfo from "../pages/my/myOption/set/SetPersonalInfo.jsx";
+import Authentication from "../pages/my/myOption/Authentication.jsx";
 
 const router = createBrowserRouter([
   {
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
           {
             path: "/my/chat/:client",
             element: <Chat />,
+          },
+          {
+            path: "/my/authentication",
+            element: <Authentication />,
           },
           {
             path: "/my/trade-history",

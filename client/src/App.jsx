@@ -7,22 +7,23 @@ import { useEffect } from "react";
 import { isSupported } from "firebase/messaging";
 
 function App() {
-  
   usePreventZoom();
   useEffect(() => {
     // get device id for notification
-     (async() => {
+    (async () => {
       try {
         const fcmSupport = await isSupported();
         if (fcmSupport) {
-          const { handleForgroundMessaging } = await import("./configuration/UseNotification.jsx");
+          const { handleForgroundMessaging } = await import(
+            "./configuration/UseNotification.jsx"
+          );
           handleForgroundMessaging();
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     })();
-  }, [])
+  }, []);
   return (
     <>
       <main className="max-w-4xl mx-auto lining-nums">
@@ -30,12 +31,14 @@ function App() {
           <Outlet />
           <ToastContainer
             position="top-center"
-            toastClassName="font-serif m-3 rounded shadow"
+            toastClassName="font-serif m-3 rounded shadow text-center bg-black text-white bg-opacity-60 font-sans"
             className="top-1/2"
             autoClose={5000}
             hideProgressBar={true}
             newestOnTop={false}
-            closeOnClick={true}
+            closeOnClick={false}
+            closeButton={false}
+            icon={false}
             rtl={false}
             pauseOnFocusLoss={false}
             draggable
