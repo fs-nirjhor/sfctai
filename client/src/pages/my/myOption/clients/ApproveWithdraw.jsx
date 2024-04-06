@@ -2,13 +2,16 @@ import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useState } from "react";
+import Spinner from "../../../shared/Spinner";
 
 const ApproveWithdraw = ({ id, pendingWithdraw }) => {
   const [processing, setProcessing] = useState(false);
   const handleApproveWithdraw = async (transactionId) => {
     event.preventDefault();
     try {
-      toast.loading("Approving...", { toastId: "approve-withdraw-loading" });
+      toast.loading(<Spinner text="Approving..." />, {
+        toastId: "approve-withdraw-loading",
+      });
       setProcessing(true);
       const response = await transactionApi.put(
         `approve-withdraw/${transactionId}`
@@ -33,7 +36,9 @@ const ApproveWithdraw = ({ id, pendingWithdraw }) => {
   const handleRejectWithdraw = async (transactionId) => {
     event.preventDefault();
     try {
-      toast.loading("Rejecting...", { toastId: "reject-withdraw-loading" });
+      toast.loading(<Spinner text="Rejecting..." />, {
+        toastId: "reject-withdraw-loading",
+      });
       setProcessing(true);
       const response = await transactionApi.put(`reject/${transactionId}`);
       toast.dismiss("reject-withdraw-loading");

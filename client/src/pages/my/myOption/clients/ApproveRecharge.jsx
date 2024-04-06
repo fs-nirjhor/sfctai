@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
+import Spinner from "../../../shared/Spinner";
 
 const ApproveRecharge = ({ id, pendingRecharge }) => {
   const [approveRechargeAmount, setApproveRechargeAmount] = useState("");
@@ -43,7 +44,9 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
   const handleRejectRecharge = async (transactionId) => {
     event.preventDefault();
     try {
-      toast.loading("Rejecting...", { toastId: "reject-recharge-loading" });
+      toast.loading(<Spinner text="Rejecting..." />, {
+        toastId: "reject-recharge-loading",
+      });
       setProcessing(true);
       const response = await transactionApi.put(`reject/${transactionId}`);
       toast.dismiss("reject-recharge-loading");

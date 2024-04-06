@@ -4,6 +4,7 @@ import { transactionApi } from "../../../router/axiosApi";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoPlus } from "react-icons/go";
+import Spinner from "../../shared/Spinner";
 
 const Withdraw = () => {
   const user = useRouteLoaderData("user");
@@ -75,7 +76,7 @@ const Withdraw = () => {
       return toast.error("Only 1 withdraw per day");
     }
 
-    toast.loading("Please wait..", {
+    toast.loading(Spinner, {
       hideProgressBar: false,
       closeOnClick: false,
       draggable: false,
