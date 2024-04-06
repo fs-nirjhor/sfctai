@@ -47,7 +47,7 @@ const ShowMessages = ({ chats, user }) => {
               } `}
               onClick={() => handleClick(message.sender)}
             >
-              {user._id == message.sender && user.isAdmin && (
+              {chats?.client?._id !== message.sender && (
                 <figure className="flex-none">
                   <img src="/images/icon.png" alt={name} className="w-10" />
                 </figure>
@@ -55,7 +55,7 @@ const ShowMessages = ({ chats, user }) => {
               <div className={`mt-2 ${messageStyle}`}>
                 {message.text ? (
                   <span
-                    className={`max-w-md inline-block rounded px-3 py-1 ${contentStyle}`}
+                    className={`max-w-md inline-block text-left rounded px-3 py-1 ${contentStyle}`}
                   >
                     {message.text}
                   </span>
