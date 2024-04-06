@@ -45,17 +45,17 @@ const ShowMessages = ({ chats, user }) => {
               className={`flex items-center gap-3 ${
                 message.sender == user._id ? "flex-row-reverse" : "flex-row"
               } `}
+              onClick={() => handleClick(message.sender)}
             >
-              <figure
-                onClick={() => handleClick(message.sender)}
-                className="flex-none"
-              >
-                <img src={avatar} alt={name} className="w-10" />
-              </figure>
+              {user._id == message.sender && user.isAdmin && (
+                <figure className="flex-none">
+                  <img src="/images/icon.png" alt={name} className="w-10" />
+                </figure>
+              )}
               <div className={`mt-2 ${messageStyle}`}>
                 {message.text ? (
                   <span
-                    className={`max-w-md inline-block rounded-md px-3 py-1 ${contentStyle}`}
+                    className={`max-w-md inline-block rounded px-3 py-1 ${contentStyle}`}
                   >
                     {message.text}
                   </span>

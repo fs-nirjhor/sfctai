@@ -93,7 +93,7 @@ const Withdraw = () => {
         onUploadProgress,
       });
       if (res.data?.success) {
-        toast.success("Withdraw successfull");
+        toast.success("The application is successfull.Waiting for review.");
         window.location.assign("/my");
         //navigate("/my");
       }
