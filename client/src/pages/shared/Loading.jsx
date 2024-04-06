@@ -18,7 +18,7 @@ const Loading = ({ text }) => {
           <div></div>
           <div></div>
         </figure>
-        <p className="text-white text-center">{text || "Loading..."}</p>
+        <p className="text-white text-center">{text || "Loading.."}</p>
       </div>
     </section>
   );
