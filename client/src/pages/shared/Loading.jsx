@@ -1,4 +1,4 @@
-import "./loading.css";
+import "./spinner.css";
 
 const Loading = ({ text }) => {
   return (

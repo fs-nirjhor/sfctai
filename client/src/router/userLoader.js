@@ -1,11 +1,14 @@
 import { toast } from "react-toastify";
 import { authApi } from "./axiosApi";
+import Spinner from "../pages/shared/Spinner";
 
 const userLoader = async () => {
   const getUser = async () => {
     let user;
     try {
-      toast.loading("Authenticating...", { toastId: "user-loading" });
+      toast.loading(Spinner, {
+        toastId: "user-loading",
+      });
       // Get the logged in user
       const loggedUser = await authApi.get("protected-route");
       if (loggedUser.data?.success) {
