@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { transactionApi } from "../../router/axiosApi";
 import { coincapApi } from "../../configuration/config";
 import { toast } from "react-toastify";
+import Spinner from "./../shared/Spinner";
 
-const Confirm = () => {
+const Confirm = ({ isOpen, setIsOpen }) => {
   const user = useRouteLoaderData("user");
   const configuration = useRouteLoaderData("configuration");
   const [time, setTime] = useState(
@@ -17,11 +18,16 @@ const Confirm = () => {
     // set coin
     const getCoins = async () => {
       try {
+        toast.loading(<Spinner text="Matching..." />, {
+          toastId: "coin-loading",
+        });
         const response = await fetch(
           `https://api.coincap.io/v2/assets?limit=10&apiKey=${coincapApi}`
         );
+        toast.dismiss("coin-loading");
         const data = await response.json();
         if (data.data) {
+          toast.success("Successfull match");
           const allCoins = data.data;
           const balance = user.transaction.balance;
           const manageCoin = (index) => {
@@ -53,10 +59,13 @@ const Confirm = () => {
           }
         }
       } catch (err) {
+        toast.dismiss("coin-loading");
         toast.error(err.message);
       }
     };
-    getCoins();
+    if (isOpen) {
+      getCoins();
+    }
     // set time
     const timer = setInterval(() => {
       setTime(
@@ -66,7 +75,7 @@ const Confirm = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [user.transaction.balance]);
+  }, [user.transaction.balance, isOpen]);
 
   // order
   const currentBalance = Number(user.transaction.balance);
@@ -93,6 +102,7 @@ const Confirm = () => {
     };
     try {
       setProcessing(true);
+      setIsOpen(false);
       document.getElementById("confirm_dialog").close();
       const res = await transactionApi.post("order-request", { transaction });
 
@@ -112,19 +122,28 @@ const Confirm = () => {
   };
 
   return (
-    <dialog id="confirm_dialog" className="modal">
+    <dialog id="confirm_dialog" className="modal" open={isOpen}>
       <div className="modal-box">
         <form method="dialog">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <button
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            onClick={() => setIsOpen(false)}
+          >
             ✕
           </button>
         </form>
-        <div className="w-12 h-12 mx-auto mb-3">
-          <img src={coin.image} alt="huobi" />
-        </div>
-        <h2 className="mb-5 text-xl font-semibold text-center">
-          {coin.symbol} Currency Trade
-        </h2>
+        {!coin.image ? (
+          <p className="text-center font-bold my-3">Matching...</p>
+        ) : (
+          <figure>
+            <div className="w-12 h-12 mx-auto mb-3">
+              <img src={coin.image} alt="huobi" />
+            </div>
+            <h2 className="mb-5 text-xl font-semibold text-center">
+              {coin.symbol} Currency Trade
+            </h2>
+          </figure>
+        )}
         <figure className="font-semibold">
           <p className="flex justify-between bg-mySecondary p-3 mb-3 rounded-md">
             <span>Amount of money</span>

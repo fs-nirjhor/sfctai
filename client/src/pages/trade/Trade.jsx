@@ -1,11 +1,13 @@
 import { useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import Confirm from "./Confirm";
+import { useState } from "react";
 
 const Trade = () => {
   const configuration = useRouteLoaderData("configuration");
   const user = useRouteLoaderData("user");
   const { transaction } = user;
+  const [isOpen, setIsOpen] = useState(false);
 
   const balance = transaction.balance.toFixed(2);
   const todaysIndividualIncome = transaction.todaysIncome.toFixed(2);
@@ -14,6 +16,7 @@ const Trade = () => {
   const todaysOrderAmount = transaction.todaysOrderAmount.toFixed(2);
 
   const handleClick = () => {
+    console.log(isOpen);
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
     if (!(currentHour >= 10 && currentHour < 22)) {
@@ -25,7 +28,8 @@ const Trade = () => {
     } else if (!user.trc20Address) {
       return toast.error("Please Bind ID to trade");
     } else {
-      return document.getElementById("confirm_dialog").showModal();
+      return setIsOpen(true);
+      //return document.getElementById("confirm_dialog").showModal();
     }
   };
   // bg-[url('/images/start_bg.png')] bg-no-repeat bg-center bg-origin-border
@@ -80,7 +84,7 @@ const Trade = () => {
             </button>
           </article>
         </div>
-        <Confirm />
+        <Confirm isOpen={isOpen} setIsOpen={setIsOpen} />
       </section>
     </main>
   );
