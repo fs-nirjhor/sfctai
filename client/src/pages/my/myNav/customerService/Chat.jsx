@@ -9,7 +9,7 @@ const Chat = () => {
   const { client } = useParams();
   const clientId = client || user._id;
   return (
-    <div className="flex flex-col justify-between w-full max-w-md mx-auto h-[calc(100vh-8rem)] sm:h-[calc(100vh-7rem)] md:h-[calc(100vh-6rem)] lg:h-[calc(100vh-5rem)] p-2 bg-white rounded-b-md shadow-md">
+    <div className="absolute top-0 right-0 z-50 flex flex-col justify-between h-screen w-screen p-2 bg-white rounded-b-md">
       <h1 className="font-semibold text-center h1 pb-2">
         {user.isAdmin ? chats?.client?.name : "Customer Service"}
       </h1>
@@ -20,3 +20,13 @@ const Chat = () => {
 };
 
 export default Chat;
+
+{
+  /* <div className="flex flex-col justify-between w-full max-w-md mx-auto h-[calc(100vh-8rem)] sm:h-[calc(100vh-7rem)] md:h-[calc(100vh-6rem)] lg:h-[calc(100vh-5rem)] p-2 bg-white rounded-b-md shadow-md">
+      <h1 className="font-semibold text-center h1 pb-2">
+        {user.isAdmin ? chats?.client?.name : "Customer Service"}
+      </h1>
+      <ShowMessages chats={chats} user={user} />
+      <SendBox clientId={clientId} user={user} />
+    </div> */
+}
