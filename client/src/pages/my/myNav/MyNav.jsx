@@ -5,7 +5,7 @@ import { Link, useRouteLoaderData } from "react-router-dom";
 
 const MyNav = () => {
   const user = useRouteLoaderData("user");
-  const iconStyle = "text-3xl mx-auto text-primary";
+  const iconStyle = "text-3xl mx-auto text-myPrimary";
   return (
     <article className="flex justify-evenly py-3 rounded-md mt-2 bg-mySecondary bg-opacity-80 font-serif">
       <Link to="recharge" className="card">

@@ -62,7 +62,7 @@ const Logout = () => {
         onClick={handleClick}
       >
         <p className="text-start">
-          <FiPower className="text-primary inline-block me-3 text-2xl" />
+          <FiPower className="text-myPrimary inline-block me-3 text-2xl" />
           <span>Logout</span>
         </p>
         <IoChevronForward />

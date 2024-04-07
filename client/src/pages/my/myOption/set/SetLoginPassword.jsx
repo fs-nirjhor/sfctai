@@ -16,8 +16,7 @@ const SetLoginPassword = () => {
     event.preventDefault();
     try {
       const res = await userApi.put(`update-password/${user._id}`, data);
-      res.data?.success &&
-      toast.success("Login password updated successfully")
+      res.data?.success && toast.success("Login password updated successfully");
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message); // error sent by server
@@ -112,7 +111,7 @@ const SetLoginPassword = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-primary font-semibold w-full mt-5"
+            className="btn btn-secondary font-semibold w-full mt-5"
           >
             Submit
           </button>

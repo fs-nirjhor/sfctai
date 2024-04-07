@@ -7,7 +7,7 @@ import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
 
 const MyOptionData = () => {
-  const iconStyle = "text-primary inline-block me-3 text-2xl";
+  const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
 
   const clientOptions = [
     /* {

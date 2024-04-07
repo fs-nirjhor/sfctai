@@ -11,7 +11,7 @@ const DownloadApp = () => {
         download
       >
         <p className="text-start">
-          <BsDownload className="text-primary inline-block me-3 text-2xl" />
+          <BsDownload className="text-myPrimary inline-block me-3 text-2xl" />
           <span>Download App</span>
         </p>
         <IoChevronForward />

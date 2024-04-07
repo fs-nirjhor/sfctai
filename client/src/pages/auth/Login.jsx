@@ -13,23 +13,25 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [deviceId, setDeviceId] = useState("");
-  
+
   useEffect(() => {
     // get device id for notification
-     (async() => {
+    (async () => {
       try {
         const fcmSupport = await isSupported();
         if (fcmSupport) {
-          const { requestToken } = await import("../../configuration/UseNotification.jsx");
-          const token = await requestToken()
+          const { requestToken } = await import(
+            "../../configuration/UseNotification.jsx"
+          );
+          const token = await requestToken();
           setDeviceId(token);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     })();
-  }, [])
-  
+  }, []);
+
   const onSubmit = async (data) => {
     event.preventDefault();
     try {
@@ -117,16 +119,13 @@ const Login = () => {
         <label className="form-control w-full max-w-md mx-auto mt-5">
           <button
             type="submit"
-            className="btn btn-primary font-semibold w-full"
+            className="btn btn-secondary font-semibold w-full"
           >
             Login
           </button>
         </label>
       </form>
-      <Link
-        to="/registration"
-        className="text-center mt-5 block"
-      >
+      <Link to="/registration" className="text-center mt-5 block">
         Don&apos;t have an account?
       </Link>
     </section>
