@@ -83,7 +83,7 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
             />
             <button
               onClick={() => handleApproveRecharge(recharge._id)}
-              className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-1/6 ${
+              className={`btn btn-secondary btn-sm bg-myPrimary text-white join-item w-1/6 ${
                 processing && "btn-disabled"
               }`}
             >

@@ -237,7 +237,7 @@ const Client = () => {
           </button>
           <Link
             to={`/my/chat/${client._id}`}
-            className="btn btn-warning btn-sm text-white"
+            className="btn btn-secondary btn-sm text-white"
           >
             Message
           </Link>
@@ -280,21 +280,21 @@ const Client = () => {
           <div className="grid grid-cols-3 p-2 gap-2">
             <Link
               to="team"
-              className="btn btn-warning btn-sm text-white"
+              className="btn btn-secondary btn-sm text-white"
               state={client}
             >
               Team
             </Link>
             <Link
               to="fund-history"
-              className="btn btn-warning btn-sm text-white"
+              className="btn btn-secondary btn-sm text-white"
               state={client}
             >
               Fund History
             </Link>
             <Link
               to="trade-history"
-              className="btn btn-warning btn-sm text-white"
+              className="btn btn-secondary btn-sm text-white"
               state={client}
             >
               Trade History
@@ -317,7 +317,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                  className="btn btn-secondary btn-sm bg-myPrimary text-white join-item w-2/6"
                 >
                   Change
                 </button>
@@ -341,7 +341,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className="btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6"
+                  className="btn btn-sm btn-secondary bg-myPrimary text-white join-item w-2/6"
                 >
                   Change
                 </button>
@@ -365,7 +365,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className="btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6"
+                  className="btn btn-secondary btn-sm bg-myPrimary text-white join-item w-2/6"
                 >
                   Change
                 </button>
@@ -389,7 +389,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className="btn btn-sm btn-warning bg-myPrimary text-white join-item w-2/6"
+                  className="btn btn-sm btn-secondary bg-myPrimary text-white join-item w-2/6"
                 >
                   Change
                 </button>
@@ -410,7 +410,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6 ${
+                  className={`btn btn-secondary btn-sm bg-myPrimary text-white join-item w-2/6 ${
                     processing && "btn-disabled"
                   }`}
                 >
@@ -433,7 +433,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6 ${
+                  className={`btn btn-secondary btn-sm bg-myPrimary text-white join-item w-2/6 ${
                     processing && "btn-disabled"
                   }`}
                 >
@@ -456,7 +456,7 @@ const Client = () => {
                 />
                 <button
                   type="submit"
-                  className={`btn btn-warning btn-sm bg-myPrimary text-white join-item w-2/6 ${
+                  className={`btn btn-secondary btn-sm bg-myPrimary text-white join-item w-2/6 ${
                     processing && "btn-disabled"
                   }`}
                 >
