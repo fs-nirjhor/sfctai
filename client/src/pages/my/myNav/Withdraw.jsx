@@ -76,7 +76,7 @@ const Withdraw = () => {
       return toast.error("Only 1 withdraw per day");
     }
 
-    toast.loading("Uploading..", {
+    toast.loading(<Spinner text="Uploading.." />, {
       hideProgressBar: false,
       closeOnClick: false,
       draggable: false,

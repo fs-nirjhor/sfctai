@@ -30,7 +30,7 @@ const Authentication = () => {
       formData.append("frontPhoto", data.frontPhoto[0]);
       formData.append("backPhoto", data.backPhoto[0]);
       //progressbar
-      toast.loading("Uploading..", {
+      toast.loading(<Spinner text="Uploading.." />, {
         hideProgressBar: false,
         closeOnClick: false,
         draggable: false,
