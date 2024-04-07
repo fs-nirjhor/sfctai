@@ -19,7 +19,7 @@ const MyOptionData = ({ user }) => {
   } inline-block me-3 text-2xl`;
   const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
 
-  // client options
+  // client option
   const clientOptions = [
     {
       name: "Real-name authentication",
