@@ -6,8 +6,7 @@ import DownloadApp from "./DownloadApp";
 
 const MyOption = () => {
   const user = useRouteLoaderData("user");
-  const { adminOptions, clientOptions } = MyOptionData();
-  const myOptions = user.isAdmin ? adminOptions : clientOptions;
+  const myOptions = MyOptionData({ user });
 
   return (
     <article className="mt-3 pb-20">

@@ -1,4 +1,8 @@
-import { MdOutlineVerifiedUser, MdVerifiedUser } from "react-icons/md";
+import {
+  MdOutlineCreditScore,
+  MdOutlineVerifiedUser,
+  MdVerifiedUser,
+} from "react-icons/md";
 import { GiSwapBag } from "react-icons/gi";
 import { PiExcludeSquareDuotone } from "react-icons/pi";
 import { GoPeople } from "react-icons/go";
@@ -6,15 +10,26 @@ import { GoGear } from "react-icons/go";
 import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
 
-const MyOptionData = () => {
+const MyOptionData = ({ user }) => {
+  const isAuthenticated =
+    user?.authentication?.frontPhoto && user?.authentication?.backPhoto;
+  // styles
+  const authenticationStyle = `${
+    isAuthenticated ? "text-green-500" : "text-myPrimary"
+  } inline-block me-3 text-2xl`;
   const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
 
+  // client options
   const clientOptions = [
-    /* {
+    {
       name: "Real-name authentication",
       to: "authentication",
-      icon: <MdVerifiedUser className={iconStyle} />,
-    }, */
+      icon: isAuthenticated ? (
+        <MdVerifiedUser className={authenticationStyle} />
+      ) : (
+        <MdOutlineVerifiedUser className={authenticationStyle} />
+      ),
+    },
     {
       name: "Invitation letter",
       to: "invitation",
@@ -23,7 +38,7 @@ const MyOptionData = () => {
     {
       name: "TXID submit",
       to: "txid-submit",
-      icon: <MdOutlineVerifiedUser className={iconStyle} />,
+      icon: <MdOutlineCreditScore className={iconStyle} />,
     },
     {
       name: "Trade history",
@@ -57,11 +72,15 @@ const MyOptionData = () => {
       to: "client-list",
       icon: <FiUsers className={iconStyle} />,
     },
-    /* {
+    {
       name: "Real-name authentication",
       to: "authentication",
-      icon: <MdVerifiedUser className={iconStyle} />,
-    }, */
+      icon: isAuthenticated ? (
+        <MdVerifiedUser className={authenticationStyle} />
+      ) : (
+        <MdOutlineVerifiedUser className={authenticationStyle} />
+      ),
+    },
     {
       name: "Invitation letter",
       to: "invitation",
@@ -87,7 +106,7 @@ const MyOptionData = () => {
     { name: "Set", to: "set", icon: <GoGear className={iconStyle} /> },
   ];
 
-  return { clientOptions, adminOptions };
+  return user?.isAdmin ? adminOptions : clientOptions;
 };
 
 export default MyOptionData;

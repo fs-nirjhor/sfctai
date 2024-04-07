@@ -166,6 +166,31 @@ const handleUpdatePassword = async (req, res, next) => {
     next(error);
   }
 };
+const handleUploadNid = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { frontPhoto, backPhoto } = req.body;
+    const updates = {
+      $set: {
+        "authentication.frontPhoto": frontPhoto,
+        "authentication.backPhoto": backPhoto,
+      },
+    };
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+    };
+    const updatedUser = await updateItemById(User, id, updates, updateOptions);
+    if (!updatedUser) throw new Error("NID can't be submitted");
+    return successResponse(res, {
+      statusCode: 200,
+      message: "NID is submitted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const handleGetAllUsers = async (req, res, next) => {
   try {
@@ -377,4 +402,5 @@ module.exports = {
   handleForgetPassword,
   handleResetPassword,
   handleUserStatus,
+  handleUploadNid,
 };

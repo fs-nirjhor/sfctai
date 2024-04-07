@@ -11,6 +11,7 @@ const {
   handleResetPassword,
   handleUserStatus,
   handleRegistration,
+  handleUploadNid,
 } = require("../controllers/userController");
 const {
   validateUserRegistration,
@@ -19,6 +20,10 @@ const {
 } = require("../validators/userValidator");
 const runValidations = require("../validators");
 const { isLoggedIn, isLoggedOut, isAdmin } = require("../middlewares/auth");
+const {
+  uploadPhoto,
+  NidImageToCloudinary,
+} = require("../middlewares/uploadFile");
 
 const userRouter = express.Router();
 
@@ -28,40 +33,35 @@ userRouter.post(
   validateUserRegistration,
   runValidations,
   handleRegistration
-  );
+);
 
-userRouter.get(
-  "/",
+userRouter.get("/", isLoggedIn, isAdmin, handleGetAllUsers);
+
+userRouter.get("/:id", isLoggedIn, handleGetUser);
+
+userRouter.put(
+  "/update-password/:id([0-9a-fA-F]{24})",
   isLoggedIn,
-  isAdmin,
-  handleGetAllUsers
-  );
+  handleUpdatePassword
+);
 
-userRouter.get(
-  "/:id",
+userRouter.get("/", isLoggedIn, isAdmin, handleGetAllUsers);
+
+userRouter.delete("/:id([0-9a-fA-F]{24})", isLoggedIn, handleDeleteUser);
+
+userRouter.put("/:id([0-9a-fA-F]{24})", isLoggedIn, handleUpdateUser);
+
+userRouter.post(
+  "/upload-nid/:id([0-9a-fA-F]{24})",
   isLoggedIn,
-  handleGetUser
-  );
-  
-  userRouter.put(
-    "/update-password/:id([0-9a-fA-F]{24})",
-    isLoggedIn,
-    handleUpdatePassword
-    );
-    
-    userRouter.get("/", isLoggedIn, isAdmin, handleGetAllUsers);
-
-    userRouter.delete("/:id([0-9a-fA-F]{24})", isLoggedIn, handleDeleteUser);
-
-
-    userRouter.put(
-      "/:id([0-9a-fA-F]{24})",
-      isLoggedIn,
-      handleUpdateUser
-    );
-
-
-
+  //uploadPhoto.array(["frontPhoto", "backPhoto"]),
+  uploadPhoto.fields([
+    { name: "frontPhoto", maxCount: 1 },
+    { name: "backPhoto", maxCount: 1 },
+  ]),
+  NidImageToCloudinary,
+  handleUploadNid
+);
 
 // api/users/forget-password
 userRouter.post(
@@ -85,7 +85,6 @@ userRouter.put(
   isAdmin,
   handleUserStatus
 );
-
 
 // api/users/test
 userRouter.get("/test", (req, res) => {

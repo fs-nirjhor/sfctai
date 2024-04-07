@@ -31,7 +31,7 @@ function App() {
           <Outlet />
           <ToastContainer
             position="top-center"
-            toastClassName="text-center opacity-70"
+            toastClassName="mx-3 text-center opacity-70"
             className="top-1/2"
             autoClose={5000}
             hideProgressBar={true}

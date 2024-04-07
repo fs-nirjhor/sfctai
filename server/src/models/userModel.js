@@ -134,6 +134,20 @@ const userSchema = new Schema(
       totalReduce: positiveAmount,
       lastResetTimestamp: { type: Date, default: Date.now },
     },
+    authentication: {
+      isAuthenticated: {
+        type: Boolean,
+        default: false,
+      },
+      frontPhoto: {
+        type: String,
+        default: "",
+      },
+      backPhoto: {
+        type: String,
+        default: "",
+      },
+    },
     isAdmin: {
       type: Boolean,
       default: false,

@@ -76,7 +76,7 @@ const Withdraw = () => {
       return toast.error("Only 1 withdraw per day");
     }
 
-    toast.loading(Spinner, {
+    toast.loading("Uploading..", {
       hideProgressBar: false,
       closeOnClick: false,
       draggable: false,
@@ -93,12 +93,14 @@ const Withdraw = () => {
       const res = await transactionApi.post("withdraw-request", formData, {
         onUploadProgress,
       });
+      setProcessing(false);
       if (res.data?.success) {
         toast.success("The application is successfull.Waiting for review.");
         window.location.assign("/my");
         //navigate("/my");
       }
     } catch (err) {
+      setProcessing(false);
       if (err.response?.data?.message) {
         toast.error(err.response.data.message);
       } else {
