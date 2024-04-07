@@ -397,7 +397,7 @@ const Client = () => {
             </div>
           </div>
           {/* bonus  */}
-          <div>
+          {/*  <div>
             <div className={singleBoxStyle}>
               <form className="join w-full" onSubmit={handleBonusAmount}>
                 <input
@@ -418,7 +418,7 @@ const Client = () => {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
           {/* reduce  */}
           <div>
             <div className={singleBoxStyle}>
