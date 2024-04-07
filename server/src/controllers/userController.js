@@ -32,7 +32,7 @@ const handleRegistration = async (req, res, next) => {
     const { invitationCode, ...newUser } = req.body;
     const invitationData = invitationCode
       ? { invitationCode }
-      : { invitationCode: "SFCTAI" };
+      : { invitationCode: "AFTAAI" };
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -227,15 +227,15 @@ const handleDeleteUser = async (req, res, next) => {
     //! Temporary
     try {
       await cloudinary.api.delete_resources_by_tag(id);
-      await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
-      await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
+      await cloudinary.api.delete_folder(`AFTAAI/chat/${id}`);
+      await cloudinary.api.delete_folder(`AFTAAI/withdraw-verification/${id}`);
     } catch (error) {
       console.log(error.message);
     }
     /* 
     await cloudinary.api.delete_resources_by_tag(id);
-    await cloudinary.api.delete_folder(`SFCTAI/chat/${id}`);
-    await cloudinary.api.delete_folder(`SFCTAI/withdraw-verification/${id}`);
+    await cloudinary.api.delete_folder(`AFTAAI/chat/${id}`);
+    await cloudinary.api.delete_folder(`AFTAAI/withdraw-verification/${id}`);
      */
     // delete user
     const deletedUser = await deleteItem(User, filter, options);

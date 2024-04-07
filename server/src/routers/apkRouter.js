@@ -8,37 +8,34 @@ const apkRouter = express.Router();
 
 // download app
 apkRouter.get("/download", async (req, res, next) => {
-    const appDirectory = path.dirname(require.main.filename);
-    const relativeFilePath = './assets/SFCTAI.apk';
-    const absoluteFilePath = path.resolve(appDirectory, relativeFilePath);
-  
-    res.download(absoluteFilePath, (err) => {
-        if (err) {
-         //createHttpError(404, err.message)
-         //next(err);
-         console.log(err.message);
-        } 
-      });
-  });
+  const appDirectory = path.dirname(require.main.filename);
+  const relativeFilePath = "./assets/AFTAAI.apk";
+  const absoluteFilePath = path.resolve(appDirectory, relativeFilePath);
 
-// upload app 
-apkRouter.post('/upload', uploadApk.single('file'), (req, res, next) => {
-    try {
-      const file = req.file;
-      if (!file) {
-        throw createHttpError(400, "Failed to upload file")
-      }
-      
-      return successResponse(res, {
-          statusCode: 200,
-          message: "Apk uploaded successfully",
-        });
-    } catch (error) {
-      next(error);
+  res.download(absoluteFilePath, (err) => {
+    if (err) {
+      //createHttpError(404, err.message)
+      //next(err);
+      console.log(err.message);
     }
   });
-  
+});
 
-  module.exports = apkRouter;
-  
-  
+// upload app
+apkRouter.post("/upload", uploadApk.single("file"), (req, res, next) => {
+  try {
+    const file = req.file;
+    if (!file) {
+      throw createHttpError(400, "Failed to upload file");
+    }
+
+    return successResponse(res, {
+      statusCode: 200,
+      message: "Apk uploaded successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = apkRouter;

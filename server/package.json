@@ -1,7 +1,7 @@
 {
-  "name": "sfctai",
+  "name": "aftaai",
   "version": "1.0.0",
-  "description": "SFCTAI is a cryptocurrency trading platform",
+  "description": "AFTAAI is a cryptocurrency trading platform",
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -10,9 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "sfctai",
-    "SFCTAI",
-    "sfctai.com",
+    "aftaai",
+    "AFTAAI",
+    "aftaai.com",
     "trading",
     "trading platform",
     "cryptocurrency",
@@ -22,7 +22,7 @@
     "earning",
     "invest"
   ],
-  "author": "sfctai",
+  "author": "aftaai",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -42,7 +42,7 @@
     "multer": "^1.4.5-lts.1",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.13",
-    "sfctai": "file:..",
+    "aftaai": "file:..",
     "sharp": "^0.33.2",
     "slugify": "^1.6.6",
     "socket.io": "^4.7.3",

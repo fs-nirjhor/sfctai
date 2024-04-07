@@ -81,7 +81,7 @@ app.get("/api/errors", (req, res) => {
 
 // test server
 app.get("/test", (req, res) => {
-  const text = req.query.text || "Welcome to the SFCTAI Server";
+  const text = req.query.text || "Welcome to the AFTAAI Server";
   res.status(200).send(`Server is working fine. ${text}`);
 });
 

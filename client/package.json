@@ -1,5 +1,5 @@
 {
-  "name": "sfctai",
+  "name": "aftaai",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -26,7 +26,7 @@
     "react-slick": "^0.29.0",
     "react-toastify": "^10.0.4",
     "rollup": "^4.6.1",
-    "sfctai": "file:..",
+    "aftaai": "file:..",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.3",
     "sort-by": "^1.2.0"

@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
       // Emit the chats
       socket.emit("chats", data);
     } catch (error) {
-      logger.error(error.message)
+      logger.error(error.message);
       //throw createHttpError(400, error.message);
     }
   });
@@ -82,9 +82,9 @@ io.on("connection", (socket) => {
             cloudinary.uploader
               .upload_stream(
                 {
-                  folder: `SFCTAI/chat/${client}`,
+                  folder: `AFTAAI/chat/${client}`,
                   public_id: `${client}_${Date.now()}`,
-                  tags: ["chat", "SFCTAI", client],
+                  tags: ["chat", "AFTAAI", client],
                   use_filename: true,
                   unique_filename: false,
                   format: "webp",
@@ -140,13 +140,13 @@ io.on("connection", (socket) => {
         const referer = new URL(socket.handshake?.headers?.referer);
         const origin = referer?.origin;
 
-        const link = `${origin}/my/chat/${client}`
+        const link = `${origin}/my/chat/${client}`;
         const topic = isAdmin ? client : "admin";
-        const badge = `${origin}/api/assets/icon.png`
-        const avatar = data.chats?.client?.avatar
-        const icon = isAdmin ? badge : avatar
+        const badge = `${origin}/api/assets/icon.png`;
+        const avatar = data.chats?.client?.avatar;
+        const icon = isAdmin ? badge : avatar;
         const tag = `message-${client}`;
-        const title = isAdmin ? "SFCTAI" : data.chats?.client?.name;
+        const title = isAdmin ? "AFTAAI" : data.chats?.client?.name;
 
         const notificationData = {
           topic: topic,
@@ -159,7 +159,7 @@ io.on("connection", (socket) => {
             link: link,
             tag: tag,
           },
-           /* 
+          /* 
            notification: {
             title: title,
             body: text,
@@ -181,7 +181,7 @@ io.on("connection", (socket) => {
             },
           }, 
           */
-           android: {
+          android: {
             notification: {
               title: title,
               body: text,
@@ -189,20 +189,20 @@ io.on("connection", (socket) => {
               icon: badge,
               color: "#38bdf8",
               clickAction: link,
-            }
+            },
           },
           apns: {
             payload: {
               aps: {
-                'mutable-content': 1
-              }
+                "mutable-content": 1,
+              },
             },
             fcm_options: {
-              image: badge
-            }
+              image: badge,
+            },
           },
         };
-         await messaging.send(notificationData);
+        await messaging.send(notificationData);
       } catch (error) {
         logger.error(error.message);
         //throw createHttpError(400, error.message);

@@ -9,7 +9,7 @@ const NotificationToast = ({ payload }) => {
     >
       <figure className="image">
         <div className="w-8">
-          <img src={data?.icon || "/images/icon.png"} alt="sfctai" />
+          <img src={data?.icon || "/images/icon.png"} alt="aftaai" />
         </div>
       </figure>
       <div className="flex-grow">

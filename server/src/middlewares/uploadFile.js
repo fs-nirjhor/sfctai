@@ -18,7 +18,7 @@ const apkFilter = async (req, file, cb) => {
       throw createHttpError("Please upload .apk file");
     }
     // delete previous file if exist
-    const apkFilePath = assetsFilePath + "/SFCTAI.apk";
+    const apkFilePath = assetsFilePath + "/AFTAAI.apk";
     await deleteFile(apkFilePath);
     return cb(null, true);
   } catch (error) {
@@ -31,7 +31,7 @@ const apkStorage = multer.diskStorage({
     cb(null, assetsFilePath);
   },
   filename: (req, file, cb) => {
-    cb(null, "SFCTAI.apk");
+    cb(null, "AFTAAI.apk");
   },
 });
 
@@ -102,9 +102,9 @@ const withdrawImageToCloudinary = async (req, res, next) => {
   try {
     const client = req.body?.client;
     const cloudImage = await cloudinary.uploader.upload(req.file?.path, {
-      folder: `SFCTAI/withdraw-verification/${client}`,
+      folder: `AFTAAI/withdraw-verification/${client}`,
       public_id: `${client}_${Date.now()}`,
-      tags: ["withdraw-verification", "SFCTAI", client],
+      tags: ["withdraw-verification", "AFTAAI", client],
       use_filename: true,
       unique_filename: true,
       format: "webp",

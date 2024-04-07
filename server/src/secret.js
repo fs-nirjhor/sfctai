@@ -9,8 +9,8 @@ const databaseUrl = process.env.MONGODB_URL;
 const corsUrl = [
   "http://localhost:5173",
   "http://localhost:3001",
-  "https://sfctai.onrender.com",
-  "http://sfctai.onrender.com",
+  "https://aftaai.onrender.com",
+  "http://aftaai.onrender.com",
 ];
 
 const jwtActivationKey = process.env.JWT_ACTIVATION_KEY || "jwtActivationKey";

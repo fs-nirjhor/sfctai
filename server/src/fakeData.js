@@ -3,14 +3,14 @@
 const fakeData = {
   users: [
     {
-      name: "SFCTAI",
+      name: "AFTAAI",
       loginPassword:
         "$2a$10$73gynJYOiWWv9SLTwpFO5ehoLX05je.n6Wwf4pXBHJghGZ/RNRxh2",
       withdrawalPassword:
         "$2a$10$SaCo7/./5SbHtNllP6RPau9wP87LFDKF5UmJccZeM9fz5r6x797gm",
       phone: "12345678",
       invitedBy: "659418a59265b59000175731",
-      invitationCode: "SFCTAI",
+      invitationCode: "AFTAAI",
       trc20Address: "",
       team: {
         level1: [],

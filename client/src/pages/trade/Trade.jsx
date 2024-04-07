@@ -38,7 +38,7 @@ const Trade = () => {
       <h1 className="font-semibold text-center pt-2 mb-5">Copy Trade</h1>
       <section className="pb-20 px-2">
         <figure className="p-5">
-          <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
+          <img src="/images/logo.png" alt="AFTAAI" className="mx-auto w-60" />
         </figure>
         <div className="relative my-5 h-[16rem]">
           <video

@@ -60,7 +60,7 @@ const Login = () => {
     <section className="bg-gradient-to-t from-white to-transparent min-h-full pb-40 px-5">
       <h1 className="font-semibold text-center pt-2 mb-5">Login</h1>
       <figure className="px-5">
-        <img src="/images/logo.png" alt="SFCTAI" className="mx-auto w-60" />
+        <img src="/images/logo.png" alt="AFTAAI" className="mx-auto w-60" />
       </figure>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -133,4 +133,4 @@ const Login = () => {
 };
 export default Login;
 
-////registration?invitationCode=SFCTAI
+////registration?invitationCode=AFTAAI
