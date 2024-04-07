@@ -31,7 +31,7 @@ function App() {
           <Outlet />
           <ToastContainer
             position="top-center"
-            toastClassName="m-3 rounded shadow text-center bg-black text-white bg-opacity-60"
+            toastClassName="text-center opacity-70"
             className="top-1/2"
             autoClose={5000}
             hideProgressBar={true}
@@ -43,7 +43,7 @@ function App() {
             pauseOnFocusLoss={false}
             draggable
             pauseOnHover={false}
-            theme="light"
+            theme="dark"
             transition={Zoom}
           />
         </div>
