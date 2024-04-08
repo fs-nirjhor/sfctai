@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { transactionApi } from "../../router/axiosApi";
 import { coincapApi } from "../../configuration/config";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import Spinner from "./../shared/Spinner";
 const Confirm = ({ isOpen, setIsOpen }) => {
   const user = useRouteLoaderData("user");
   const configuration = useRouteLoaderData("configuration");
+  const revalidator = useRevalidator();
   const [time, setTime] = useState(
     new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Riyadh" })
   );
@@ -109,7 +110,7 @@ const Confirm = ({ isOpen, setIsOpen }) => {
       if (res.data?.success) {
         toast.success("Trade confirmed");
         setProcessing(false);
-        window.location.reload();
+        revalidator.revalidate();
       }
     } catch (err) {
       if (err.response?.data?.message) {

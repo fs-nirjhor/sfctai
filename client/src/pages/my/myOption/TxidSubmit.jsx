@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { Link, useNavigate, useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { transactionApi } from "../../../router/axiosApi";
 import { toast } from "react-toastify";
 
 const TxidSubmit = () => {
   const user = useRouteLoaderData("user");
+  const revalidator = useRevalidator();
   const [txid, setTxid] = useState("");
   const navigate = useNavigate();
   const [processing, setProcessing] = useState(false);
@@ -31,7 +32,7 @@ const TxidSubmit = () => {
       });
       if (res.data?.success) {
         toast.success("TXID submitted");
-        // window.location.reload();
+        revalidator.revalidate();
         navigate("/my");
       }
     } catch (err) {

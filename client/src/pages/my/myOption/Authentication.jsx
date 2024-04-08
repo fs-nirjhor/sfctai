@@ -3,11 +3,17 @@ import { GoPlus } from "react-icons/go";
 import { toast } from "react-toastify";
 import { userApi } from "../../../router/axiosApi";
 import Spinner from "../../shared/Spinner";
-import { useRouteLoaderData } from "react-router-dom";
+import {
+  useRouteLoaderData,
+  useRevalidator,
+  useNavigate,
+} from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Authentication = () => {
   const user = useRouteLoaderData("user");
+  const revalidator = useRevalidator();
+  const navigate = useNavigate();
   const [processing, setProcessing] = useState(false);
   const {
     register,
@@ -49,7 +55,8 @@ const Authentication = () => {
       setProcessing(false);
       if (res.data?.success) {
         toast.success("NID successfully uploaded");
-        window.location.assign("/my");
+        revalidator.revalidate();
+        navigate("/my");
       }
     } catch (err) {
       setProcessing(false);

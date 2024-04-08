@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { transactionApi } from "../../../router/axiosApi";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate, useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoPlus } from "react-icons/go";
 import Spinner from "../../shared/Spinner";
 
 const Withdraw = () => {
   const user = useRouteLoaderData("user");
+  const revalidator = useRevalidator();
   const navigate = useNavigate();
 
   const { withdrawFee, minimumWithdraw } = useRouteLoaderData("configuration");
@@ -96,8 +97,8 @@ const Withdraw = () => {
       setProcessing(false);
       if (res.data?.success) {
         toast.success("The application is successfull.Waiting for review.");
-        window.location.assign("/my");
-        //navigate("/my");
+        revalidator.revalidate();
+        navigate("/my");
       }
     } catch (err) {
       setProcessing(false);

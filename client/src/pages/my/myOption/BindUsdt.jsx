@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { userApi } from "../../../router/axiosApi";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import { useNavigate, useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const BindUsdt = () => {
   const user = useRouteLoaderData("user");
   const [trc20Address, setTrc20Address] = useState(user.trc20Address);
   const navigate = useNavigate();
+  const revalidator = useRevalidator();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -26,8 +27,8 @@ const BindUsdt = () => {
         const res = await userApi.put(user._id, { trc20Address });
         if (res.data?.success) {
           toast.success("Binding successfully");
-          window.location.assign("/my");
-          //navigate("/");
+          revalidator.revalidate();
+          navigate("/my");
         }
       } else {
         toast.error("Binding ID can not be changed");
