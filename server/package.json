@@ -1,7 +1,7 @@
 {
   "name": "aftaai",
   "version": "1.0.0",
-  "description": "AFTAAI is a cryptocurrency trading platform",
+  "description": "AFTAAI is a trading platform",
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
