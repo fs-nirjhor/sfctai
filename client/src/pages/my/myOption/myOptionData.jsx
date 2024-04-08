@@ -11,8 +11,7 @@ import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
 
 const MyOptionData = ({ user }) => {
-  const isAuthenticated =
-    user?.authentication?.frontPhoto && user?.authentication?.backPhoto;
+  const isAuthenticated = user?.authentication?.isAuthenticated;
   // styles
   const authenticationStyle = `${
     isAuthenticated ? "text-green-500" : "text-myPrimary"
