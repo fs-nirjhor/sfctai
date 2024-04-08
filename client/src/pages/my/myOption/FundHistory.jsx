@@ -122,7 +122,7 @@ const FundHistory = () => {
             return (
               <div
                 key={transaction._id}
-                className="flex gap-2 items-center justify-between px-3 py-2 mb-2 text-sm bg-opacity-40 bg-gray-300"
+                className="flex gap-2 items-center justify-between px-3 py-2 mb-1 text-sm bg-gray-300"
                 onClick={() => handleClick(transaction.client._id)}
               >
                 {/* condition */}
@@ -153,8 +153,8 @@ const FundHistory = () => {
                   className={
                     transaction.category == "Withdraw" ||
                     transaction.category == "Reduce"
-                      ? "text-error text-end"
-                      : "text-success text-end"
+                      ? "text-error text-end before:content-['-']"
+                      : "text-success text-end before:content-['+']"
                   }
                 >
                   {!transaction.isApproved && transaction.category == "Recharge"
