@@ -40,20 +40,6 @@ const transactionSchema = new Schema(
     category: {
       type: String,
       required: true,
-      validate: [
-        {
-          validator: function (value) {
-            return (
-              value == "Recharge" ||
-              value == "Withdraw" ||
-              value == "Order" ||
-              value == "Bonus" ||
-              value == "Reduce"
-            );
-          },
-          message: "Invalid category",
-        },
-      ],
     },
   },
   { timestamps: true }

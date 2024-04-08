@@ -888,6 +888,7 @@ const handleRejectTransaction = async (req, res, next) => {
       );
 
       const withDrawAmount = Number(rejectedTransaction.withDrawAmount);
+      // update user balance
       userUpdates = {
         $inc: {
           "transaction.balance": withDrawAmount,
@@ -905,6 +906,19 @@ const handleRejectTransaction = async (req, res, next) => {
       if (!updatedUser) {
         throw new Error("Failed return balance");
       }
+      // create rejected transaction
+      const rejectedTransactionData = {
+        client: rejectedTransaction.client,
+        amount: withDrawAmount,
+        credential: rejectedTransaction.credential,
+        category: "Withdrawal Refused",
+        isApproved: true,
+        isPending: false,
+      };
+      const newRejectedTransaction = await createItem(
+        Transaction,
+        rejectedTransactionData
+      );
     }
     // set notification data
     const origin = req.headers.origin;

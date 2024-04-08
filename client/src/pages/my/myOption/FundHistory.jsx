@@ -147,6 +147,11 @@ const FundHistory = () => {
                 <div>
                   <p>{transaction.category}</p>
                   <p className="text-[0.60rem]">{createdDate}</p>
+                  {transaction.category == "Withdrawal Refused" && (
+                    <p className="text-xs text-red-500">
+                      Please contact customer service
+                    </p>
+                  )}
                 </div>
                 {/* amount */}
                 <p
