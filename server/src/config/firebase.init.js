@@ -1,14 +1,13 @@
 const admin = require("firebase-admin");
 
-
-const serviceAccount = require("./sfctai-2024-firebase-adminsdk-49ky2-3d1feb1047.json");
+const serviceAccount = require("./aftaai-2024-firebase-adminsdk-2hr2w-62e98320de.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://sfctai-2024-default-rtdb.asia-southeast1.firebasedatabase.app"
+  databaseURL:
+    "https://aftaai-2024-default-rtdb.asia-southeast1.firebasedatabase.app",
 });
 
 const messaging = admin.messaging();
 
-
-module.exports = {messaging}
+module.exports = { messaging };
