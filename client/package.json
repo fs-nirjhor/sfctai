@@ -11,6 +11,7 @@
     "preview": "vite preview --host"
   },
   "dependencies": {
+    "aftaai": "file:..",
     "axios": "^1.6.3",
     "firebase": "^10.8.1",
     "localforage": "^1.10.0",
@@ -26,7 +27,6 @@
     "react-slick": "^0.29.0",
     "react-toastify": "^10.0.4",
     "rollup": "^4.6.1",
-    "aftaai": "file:..",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.3",
     "sort-by": "^1.2.0"
