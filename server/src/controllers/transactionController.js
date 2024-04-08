@@ -304,6 +304,7 @@ const handleReduce = async (req, res, next) => {
     }
 
     // set notification data
+    /* 
     const origin = req.headers.origin;
 
     const topic = client + "";
@@ -347,7 +348,8 @@ const handleReduce = async (req, res, next) => {
       },
     };
     // send notification
-    await messaging.send(notificationData);
+    await messaging.send(notificationData); 
+    */
 
     return successResponse(res, {
       statusCode: 200,
