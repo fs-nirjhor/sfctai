@@ -8,6 +8,7 @@ import ApproveRecharge from "./ApproveRecharge";
 import ApproveWithdraw from "./ApproveWithdraw";
 import { toast } from "react-toastify";
 import moment from "moment";
+import HandleAuthentication from "./HandleAuthentication";
 
 const Client = () => {
   const { userId } = useParams();
@@ -478,6 +479,10 @@ const Client = () => {
               id={client._id}
               pendingWithdraw={pendingWithdraw}
             />
+          </div>
+          {/* handle authentication */}
+          <div className={singleBoxStyle}>
+            <HandleAuthentication client={client} />
           </div>
         </section>
       </section>
