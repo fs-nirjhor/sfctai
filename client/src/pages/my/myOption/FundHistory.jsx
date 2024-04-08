@@ -122,16 +122,7 @@ const FundHistory = () => {
             return (
               <div
                 key={transaction._id}
-                className={`flex gap-2 items-center justify-between px-3 py-2 mb-2 text-sm bg-opacity-40 ${
-                  transaction.category == "Bonus" ||
-                  transaction.category == "Reduce"
-                    ? "bg-gray-300"
-                    : transaction.isRejected
-                    ? "bg-error"
-                    : transaction.isApproved
-                    ? "bg-success"
-                    : "bg-gray-300"
-                }`}
+                className="flex gap-2 items-center justify-between px-3 py-2 mb-2 text-sm bg-opacity-40 bg-gray-300"
                 onClick={() => handleClick(transaction.client._id)}
               >
                 {/* condition */}
