@@ -6,7 +6,7 @@ import { GoPerson } from "react-icons/go";
 const Footer = () => {
   const iconStyle = "h-7 w-10";
   const textStyle = "btm-nav-label first-letter:text-lg";
-  const navlinkStyle = "text-gray-500";
+  const navlinkStyle = "text-black";
   return (
     <footer>
       <nav
