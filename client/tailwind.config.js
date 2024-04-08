@@ -7,7 +7,7 @@ export default {
       colors: {
         myPrimary: "#8C4B63",
         mySecondary: "#d1d5db",
-        myBg: "#38bdf8",
+        myBg: "#bae6fd", //"#38bdf8",
       },
     },
   },
