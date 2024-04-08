@@ -27,7 +27,7 @@ body {
 }
 
 #footer-nav a.active {
-  @apply border-myPrimary text-myPrimary bg-myPrimary bg-opacity-15 !important;
+  @apply border-0 text-myPrimary bg-myPrimary bg-opacity-15 !important;
 }
 
 #member-nav a.active {
