@@ -28,7 +28,7 @@ const FundHistory = () => {
         if (category) {
           filter.category = category;
         } else {
-          filter.category = { $ne: "Order" };
+          filter.category = { $nin: ["Order", "Reduce"] };
         }
         const response = await allApi.post(
           `transactions?page=${page}&limit=10`,
