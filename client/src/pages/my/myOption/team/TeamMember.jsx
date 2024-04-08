@@ -17,7 +17,7 @@ const TeamMember = ({ levelId, user }) => {
               key={member._id}
             >
               <figure className="avatar">
-                <div className="h-16">
+                <div className="h-14 p-2">
                   <img src="/images/avatar/teamAvatar.png" alt="avatar" />
                 </div>
               </figure>
@@ -26,9 +26,13 @@ const TeamMember = ({ levelId, user }) => {
                   <span className="me-3">ID: {member.userId}</span>
                   <span
                     className={
-                      member.transaction?.balance >= 10 || member.transaction?.isOrderPending ? "text-myPrimary" : ""
+                      member.transaction?.balance >= 10 ||
+                      member.transaction?.isOrderPending
+                        ? "text-myPrimary"
+                        : ""
                     }
-                  >Name: {member.name}
+                  >
+                    Name: {member.name}
                   </span>
                 </p>
                 <p className="text-gray-400 text-sm">
