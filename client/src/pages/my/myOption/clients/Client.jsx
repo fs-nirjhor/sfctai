@@ -13,6 +13,7 @@ import HandleAuthentication from "./HandleAuthentication";
 const Client = () => {
   const { userId } = useParams();
   const [client, setClient] = useState({});
+  const [reload, setReload] = useState(0);
   const [pendingRecharge, setPendingRecharge] = useState([]);
   const [pendingWithdraw, setPendingWithdraw] = useState([]);
   const [bonusAmount, setBonusAmount] = useState("");
@@ -77,7 +78,7 @@ const Client = () => {
     };
     getClient();
     getPendingTransactions();
-  }, [userId]);
+  }, [userId, reload]);
 
   const handleUpdate = async (update) => {
     event.preventDefault();
@@ -89,7 +90,7 @@ const Client = () => {
       const res = await userApi.put(client._id, update);
       if (res.data?.success) {
         toast.success("Updated successfully");
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       if (err.response?.data.message) {
@@ -127,7 +128,7 @@ const Client = () => {
         toast.success("Bonus added successfully");
         setBonusAmount("");
         setProcessing(false);
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       if (err.response?.data.message) {
@@ -160,7 +161,7 @@ const Client = () => {
         toast.success("Recharge added successfully");
         setExtraRecharge("");
         setProcessing(false);
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       if (err.response?.data.message) {
@@ -195,7 +196,7 @@ const Client = () => {
         toast.success("Balance Reduced successfully");
         setReduceAmount("");
         setProcessing(false);
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       if (err.response?.data.message) {
@@ -471,6 +472,7 @@ const Client = () => {
             <ApproveRecharge
               id={client._id}
               pendingRecharge={pendingRecharge}
+              setReload={setReload}
             />
           </div>
           {/* approve withdraw */}
@@ -478,11 +480,12 @@ const Client = () => {
             <ApproveWithdraw
               id={client._id}
               pendingWithdraw={pendingWithdraw}
+              setReload={setReload}
             />
           </div>
           {/* handle authentication */}
           <div className={singleBoxStyle}>
-            <HandleAuthentication client={client} />
+            <HandleAuthentication client={client} setReload={setReload} />
           </div>
         </section>
       </section>

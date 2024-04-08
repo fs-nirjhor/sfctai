@@ -1,9 +1,16 @@
-const HandleAuthentication = ({ client }) => {
+const HandleAuthentication = ({ client, setReload }) => {
+  const isPhoto =
+    client?.authentication?.frontPhoto && client?.authentication?.backPhoto;
+  const isAuthenticated = client?.authentication?.isAuthenticated;
   return (
     <section>
-      <h3 className="mb-3 font-semibold">Authentication</h3>
-      {client?.authentication?.frontPhoto &&
-      client?.authentication?.backPhoto ? (
+      <div className="flex justify-between">
+        <h3 className="mb-3 font-semibold">
+          {isAuthenticated ? "Authenticated" : "Not Authenticated"}
+        </h3>
+        <input type="checkbox" className="toggle toggle-success" />
+      </div>
+      {isPhoto ? (
         <div className="flex justify-between max-w-md gap-3 mx-auto my-2 font-semibold text-center text-xs">
           <figure>
             <p>Front Photo</p>
@@ -23,7 +30,7 @@ const HandleAuthentication = ({ client }) => {
           </figure>
         </div>
       ) : (
-        <p className="text-center my-2">Not authenticated</p>
+        <p className="text-center my-2">No Photo</p>
       )}
     </section>
   );

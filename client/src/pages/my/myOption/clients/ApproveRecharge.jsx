@@ -3,7 +3,7 @@ import { transactionApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import Spinner from "../../../shared/Spinner";
 
-const ApproveRecharge = ({ id, pendingRecharge }) => {
+const ApproveRecharge = ({ id, pendingRecharge, setReload }) => {
   const [approveRechargeAmount, setApproveRechargeAmount] = useState("");
   const [processing, setProcessing] = useState(false);
 
@@ -30,7 +30,7 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
         toast.success("Recharge successfully approved");
         setApproveRechargeAmount("");
         setProcessing(false);
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       setProcessing(false);
@@ -52,7 +52,7 @@ const ApproveRecharge = ({ id, pendingRecharge }) => {
       toast.dismiss("reject-recharge-loading");
       if (response.data?.success) {
         toast.success("Recharge successfully rejected");
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       toast.dismiss("reject-recharge-loading");

@@ -4,7 +4,7 @@ import moment from "moment";
 import { useState } from "react";
 import Spinner from "../../../shared/Spinner";
 
-const ApproveWithdraw = ({ id, pendingWithdraw }) => {
+const ApproveWithdraw = ({ id, pendingWithdraw, setReload }) => {
   const [processing, setProcessing] = useState(false);
   const handleApproveWithdraw = async (transactionId) => {
     event.preventDefault();
@@ -20,7 +20,7 @@ const ApproveWithdraw = ({ id, pendingWithdraw }) => {
       if (response.data?.success) {
         toast.success("Withdraw successfully approved");
         setProcessing(false);
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       toast.dismiss("approve-withdraw-loading");
@@ -44,7 +44,7 @@ const ApproveWithdraw = ({ id, pendingWithdraw }) => {
       toast.dismiss("reject-withdraw-loading");
       if (response.data?.success) {
         toast.success("Withdraw successfully rejected");
-        window.location.reload();
+        setReload((prev) => prev + 1);
       }
     } catch (err) {
       toast.dismiss("reject-withdraw-loading");
