@@ -105,7 +105,6 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
   const { status, message } = err;
-  console.error(err);
   logger.error(message);
   return errorResponse(res, { statusCode: status, message });
 });
