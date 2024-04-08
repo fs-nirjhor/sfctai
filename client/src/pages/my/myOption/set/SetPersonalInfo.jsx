@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { userApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import SetAvatar from "./SetAvatar";
@@ -8,6 +8,8 @@ import Spinner from "../../../shared/Spinner";
 
 const SetPersonalInfo = () => {
   const user = useRouteLoaderData("user");
+  const revalidator = useRevalidator();
+
   // updates
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -28,6 +30,7 @@ const SetPersonalInfo = () => {
         setPhone("");
         setEmail("");
         toast.success("Updated successfully");
+        revalidator.revalidate();
       }
     } catch (err) {
       toast.dismiss("update-info-loading");
