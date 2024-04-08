@@ -37,7 +37,7 @@ const DeleteConfirm = ({ id }) => {
         <figure>
           <p className="mb-5 text-center">Do you want to delete this user?</p>
           <button
-            className={`btn ms-auto block btn-secondary bg-myPrimary text-white ${
+            className={`btn ms-auto block btn-myPrimary bg-myPrimary text-white ${
               processing && "btn-disabled"
             }`}
             onClick={handleDelete}

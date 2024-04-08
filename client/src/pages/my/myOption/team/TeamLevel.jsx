@@ -4,8 +4,8 @@ import TeamMember from "./TeamMember";
 const TeamLevel = ({ user }) => {
   const [level, setLevel] = useState("1");
   const levels = ["1", "2", "3"];
-  const activeButton = "btn btn-secondary font-semibold";
-  const inactiveButton = "btn btn-secondary bg-white text-black font-semibold";
+  const activeButton = "btn btn-myPrimary font-semibold";
+  const inactiveButton = "btn btn-myPrimary bg-white text-black font-semibold";
   return (
     <article>
       <h4 className="text-sm text-center">Members</h4>

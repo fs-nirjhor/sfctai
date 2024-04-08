@@ -23,7 +23,7 @@ const Invitation = () => {
             {invitationLink}
           </p>
           <button
-            className="btn btn-sm btn-secondary"
+            className="btn btn-sm btn-myPrimary"
             onClick={() => navigator.clipboard.writeText(invitationLink)}
           >
             Copy

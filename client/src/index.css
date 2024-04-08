@@ -38,6 +38,11 @@ body {
   @apply bg-transparent
 }
 
+@layer components {
+  .btn-myPrimary {
+    @apply bg-myPrimary text-white hover:bg-myPrimary/80 active:bg-myPrimary/90
+  }
+}
 
 @layer utilities {
   /* Hide scrollbar for IE, Edge and Firefox */

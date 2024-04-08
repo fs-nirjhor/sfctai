@@ -31,7 +31,7 @@ const Recharge = () => {
         <p className="mt-2">
           Don&apos;t forget to collect & submit the txid after recharge.
         </p>
-        <Link to="/my/txid-submit" className="btn btn-secondary btn-block mt-3">
+        <Link to="/my/txid-submit" className="btn btn-myPrimary btn-block mt-3">
           SUBMIT TXID
         </Link>
       </figure>

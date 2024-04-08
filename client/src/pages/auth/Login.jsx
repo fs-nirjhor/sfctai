@@ -119,7 +119,7 @@ const Login = () => {
         <label className="form-control w-full max-w-md mx-auto mt-5">
           <button
             type="submit"
-            className="btn btn-secondary font-semibold w-full"
+            className="btn btn-myPrimary font-semibold w-full"
           >
             Login
           </button>

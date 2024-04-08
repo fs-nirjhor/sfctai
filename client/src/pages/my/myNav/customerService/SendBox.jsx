@@ -66,7 +66,7 @@ const SendBox = ({ clientId, user }) => {
             />
           </div>
         </div>
-        <button className="btn btn-sm btn-secondary mt-1 ms-auto block px-10">
+        <button className="btn btn-sm btn-myPrimary mt-1 ms-auto block px-10">
           SEND
         </button>
       </form>

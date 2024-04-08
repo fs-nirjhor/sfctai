@@ -161,7 +161,7 @@ const Confirm = ({ isOpen, setIsOpen }) => {
             Expect to take 10 to 15 minites to complete the order
           </p>
           <button
-            className={`btn btn-block btn-secondary ${
+            className={`btn btn-block btn-myPrimary ${
               processing && "btn-disabled"
             }`}
             onClick={handleClick}

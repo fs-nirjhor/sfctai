@@ -111,7 +111,7 @@ const SetLoginPassword = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn btn-secondary font-semibold w-full mt-5"
+            className="btn btn-myPrimary font-semibold w-full mt-5"
           >
             Submit
           </button>

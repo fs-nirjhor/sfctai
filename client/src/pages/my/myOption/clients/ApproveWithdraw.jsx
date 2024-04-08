@@ -78,7 +78,7 @@ const ApproveWithdraw = ({ id, pendingWithdraw }) => {
               <p className="text-sm">Time: {createdDate}</p>
               <div className="flex gap-3 mt-3">
                 <button
-                  className={`btn btn-secondary btn-sm bg-myPrimary text-white ${
+                  className={`btn btn-myPrimary btn-sm bg-myPrimary text-white ${
                     processing && "btn-disabled"
                   }`}
                   onClick={() => handleApproveWithdraw(withdraw._id)}
@@ -86,7 +86,7 @@ const ApproveWithdraw = ({ id, pendingWithdraw }) => {
                   Approve
                 </button>
                 <button
-                  className={`btn btn-secondary btn-sm bg-myPrimary text-white ${
+                  className={`btn btn-myPrimary btn-sm bg-myPrimary text-white ${
                     processing && "btn-disabled"
                   }`}
                   onClick={() => handleRejectWithdraw(withdraw._id)}
