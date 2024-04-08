@@ -21,7 +21,7 @@ const ShowMessages = ({ chats, user }) => {
   }
 
   return (
-    <div className="w-full overflow-y-auto no-scrollbar flex flex-col-reverse px-3">
+    <div className="w-full overflow-y-auto no-scrollbar flex flex-col-reverse flex-1 px-3">
       {chats.messages
         .slice()
         .reverse()
