@@ -19,6 +19,7 @@ const Trade = () => {
     console.log(isOpen);
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
+    // conditions for trade
     if (!(currentHour >= 10 && currentHour < 22)) {
       return toast.error("Allowed trade time is 10:00 - 22:00 (Arabic Time)");
     } else if (transaction.todaysOrder >= configuration.orderPerDay) {
@@ -27,6 +28,8 @@ const Trade = () => {
       return toast.error("Insufficent Balance");
     } else if (!user.trc20Address) {
       return toast.error("Please Bind ID to trade");
+    } else if (!configuration?.canTrade) {
+      return toast.error("Trade is not available at the moment");
     } else {
       return setIsOpen(true);
       //return document.getElementById("confirm_dialog").showModal();

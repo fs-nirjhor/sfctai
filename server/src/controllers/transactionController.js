@@ -563,9 +563,14 @@ const handleOrderRequest = async (req, res, next) => {
       throw createHttpError(403, "Insufficent Balance");
     }
 
-    // is order available
+    //? is order available
     if (user.transaction.todaysOrder >= configuration.orderPerDay) {
       throw createHttpError(403, "Limit Exceeded");
+    }
+
+    //? is trade allowed
+    if (!configuration?.canTrade) {
+      throw createHttpError(403, "Trade is not available at the moment");
     }
 
     // add new order
