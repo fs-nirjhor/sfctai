@@ -2,7 +2,7 @@ import { useRouteLoaderData } from "react-router-dom";
 
 const ClientPermission = ({ client, handleUpdate }) => {
   const user = useRouteLoaderData("user");
-  const isAuthenticated = client?.authentication?.isAuthenticated;
+  const isAuthenticated = client?.isAuthenticated;
   const isPhoto =
     client?.authentication?.frontPhoto && client?.authentication?.backPhoto;
 
@@ -31,7 +31,7 @@ const ClientPermission = ({ client, handleUpdate }) => {
             checked={isAuthenticated || false}
             onChange={() =>
               handleUpdate({
-                "authentication.isAuthenticated": !isAuthenticated,
+                isAuthenticated: !isAuthenticated,
               })
             }
           />

@@ -141,10 +141,6 @@ const userSchema = new Schema(
       lastResetTimestamp: { type: Date, default: Date.now },
     },
     authentication: {
-      isAuthenticated: {
-        type: Boolean,
-        default: false,
-      },
       frontPhoto: {
         type: String,
         default: "",
@@ -153,6 +149,10 @@ const userSchema = new Schema(
         type: String,
         default: "",
       },
+    },
+    isAuthenticated: {
+      type: Boolean,
+      default: false,
     },
     isAdmin: {
       type: Boolean,
