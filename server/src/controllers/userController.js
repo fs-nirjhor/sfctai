@@ -87,7 +87,6 @@ const handleRegistration = async (req, res, next) => {
       payload: { createdUser },
     });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

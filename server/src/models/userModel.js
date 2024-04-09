@@ -156,6 +156,18 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    canMessage: {
+      type: Boolean,
+      default: true,
+    },
+    canTrade: {
+      type: Boolean,
+      default: true,
+    },
+    canWithdraw: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );
