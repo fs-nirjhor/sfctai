@@ -1,6 +1,6 @@
 import { useRouteLoaderData } from "react-router-dom";
 
-const HandleAuthentication = ({ client, handleUpdate }) => {
+const ClientPermission = ({ client, handleUpdate }) => {
   const user = useRouteLoaderData("user");
   const isAuthenticated = client?.authentication?.isAuthenticated;
   const isPhoto =
@@ -146,4 +146,4 @@ const HandleAuthentication = ({ client, handleUpdate }) => {
     </section>
   );
 };
-export default HandleAuthentication;
+export default ClientPermission;

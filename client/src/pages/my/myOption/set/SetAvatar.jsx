@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { userApi } from "../../../../router/axiosApi";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SetAvatar = () => {
   const user = useRouteLoaderData("user");
+  const revalidator = useRevalidator();
   const [selectedAvatar, setSelectedAvatar] = useState(user);
 
   const images = [
@@ -26,7 +27,10 @@ const SetAvatar = () => {
     }
     try {
       const res = await userApi.put(user._id, updates);
-      res.data?.success && toast.success("Avatar updated");
+      if (res.data?.success) {
+        toast.success("Avatar updated");
+        revalidator.revalidate();
+      }
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message);

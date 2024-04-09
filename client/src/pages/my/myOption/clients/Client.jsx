@@ -8,7 +8,7 @@ import ApproveRecharge from "./ApproveRecharge";
 import ApproveWithdraw from "./ApproveWithdraw";
 import { toast } from "react-toastify";
 import moment from "moment";
-import HandleAuthentication from "./HandleAuthentication";
+import ClientPermission from "./ClientPermission";
 
 const Client = () => {
   const { userId } = useParams();
@@ -490,9 +490,9 @@ const Client = () => {
               setReload={setReload}
             />
           </div>
-          {/* handle authentication */}
+          {/* handle permissions */}
           <div className={singleBoxStyle}>
-            <HandleAuthentication client={client} handleUpdate={handleUpdate} />
+            <ClientPermission client={client} handleUpdate={handleUpdate} />
           </div>
         </section>
       </section>
