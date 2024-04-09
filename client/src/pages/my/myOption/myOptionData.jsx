@@ -9,12 +9,14 @@ import { GoPeople } from "react-icons/go";
 import { GoGear } from "react-icons/go";
 import { FiUsers } from "react-icons/fi";
 import { BsEnvelopePaperHeart } from "react-icons/bs";
+import { SlHandbag } from "react-icons/sl";
 
 const MyOptionData = ({ user }) => {
-  const isAuthenticated = user?.authentication?.isAuthenticated;
+  const isPhoto =
+    user?.authentication?.frontPhoto && user?.authentication?.backPhoto;
   // styles
   const authenticationStyle = `${
-    isAuthenticated ? "text-green-500" : "text-myPrimary"
+    isPhoto ? "text-green-500" : "text-myPrimary"
   } inline-block me-3 text-2xl`;
   const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
 
@@ -23,7 +25,7 @@ const MyOptionData = ({ user }) => {
     {
       name: "Real-name authentication",
       to: "authentication",
-      icon: isAuthenticated ? (
+      icon: isPhoto ? (
         <MdVerifiedUser className={authenticationStyle} />
       ) : (
         <MdOutlineVerifiedUser className={authenticationStyle} />
@@ -42,13 +44,7 @@ const MyOptionData = ({ user }) => {
     {
       name: "Trade history",
       to: "trade-history",
-      icon: (
-        <img
-          src="/images/trade-icon.png"
-          alt="trade"
-          className="inline w-7 me-3"
-        />
-      ),
+      icon: <SlHandbag className={iconStyle} />,
     },
     {
       name: "Fund history",
@@ -74,7 +70,7 @@ const MyOptionData = ({ user }) => {
     {
       name: "Real-name authentication",
       to: "authentication",
-      icon: isAuthenticated ? (
+      icon: isPhoto ? (
         <MdVerifiedUser className={authenticationStyle} />
       ) : (
         <MdOutlineVerifiedUser className={authenticationStyle} />
@@ -88,13 +84,7 @@ const MyOptionData = ({ user }) => {
     {
       name: "Trade history",
       to: "trade-history",
-      icon: (
-        <img
-          src="/images/trade-icon.png"
-          alt="trade"
-          className="inline w-7 me-3"
-        />
-      ),
+      icon: <SlHandbag className={iconStyle} />,
     },
     {
       name: "Fund history",
