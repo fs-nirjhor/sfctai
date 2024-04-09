@@ -49,14 +49,14 @@ const SetLoginPassword = () => {
             {...register("newPassword", {
               required: true,
               minLength: 6,
-              maxLength: 8,
+              maxLength: 32,
             })}
           />
           {errors.newPassword && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Password must have 6-8 letters or digit
+                Password must have 6-32 letters or digit
               </span>
             </div>
           )}
@@ -74,7 +74,7 @@ const SetLoginPassword = () => {
             {...register("confirmPassword", {
               required: true,
               minLength: 6,
-              maxLength: 8,
+              maxLength: 32,
               validate: (value) => value === watch("newPassword"),
             })}
           />
@@ -100,14 +100,14 @@ const SetLoginPassword = () => {
             {...register("loginPassword", {
               required: true,
               minLength: 6,
-              maxLength: 8,
+              maxLength: 32,
             })}
           />
           {errors.loginPassword && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Password must have 6-8 letters or digit
+                Password must have 6-32 letters or digit
               </span>
             </div>
           )}

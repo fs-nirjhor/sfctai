@@ -17,9 +17,9 @@ const Registration = () => {
   const onSubmit = async (data) => {
     event.preventDefault();
     try {
-      // registration 
+      // registration
       await userApi.post("registration", data);
-      // login 
+      // login
       const loggedUser = await authApi.post("login", {
         password: data.loginPassword,
         phone: data.phone,
@@ -31,7 +31,7 @@ const Registration = () => {
       }
       toast.success("Registration successful");
       //navigate("/my");
-      window.location.replace("/my")
+      window.location.replace("/my");
     } catch (err) {
       if (err.response.data.message) {
         toast.error(err.response.data.message); // error sent by server
@@ -64,7 +64,7 @@ const Registration = () => {
             required
             {...register("phone", {
               required: true,
-              minLength: 8,
+              minLength: 6,
               maxLength: 18,
             })}
           />
@@ -72,7 +72,7 @@ const Registration = () => {
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Phone Number must have 8-18 charecters
+                Phone Number must have 6-18 charecters
               </span>
             </div>
           )}
@@ -113,14 +113,14 @@ const Registration = () => {
             {...register("loginPassword", {
               required: true,
               minLength: 6,
-              maxLength: 8,
+              maxLength: 32,
             })}
           />
           {errors.loginPassword && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Password must have 6-8 letters or digit
+                Password must have 6-32 letters or digit
               </span>
             </div>
           )}
@@ -138,14 +138,14 @@ const Registration = () => {
             {...register("withdrawalPassword", {
               required: true,
               minLength: 6,
-              maxLength: 8,
+              maxLength: 32,
             })}
           />
           {errors.withdrawalPassword && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Password must have 6-8 letters or digit
+                Password must have 6-32 letters or digit
               </span>
             </div>
           )}
@@ -163,15 +163,13 @@ const Registration = () => {
             required
             {...register("invitationCode", {
               required: true,
-              minLength: 6,
-              maxLength: 6,
             })}
           />
           {errors.invitationCode && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Invitation code must have 7 charecters
+                Invitation code is required
               </span>
             </div>
           )}

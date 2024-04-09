@@ -78,15 +78,13 @@ const Login = () => {
             required
             {...register("phone", {
               required: true,
-              minLength: 8,
-              maxLength: 18,
             })}
           />
           {errors.phone && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Phone Number must have 8-18 charecters
+                Please enter your phone number
               </span>
             </div>
           )}
@@ -103,15 +101,13 @@ const Login = () => {
             required
             {...register("password", {
               required: true,
-              minLength: 6,
-              maxLength: 8,
             })}
           />
           {errors.password && (
             <div className="label">
               <span className="label-text-alt"></span>
               <span className="label-text-alt text-error font-medium">
-                Password must have 6-8 letters or digit
+                Please enter your login password
               </span>
             </div>
           )}
