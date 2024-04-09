@@ -15,6 +15,31 @@ const ClientPermission = ({ client, handleUpdate }) => {
   const boxStyle = "flex justify-between bg-white pt-2 px-2 mb-2 rounded";
   return (
     <section>
+      <div className="bg-white p-2 mb-2 rounded">
+        <h1 className="font-semibold text-center pt-2 mb-5">NID</h1>
+        {isPhoto ? (
+          <div className="flex justify-between max-w-md gap-3 mx-auto mb-2 font-semibold text-center text-xs">
+            <figure>
+              <p>Front Photo</p>
+              <img
+                src={client?.authentication?.frontPhoto}
+                alt="frontPhoto"
+                className="p-2"
+              />
+            </figure>
+            <figure>
+              <p>Back Photo</p>
+              <img
+                src={client?.authentication?.backPhoto}
+                alt="backPhoto"
+                className="p-2"
+              />
+            </figure>
+          </div>
+        ) : (
+          <p className="text-center my-2">No Photo</p>
+        )}
+      </div>
       {/* handle authentication */}
       <div>
         <div className={boxStyle}>
@@ -36,28 +61,6 @@ const ClientPermission = ({ client, handleUpdate }) => {
             }
           />
         </div>
-        {isPhoto ? (
-          <div className="flex justify-between max-w-md gap-3 mx-auto mb-2 font-semibold text-center text-xs">
-            <figure>
-              <p>Front Photo</p>
-              <img
-                src={client?.authentication?.frontPhoto}
-                alt="frontPhoto"
-                className="mt-2"
-              />
-            </figure>
-            <figure>
-              <p>Back Photo</p>
-              <img
-                src={client?.authentication?.backPhoto}
-                alt="backPhoto"
-                className="mt-2"
-              />
-            </figure>
-          </div>
-        ) : (
-          <p className="text-center my-2">No Photo</p>
-        )}
       </div>
       {/* handle message permission */}
       <div className={boxStyle}>
