@@ -45,6 +45,11 @@ const SetConfiguration = () => {
     }
   };
 
+  const canMessage = configuration?.canMessage;
+  const canTrade = configuration?.canTrade;
+  const canWithdraw = configuration?.canWithdraw;
+
+  // styling
   const listStyle = "p-2 border-b-2";
   const inputStyle =
     "input input-bordered input-sm border-myPrimary join-item w-4/6";
@@ -54,8 +59,11 @@ const SetConfiguration = () => {
   return (
     <div className="pb-20 px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">Configuration</h1>
+      {/* Current Configuration */}
       <section className="bg-mySecondary w-full mb-5 rounded">
-        <p className={"text-center " + listStyle}>Current Configuration</p>
+        <p className={"text-center font-semibold " + listStyle}>
+          Current Configuration
+        </p>
         <p className={"overflow-x-auto " + listStyle}>
           <span>Transfer Address: </span>
           <span>{configuration?.transferAddress}</span>
@@ -93,8 +101,58 @@ const SetConfiguration = () => {
           <span>{configuration?.level3Commission}%</span>
         </p>
       </section>
-      <div className="max-w-md mx-auto">
-        <h3 className="text-center mb-3">Change Configuration</h3>
+      {/* Change permission */}
+      <section className="max-w-md mx-auto">
+        <h3 className="text-center mb-3 font-semibold">Set Permission</h3>
+        <div className="flex justify-between">
+          <h3
+            className={`mb-3 font-semibold ${
+              canMessage ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {canMessage ? "Message Enabled" : "Message Disabled"}
+          </h3>
+          <input
+            type="checkbox"
+            className="toggle toggle-success"
+            checked={canMessage || false}
+            onChange={() => handleClick({ canMessage: !canMessage })}
+          />
+        </div>
+        <div className="flex justify-between">
+          <h3
+            className={`mb-3 font-semibold ${
+              canWithdraw ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {canWithdraw ? "Withdraw Enabled" : "Withdraw Disabled"}
+          </h3>
+          <input
+            type="checkbox"
+            className="toggle toggle-success"
+            checked={canWithdraw || false}
+            onChange={() => handleClick({ canWithdraw: !canWithdraw })}
+          />
+        </div>
+        <div className="flex justify-between">
+          <h3
+            className={`mb-3 font-semibold ${
+              canTrade ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {canTrade ? "Trade Enabled" : "Trade Disabled"}
+          </h3>
+          <input
+            type="checkbox"
+            className="toggle toggle-success"
+            checked={canTrade || false}
+            onChange={() => handleClick({ canTrade: !canTrade })}
+          />
+        </div>
+      </section>
+      {/* Change configuration */}
+      <section className="max-w-md mx-auto">
+        <h3 className="text-center mb-3 font-semibold">Change Configuration</h3>
         <form
           className={formStyle}
           onSubmit={() => handleClick({ transferAddress })}
@@ -240,7 +298,7 @@ const SetConfiguration = () => {
           </button>
         </form>
         <SetApk />
-      </div>
+      </section>
     </div>
   );
 };
