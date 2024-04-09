@@ -25,7 +25,6 @@ const handleUpdateConfiguration = async (req, res, next) => {
   try {
     const id = req.params.id;
     const { update } = req.body;
-    console.log(update)
 
     const updateOptions = {
       new: true,
