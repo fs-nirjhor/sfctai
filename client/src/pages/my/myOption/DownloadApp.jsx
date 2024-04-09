@@ -6,7 +6,7 @@ const DownloadApp = () => {
   return (
     <>
       <a
-        className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black font-serif"
+        className="flex justify-between p-3 border-b-2 border-b-mySecondary text-black"
         href={`${serverUrl}/api/apk/download`}
         download
       >

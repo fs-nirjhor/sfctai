@@ -58,7 +58,7 @@ const Logout = () => {
   return (
     <>
       <Link
-        className="flex justify-between p-3 text-black font-serif"
+        className="flex justify-between p-3 text-black"
         onClick={handleClick}
       >
         <p className="text-start">
