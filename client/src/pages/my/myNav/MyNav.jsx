@@ -12,7 +12,7 @@ const MyNav = () => {
 
   const handleCustomerService = () => {
     event.preventDefault();
-    if (!configuration?.canMessage) {
+    if (!configuration?.canMessage || !user?.canMessage) {
       toast.error("Customer service is not available at the moment");
     } else {
       navigate(user.isAdmin ? "chat" : `chat/${user._id}`);
@@ -21,7 +21,7 @@ const MyNav = () => {
 
   const handleWithdraw = () => {
     event.preventDefault();
-    if (!configuration?.canWithdraw) {
+    if (!configuration?.canWithdraw || !user?.canWithdraw) {
       toast.error("Withdraw is not available at the moment");
     } else {
       navigate("withdraw");

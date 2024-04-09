@@ -569,7 +569,7 @@ const handleOrderRequest = async (req, res, next) => {
     }
 
     //? is trade allowed
-    if (!configuration?.canTrade) {
+    if (!configuration?.canTrade || !user?.canTrade) {
       throw createHttpError(403, "Trade is not available at the moment");
     }
 

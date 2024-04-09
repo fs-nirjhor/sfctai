@@ -28,7 +28,7 @@ const Trade = () => {
       return toast.error("Insufficent Balance");
     } else if (!user.trc20Address) {
       return toast.error("Please Bind ID to trade");
-    } else if (!configuration?.canTrade) {
+    } else if (!configuration?.canTrade || !user?.canTrade) {
       return toast.error("Trade is not available at the moment");
     } else {
       return setIsOpen(true);

@@ -88,11 +88,17 @@ const Client = () => {
     try {
       setProcessing(true);
       const res = await userApi.put(client._id, update);
+      setProcessing(false);
       if (res.data?.success) {
         toast.success("Updated successfully");
         setReload((prev) => prev + 1);
+        setPhone("");
+        setLoginPassword("");
+        setWithdrawalPassword("");
+        setTrc20Address("");
       }
     } catch (err) {
+      setProcessing(false);
       if (err.response?.data.message) {
         toast.error(err.response.data.message); // error sent by server
       } else {
@@ -139,6 +145,7 @@ const Client = () => {
       setProcessing(false);
     }
   };
+
   const handleExtraRecharge = async () => {
     event.preventDefault();
     if (processing) {
@@ -485,7 +492,7 @@ const Client = () => {
           </div>
           {/* handle authentication */}
           <div className={singleBoxStyle}>
-            <HandleAuthentication client={client} setReload={setReload} />
+            <HandleAuthentication client={client} handleUpdate={handleUpdate} />
           </div>
         </section>
       </section>
