@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouteLoaderData, useRevalidator } from "react-router-dom";
-import { configurationApi } from "../../../../router/axiosApi";
+import { allApi, configurationApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import SetApk from "./SetApk";
 
@@ -21,8 +21,7 @@ const SetConfiguration = () => {
   const handleClick = async (update) => {
     event.preventDefault();
     try {
-      // seeding is just a setup for first time of new database
-      //! const res = await allApi.post('seed/configuration')
+      //! return await allApi.post("seed/configuration");
       const res = await configurationApi.put(configuration._id, { update });
       res.data?.success && toast.success("Configuration updated successfully");
       revalidator.revalidate();
