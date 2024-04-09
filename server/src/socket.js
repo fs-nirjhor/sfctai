@@ -209,6 +209,42 @@ io.on("connection", (socket) => {
       }
     }
   );
+  // Handle delete
+  socket.on(
+    "deleteMessage",
+    async ({ isAdmin, chatId, messageId, page, limit }) => {
+      try {
+        // conditional response
+        const data = { chats: {}, chatlist: [], pagination: {} };
+
+        // update message
+        data.chats = await Chat.findByIdAndUpdate(
+          chatId,
+          { $pull: { messages: { _id: messageId } } },
+          {
+            new: true,
+            runValidators: true,
+            context: "query",
+            populate: { path: "client" },
+          }
+        ).lean();
+
+        if (isAdmin) {
+          data.chatlist = await Chat.find()
+            .populate("client")
+            .sort({ updatedAt: -1 })
+            .limit(limit)
+            .skip((page - 1) * limit)
+            .lean();
+        }
+        // send response
+        io.emit("deleteMessage", data);
+      } catch (error) {
+        logger.error(error.message);
+        //throw createHttpError(400, error.message);
+      }
+    }
+  );
 
   // Handle disconnection
   socket.on("disconnect", () => {

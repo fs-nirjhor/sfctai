@@ -34,6 +34,11 @@ const UseChat = () => {
       setChatlist(data.chatlist);
     });
 
+    socketRef.current.on("deleteMessage", (data) => {
+      setChats(data.chats);
+      setChatlist(data.chatlist);
+    });
+
     socketRef.current.on("seen", (newMessage) => {
       setChatlist(newMessage);
     });
@@ -48,6 +53,11 @@ const UseChat = () => {
     newMessage.limit = 10;
     socketRef.current.emit("message", newMessage);
   };
+  const deleteMessage = (data) => {
+    data.page = page;
+    data.limit = 10;
+    socketRef.current.emit("deleteMessage", data);
+  };
 
   return {
     chats,
@@ -55,6 +65,7 @@ const UseChat = () => {
     page,
     pagination,
     sendMessage,
+    deleteMessage,
     setPage,
   };
 };
