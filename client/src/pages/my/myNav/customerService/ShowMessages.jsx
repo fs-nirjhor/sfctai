@@ -87,10 +87,8 @@ const ShowMessages = ({ chats, user }) => {
                   />
                 )}
                 <div
-                  className={`flex gap-2 mt-1 ${
-                    ownMessage
-                      ? "flex-row justify-end"
-                      : "flex-row-reverse justify-start"
+                  className={`flex gap-2 mt-1 justify-end ${
+                    ownMessage ? "flex-row" : "flex-row-reverse"
                   }`}
                 >
                   <span className="text-xs text-gray-400">{time}</span>
