@@ -18,16 +18,25 @@ const MyNav = () => {
       navigate(user.isAdmin ? "chat" : `chat/${user._id}`);
     }
   };
+
+  const handleWithdraw = () => {
+    event.preventDefault();
+    if (!configuration?.canWithdraw) {
+      toast.error("Withdraw is not available at the moment");
+    } else {
+      navigate("withdraw");
+    }
+  };
   return (
     <article className="flex justify-evenly py-3 rounded-md m-2 bg-mySecondary bg-opacity-80">
       <Link to="recharge" className="card">
         <IoWallet className={iconStyle} />
         <h2 className="text-sm my-1 text-black">Recharge</h2>
       </Link>
-      <Link to="withdraw" className="card">
+      <p className="card" onClick={handleWithdraw}>
         <RiBankLine className={iconStyle} />
         <h2 className="text-sm my-1 text-black">Withdraw</h2>
-      </Link>
+      </p>
       <p className="card" onClick={handleCustomerService}>
         <MdSupportAgent className={iconStyle} />
         <h2 className="text-sm my-1 text-black">Customer Service</h2>
