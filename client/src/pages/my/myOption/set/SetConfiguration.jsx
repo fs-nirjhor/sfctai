@@ -22,6 +22,7 @@ const SetConfiguration = () => {
     event.preventDefault();
     try {
       //! return await allApi.post("seed/configuration");
+      //! return await allApi.put("seed/users");
       const res = await configurationApi.put(configuration._id, { update });
       res.data?.success && toast.success("Configuration updated successfully");
       revalidator.revalidate();
