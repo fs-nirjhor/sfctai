@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { transactionApi } from "../../../router/axiosApi";
-import { useNavigate, useRouteLoaderData, useRevalidator } from "react-router-dom";
+import {
+  useNavigate,
+  useRouteLoaderData,
+  useRevalidator,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoPlus } from "react-icons/go";
 import Spinner from "../../shared/Spinner";
 
 const Withdraw = () => {
   const user = useRouteLoaderData("user");
+  const configuration = useRouteLoaderData("configuration");
   const revalidator = useRevalidator();
   const navigate = useNavigate();
 
@@ -60,7 +65,7 @@ const Withdraw = () => {
     formData.append("photo", data.photo[0]);
 
     //validation
-    // is time
+    //? is time
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
     if (!(currentHour >= 10 && currentHour < 22)) {
@@ -68,13 +73,17 @@ const Withdraw = () => {
         "Allowed withdraw time is 10:00 - 22:00 (Arabic Time)"
       );
     }
-    // is usdt bind
+    //? is usdt bind
     if (!user.trc20Address) {
       return toast.error("Please bind your id");
     }
-    // is withdraw already
+    //? is withdraw already done
     if (user.transaction.todaysWithdraw) {
       return toast.error("Only 1 withdraw per day");
+    }
+    //? is allowed
+    if (!configuration?.canWithdraw || !user?.canWithdraw) {
+      return toast.error("Withdraw is not available at the moment");
     }
 
     toast.loading(<Spinner text="Uploading.." />, {
