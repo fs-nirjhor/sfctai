@@ -93,9 +93,11 @@ const ShowMessages = ({ chats, user }) => {
                       : "flex-row-reverse justify-start"
                   }`}
                 >
-                  <span className="text-sm text-gray-400">{time}</span>
+                  <span className="text-xs text-gray-400">{time}</span>
                   <RiDeleteBin2Line
-                    className="text-red-600 text-lg"
+                    className={`text-red-600 text-lg ${
+                      !user?.isAdmin && "hidden"
+                    }`}
                     onClick={() => handleDelete(message?._id, chats?._id)}
                   />
                 </div>
