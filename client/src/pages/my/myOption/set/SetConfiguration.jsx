@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouteLoaderData, useRevalidator } from "react-router-dom";
-import { allApi, configurationApi } from "../../../../router/axiosApi";
+import { configurationApi } from "../../../../router/axiosApi";
 import { toast } from "react-toastify";
 import SetApk from "./SetApk";
 
