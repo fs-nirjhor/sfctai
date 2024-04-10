@@ -48,6 +48,7 @@ const Authentication = () => {
       const formData = new FormData();
       formData.append("frontPhoto", data.frontPhoto[0]);
       formData.append("backPhoto", data.backPhoto[0]);
+      formData.append("email", user.email || data.email);
       //progressbar
       toast.loading(<Spinner text="Uploading.." />, {
         hideProgressBar: false,
@@ -154,6 +155,29 @@ const Authentication = () => {
               </div>
             )}
           </label>
+        </div>
+        <div className={`w-full ${user.email && "hidden"}`}>
+          <div className="label">
+            <span className="font-semibold">Email Address</span>
+          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email address"
+            className="input input-bordered border-myPrimary w-full"
+            required
+            {...register("email", {
+              required: true,
+            })}
+          />
+          {errors.email && (
+            <div className="label">
+              <span className="label-text-alt"></span>
+              <span className="label-text-alt text-error font-medium">
+                Please enter your email
+              </span>
+            </div>
+          )}
         </div>
         <label className="form-control w-full max-w-md mx-auto">
           <button

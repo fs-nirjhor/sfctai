@@ -169,9 +169,10 @@ const handleUpdatePassword = async (req, res, next) => {
 const handleUploadNid = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { frontPhoto, backPhoto } = req.body;
+    const { frontPhoto, backPhoto, email } = req.body;
     const updates = {
       $set: {
+        email: email,
         "authentication.frontPhoto": frontPhoto,
         "authentication.backPhoto": backPhoto,
         "authentication.status": "pending",
