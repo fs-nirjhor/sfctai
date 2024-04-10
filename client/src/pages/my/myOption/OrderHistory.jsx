@@ -7,7 +7,7 @@ import TradingViewWidget from "../../shared/TradingViewWidget";
 import { toast } from "react-toastify";
 import Pagination from "../../shared/Pagination";
 
-const TradeHistory = () => {
+const OrderHistory = () => {
   const loggedUser = useRouteLoaderData("user");
   const { state } = useLocation();
   const user = state || loggedUser;
@@ -113,4 +113,4 @@ const TradeHistory = () => {
     </section>
   );
 };
-export default TradeHistory;
+export default OrderHistory;

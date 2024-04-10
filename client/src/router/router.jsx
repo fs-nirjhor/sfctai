@@ -21,7 +21,7 @@ import Set from "../pages/my/myOption/set/Set.jsx";
 import SetWithdrawalPassword from "../pages/my/myOption/set/SetWithdrawalPassword.jsx";
 import SetLoginPassword from "../pages/my/myOption/set/SetLoginPassword.jsx";
 import SetAvatar from "../pages/my/myOption/set/SetAvatar.jsx";
-import TradeHistory from "../pages/my/myOption/TradeHistory.jsx";
+import OrderHistory from "../pages/my/myOption/OrderHistory.jsx";
 import FundHistory from "../pages/my/myOption/FundHistory.jsx";
 import Registration from "../pages/auth/Registration.jsx";
 import Login from "../pages/auth/Login.jsx";
@@ -122,7 +122,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/my/order-history",
-            element: <TradeHistory />,
+            element: <OrderHistory />,
           },
           {
             path: "/my/txid-submit",
@@ -181,7 +181,7 @@ const router = createBrowserRouter([
               },
               {
                 path: "/client/:userId/order-history",
-                element: <TradeHistory />,
+                element: <OrderHistory />,
               },
               {
                 path: "/my/client-list",
