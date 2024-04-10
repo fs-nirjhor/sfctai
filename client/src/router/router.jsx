@@ -121,7 +121,7 @@ const router = createBrowserRouter([
             element: <Authentication />,
           },
           {
-            path: "/my/trade-history",
+            path: "/my/product-history",
             element: <TradeHistory />,
           },
           {
@@ -180,7 +180,7 @@ const router = createBrowserRouter([
                 element: <FundHistory />,
               },
               {
-                path: "/client/:userId/trade-history",
+                path: "/client/:userId/product-history",
                 element: <TradeHistory />,
               },
               {

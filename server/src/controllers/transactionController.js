@@ -570,13 +570,13 @@ const handleOrderRequest = async (req, res, next) => {
 
     //? is trade allowed
     if (!configuration?.canTrade || !user?.canTrade) {
-      throw createHttpError(403, "Trade is not available at the moment");
+      throw createHttpError(403, "Product is not available at the moment");
     }
 
     // add new order
     const newOrder = await createItem(Transaction, orderData);
     if (!newOrder) {
-      throw new Error("Failed to Trade");
+      throw new Error("Failed to Product");
     }
 
     // user update
@@ -615,7 +615,7 @@ const handleOrderRequest = async (req, res, next) => {
 
     return successResponse(res, {
       statusCode: 200,
-      message: "Trade Successfull",
+      message: "Product Successfull",
       payload: { newOrder },
     });
   } catch (error) {

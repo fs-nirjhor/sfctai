@@ -29,7 +29,7 @@ const configurationSchema = new Schema(
     },
     orderPerDay: {
       type: Number,
-      required: [true, "Trade per day is required"],
+      required: [true, "Product per day is required"],
       min: 0,
       validate: {
         validator: Number.isInteger,

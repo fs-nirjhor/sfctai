@@ -302,11 +302,11 @@ const Client = () => {
               Fund History
             </Link>
             <Link
-              to="trade-history"
+              to="product-history"
               className="btn btn-myPrimary btn-sm text-white"
               state={client}
             >
-              Trade History
+              Product History
             </Link>
           </div>
           {/* change phone */}
