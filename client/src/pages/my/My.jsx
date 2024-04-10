@@ -3,8 +3,9 @@ import MyProfile from "./MyProfile";
 import MyOption from "./myOption/MyOption";
 
 const My = () => {
+  // bg-[url('/images/bg/myBg.jpg')] bg-repeat-y bg-center bg-origin-border bg-cover bg-scroll min-h-screen
   return (
-    <section className="bg-[url('/images/bg/myBg.jpg')] bg-repeat-y bg-center bg-origin-border bg-cover bg-scroll min-h-screen">
+    <section className="">
       <h1 className="font-semibold text-center pt-2 mb-5">My</h1>
       <MyProfile />
       <MyNav />
