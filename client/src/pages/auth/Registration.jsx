@@ -60,7 +60,7 @@ const Registration = () => {
             type="tel"
             placeholder="Please enter your phone number"
             name="phone"
-            className="input w-full max-w-md text-center"
+            className="input input-bordered w-full max-w-md text-center"
             required
             {...register("phone", {
               required: true,
@@ -85,7 +85,7 @@ const Registration = () => {
             type="text"
             placeholder="Enter your name"
             name="name"
-            className="input w-full max-w-md text-center"
+            className="input input-bordered w-full max-w-md text-center"
             {...register("name", {
               minLength: 3,
               maxLength: 10,
@@ -108,7 +108,7 @@ const Registration = () => {
             type="password"
             placeholder="Please enter your login password"
             name="loginPassword"
-            className="input w-full max-w-md text-center"
+            className="input input-bordered w-full max-w-md text-center"
             required
             {...register("loginPassword", {
               required: true,
@@ -133,7 +133,7 @@ const Registration = () => {
             type="password"
             placeholder="Please enter your withdrawal password"
             name="withdrawalPassword"
-            className="input w-full max-w-md text-center"
+            className="input input-bordered w-full max-w-md text-center"
             required
             {...register("withdrawalPassword", {
               required: true,
@@ -158,7 +158,7 @@ const Registration = () => {
             type="text"
             placeholder="Enter a invitation code"
             name="invitationCode"
-            className="input w-full max-w-md text-center"
+            className="input input-bordered w-full max-w-md text-center"
             defaultValue={invitationCode}
             required
             {...register("invitationCode", {
@@ -182,7 +182,7 @@ const Registration = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <button
             type="submit"
-            className="btn bg-white font-semibold w-full mt-3"
+            className="btn btn-myPrimary font-semibold w-full mt-3"
           >
             Registration
           </button>
