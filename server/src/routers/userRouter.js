@@ -47,8 +47,6 @@ userRouter.put(
   handleUpdatePassword
 );
 
-userRouter.get("/", isLoggedIn, isAdmin, handleGetAllUsers);
-
 userRouter.delete("/:id([0-9a-fA-F]{24})", isLoggedIn, handleDeleteUser);
 
 userRouter.put("/:id([0-9a-fA-F]{24})", isLoggedIn, handleUpdateUser);

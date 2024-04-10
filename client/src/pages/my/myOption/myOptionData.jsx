@@ -67,14 +67,19 @@ const MyOptionData = ({ user }) => {
       icon: <FiUsers className={iconStyle} />,
     },
     {
-      name: "Real-name authentication",
-      to: "authentication",
-      icon: isApprovedNid ? (
-        <MdVerifiedUser className={authenticationStyle} />
-      ) : (
-        <MdOutlineVerifiedUser className={authenticationStyle} />
-      ),
+      name: "Pending NID",
+      to: "pending-nid",
+      icon: <MdOutlineVerifiedUser className={authenticationStyle} />,
     },
+    // {
+    //   name: "Real-name authentication",
+    //   to: "authentication",
+    //   icon: isApprovedNid ? (
+    //     <MdVerifiedUser className={authenticationStyle} />
+    //   ) : (
+    //     <MdOutlineVerifiedUser className={authenticationStyle} />
+    //   ),
+    // },
     {
       name: "Invitation letter",
       to: "invitation",

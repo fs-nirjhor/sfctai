@@ -38,6 +38,7 @@ import Client from "../pages/my/myOption/clients/Client.jsx";
 import SetPersonalInfo from "../pages/my/myOption/set/SetPersonalInfo.jsx";
 import Authentication from "../pages/my/myOption/Authentication.jsx";
 import Start from "../pages/product/Start.jsx";
+import PendingNid from "../pages/my/myOption/PendingNid.jsx";
 
 const router = createBrowserRouter([
   {
@@ -190,6 +191,10 @@ const router = createBrowserRouter([
               {
                 path: "/my/set/configuration",
                 element: <SetConfiguration />,
+              },
+              {
+                path: "/my/pending-nid",
+                element: <PendingNid />,
               },
             ],
           },

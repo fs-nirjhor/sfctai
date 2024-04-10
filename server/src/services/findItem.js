@@ -28,10 +28,7 @@ const findOneItem = async (Model, data, select = {}, options = {}) => {
     }
     const item = await Model.findOne(data, select, options).lean();
     if (!item) {
-      throw createHttpError(
-        404,
-        `No ${Model.modelName} found`
-      );
+      throw createHttpError(404, `No ${Model.modelName} found`);
     }
     return item;
   } catch (error) {
@@ -51,6 +48,7 @@ const findAllUsers = async (search, limit, page) => {
         { phone: { $regex: searchRegExp } },
         { trc20Address: { $regex: searchRegExp } },
         { invitationCode: { $regex: searchRegExp } },
+        { "authentication.status": { $regex: searchRegExp } },
       ],
     };
     const select = { loginPassword: 0, withdrawPassword: 0 }; // not include
@@ -59,8 +57,8 @@ const findAllUsers = async (search, limit, page) => {
       .skip((page - 1) * limit)
       .select("-createdAt -updatedAt -__v");
     if (!users || users.length === 0) {
-        throw createHttpError(404, "No users found");
-      }
+      throw createHttpError(404, "No users found");
+    }
     const count = await User.find(filter).countDocuments();
     const result = users.length;
     const pagination = setPagination(count, limit, page, result);
@@ -69,6 +67,5 @@ const findAllUsers = async (search, limit, page) => {
     throw error;
   }
 };
-
 
 module.exports = { findItemById, findOneItem, findAllUsers };
