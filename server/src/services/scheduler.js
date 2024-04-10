@@ -56,7 +56,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
         );
 
         if (!updatedClient) {
-          throw createHttpError(400, "Failed to update client on trade");
+          throw createHttpError(400, "Failed to update client on product");
         }
 
         // site configuration
@@ -85,7 +85,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
           inviter1Updates
         );
         if (!updatedInviter1) {
-          throw createHttpError(400, "Failed to update inviter 1 on trade");
+          throw createHttpError(400, "Failed to update inviter 1 on product");
         }
 
         // Update inviter2 transaction
@@ -102,7 +102,7 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
           updateOptions
         );
         if (!updatedInviter2) {
-          throw createHttpError(400, "Failed to update inviter 2 on trade");
+          throw createHttpError(400, "Failed to update inviter 2 on product");
         }
 
         // Update inviter 3 transaction
@@ -119,14 +119,14 @@ const orderScheduler = cron.schedule("*/5 * * * *", async () => {
           updateOptions
         );
         if (!updatedInviter3) {
-          throw createHttpError(400, "Failed to update inviter 3 on trade");
+          throw createHttpError(400, "Failed to update inviter 3 on product");
         }
       } // for
     } // if orders length
 
     logger.info(`${ordersToApproved.length} orders approved.`);
   } catch (error) {
-    throw createHttpError(400, `Approve trade failed: ${error.message}`);
+    throw createHttpError(400, `Approve product failed: ${error.message}`);
   }
 });
 

@@ -554,7 +554,7 @@ const handleOrderRequest = async (req, res, next) => {
     if (!(currentHour >= 10 && currentHour < 22)) {
       throw createHttpError(
         403,
-        "Allowed trade time is 10:00 - 22:00 (Arabic Time)"
+        "Allowed product time is 10:00 - 22:00 (Arabic Time)"
       );
     }
 
@@ -568,7 +568,7 @@ const handleOrderRequest = async (req, res, next) => {
       throw createHttpError(403, "Limit Exceeded");
     }
 
-    //? is trade allowed
+    //? is product allowed
     if (!configuration?.canTrade || !user?.canTrade) {
       throw createHttpError(403, "Product is not available at the moment");
     }
