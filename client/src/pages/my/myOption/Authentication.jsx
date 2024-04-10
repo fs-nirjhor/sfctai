@@ -23,13 +23,26 @@ const Authentication = () => {
   } = useForm();
   const frontPhoto = watch("frontPhoto");
   const backPhoto = watch("backPhoto");
+  // variables
+  const isApprovedOrPending =
+    user?.authentication?.status === "approved" ||
+    user?.authentication?.status === "pending";
   // handler
   const onSubmit = async (data) => {
     event.preventDefault();
     try {
       // validation
+      if (processing) {
+        return;
+      }
       if (!frontPhoto || !backPhoto) {
         return toast.error("Please capture your NID");
+      }
+      if (user?.authentication?.status === "pending") {
+        return toast.error("NID already submitted. Please wait for approval");
+      }
+      if (user?.authentication?.status === "approved") {
+        return toast.error("NID is already approved");
       }
       //data
       const formData = new FormData();
@@ -67,6 +80,7 @@ const Authentication = () => {
       }
     }
   };
+
   return (
     <section className="px-2">
       <h1 className="font-semibold text-center pt-2 mb-5">Authentication</h1>
