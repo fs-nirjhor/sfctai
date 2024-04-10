@@ -149,6 +149,11 @@ const userSchema = new Schema(
         type: String,
         default: "",
       },
+      status: {
+        type: String,
+        enum: ["empty", "approved", "rejected", "pending"],
+        default: "empty",
+      },
     },
     isAuthenticated: {
       type: Boolean,
