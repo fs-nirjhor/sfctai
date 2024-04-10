@@ -21,7 +21,7 @@ const ShowAlert = () => {
       />
       <AlertBox
         id="order-success"
-        text="Product Successful"
+        text="Order Successful"
         alertType="alert-success"
       />
       <AlertBox

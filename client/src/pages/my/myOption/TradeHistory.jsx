@@ -51,7 +51,7 @@ const TradeHistory = () => {
     <section className="pb-20 px-2">
       <section className="sticky top-0 bg-myBg pb-3">
         <h1 className="font-semibold text-center pt-2 mb-5">
-          {state && state.name + "'s"} Product History
+          {state && state.name + "'s"} Order History
         </h1>
         <Pagination page={page} setPage={setPage} pagination={pagination} />
       </section>
@@ -68,7 +68,7 @@ const TradeHistory = () => {
             >
               <div className="flex justify-between mb-3">
                 <img src={image} alt={order.coin} className="h-10" />
-                <p>{order.coin} Currency Product</p>
+                <p>{order.coin} Currency Order</p>
                 <button
                   className={`btn bg-white hover:bg-mySecondary border-1 btn-xs ${
                     order.isApproved
@@ -89,7 +89,7 @@ const TradeHistory = () => {
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs">Product Number</p>
+                  <p className="text-xs">Order Number</p>
                   <p>{order.credential}</p>
                 </div>
               </div>

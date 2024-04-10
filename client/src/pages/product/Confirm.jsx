@@ -108,7 +108,7 @@ const Confirm = ({ isOpen, setIsOpen }) => {
       const res = await transactionApi.post("order-request", { transaction });
 
       if (res.data?.success) {
-        toast.success("Product confirmed");
+        toast.success("Order confirmed");
         setProcessing(false);
         revalidator.revalidate();
       }
@@ -141,7 +141,7 @@ const Confirm = ({ isOpen, setIsOpen }) => {
               <img src={coin.image} alt="huobi" />
             </div>
             <h2 className="mb-5 text-xl font-semibold text-center">
-              {coin.symbol} Currency Product
+              {coin.symbol} Currency Order
             </h2>
           </figure>
         )}

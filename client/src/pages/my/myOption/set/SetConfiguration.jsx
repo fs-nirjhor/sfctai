@@ -81,7 +81,7 @@ const SetConfiguration = () => {
           <span>${configuration?.withdrawFee}</span>
         </p>
         <p className={listStyle}>
-          <span>Product Per Day: </span>
+          <span>Order Per Day: </span>
           <span>{configuration?.orderPerDay} times</span>
         </p>
         <p className={listStyle}>
@@ -140,7 +140,7 @@ const SetConfiguration = () => {
               canTrade ? "text-green-500" : "text-red-500"
             }`}
           >
-            {canTrade ? "Product Enabled" : "Product Disabled"}
+            {canTrade ? "Order Enabled" : "Order Disabled"}
           </h3>
           <input
             type="checkbox"
@@ -239,7 +239,7 @@ const SetConfiguration = () => {
         >
           <input
             type="number"
-            placeholder="Product Per Day"
+            placeholder="Order Per Day"
             className={inputStyle}
             value={orderPerDay}
             onChange={(e) => setOrderPerDay(e.target.value)}

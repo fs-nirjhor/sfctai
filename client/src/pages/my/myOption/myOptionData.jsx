@@ -42,8 +42,8 @@ const MyOptionData = ({ user }) => {
       icon: <MdOutlineCreditScore className={iconStyle} />,
     },
     {
-      name: "Product history",
-      to: "product-history",
+      name: "Order history",
+      to: "order-history",
       icon: <SlHandbag className={iconStyle} />,
     },
     {
@@ -82,8 +82,8 @@ const MyOptionData = ({ user }) => {
       icon: <BsEnvelopePaperHeart className={iconStyle} />,
     },
     {
-      name: "Product history",
-      to: "product-history",
+      name: "Order history",
+      to: "order-history",
       icon: <SlHandbag className={iconStyle} />,
     },
     {

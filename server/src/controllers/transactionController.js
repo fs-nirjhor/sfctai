@@ -554,7 +554,7 @@ const handleOrderRequest = async (req, res, next) => {
     if (!(currentHour >= 10 && currentHour < 22)) {
       throw createHttpError(
         403,
-        "Allowed product time is 10:00 - 22:00 (Arabic Time)"
+        "Allowed Order time is 10:00 - 22:00 (Arabic Time)"
       );
     }
 
@@ -568,15 +568,15 @@ const handleOrderRequest = async (req, res, next) => {
       throw createHttpError(403, "Limit Exceeded");
     }
 
-    //? is product allowed
+    //? is Order allowed
     if (!configuration?.canTrade || !user?.canTrade) {
-      throw createHttpError(403, "Product is not available at the moment");
+      throw createHttpError(403, "Order is not available at the moment");
     }
 
     // add new order
     const newOrder = await createItem(Transaction, orderData);
     if (!newOrder) {
-      throw new Error("Failed to Product");
+      throw new Error("Failed to Order");
     }
 
     // user update
@@ -615,7 +615,7 @@ const handleOrderRequest = async (req, res, next) => {
 
     return successResponse(res, {
       statusCode: 200,
-      message: "Product Successfull",
+      message: "Order Successfull",
       payload: { newOrder },
     });
   } catch (error) {

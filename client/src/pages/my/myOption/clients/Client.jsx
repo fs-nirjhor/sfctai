@@ -285,7 +285,7 @@ const Client = () => {
             <div className="overflow-x-auto">Email: {client.email}</div>
             <div>Date of birth: {client.dateOfBirth && dateOfBirth}</div>
           </div>
-          {/* Team, fund, product */}
+          {/* Team, fund, order */}
           <div className="grid grid-cols-3 p-2 gap-2">
             <Link
               to="team"
@@ -302,11 +302,11 @@ const Client = () => {
               Fund History
             </Link>
             <Link
-              to="product-history"
+              to="order-history"
               className="btn btn-myPrimary btn-sm text-white"
               state={client}
             >
-              Product History
+              Order History
             </Link>
           </div>
           {/* change phone */}

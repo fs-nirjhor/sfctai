@@ -18,17 +18,17 @@ const Start = () => {
   const handleClick = () => {
     const options = { timeZone: "Asia/Riyadh", hour: "numeric" };
     const currentHour = new Date().toLocaleTimeString("en-GB", options);
-    // conditions for product
+    // conditions for Order
     if (!(currentHour >= 10 && currentHour < 22)) {
-      return toast.error("Allowed product time is 10:00 - 22:00 (Arabic Time)");
+      return toast.error("Allowed Order time is 10:00 - 22:00 (Arabic Time)");
     } else if (transaction.todaysOrder >= configuration.orderPerDay) {
       return toast.error("Limit Exceeded");
     } else if (transaction.balance < 10) {
       return toast.error("Insufficent Balance");
     } else if (!user.trc20Address) {
-      return toast.error("Please Bind ID to product");
+      return toast.error("Please Bind ID to order");
     } else if (!configuration?.canTrade || !user?.canTrade) {
-      return toast.error("Product is not available at the moment");
+      return toast.error("Order is not available at the moment");
     } else {
       return setIsOpen(true);
       //return document.getElementById("confirm_dialog").showModal();
@@ -64,7 +64,7 @@ const Start = () => {
             <h5 className="text-sm">Total Earn</h5>
           </div>
           <div className="col-span-2 bg-mySecondary bg-opacity-80 p-3 rounded-md">
-            <h5 className="text-sm">Today&apos;s Product Amount</h5>
+            <h5 className="text-sm">Today&apos;s Order Amount</h5>
             <p className="font-semibold">
               {todaysOrderAmount} <span className="text-myPrimary">USDT</span>
             </p>

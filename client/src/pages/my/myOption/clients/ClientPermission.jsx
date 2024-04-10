@@ -94,14 +94,14 @@ const ClientPermission = ({ client, handleUpdate }) => {
           onChange={() => handleUpdate({ canWithdraw: !canWithdraw })}
         />
       </div>
-      {/* handle Product permission */}
+      {/* handle order permission */}
       <div className={boxStyle}>
         <h3
           className={`mb-3 font-semibold ${
             canTrade ? "text-green-500" : "text-red-500"
           }`}
         >
-          {canTrade ? "Product Allowed" : "Product Not Allowed"}
+          {canTrade ? "Order Allowed" : "Order Not Allowed"}
         </h3>
         <input
           type="checkbox"
