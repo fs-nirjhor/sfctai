@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 const ClientPermission = ({ client, handleUpdate, setReload }) => {
   const user = useRouteLoaderData("user");
   // variables
-  const isAuthenticated = client?.isAuthenticated;
   const isPhoto =
     client?.authentication?.frontPhoto && client?.authentication?.backPhoto;
   const status = client?.authentication?.status;
@@ -94,28 +93,6 @@ const ClientPermission = ({ client, handleUpdate, setReload }) => {
           <p className="text-center my-2">No Photo</p>
         )}
       </div>
-      {/* handle authentication */}
-      {/* <div>
-        <div className={boxStyle}>
-          <h3
-            className={`mb-3 font-semibold ${
-              isAuthenticated ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            {isAuthenticated ? "Authenticated" : "Not Authenticated"}
-          </h3>
-          <input
-            type="checkbox"
-            className="toggle toggle-success"
-            checked={isAuthenticated || false}
-            onChange={() =>
-              handleUpdate({
-                isAuthenticated: !isAuthenticated,
-              })
-            }
-          />
-        </div>
-      </div> */}
       {/* handle message permission */}
       <div className={boxStyle}>
         <h3

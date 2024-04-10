@@ -155,10 +155,6 @@ const userSchema = new Schema(
         default: "",
       },
     },
-    isAuthenticated: {
-      type: Boolean,
-      default: false,
-    },
     isAdmin: {
       type: Boolean,
       default: false,
