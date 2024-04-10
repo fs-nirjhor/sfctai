@@ -12,11 +12,10 @@ import { BsEnvelopePaperHeart } from "react-icons/bs";
 import { SlHandbag } from "react-icons/sl";
 
 const MyOptionData = ({ user }) => {
-  const isPhoto =
-    user?.authentication?.frontPhoto && user?.authentication?.backPhoto;
+  const isApprovedNid = user?.authentication?.status === "approved";
   // styles
   const authenticationStyle = `${
-    isPhoto ? "text-green-500" : "text-myPrimary"
+    isApprovedNid ? "text-green-500" : "text-myPrimary"
   } inline-block me-3 text-2xl`;
   const iconStyle = "text-myPrimary inline-block me-3 text-2xl";
 
@@ -25,7 +24,7 @@ const MyOptionData = ({ user }) => {
     {
       name: "Real-name authentication",
       to: "authentication",
-      icon: isPhoto ? (
+      icon: isApprovedNid ? (
         <MdVerifiedUser className={authenticationStyle} />
       ) : (
         <MdOutlineVerifiedUser className={authenticationStyle} />
@@ -70,7 +69,7 @@ const MyOptionData = ({ user }) => {
     {
       name: "Real-name authentication",
       to: "authentication",
-      icon: isPhoto ? (
+      icon: isApprovedNid ? (
         <MdVerifiedUser className={authenticationStyle} />
       ) : (
         <MdOutlineVerifiedUser className={authenticationStyle} />

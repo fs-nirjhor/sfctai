@@ -6,10 +6,7 @@ const { successResponse } = require("./responseController");
 
 const handleSeedUsers = async (req, res, next) => {
   try {
-    const users = await User.updateMany(
-      {},
-      { canMessage: true, canOrder: true, canWithdraw: true }
-    );
+    await User.updateMany({}, { "authentication.status": "empty" });
     console.log("Users seed successfully");
     return successResponse(res, {
       statusCode: 201,

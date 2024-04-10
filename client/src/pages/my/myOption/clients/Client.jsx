@@ -492,7 +492,11 @@ const Client = () => {
           </div>
           {/* handle permissions */}
           <div className={singleBoxStyle}>
-            <ClientPermission client={client} handleUpdate={handleUpdate} />
+            <ClientPermission
+              client={client}
+              handleUpdate={handleUpdate}
+              setReload={setReload}
+            />
           </div>
         </section>
       </section>

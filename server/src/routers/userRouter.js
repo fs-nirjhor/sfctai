@@ -12,6 +12,8 @@ const {
   handleUserStatus,
   handleRegistration,
   handleUploadNid,
+  handleAproveNid,
+  handleRejectNid,
 } = require("../controllers/userController");
 const {
   validateUserRegistration,
@@ -54,13 +56,25 @@ userRouter.put("/:id([0-9a-fA-F]{24})", isLoggedIn, handleUpdateUser);
 userRouter.post(
   "/upload-nid/:id([0-9a-fA-F]{24})",
   isLoggedIn,
-  //uploadPhoto.array(["frontPhoto", "backPhoto"]),
   uploadPhoto.fields([
     { name: "frontPhoto", maxCount: 1 },
     { name: "backPhoto", maxCount: 1 },
   ]),
   NidImageToCloudinary,
   handleUploadNid
+);
+
+userRouter.put(
+  "/approve-nid/:id([0-9a-fA-F]{24})",
+  isLoggedIn,
+  isAdmin,
+  handleAproveNid
+);
+userRouter.put(
+  "/reject-nid/:id([0-9a-fA-F]{24})",
+  isLoggedIn,
+  isAdmin,
+  handleRejectNid
 );
 
 // api/users/forget-password

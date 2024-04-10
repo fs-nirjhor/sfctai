@@ -165,6 +165,7 @@ const handleUpdatePassword = async (req, res, next) => {
     next(error);
   }
 };
+
 const handleUploadNid = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -186,6 +187,56 @@ const handleUploadNid = async (req, res, next) => {
     return successResponse(res, {
       statusCode: 200,
       message: "NID is submitted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const handleAproveNid = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = {
+      $set: {
+        "authentication.status": "approved",
+      },
+    };
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+    };
+    const updatedUser = await updateItemById(User, id, updates, updateOptions);
+    if (!updatedUser) throw new Error("NID can't be approved");
+    return successResponse(res, {
+      statusCode: 200,
+      message: "NID approved successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const handleRejectNid = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = {
+      $set: {
+        "authentication.frontPhoto": "",
+        "authentication.backPhoto": "",
+        "authentication.status": "rejected",
+      },
+    };
+    const updateOptions = {
+      new: true,
+      runValidators: true,
+      context: "query",
+    };
+    const updatedUser = await updateItemById(User, id, updates, updateOptions);
+    if (!updatedUser) throw new Error("NID can't be rejected");
+    return successResponse(res, {
+      statusCode: 200,
+      message: "NID rejected successfully",
     });
   } catch (error) {
     next(error);
@@ -249,7 +300,6 @@ const handleDeleteUser = async (req, res, next) => {
     // delete all chats
     await Chat.findOneAndDelete({ client: id });
     // delete all images and folders in cloudinary
-    //! Temporary
     try {
       await cloudinary.api.delete_resources_by_tag(id);
       await cloudinary.api.delete_folder(`AFTAAI/chat/${id}`);
@@ -257,11 +307,6 @@ const handleDeleteUser = async (req, res, next) => {
     } catch (error) {
       console.log(error.message);
     }
-    /* 
-    await cloudinary.api.delete_resources_by_tag(id);
-    await cloudinary.api.delete_folder(`AFTAAI/chat/${id}`);
-    await cloudinary.api.delete_folder(`AFTAAI/withdraw-verification/${id}`);
-     */
     // delete user
     const deletedUser = await deleteItem(User, filter, options);
     // unsubscribe from notifications
@@ -403,4 +448,6 @@ module.exports = {
   handleResetPassword,
   handleUserStatus,
   handleUploadNid,
+  handleAproveNid,
+  handleRejectNid,
 };

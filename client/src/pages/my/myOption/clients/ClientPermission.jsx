@@ -1,7 +1,10 @@
 import { useRouteLoaderData } from "react-router-dom";
+import { userApi } from "../../../../router/axiosApi";
+import { toast } from "react-toastify";
 
-const ClientPermission = ({ client, handleUpdate }) => {
+const ClientPermission = ({ client, handleUpdate, setReload }) => {
   const user = useRouteLoaderData("user");
+  // variables
   const isAuthenticated = client?.isAuthenticated;
   const isPhoto =
     client?.authentication?.frontPhoto && client?.authentication?.backPhoto;
@@ -11,13 +14,63 @@ const ClientPermission = ({ client, handleUpdate }) => {
   const canMessage = client?.canMessage;
   const canOrder = client?.canOrder;
   const canWithdraw = client?.canWithdraw;
-  console.log(client.authentication);
-  // style
+
+  const handleAproveNid = async () => {
+    event.preventDefault();
+    try {
+      const res = await userApi.put(`approve-nid/${client?._id}`);
+      if (res.data?.success) {
+        toast.success("Approved successfully");
+        setReload((prev) => prev + 1);
+      }
+    } catch (err) {
+      if (err.response?.data.message) {
+        toast.error(err.response.data.message); // error sent by server
+      } else {
+        toast.error(err.message); // other error
+      }
+    }
+  };
+  const handleRejectNid = async () => {
+    event.preventDefault();
+    try {
+      const res = await userApi.put(`reject-nid/${client?._id}`);
+      if (res.data?.success) {
+        toast.success("Rejected successfully");
+        setReload((prev) => prev + 1);
+      }
+    } catch (err) {
+      if (err.response?.data.message) {
+        toast.error(err.response.data.message); // error sent by server
+      } else {
+        toast.error(err.message); // other error
+      }
+    }
+  };
+  // styles
   const boxStyle = "flex justify-between bg-white pt-2 px-2 mb-2 rounded";
   return (
     <section>
       <div className="bg-white p-2 mb-2 rounded">
-        <h1 className="font-semibold text-center pt-2 mb-5">NID {status}</h1>
+        <div className={boxStyle}>
+          <h3 className={`mb-3 font-semibold `}>Authentication ({status})</h3>
+          {status === "pending" && (
+            <div className="join ">
+              <button
+                className="btn btn-success btn-sm text-white join-item"
+                onClick={handleAproveNid}
+              >
+                Approve
+              </button>
+              <button
+                className="btn btn-error btn-sm text-white join-item"
+                onClick={handleRejectNid}
+              >
+                Reject
+              </button>
+            </div>
+          )}
+        </div>
         {isPhoto ? (
           <div className="flex justify-between max-w-md gap-3 mx-auto mb-2 font-semibold text-center text-xs">
             <figure>
@@ -42,7 +95,7 @@ const ClientPermission = ({ client, handleUpdate }) => {
         )}
       </div>
       {/* handle authentication */}
-      <div>
+      {/* <div>
         <div className={boxStyle}>
           <h3
             className={`mb-3 font-semibold ${
@@ -62,7 +115,7 @@ const ClientPermission = ({ client, handleUpdate }) => {
             }
           />
         </div>
-      </div>
+      </div> */}
       {/* handle message permission */}
       <div className={boxStyle}>
         <h3
