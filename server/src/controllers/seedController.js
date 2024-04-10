@@ -8,7 +8,7 @@ const handleSeedUsers = async (req, res, next) => {
   try {
     const users = await User.updateMany(
       {},
-      { canMessage: true, canTrade: true, canWithdraw: true }
+      { canMessage: true, canOrder: true, canWithdraw: true }
     );
     console.log("Users seed successfully");
     return successResponse(res, {

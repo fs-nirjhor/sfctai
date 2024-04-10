@@ -17,7 +17,7 @@ const OrderHistory = () => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const getTrades = async () => {
+    const getOrders = async () => {
       try {
         const filter = user.isAdmin
           ? { category: "Order" }
@@ -42,7 +42,7 @@ const OrderHistory = () => {
         }
       }
     };
-    getTrades();
+    getOrders();
   }, [user, page]);
 
   return loading ? (

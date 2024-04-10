@@ -13,7 +13,7 @@ const fakeData = {
       level2Commission: 7, // %
       level3Commission: 4, // %
       canMessage: true,
-      canTrade: true,
+      canOrder: true,
       canWithdraw: true,
     },
   ],

@@ -9,7 +9,7 @@ const ClientPermission = ({ client, handleUpdate }) => {
   const isBanned = client?.isBanned;
   const isAdmin = client?.isAdmin;
   const canMessage = client?.canMessage;
-  const canTrade = client?.canTrade;
+  const canOrder = client?.canOrder;
   const canWithdraw = client?.canWithdraw;
   // style
   const boxStyle = "flex justify-between bg-white pt-2 px-2 mb-2 rounded";
@@ -98,16 +98,16 @@ const ClientPermission = ({ client, handleUpdate }) => {
       <div className={boxStyle}>
         <h3
           className={`mb-3 font-semibold ${
-            canTrade ? "text-green-500" : "text-red-500"
+            canOrder ? "text-green-500" : "text-red-500"
           }`}
         >
-          {canTrade ? "Order Allowed" : "Order Not Allowed"}
+          {canOrder ? "Order Allowed" : "Order Not Allowed"}
         </h3>
         <input
           type="checkbox"
           className="toggle toggle-success"
-          checked={canTrade || false}
-          onChange={() => handleUpdate({ canTrade: !canTrade })}
+          checked={canOrder || false}
+          onChange={() => handleUpdate({ canOrder: !canOrder })}
         />
       </div>
       {client?._id !== user?._id && (

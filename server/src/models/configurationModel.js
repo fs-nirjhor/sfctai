@@ -55,7 +55,7 @@ const configurationSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    canTrade: {
+    canOrder: {
       type: Boolean,
       default: true,
     },

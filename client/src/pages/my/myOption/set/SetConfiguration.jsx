@@ -46,7 +46,7 @@ const SetConfiguration = () => {
   };
 
   const canMessage = configuration?.canMessage;
-  const canTrade = configuration?.canTrade;
+  const canOrder = configuration?.canOrder;
   const canWithdraw = configuration?.canWithdraw;
 
   // styling
@@ -137,16 +137,16 @@ const SetConfiguration = () => {
         <div className="flex justify-between">
           <h3
             className={`mb-3 font-semibold ${
-              canTrade ? "text-green-500" : "text-red-500"
+              canOrder ? "text-green-500" : "text-red-500"
             }`}
           >
-            {canTrade ? "Order Enabled" : "Order Disabled"}
+            {canOrder ? "Order Enabled" : "Order Disabled"}
           </h3>
           <input
             type="checkbox"
             className="toggle toggle-success"
-            checked={canTrade || false}
-            onChange={() => handleClick({ canTrade: !canTrade })}
+            checked={canOrder || false}
+            onChange={() => handleClick({ canOrder: !canOrder })}
           />
         </div>
       </section>
