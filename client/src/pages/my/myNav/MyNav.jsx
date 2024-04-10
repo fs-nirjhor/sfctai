@@ -30,7 +30,7 @@ const MyNav = () => {
       </Link>
       <p className="card" onClick={handleCustomerService}>
         <MdSupportAgent className={iconStyle} />
-        <h2 className="text-sm my-1 text-black">Customer Service</h2>
+        <span className="text-sm my-1 text-black block">Customer Service</span>
       </p>
     </article>
   );

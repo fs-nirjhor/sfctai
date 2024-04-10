@@ -5,18 +5,19 @@ const ClientPermission = ({ client, handleUpdate }) => {
   const isAuthenticated = client?.isAuthenticated;
   const isPhoto =
     client?.authentication?.frontPhoto && client?.authentication?.backPhoto;
-
+  const status = client?.authentication?.status;
   const isBanned = client?.isBanned;
   const isAdmin = client?.isAdmin;
   const canMessage = client?.canMessage;
   const canOrder = client?.canOrder;
   const canWithdraw = client?.canWithdraw;
+  console.log(client.authentication);
   // style
   const boxStyle = "flex justify-between bg-white pt-2 px-2 mb-2 rounded";
   return (
     <section>
       <div className="bg-white p-2 mb-2 rounded">
-        <h1 className="font-semibold text-center pt-2 mb-5">NID</h1>
+        <h1 className="font-semibold text-center pt-2 mb-5">NID {status}</h1>
         {isPhoto ? (
           <div className="flex justify-between max-w-md gap-3 mx-auto mb-2 font-semibold text-center text-xs">
             <figure>

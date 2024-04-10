@@ -173,6 +173,7 @@ const handleUploadNid = async (req, res, next) => {
       $set: {
         "authentication.frontPhoto": frontPhoto,
         "authentication.backPhoto": backPhoto,
+        "authentication.status": "pending",
       },
     };
     const updateOptions = {

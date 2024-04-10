@@ -73,7 +73,7 @@ const Authentication = () => {
       <form className="max-w-md mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full">
           <div className="label">
-            <h3 className="font-semibold">Front Photo of NID</h3>
+            <span className="font-semibold">Front Photo of NID</span>
           </div>
           <label className="form-control w-40 mx-auto">
             <div className="relative ">
@@ -108,7 +108,7 @@ const Authentication = () => {
         </div>
         <div className="w-full">
           <div className="label">
-            <h3 className="font-semibold">Back Photo of NID</h3>
+            <span className="font-semibold">Back Photo of NID</span>
           </div>
           <label className="form-control w-40 mx-auto">
             <div className="relative ">
