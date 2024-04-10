@@ -151,8 +151,8 @@ const userSchema = new Schema(
       },
       status: {
         type: String,
-        enum: ["empty", "approved", "rejected", "pending"],
-        default: "empty",
+        enum: ["", "approved", "rejected", "pending"],
+        default: "",
       },
     },
     isAuthenticated: {
