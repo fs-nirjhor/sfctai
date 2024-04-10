@@ -83,7 +83,7 @@ const Trade = () => {
               className="col-span-2 btn bg-white text-black font-semibold rounded-md"
               onClick={handleClick}
             >
-              Trade
+              Start
             </button>
           </article>
         </div>

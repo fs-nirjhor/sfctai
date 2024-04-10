@@ -17,11 +17,10 @@ const Footer = () => {
           <HiOutlineHome className={iconStyle} />
           <span className={textStyle}>HOME</span>
         </NavLink>
-        <NavLink to="trade" className={navlinkStyle}>
+        <NavLink to="product" className={navlinkStyle}>
           <TbDeviceDesktopAnalytics className={iconStyle} />
           <p className={textStyle}>
-            <span>COPY </span>
-            <span className="text-lg">T</span>RADE
+            <span>Product</span>
           </p>
         </NavLink>
         <NavLink to="about" className={navlinkStyle}>

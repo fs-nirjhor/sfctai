@@ -3,7 +3,7 @@ import { useRouteLoaderData, useRevalidator } from "react-router-dom";
 import { transactionApi } from "../../router/axiosApi";
 import { coincapApi } from "../../configuration/config";
 import { toast } from "react-toastify";
-import Spinner from "./../shared/Spinner";
+import Spinner from "../shared/Spinner";
 
 const Confirm = ({ isOpen, setIsOpen }) => {
   const user = useRouteLoaderData("user");

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App.jsx";
 import ErrorPage from "../pages/shared/ErrorPage.jsx";
 import Homepage from "../pages/homepage/Homepage.jsx";
-import Trade from "../pages/trade/Trade.jsx";
 import About from "../pages/about/About.jsx";
 import My from "../pages/my/My.jsx";
 import CustomerService from "../pages/my/myNav/customerService/CustomerService.jsx";
@@ -38,6 +37,7 @@ import ClientList from "../pages/my/myOption/clients/ClientList.jsx";
 import Client from "../pages/my/myOption/clients/Client.jsx";
 import SetPersonalInfo from "../pages/my/myOption/set/SetPersonalInfo.jsx";
 import Authentication from "../pages/my/myOption/Authentication.jsx";
+import Start from "../pages/product/Start.jsx";
 
 const router = createBrowserRouter([
   {
@@ -89,8 +89,8 @@ const router = createBrowserRouter([
         id: "user",
         children: [
           {
-            path: "/trade",
-            element: <Trade />,
+            path: "/product",
+            element: <Start />,
           },
           {
             path: "/my",
