@@ -5,7 +5,7 @@ const NotificationToast = ({ payload }) => {
   return (
     <Link
       to={data?.link}
-      className="flex gap-3 justify-between items-center text-black"
+      className="flex gap-3 justify-between items-center text-white"
     >
       <figure className="image">
         <div className="w-8">
@@ -18,7 +18,7 @@ const NotificationToast = ({ payload }) => {
         ) : (
           <div>
             <h5 className="">{data?.title}</h5>
-            <p className="text-gray-400">{data?.body}</p>
+            <p className="text-gray-300">{data?.body}</p>
           </div>
         )}
       </div>
