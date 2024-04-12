@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
       if (isAdmin) {
         // update chatlist for admin
         const chatlist = await Chat.find()
-          .populate("client")
+          .populate("client messages.sender")
           .sort({ updatedAt: -1 })
           .limit(limit)
           .skip((page - 1) * limit)
@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
           new: true,
           runValidators: true,
           context: "query",
-          populate: { path: "client" },
+          populate: { path: "client messages.sender" },
         }
       ).lean();
       // If no chat exists, create a new one
@@ -121,13 +121,13 @@ io.on("connection", (socket) => {
             new: true,
             runValidators: true,
             context: "query",
-            populate: { path: "client" },
+            populate: { path: "client messages.sender" },
           }
         ).lean();
 
         if (isAdmin) {
           data.chatlist = await Chat.find()
-            .populate("client")
+            .populate("client messages.sender")
             .sort({ updatedAt: -1 })
             .limit(limit)
             .skip((page - 1) * limit)
@@ -225,13 +225,13 @@ io.on("connection", (socket) => {
             new: true,
             runValidators: true,
             context: "query",
-            populate: { path: "client" },
+            populate: { path: "client messages.sender" },
           }
         ).lean();
 
         if (isAdmin) {
           data.chatlist = await Chat.find()
-            .populate("client")
+            .populate("client messages.sender")
             .sort({ updatedAt: -1 })
             .limit(limit)
             .skip((page - 1) * limit)

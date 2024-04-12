@@ -33,8 +33,7 @@ const ShowMessages = ({ chats, user }) => {
         .slice()
         .reverse()
         .map((message, i) => {
-          const ownMessage = message.sender == user._id;
-          const adminMessage = message.sender !== chats?.client?._id;
+          const ownMessage = message.sender?._id == user._id;
           const messageStyle = ownMessage
             ? "text-end ms-auto"
             : "text-start me-auto";
@@ -50,7 +49,7 @@ const ShowMessages = ({ chats, user }) => {
                 ownMessage ? "flex-row-reverse" : "flex-row"
               } `}
             >
-              {adminMessage && (
+              {message.sender?.isAdmin && (
                 <figure className="flex-none">
                   <img src="/images/icon.png" alt="aftaai" className="w-10" />
                 </figure>
@@ -59,7 +58,7 @@ const ShowMessages = ({ chats, user }) => {
                 {message.text ? (
                   <span
                     className={`max-w-md inline-block text-left rounded px-3 py-1 ${contentStyle}`}
-                    onClick={() => handleNavigation(message.sender)}
+                    onClick={() => handleNavigation(message.sender?._id)}
                   >
                     {message.text}
                   </span>
@@ -68,7 +67,7 @@ const ShowMessages = ({ chats, user }) => {
                     src={message.image}
                     alt="image"
                     className={`max-w-xs p-3 ${messageStyle}`}
-                    onClick={() => handleNavigation(message.sender)}
+                    onClick={() => handleNavigation(message.sender?._id)}
                   />
                 )}
                 <div
