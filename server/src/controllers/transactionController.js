@@ -387,7 +387,7 @@ const handleRechargeRequest = async (req, res, next) => {
     const topic = "admin";
     const link = `${origin}/client/${client}`;
     const badge = `${origin}/api/assets/icon.png`;
-    const icon = user.avatar;
+    const icon = `${origin}/api/assets/icon.png`;
     const tag = `transaction-${client}`;
     const title = `${user.name} request for Recharge`;
     const body = `Credential: ${credential} \nName: ${user.name} \nID: ${user.userId}`;
@@ -730,7 +730,7 @@ const handleWithdrawalRequest = async (req, res, next) => {
     const topic = "admin";
     const link = `${origin}/client/${client}`;
     const badge = `${origin}/api/assets/icon.png`;
-    const icon = updatedUser.avatar;
+    const icon = `${origin}/api/assets/icon.png`;
     const tag = `transaction-${client}`;
     const title = `${updatedUser.name} request for withdraw`;
     const body = `Amount: $${actualAmount} \nCredential: ${credential} \nName: ${updatedUser.name} \nID: ${updatedUser.userId}`;

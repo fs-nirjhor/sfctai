@@ -142,9 +142,7 @@ io.on("connection", (socket) => {
 
         const link = `${origin}/my/chat/${client}`;
         const topic = isAdmin ? client : "admin";
-        const badge = `${origin}/api/assets/icon.png`;
-        const avatar = data.chats?.client?.avatar;
-        const icon = isAdmin ? badge : avatar;
+        const icon = `${origin}/api/assets/icon.png`;
         const tag = `message-${client}`;
         const title = isAdmin ? "AFTAAI" : data.chats?.client?.name;
 
@@ -155,7 +153,7 @@ io.on("connection", (socket) => {
             body: text,
             image: imageUrl,
             icon: icon,
-            badge: badge,
+            badge: icon,
             link: link,
             tag: tag,
           },
