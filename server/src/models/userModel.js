@@ -17,8 +17,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "User name is required"],
       trim: true,
-      minLength: [3, "User name must have at least 3 characters"],
-      maxLength: [10, "User name must have at most 10 characters"],
+      minLength: [3, "User name must have 3-10 characters"],
+      maxLength: [10, "User name must have 3-10 characters"],
     },
     loginPassword: {
       type: String,
@@ -36,8 +36,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Phone number is required"],
       trim: true,
-      minLength: [6, "At least 6 characters"],
-      maxLength: [18, "At least 18 characters"],
+      minLength: [6, "Phone number must have 6-18 characters"],
+      maxLength: [18, "Phone number must have 6-18 characters"],
       unique: true,
     },
     email: {
