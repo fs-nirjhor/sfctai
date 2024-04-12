@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { RiDeleteBin2Line } from "react-icons/ri";
-import UseChat from "./UseChat";
-import { toast } from "react-toastify";
+import ConfirmDeleteMessage from "./ConfirmDeleteMessage";
 
 const ShowMessages = ({ chats, user }) => {
   const navigate = useNavigate();
-  const { deleteMessage } = UseChat();
 
   const handleNavigation = (userId) => {
     event.preventDefault();
@@ -15,22 +13,9 @@ const ShowMessages = ({ chats, user }) => {
     }
   };
 
-  const handleDelete = async (messageId, chatId) => {
+  const handleDelete = async () => {
     event.preventDefault();
-    try {
-      const data = {
-        isAdmin: user?.isAdmin,
-        messageId: messageId,
-        chatId: chatId,
-      };
-      await deleteMessage(data);
-    } catch (err) {
-      if (err.response?.data.message) {
-        toast.error(err.response.data.message); // error sent by server
-      } else {
-        toast.error(err.message); // other error
-      }
-    }
+    document.getElementById("message_delete_dialog").showModal();
   };
 
   // handle empty chat page
@@ -96,9 +81,14 @@ const ShowMessages = ({ chats, user }) => {
                     className={`text-red-600 text-lg ${
                       !user?.isAdmin && "hidden"
                     }`}
-                    onClick={() => handleDelete(message?._id, chats?._id)}
+                    onClick={handleDelete}
                   />
                 </div>
+                <ConfirmDeleteMessage
+                  messageId={message?._id}
+                  chatId={chats?._id}
+                  user={user}
+                />
               </div>
             </div>
           );

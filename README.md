@@ -1,1 +1,1 @@
-## [Visit Website](https://www.sfctai.com)
+## [Visit Website](https://www.aftaai.com)
