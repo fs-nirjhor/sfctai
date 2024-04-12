@@ -24,9 +24,7 @@ const Authentication = () => {
   const frontPhoto = watch("frontPhoto");
   const backPhoto = watch("backPhoto");
   // variables
-  const isApprovedOrPending =
-    user?.authentication?.status === "approved" ||
-    user?.authentication?.status === "pending";
+
   // handler
   const onSubmit = async (data) => {
     event.preventDefault();
@@ -74,6 +72,7 @@ const Authentication = () => {
       }
     } catch (err) {
       setProcessing(false);
+      toast.dismiss("authentication-loading");
       if (err.response?.data.message) {
         toast.error(err.response.data.message);
       } else {
