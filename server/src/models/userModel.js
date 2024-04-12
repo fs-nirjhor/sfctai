@@ -65,7 +65,15 @@ const userSchema = new Schema(
       default: "",
       validate: [
         {
+          validator: function (value) {
+            // Check if the length of the TRC20 address is exactly 34 characters
+            return value.length === 34;
+          },
+          message: "TRC20 address must have exactly 34 characters",
+        },
+        {
           validator: async function (value) {
+            // Check if the TRC20 address is not using more than 3 times
             if (value !== "") {
               const count = await this.model.countDocuments({
                 trc20Address: value,

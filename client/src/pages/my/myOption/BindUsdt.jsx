@@ -25,7 +25,7 @@ const BindUsdt = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (trc20Address.length !== 9) {
+      if (trc20Address.length !== 34) {
         toast.error("Invalid Binding USDT");
       } else if (!user.trc20Address) {
         const res = await userApi.put(user._id, { trc20Address });
