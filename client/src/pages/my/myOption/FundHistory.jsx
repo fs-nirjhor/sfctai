@@ -68,7 +68,7 @@ const FundHistory = () => {
 
   // styles
   const navStyle = "py-3 px-2 rounded w-full";
-  const activeNavStyle = "bg-primary text-white";
+  const activeNavStyle = "bg-myPrimary text-white";
 
   return (
     <section className="pb-20 px-2">
