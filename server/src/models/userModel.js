@@ -24,16 +24,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Login password is required"],
       trim: true,
-      minLength: [6, "At least 6 characters"],
-      maxLength: [32, "At least 32 characters"],
       set: (v) => bcrypt.hashSync(v, 10),
     },
     withdrawalPassword: {
       type: String,
       required: [true, "Withdrawal password is required"],
       trim: true,
-      minLength: [6, "At least 6 characters"],
-      maxLength: [32, "At least 32 characters"],
       set: (v) => bcrypt.hashSync(v, 10),
     },
     phone: {
