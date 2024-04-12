@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { userApi } from "../../../router/axiosApi";
-import { useNavigate, useRouteLoaderData, useRevalidator } from "react-router-dom";
+import {
+  useNavigate,
+  useRouteLoaderData,
+  useRevalidator,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 
 const BindUsdt = () => {
@@ -14,7 +18,7 @@ const BindUsdt = () => {
     if (!user.trc20Address) {
       setTrc20Address(e.target.value);
     } else {
-      toast.error("Binding ID can not be changed");
+      toast.error("Binding USDT can not be changed");
     }
   };
 
@@ -22,7 +26,7 @@ const BindUsdt = () => {
     e.preventDefault();
     try {
       if (trc20Address.length !== 9) {
-        toast.error("Invalid Binding ID");
+        toast.error("Invalid Binding USDT");
       } else if (!user.trc20Address) {
         const res = await userApi.put(user._id, { trc20Address });
         if (res.data?.success) {
@@ -31,7 +35,7 @@ const BindUsdt = () => {
           navigate("/my");
         }
       } else {
-        toast.error("Binding ID can not be changed");
+        toast.error("Binding USDT can not be changed");
       }
     } catch (err) {
       if (err.response?.data.message) {
@@ -48,7 +52,7 @@ const BindUsdt = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <input
             type="text"
-            placeholder="Please enter your ID address"
+            placeholder="Please enter your TRC20 address"
             name="trc20Address"
             value={trc20Address}
             className="input bg-mySecondary w-full max-w-md text-center"
@@ -56,7 +60,7 @@ const BindUsdt = () => {
             required
           />
           <div className="label">
-            <p className="label-text">About Binding ID</p>
+            <p className="label-text">About Binding USDT</p>
           </div>
         </label>
         {!user.trc20Address && (

@@ -134,7 +134,7 @@ const router = createBrowserRouter([
             element: <FundHistory />,
           },
           {
-            path: "/my/bind-id",
+            path: "/my/bind-usdt",
             element: <BindUsdt />,
           },
           {

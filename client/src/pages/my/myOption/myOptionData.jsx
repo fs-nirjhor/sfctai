@@ -51,8 +51,8 @@ const MyOptionData = ({ user }) => {
       icon: <GiSwapBag className={iconStyle} id="fundHistory" />,
     },
     {
-      name: "Bind ID",
-      to: "bind-id",
+      name: "Bind USDT",
+      to: "bind-usdt",
       icon: <PiExcludeSquareDuotone className={iconStyle} />,
     },
     { name: "Team", to: "team", icon: <GoPeople className={iconStyle} /> },
