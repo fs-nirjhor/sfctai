@@ -30,9 +30,6 @@ const { unsubscribeFromNotification } = require("../helper/notificationHelper");
 const handleRegistration = async (req, res, next) => {
   try {
     const { invitationCode, ...newUser } = req.body;
-    const invitationData = invitationCode
-      ? { invitationCode }
-      : { invitationCode: "AFTAAI" };
     const updateOptions = {
       new: true,
       runValidators: true,
@@ -40,9 +37,11 @@ const handleRegistration = async (req, res, next) => {
     };
     // find inviter
 
-    const inviter = await User.findOne(invitationData);
+    const inviter = await User.findOne({
+      invitationCode: invitationCode || "AFTAAI",
+    });
     if (!inviter) {
-      throw createHttpError(404, "Invalid Invitation Code");
+      throw createHttpError(404, "Invalid invitation Code");
     }
     // add invitedBy
     newUser.invitedBy = inviter._id;

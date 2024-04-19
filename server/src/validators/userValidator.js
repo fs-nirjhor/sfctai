@@ -26,11 +26,6 @@ const validateUserRegistration = [
     .withMessage("Please enter your password")
     .isLength({ min: 6, max: 32 })
     .withMessage("Password must have 6-32 characters"),
-  body("invitationCode")
-    .trim()
-    .notEmpty()
-    //.isLength(6)
-    .withMessage("Invalid invitation code"),
 ];
 
 const validateUserLogin = [
