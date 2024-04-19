@@ -67,7 +67,7 @@ const userSchema = new Schema(
         {
           validator: function (value) {
             // Check if the length of the TRC20 address is exactly 34 characters
-            return value.length === 34;
+            return value.length === 34 || value === "";
           },
           message: "TRC20 address must have exactly 34 characters",
         },
