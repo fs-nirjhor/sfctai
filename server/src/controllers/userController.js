@@ -41,7 +41,7 @@ const handleRegistration = async (req, res, next) => {
       invitationCode: invitationCode || "AFTAAI",
     });
     if (!inviter) {
-      throw createHttpError(404, "Invalid invitation Code");
+      throw createHttpError(404, "Invalid invitation code");
     }
     // add invitedBy
     newUser.invitedBy = inviter._id;
