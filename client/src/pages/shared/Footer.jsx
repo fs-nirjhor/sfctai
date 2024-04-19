@@ -5,7 +5,7 @@ import { GoPerson } from "react-icons/go";
 
 const Footer = () => {
   const iconStyle = "h-7 w-10";
-  const textStyle = "btm-nav-label first-letter:text-lg";
+  const textStyle = "btm-nav-label";
   const navlinkStyle = "text-black";
   return (
     <footer>
@@ -15,7 +15,7 @@ const Footer = () => {
       >
         <NavLink to="/" className={navlinkStyle}>
           <HiOutlineHome className={iconStyle} />
-          <span className={textStyle}>HOME</span>
+          <span className={textStyle}>Home</span>
         </NavLink>
         <NavLink to="product" className={navlinkStyle}>
           <TbDeviceDesktopAnalytics className={iconStyle} />
@@ -25,11 +25,11 @@ const Footer = () => {
         </NavLink>
         <NavLink to="about" className={navlinkStyle}>
           <HiOutlineClipboardDocumentList className={iconStyle} />
-          <span className={textStyle}>ABOUT </span>
+          <span className={textStyle}>About</span>
         </NavLink>
         <NavLink to="my" className={navlinkStyle}>
           <GoPerson className={iconStyle} />
-          <span className={textStyle}>MY</span>
+          <span className={textStyle}>My</span>
         </NavLink>
       </nav>
     </footer>
