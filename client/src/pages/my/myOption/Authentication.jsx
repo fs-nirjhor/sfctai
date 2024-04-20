@@ -7,6 +7,7 @@ import {
   useRouteLoaderData,
   useRevalidator,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -80,6 +81,15 @@ const Authentication = () => {
       }
     }
   };
+  // protect route
+  if (user?.authentication?.status === "approved") {
+    toast.error("Already authenticated");
+    return <Navigate to="/my" />;
+  }
+  if (user?.authentication?.status === "pending") {
+    toast.error("NID already submitted. Please wait for approval");
+    return <Navigate to="/my" />;
+  }
 
   return (
     <section className="px-2">
