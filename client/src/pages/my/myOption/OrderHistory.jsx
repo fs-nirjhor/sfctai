@@ -3,9 +3,9 @@ import { allApi } from "../../../router/axiosApi";
 import { useLocation, useRouteLoaderData } from "react-router-dom";
 import Loading from "../../shared/Loading";
 import moment from "moment";
-import TradingViewWidget from "../../shared/TradingViewWidget";
 import { toast } from "react-toastify";
 import Pagination from "../../shared/Pagination";
+import Divider from "../../shared/Divider";
 
 const OrderHistory = () => {
   const loggedUser = useRouteLoaderData("user");
@@ -93,8 +93,8 @@ const OrderHistory = () => {
                   <p>{order.credential}</p>
                 </div>
               </div>
-              <div className="h-20 overflow-hidden rounded mb-3">
-                <TradingViewWidget coin={order.coin} />
+              <div className="mb-3">
+                <Divider />
               </div>
               <div className="flex justify-around mb-3">
                 <div>
