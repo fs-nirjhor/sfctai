@@ -174,10 +174,7 @@ const Authentication = () => {
             name="email"
             placeholder="Enter your email address"
             className="input input-bordered border-myPrimary w-full"
-            required
-            {...register("email", {
-              required: true,
-            })}
+            {...register("email")}
           />
           {errors.email && (
             <div className="label">

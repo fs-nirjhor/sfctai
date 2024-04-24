@@ -104,7 +104,6 @@ const NidImageToCloudinary = async (req, res, next) => {
     const backPhotoPath = req.files["backPhoto"][0]?.path;
     const options = {
       folder: `AFTAAI/nid/${client}`,
-      public_id: `${client}_${Date.now()}`,
       tags: ["nid", "AFTAAI", client],
       use_filename: true,
       unique_filename: true,
@@ -112,11 +111,14 @@ const NidImageToCloudinary = async (req, res, next) => {
       quality: 80,
     };
     // upload photo
-    const frontPhoto = await cloudinary.uploader.upload(
-      frontPhotoPath,
-      options
-    );
-    const backPhoto = await cloudinary.uploader.upload(backPhotoPath, options);
+    const frontPhoto = await cloudinary.uploader.upload(frontPhotoPath, {
+      ...options,
+      public_id: "front_photo",
+    });
+    const backPhoto = await cloudinary.uploader.upload(backPhotoPath, {
+      ...options,
+      public_id: "back_photo",
+    });
     // set photo to req.body
     req.body.frontPhoto = frontPhoto.secure_url;
     req.body.backPhoto = backPhoto.secure_url;
