@@ -66,14 +66,14 @@ const userSchema = new Schema(
       validate: [
         {
           validator: function (value) {
-            // Check if the length of the TRC20 address is exactly 34 characters
-            return value.length === 34 || value === "";
+            // Check if the length of the BEP20 address is exactly 34 characters
+            return value.length === 42 || value === "";
           },
-          message: "TRC20 address must have exactly 34 characters",
+          message: "BEP20 address must have exactly 42 characters",
         },
         {
           validator: async function (value) {
-            // Check if the TRC20 address is not using more than 3 times
+            // Check if the BEP20 address is not using more than 3 times
             if (value !== "") {
               const count = await this.model.countDocuments({
                 trc20Address: value,
@@ -82,7 +82,7 @@ const userSchema = new Schema(
             }
             return true;
           },
-          message: "Only 3 account allowed with the same trc20 address",
+          message: "Only 3 account allowed with the same BEP20 address",
         },
       ],
       sparse: true,

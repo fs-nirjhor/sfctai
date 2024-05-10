@@ -25,7 +25,7 @@ const BindUsdt = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (trc20Address.length !== 34) {
+      if (trc20Address.length !== 42) {
         toast.error("Invalid Binding USDT");
       } else if (!user.trc20Address) {
         const res = await userApi.put(user._id, { trc20Address });
@@ -52,7 +52,7 @@ const BindUsdt = () => {
         <label className="form-control w-full max-w-md mx-auto">
           <input
             type="text"
-            placeholder="Please enter your TRC20 address"
+            placeholder="Please enter your BEP20 address"
             name="trc20Address"
             value={trc20Address}
             className="input bg-mySecondary w-full max-w-md text-center"
