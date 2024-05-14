@@ -39,6 +39,7 @@ import SetPersonalInfo from "../pages/my/myOption/set/SetPersonalInfo.jsx";
 import Authentication from "../pages/my/myOption/Authentication.jsx";
 import Start from "../pages/product/Start.jsx";
 import PendingNid from "../pages/my/myOption/PendingNid.jsx";
+import AboutRealNameAuthentication from "../pages/about/AboutRealNameAuthentication.jsx";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: "/about/about-team",
         element: <AboutTeam />,
+      },
+      {
+        path: "/about/about-real-name-authentication",
+        element: <AboutRealNameAuthentication />,
       },
       {
         path: "/about/terms-and-policy",

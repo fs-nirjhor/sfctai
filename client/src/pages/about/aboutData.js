@@ -14,7 +14,11 @@ const about = [
   {
     title: "About team",
     link: "about-team",
-  }
+  },
+  {
+    title: "Why Real Name Authentication is required?",
+    link: "about-real-name-authentication",
+  },
 ];
 
 export default about;
