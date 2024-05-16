@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.aftaai.www.twa",
+        "sha256_cert_fingerprints": ["EA:3B:90:E7:CB:A2:82:7C:42:45:3F:1D:6C:21:5F:B4:76:ED:C8:83:B4:CF:BA:76:A8:3F:5E:96:85:E7:FB:C8"]
+      }
+    }]
