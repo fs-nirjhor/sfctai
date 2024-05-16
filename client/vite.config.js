@@ -18,8 +18,24 @@ export default defineConfig({
       manifest: {
         name: "AFTAAI",
         short_name: "AFTAAI",
-        description: "AFTAAI is a best trading platform",
+        description: "A trusted trading platform",
         theme_color: "#f9fafb",
+        background_color: "#ffffff",
+        id: "AFTAAI",
+        dir: "auto",
+        orientation: "any",
+        display: "standalone",
+        lang: "en",
+        start_url: "/",
+        scope: "/",
+        display_override: [
+          "window-controls-overlay",
+          "standalone",
+          "fullscreen",
+          "browser",
+          "minimal-ui",
+        ],
+        categories: ["business", "finance"],
       },
 
       workbox: {
