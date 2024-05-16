@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "com.aftaai.www.twa",
-        "sha256_cert_fingerprints": ["EA:3B:90:E7:CB:A2:82:7C:42:45:3F:1D:6C:21:5F:B4:76:ED:C8:83:B4:CF:BA:76:A8:3F:5E:96:85:E7:FB:C8"]
+        "sha256_cert_fingerprints": ["8B:D5:C7:97:44:E0:C7:32:15:2C:12:F0:F2:4E:C7:96:07:27:82:3B:70:C7:A3:2A:D1:A1:AE:38:8E:3C:D4:00"]
       }
     }]
