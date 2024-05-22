@@ -10,15 +10,13 @@ export const coincapApi = import.meta.env.VITE_COINCAP_API_KEY;
 // firebase configuration
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBAyBAiGT6BzX21Mi5j5RJPPv1AUD3ha-s",
-  authDomain: "aftaai-2024.firebaseapp.com",
-  databaseURL:
-    "https://aftaai-2024-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "aftaai-2024",
-  storageBucket: "aftaai-2024.appspot.com",
-  messagingSenderId: "187536802411",
-  appId: "1:187536802411:web:113a8f2733a74749e8e72e",
-  measurementId: "G-CZ9FTWTKXY",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BACKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-export const vapidKey =
-  "BBj4wEvrquksFiqktwvuOetBNxfb2VMp6_lfkZvudlgar68P2CO76ttEKXgIOIWxkYIqQ1E6-cXpOPJoMQn2O6s";
+export const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
