@@ -26,7 +26,15 @@ const cloudinaryName = process.env.CLOUDINARY_NAME || "";
 const cloudinaryKey = process.env.CLOUDINARY_KEY || "";
 const cloudinarySecret = process.env.CLOUDINARY_SECRET || "";
 
+// firebase
+const firebaseProjectId = process.env.VITE_FIREBASE_PROJECT_ID || "";
 const firebaseDatabase = process.env.VITE_FIREBASE_DATABASE_URL || "";
+const firebasePrivateKeyId = process.env.FIREBASE_PRIVATE_KEY_ID || "";
+const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY || "";
+const firebaseClientEmail = process.env.FIREBASE_CLIENT_EMAIL || "";
+const firebaseClientId = process.env.FIREBASE_CLIENT_ID || "";
+const firebaseClientX509CertUrl =
+  process.env.FIREBASE_CLIENT_X509_CERT_URL || "";
 
 module.exports = {
   serverPort,
@@ -43,5 +51,11 @@ module.exports = {
   cloudinaryKey,
   cloudinarySecret,
   corsUrl,
+  firebaseProjectId,
   firebaseDatabase,
+  firebasePrivateKeyId,
+  firebasePrivateKey,
+  firebaseClientEmail,
+  firebaseClientId,
+  firebaseClientX509CertUrl,
 };
