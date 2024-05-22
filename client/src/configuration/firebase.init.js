@@ -6,5 +6,5 @@ import { firebaseConfig } from "./config";
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-console.log(firebaseConfig);
+
 export { app, analytics };
