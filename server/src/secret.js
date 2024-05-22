@@ -26,6 +26,8 @@ const cloudinaryName = process.env.CLOUDINARY_NAME || "";
 const cloudinaryKey = process.env.CLOUDINARY_KEY || "";
 const cloudinarySecret = process.env.CLOUDINARY_SECRET || "";
 
+const firebaseDatabase = process.env.VITE_FIREBASE_DATABASE_URL || "";
+
 module.exports = {
   serverPort,
   databaseUrl,
@@ -41,4 +43,5 @@ module.exports = {
   cloudinaryKey,
   cloudinarySecret,
   corsUrl,
+  firebaseDatabase,
 };
