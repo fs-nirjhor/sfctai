@@ -1,1 +1,9 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/server/src/server.js" }] }
+{
+  "outputDirectory": "/server/src/server.js",
+  "rewrites": [
+      {
+          "source": "/(.*)",
+          "destination": "/server/src/server.js"
+      }
+  ]
+}
