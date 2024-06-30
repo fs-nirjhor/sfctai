@@ -4,13 +4,8 @@
       {
           "src": "./server/src/server.js",
           "use": "@vercel/node"
-      },
-      {
-          "src": "./client/build", 
-          "use": "@vercel/static"
       }
   ],
- 
   "rewrites": [
       {
           "source": "/(.*)",
