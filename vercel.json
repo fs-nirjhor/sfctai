@@ -1,9 +1,14 @@
 {
-  "outputDirectory": "/server/src/server.js",
-  "rewrites": [
-      {
-          "source": "/(.*)",
-          "destination": "/server/src/server.js"
-      }
+  "builds": [
+    {
+      "src": "/server/src/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/server/src/server.js"
+    }
   ]
 }
